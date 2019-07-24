@@ -49,6 +49,8 @@ public class Solution extends ProtectedEntity {
 	private String uri;
 
 	private String manifest;
+	
+	private Boolean license;
 
 	public Solution() {
 	}
@@ -524,6 +526,47 @@ public class Solution extends ProtectedEntity {
 	}
 
 
+
+	/**
+	 * Get the value of property {@code ignore}.
+	 *
+	 * @return the ignore
+	 */
+	public Boolean getIgnore() {
+		return ignore;
+	}
+
+
+	/**
+	 * Set the value of property {@code ignore}.
+	 *
+	 * @param ignore the ignore to set
+	 */
+	public void setIgnore(Boolean ignore) {
+		this.ignore = ignore;
+	}
+
+
+	/**
+	 * Get the value of property {@code license}.
+	 *
+	 * @return the license
+	 */
+	public Boolean getLicense() {
+		return license;
+	}
+
+
+	/**
+	 * Set the value of property {@code license}.
+	 *
+	 * @param license the license to set
+	 */
+	public void setLicense(Boolean license) {
+		this.license = license;
+	}
+	
+	
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
@@ -544,6 +587,7 @@ public class Solution extends ProtectedEntity {
 				.append("env", env)
 				.append("uri", uri)
 				.append("manifest", manifest)
+				.append("license", license)
 				;
 	}
 	
@@ -563,69 +607,6 @@ public class Solution extends ProtectedEntity {
 	}
 
 
-	//yml config hack
-	
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
-	}
-
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
-
-	public String getThumbnail() {
-		return thumbnail;
-	}
-
-	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-
-	/**
-	 * Get the value of property {@code ignore}.
-	 *
-	 * @return the ignore
-	 */
-	public Boolean getIgnore() {
-		return ignore;
-	}
-
-
-	/**
-	 * Set the value of property {@code ignore}.
-	 *
-	 * @param ignore the ignore to set
-	 */
-	public void setIgnore(Boolean ignore) {
-		this.ignore = ignore;
-	}
-	
-	
 
 }
