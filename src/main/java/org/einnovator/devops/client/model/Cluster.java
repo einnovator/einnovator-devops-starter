@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Cluster extends BilledEntity {
 
-	private String region;
+	private Region region;
 	
 	private List<Node> nodes;
 
@@ -55,7 +55,7 @@ public class Cluster extends BilledEntity {
 	 *
 	 * @return the region
 	 */
-	public String getRegion() {
+	public Region getRegion() {
 		return region;
 	}
 
@@ -65,7 +65,7 @@ public class Cluster extends BilledEntity {
 	 *
 	 * @param region the region to set
 	 */
-	public void setRegion(String region) {
+	public void setRegion(Region region) {
 		this.region = region;
 	}
 

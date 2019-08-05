@@ -6,14 +6,13 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 
 /**
- * EInnovator Meta Service client configuration properties.
+ * EInnovator Cloud Devops client configuration properties.
  * 
- * @author Jorge Simao {jorge.simao@einnovator.org}
  */
-@ConfigurationProperties("social")
+@ConfigurationProperties("devops")
 public class DevopsClientConfiguration {
 
-	public static String DEFAULT_SERVER = "http://localhost:2030";
+	public static String DEFAULT_SERVER = "http://localhost:2500";
 
 	private String server = DEFAULT_SERVER;
 	
