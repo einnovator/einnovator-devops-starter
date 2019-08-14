@@ -1,5 +1,6 @@
 package org.einnovator.devops.client.model;
 
+import org.einnovator.util.model.OwnerType;
 import org.einnovator.util.model.ToStringCreator;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
