@@ -128,6 +128,7 @@ public class RegistryFilter extends RegistryOptions {
 	 * Set the value of property {@code runAs}.
 	 *
 	 * @param runAs the runAs to set
+	 * @return this {@code RegistryFilter}
 	 */
 	public RegistryFilter withRunAs(String runAs) {
 		setRunAs(runAs);
@@ -138,6 +139,7 @@ public class RegistryFilter extends RegistryOptions {
 	 * Set the value of property {@code admin}.
 	 *
 	 * @param admin the admin to set
+	 * @return this {@code RegistryFilter}
 	 */
 	public RegistryFilter withAdmin(Boolean admin) {
 		setAdmin(admin);

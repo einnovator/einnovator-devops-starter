@@ -7,7 +7,7 @@ import org.einnovator.util.model.ObjectBase;
 import org.einnovator.util.model.ToStringCreator;
 
 /**
- * @author jsima
+ * @author support@einnovator.org
  *
  */
 public class File extends ObjectBase {
@@ -264,6 +264,7 @@ public class File extends ObjectBase {
 	 * Set the value of property {@code name}.
 	 *
 	 * @param name the name to with
+	 * @return this {@code File}
 	 */
 	public File withName(String name) {
 		this.name = name;
@@ -274,6 +275,7 @@ public class File extends ObjectBase {
 	 * Set the value of property {@code path}.
 	 *
 	 * @param path the path to with
+	 * @return this {@code File}
 	 */
 	public File withPath(String path) {
 		this.path = path;
@@ -284,6 +286,7 @@ public class File extends ObjectBase {
 	 * Set the value of property {@code perms}.
 	 *
 	 * @param perms the perms to with
+	 * @return this {@code File}
 	 */
 	public File withPerms(String perms) {
 		this.perms = perms;
@@ -294,6 +297,7 @@ public class File extends ObjectBase {
 	 * Set the value of property {@code dir}.
 	 *
 	 * @param dir the dir to with
+	 * @return this {@code File}
 	 */
 	public File withDir(boolean dir) {
 		this.dir = dir;
@@ -304,6 +308,7 @@ public class File extends ObjectBase {
 	 * Set the value of property {@code sub}.
 	 *
 	 * @param sub the sub to with
+	 * @return this {@code File}
 	 */
 	public File withSub(Integer sub) {
 		this.sub = sub;
@@ -314,6 +319,7 @@ public class File extends ObjectBase {
 	 * Set the value of property {@code owner}.
 	 *
 	 * @param owner the owner to with
+	 * @return this {@code File}
 	 */
 	public File withOwner(String owner) {
 		this.owner = owner;
@@ -324,6 +330,7 @@ public class File extends ObjectBase {
 	 * Set the value of property {@code group}.
 	 *
 	 * @param group the group to with
+	 * @return this {@code File}
 	 */
 	public File withGroup(String group) {
 		this.group = group;
@@ -335,6 +342,7 @@ public class File extends ObjectBase {
 	 * Set the value of property {@code size}.
 	 *
 	 * @param size the size to with
+	 * @return this {@code File}
 	 */
 	public File withSize(Integer size) {
 		this.size = size;
@@ -345,6 +353,7 @@ public class File extends ObjectBase {
 	 * Set the value of property {@code month}.
 	 *
 	 * @param month the month to with
+	 * @return this {@code File}
 	 */
 	public File withMonth(String month) {
 		this.month = month;
@@ -355,6 +364,7 @@ public class File extends ObjectBase {
 	 * Set the value of property {@code day}.
 	 *
 	 * @param day the day to with
+	 * @return this {@code File}
 	 */
 	public File withDay(String day) {
 		this.day = day;
@@ -365,6 +375,7 @@ public class File extends ObjectBase {
 	 * Set the value of property {@code hhmm}.
 	 *
 	 * @param hhmm the hhmm to with
+	 * @return this {@code File}
 	 */
 	public File withHhmm(String hhmm) {
 		this.hhmm = hhmm;
@@ -375,6 +386,7 @@ public class File extends ObjectBase {
 	 * Set the value of property {@code lastModifiedFormatted}.
 	 *
 	 * @param lastModifiedFormatted the lastModifiedFormatted to with
+	 * @return this {@code File}
 	 */
 	public File withLastModifiedFormatted(String lastModifiedFormatted) {
 		this.lastModifiedFormatted = lastModifiedFormatted;

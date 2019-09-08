@@ -157,6 +157,7 @@ public class SolutionFilter extends SolutionOptions {
 	 * Set the value of property {@code q}.
 	 *
 	 * @param q the q to with
+	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withQ(String q) {
 		this.q = q;
@@ -167,6 +168,7 @@ public class SolutionFilter extends SolutionOptions {
 	 * Set the value of property {@code strict}.
 	 *
 	 * @param strict the strict to with
+	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withStrict(Boolean strict) {
 		this.strict = strict;
@@ -177,6 +179,7 @@ public class SolutionFilter extends SolutionOptions {
 	 * Set the value of property {@code type}.
 	 *
 	 * @param type the type to with
+	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withType(SolutionType type) {
 		this.type = type;
@@ -187,6 +190,7 @@ public class SolutionFilter extends SolutionOptions {
 	 * Set the value of property {@code group}.
 	 *
 	 * @param group the group to with
+	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withGroup(String group) {
 		this.group = group;
@@ -197,6 +201,7 @@ public class SolutionFilter extends SolutionOptions {
 	 * Set the value of property {@code groups}.
 	 *
 	 * @param groups the groups to with
+	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withGroups(List<String> groups) {
 		this.groups = groups;
@@ -208,6 +213,7 @@ public class SolutionFilter extends SolutionOptions {
 	 * Set the value of property {@code popular}.
 	 *
 	 * @param popular the popular to with
+	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withPopular(Boolean popular) {
 		this.popular = popular;
@@ -218,6 +224,7 @@ public class SolutionFilter extends SolutionOptions {
 	 * Set the value of property {@code featured}.
 	 *
 	 * @param featured the featured to with
+	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withFeatured(Boolean featured) {
 		this.featured = featured;

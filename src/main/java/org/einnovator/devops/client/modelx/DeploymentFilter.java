@@ -104,6 +104,7 @@ public class DeploymentFilter extends DeploymentOptions {
 	 * Set the value of property {@code q}.
 	 *
 	 * @param q the q to with
+	 * @return this {@code DeploymentFilter}
 	 */
 	public DeploymentFilter withQ(String q) {
 		this.q = q;
@@ -114,6 +115,7 @@ public class DeploymentFilter extends DeploymentOptions {
 	 * Set the value of property {@code strict}.
 	 *
 	 * @param strict the strict to with
+	 * @return this {@code DeploymentFilter}
 	 */
 	public DeploymentFilter withStrict(Boolean strict) {
 		this.strict = strict;
@@ -124,6 +126,7 @@ public class DeploymentFilter extends DeploymentOptions {
 	 * Set the value of property {@code type}.
 	 *
 	 * @param type the type to with
+	 * @return this {@code DeploymentFilter}
 	 */
 	public DeploymentFilter withType(SolutionType type) {
 		this.type = type;
@@ -134,6 +137,7 @@ public class DeploymentFilter extends DeploymentOptions {
 	 * Set the value of property {@code status}.
 	 *
 	 * @param status the status to with
+	 * @return this {@code DeploymentFilter}
 	 */
 	public DeploymentFilter withStatus(DeploymentStatus status) {
 		this.status = status;
@@ -145,6 +149,7 @@ public class DeploymentFilter extends DeploymentOptions {
 	 * Set the value of property {@code runAs}.
 	 *
 	 * @param runAs the runAs to set
+	 * @return this {@code DeploymentFilter}
 	 */
 	public DeploymentFilter withRunAs(String runAs) {
 		setRunAs(runAs);
@@ -155,6 +160,7 @@ public class DeploymentFilter extends DeploymentOptions {
 	 * Set the value of property {@code admin}.
 	 *
 	 * @param admin the admin to set
+	 * @return this {@code DeploymentFilter}
 	 */
 	public DeploymentFilter withAdmin(Boolean admin) {
 		setAdmin(admin);
@@ -173,8 +179,10 @@ public class DeploymentFilter extends DeploymentOptions {
 	}
 
 	/**
-	 * @param deploy
-	 * @return
+	 * Inmemory check if this {@code DeploymentFilter} matches a {@code Deployment}
+	 * 
+	 * @param deploy the {@code Deployment}
+	 * @return true, if match
 	 */
 	public boolean check(Deployment deploy) {
 		if (deploy==null) {

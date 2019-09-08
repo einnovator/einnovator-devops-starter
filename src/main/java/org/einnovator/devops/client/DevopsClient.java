@@ -11,8 +11,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.einnovator.devops.client.config.DevopsClientConfiguration;
 import org.einnovator.devops.client.config.DevopsEndpoints;
+import org.einnovator.devops.client.model.Binding;
+import org.einnovator.devops.client.model.Connector;
+import org.einnovator.devops.client.model.Deployment;
 import org.einnovator.devops.client.model.Project;
+import org.einnovator.devops.client.model.Route;
 import org.einnovator.devops.client.model.Space;
+import org.einnovator.devops.client.modelx.DeploymentFilter;
+import org.einnovator.devops.client.modelx.DeploymentOptions;
 import org.einnovator.devops.client.modelx.ProjectFilter;
 import org.einnovator.devops.client.modelx.ProjectOptions;
 import org.einnovator.devops.client.modelx.SpaceFilter;
@@ -126,8 +132,16 @@ public class DevopsClient {
 		exchange(request, Void.class);
 	}
 
+	//
+	// Spaces
+	//
+
+	public Page<Space> listSpaces(SpaceFilter filter, Pageable pageable) {
+		return listSpaces(null, filter, pageable);
+	}
+
 	public Page<Space> listSpaces(String projectId, SpaceFilter filter, Pageable pageable) {
-		URI uri = makeURI(DevopsEndpoints.spaces(projectId, config));
+		URI uri = makeURI(projectId!=null ? DevopsEndpoints.spaces(projectId, config) : DevopsEndpoints.spaces(config));
 		if (pageable!=null || filter!=null) {
 			Map<String, String> params = new LinkedHashMap<>();
 			if (pageable!=null) {
@@ -181,7 +195,149 @@ public class DevopsClient {
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class);
 	}
+	
+	//
+	// Deployment
+	//
+	
+	
+	public Page<Deployment> listDeployments(String spaceId, DeploymentFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.deployments(spaceId, config));
+		if (pageable!=null || filter!=null) {
+			Map<String, String> params = new LinkedHashMap<>();
+			if (pageable!=null) {
+				params.putAll(MappingUtils.toMapFormatted(new PageOptions(pageable)));
+			}
+			if (filter!=null) {
+				params.putAll(MappingUtils.toMapFormatted(filter));				
+			}
+			uri = appendQueryParameters(uri, params);
+		}
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class);
+		return PageUtil.create2(result.getBody(),  Deployment.class);
+		
+	}
 
+	public URI createDeployment(String spaceId, Deployment deploy) {
+		URI uri = makeURI(DevopsEndpoints.deployments(spaceId, config));
+		RequestEntity<Deployment> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(deploy);
+		
+		ResponseEntity<Void> result = exchange(request, Void.class);
+		return result.getHeaders().getLocation();
+		
+	}
+
+	public Deployment getDeployment(String id, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.deployment(id, config));
+		if (options!=null) {
+			Map<String, String> params = new LinkedHashMap<>();
+			if (options!=null) {
+				params.putAll(MappingUtils.toMapFormatted(options));
+			}
+			uri = appendQueryParameters(uri, params);
+		}
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Deployment> result = exchange(request, Deployment.class);
+		return result.getBody();
+		
+	}
+	
+	public void updateDeployment(Deployment deploy) {
+		URI uri = makeURI(DevopsEndpoints.deployment(deploy.getUuid(), config));
+		RequestEntity<Deployment> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(deploy);
+		
+		exchange(request, Deployment.class);
+	}
+
+	public void deleteDeployment(String id) {
+		URI uri = makeURI(DevopsEndpoints.deployments(id, config));
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class);
+	}
+
+	
+	//
+	// Route
+	//
+	
+	public URI addRoute(String deployId, Route route) {
+		URI uri = makeURI(DevopsEndpoints.routes(deployId, config));
+		RequestEntity<Route> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(route);
+		
+		ResponseEntity<Void> result = exchange(request, Void.class);
+		return result.getHeaders().getLocation();
+		
+	}
+
+	public void updateRoute(String deployId, Route route) {
+		URI uri = makeURI(DevopsEndpoints.route(deployId, route.getUuid(), config));
+		RequestEntity<Route> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(route);
+		
+		exchange(request, Route.class);
+	}
+
+	public void removeRoute(String deployId, String id) {
+		URI uri = makeURI(DevopsEndpoints.route(deployId, id, config));
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class);
+	}
+	
+	//
+	// Binding
+	//
+	
+	public URI addBinding(String deployId, Binding binding) {
+		URI uri = makeURI(DevopsEndpoints.bindings(deployId, config));
+		RequestEntity<Binding> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(binding);
+		
+		ResponseEntity<Void> result = exchange(request, Void.class);
+		return result.getHeaders().getLocation();
+		
+	}
+
+	public void updateBinding(String deployId, Binding binding) {
+		URI uri = makeURI(DevopsEndpoints.binding(deployId, binding.getUuid(), config));
+		RequestEntity<Binding> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(binding);
+		
+		exchange(request, Binding.class);
+	}
+
+	public void removeBinding(String deployId, String id) {
+		URI uri = makeURI(DevopsEndpoints.binding(deployId, id, config));
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class);
+	}
+	
+	//
+	// Connector
+	//
+	
+	public URI addConnector(String deployId, Connector connector) {
+		URI uri = makeURI(DevopsEndpoints.connectors(deployId, config));
+		RequestEntity<Connector> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(connector);
+		
+		ResponseEntity<Void> result = exchange(request, Void.class);
+		return result.getHeaders().getLocation();
+		
+	}
+
+	public void updateConnector(String deployId, Connector connector) {
+		URI uri = makeURI(DevopsEndpoints.connector(deployId, connector.getUuid(), config));
+		RequestEntity<Connector> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(connector);
+		
+		exchange(request, Connector.class);
+	}
+
+	public void removeConnector(String deployId, String id) {
+		URI uri = makeURI(DevopsEndpoints.connector(deployId, id, config));
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class);
+	}
+
+	//
+	
 	protected <T> ResponseEntity<T> exchange(RequestEntity<?> request, Class<T> responseType) throws RestClientException {
 		return restTemplate.exchange(request, responseType);
 	}

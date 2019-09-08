@@ -124,6 +124,7 @@ public class ProjectFilter extends ProjectOptions {
 	 * Set the value of property {@code runAs}.
 	 *
 	 * @param runAs the runAs to set
+	 * @return this {@code ProjectFilter}
 	 */
 	public ProjectFilter withRunAs(String runAs) {
 		setRunAs(runAs);
@@ -134,6 +135,7 @@ public class ProjectFilter extends ProjectOptions {
 	 * Set the value of property {@code admin}.
 	 *
 	 * @param admin the admin to set
+	 * @return this {@code ProjectFilter}
 	 */
 	public ProjectFilter withAdmin(Boolean admin) {
 		setAdmin(admin);

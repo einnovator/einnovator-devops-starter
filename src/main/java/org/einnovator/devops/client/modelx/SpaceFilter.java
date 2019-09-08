@@ -105,6 +105,7 @@ public class SpaceFilter extends SpaceOptions {
 	 * Set the value of property {@code runAs}.
 	 *
 	 * @param runAs the runAs to set
+	 * @return this {@code SpaceFilter}
 	 */
 	public SpaceFilter withRunAs(String runAs) {
 		setRunAs(runAs);
@@ -115,6 +116,7 @@ public class SpaceFilter extends SpaceOptions {
 	 * Set the value of property {@code admin}.
 	 *
 	 * @param admin the admin to set
+	 * @return this {@code SpaceFilter}
 	 */
 	public SpaceFilter withAdmin(Boolean admin) {
 		setAdmin(admin);
@@ -132,8 +134,10 @@ public class SpaceFilter extends SpaceOptions {
 	}
 	
 	/**
-	 * @param space
-	 * @return
+	 * Inmemory check if this {@code SpaceFilter} matches a {@code Space}
+	 * 
+	 * @param space the {@code Space}
+	 * @return true, if match
 	 */
 	public boolean check(Space space) {
 		if (space==null) {

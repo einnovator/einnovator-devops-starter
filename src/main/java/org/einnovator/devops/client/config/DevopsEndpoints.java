@@ -38,6 +38,10 @@ public class DevopsEndpoints {
 		return project(projectId, config) + "/spaces";
 	}
 
+	public static String spaces(DevopsClientConfiguration config) {
+		return config.getServer() + "/api/space";
+	}
+
 	public static String space(String spaceId, DevopsClientConfiguration config) {
 		return  config.getServer() + "/api/space/" + spaceId;
 	}
@@ -49,7 +53,32 @@ public class DevopsEndpoints {
 	public static String deployment(String deployId, DevopsClientConfiguration config) {
 		return config.getServer() + "/api/deployment/" + deployId;
 	}
+	
+	public static String routes(String deployId, DevopsClientConfiguration config) {
+		return deployment(deployId, config) + "/route";
+	}
 
+	public static String route(String deployId, String routeId, DevopsClientConfiguration config) {
+		return  routes(deployId, config) +"/" + routeId;
+	}
+
+	public static String bindings(String deployId, DevopsClientConfiguration config) {
+		return deployment(deployId, config) + "/binding";
+	}
+
+	public static String binding(String deployId, String bindingId, DevopsClientConfiguration config) {
+		return  bindings(deployId, config) +"/" + bindingId;
+	}
+
+	public static String connectors(String deployId, DevopsClientConfiguration config) {
+		return deployment(deployId, config) + "/connector";
+	}
+
+	public static String connector(String deployId, String connectorId, DevopsClientConfiguration config) {
+		return  connectors(deployId, config) +"/" + connectorId;
+	}
+
+	
 	public static String volumeclaims(String spaceId, DevopsClientConfiguration config) {
 		return space(spaceId, config) + "/volumeclaim";
 	}

@@ -213,46 +213,6 @@ public class ProjectManagerImpl implements ProjectManager {
 		}
 	}
 
-	@Override
-	public Space getSpace(String id, SpaceOptions options) {
-		try {
-			Space space = client.getSpace(id, options);		
-			if (space==null) {
-				logger.error("getSpace: " + id + " " + options);
-			}
-			return space;
-		} catch (HttpStatusCodeException e) {
-			if (e.getStatusCode()!=HttpStatus.NOT_FOUND) {
-				logger.error(String.format("getSpace: %s %s", id, options));
-			}
-			return null;
-		} catch (RuntimeException e) {
-			logger.error(String.format("getSpace: %s %s %s", e, id, options));
-			return null;
-		}
-	}
-
-	@Override
-	public Space updateSpace(Space space) {
-		try {
-			client.updateSpace(space);
-			return space;
-		} catch (RuntimeException e) {
-			logger.error(String.format("updateSpace: %s %s %s", e, space));
-			return null;
-		}
-	}
-
-	@Override
-	public boolean deleteSpace(String id) {
-		try {
-			client.deleteSpace(id);
-			return true;
-		} catch (RuntimeException e) {
-			logger.error(String.format("deleteSpace: %s %s %s", e, id));
-			return false;
-		}
-	}
 
 	
 }

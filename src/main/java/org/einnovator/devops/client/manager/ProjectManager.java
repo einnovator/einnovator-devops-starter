@@ -49,12 +49,6 @@ public interface ProjectManager {
 
 	URI createSpace(String projectId, Space space);
 
-	Space getSpace(String id, SpaceOptions options);
-	
-	Space updateSpace(Space space);
-
-	boolean deleteSpace(String id);
-
 	void onProjectUpdate(String id, Map<String, Object> details);
 
 	void clearCache();

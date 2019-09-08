@@ -2,8 +2,12 @@ package org.einnovator.devops.client.config;
 
 
 import org.einnovator.devops.client.DevopsClient;
+import org.einnovator.devops.client.manager.DeploymentManager;
+import org.einnovator.devops.client.manager.DeploymentManagerImpl;
 import org.einnovator.devops.client.manager.ProjectManager;
 import org.einnovator.devops.client.manager.ProjectManagerImpl;
+import org.einnovator.devops.client.manager.SpaceManager;
+import org.einnovator.devops.client.manager.SpaceManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
@@ -55,14 +59,23 @@ public class DevopsClientConfig {
 	}
 	
 	@Bean
-	public DevopsClient channelClient() {
+	public DevopsClient devopsClient() {
 		return new DevopsClient(config);
 	}
 
 	@Bean
-	public ProjectManager channelManager(CacheManager cacheManager) {
+	public ProjectManager devopsProjectManager(CacheManager cacheManager) {
 		return new ProjectManagerImpl(cacheManager);
 	}
 
+	@Bean
+	public SpaceManager devopsSpaceManager(CacheManager cacheManager) {
+		return new SpaceManagerImpl(cacheManager);
+	}
+
+	@Bean
+	public DeploymentManager devopsDeploymentManager(CacheManager cacheManager) {
+		return new DeploymentManagerImpl(cacheManager);
+	}
 
 }
