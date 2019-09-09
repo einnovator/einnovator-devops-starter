@@ -43,12 +43,12 @@ public class Ports extends ObjectBase {
 	/**
 	 * Create instance of {@code Ports}.
 	 *
-	 * @param name
-	 * @param nodePort
-	 * @param port
-	 * @param protocol
-	 * @param targetPort
-	 * @param targetPortName
+	 * @param name the name
+	 * @param nodePort the nodePort
+	 * @param port the port
+	 * @param protocol the protocol
+	 * @param targetPort the targetPort
+	 * @param targetPortName the targetPortName
 	 */
 	public Ports(String name, Integer nodePort, Integer port, String protocol, Integer targetPort, String targetPortName) {
 		super();
@@ -64,7 +64,7 @@ public class Ports extends ObjectBase {
 	/**
 	 * Create instance of {@code Ports}.
 	 *
-	 * @param ports
+	 * @param obj a prototype
 	 */
 	public Ports(Object obj) {
 		super(obj);

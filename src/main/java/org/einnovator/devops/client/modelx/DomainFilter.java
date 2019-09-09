@@ -168,6 +168,7 @@ public class DomainFilter extends DomainOptions {
 	 * Set the value of property {@code q}.
 	 *
 	 * @param q the q to set
+	 * @return this {@code DomainFilter}
 	 */
 	public DomainFilter withQ(String q) {
 		this.q = q;
@@ -178,6 +179,7 @@ public class DomainFilter extends DomainOptions {
 	 * Set the value of property {@code strict}.
 	 *
 	 * @param strict the strict to set
+	 * @return this {@code DomainFilter}
 	 */
 	public DomainFilter withStrict(Boolean strict) {
 		this.strict = strict;
@@ -188,6 +190,7 @@ public class DomainFilter extends DomainOptions {
 	 * Set the value of property {@code group}.
 	 *
 	 * @param group the group to set
+	 * @return this {@code DomainFilter}
 	 */
 	public DomainFilter withGroup(String group) {
 		this.group = group;
@@ -198,6 +201,7 @@ public class DomainFilter extends DomainOptions {
 	 * Set the value of property {@code groups}.
 	 *
 	 * @param groups the groups to set
+	 * @return this {@code DomainFilter}
 	 */
 	public DomainFilter withGroups(List<String> groups) {
 		this.groups = groups;
@@ -208,6 +212,7 @@ public class DomainFilter extends DomainOptions {
 	 * Set the value of property {@code root}.
 	 *
 	 * @param root the root to set
+	 * @return this {@code DomainFilter}
 	 */
 	public DomainFilter withRoot(Boolean root) {
 		this.root = root;
@@ -218,6 +223,7 @@ public class DomainFilter extends DomainOptions {
 	 * Set the value of property {@code enabled}.
 	 *
 	 * @param enabled the enabled to set
+	 * @return this {@code DomainFilter}
 	 */
 	public DomainFilter withEnabled(Boolean enabled) {
 		this.enabled = enabled;
@@ -228,6 +234,7 @@ public class DomainFilter extends DomainOptions {
 	 * Set the value of property {@code runAs}.
 	 *
 	 * @param runAs the runAs to set
+	 * @return this {@code DomainFilter}
 	 */
 	public DomainFilter withRunAs(String runAs) {
 		setRunAs(runAs);
@@ -238,6 +245,7 @@ public class DomainFilter extends DomainOptions {
 	 * Set the value of property {@code admin}.
 	 *
 	 * @param admin the admin to set
+	 * @return this {@code DomainFilter}
 	 */
 	public DomainFilter withAdmin(Boolean admin) {
 		setAdmin(admin);

@@ -43,11 +43,16 @@ public class Environment extends EntityBase {
 	/**
 	 * Create instance of {@code Environment}.
 	 *
-	 * @param env
+	 * @param env a prototype map
 	 */
 	public Environment(Map<String, Object> env) {
 		if (env!=null) {
-			
+			vars = new ArrayList<>();
+			for (Map.Entry<String, Object> e: env.entrySet()) {
+				if (e.getValue()!=null) {
+					vars.add(new Variable(e.getKey(), e.getValue().toString()));					
+				}
+			}
 		}
 	}
 
@@ -68,7 +73,7 @@ public class Environment extends EntityBase {
 	/**
 	 * Set the value of property {@code variables}.
 	 *
-	 * @param variables the variables to set
+	 * @param vars the variables to set
 	 */
 	public void setVariables(List<Variable> vars) {
 		this.vars = vars;

@@ -175,9 +175,9 @@ public class Registry extends OwnedEntity {
 
 
 	/**
-	 * Get the value of property {@code priv}.
+	 * Get the value of property {@code private}.
 	 *
-	 * @return the priv
+	 * @return the value of property private
 	 */
 	public Boolean getPrivate() {
 		return private_;
@@ -185,16 +185,14 @@ public class Registry extends OwnedEntity {
 
 
 	/**
-	 * Set the value of property {@code priv}.
+	 * Set the value of property {@code private}.
 	 *
-	 * @param priv the priv to set
+	 * @param priv the value of private
 	 */
-	public void setPrivate(Boolean private_) {
-		this.private_ = private_;
+	public void setPrivate(Boolean priv) {
+		this.private_ = priv;
 	}
 	
-	
-
 
 	/**
 	 * Get the value of property {@code builtin}.

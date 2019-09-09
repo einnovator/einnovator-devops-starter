@@ -99,6 +99,7 @@ public class BillingFilter extends BillingOptions {
 	 * Set the value of property {@code runAs}.
 	 *
 	 * @param runAs the runAs to set
+	 * @return this {@code BillingFilter}
 	 */
 	public BillingFilter withRunAs(String runAs) {
 		setRunAs(runAs);
@@ -109,6 +110,7 @@ public class BillingFilter extends BillingOptions {
 	 * Set the value of property {@code admin}.
 	 *
 	 * @param admin the admin to set
+	 * @return this {@code BillingFilter}
 	 */
 	public BillingFilter withAdmin(Boolean admin) {
 		setAdmin(admin);

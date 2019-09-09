@@ -36,6 +36,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	 * Set the value of property {@code instances}.
 	 *
 	 * @param instances the instances to set
+	 * @return this {@code DeploymentOptions}
 	 */
 	public DeploymentOptions withInstances(Boolean instances) {
 		this.instances = instances;

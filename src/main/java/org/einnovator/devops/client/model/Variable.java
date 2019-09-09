@@ -30,18 +30,18 @@ public class Variable extends EntityBase {
 	/**
 	 * Create instance of {@code Variable}.
 	 *
-	 * @param var
+	 * @param prototype a prototype
 	 */
-	public Variable(Variable var) {
-		super(var);
+	public Variable(Object prototype) {
+		super(prototype);
 		this.id = null;
 	}
 
 	/**
 	 * Create instance of {@code Variable}.
 	 *
-	 * @param name2
-	 * @param value2
+	 * @param name the name
+	 * @param value the value
 	 */
 	public Variable(String name, String value) {
 		this.name = name;

@@ -15,6 +15,7 @@ public class SpaceBuilder extends Space {
 	 * Set the value of property {@code key}.
 	 *
 	 * @param key the key to with
+	 * @return this {@code SpaceBuilder}
 	 */
 	public SpaceBuilder withKey(String key) {
 		this.key = key;
@@ -26,6 +27,7 @@ public class SpaceBuilder extends Space {
 	 * Set the value of property {@code name}.
 	 *
 	 * @param name the name to with
+	 * @return this {@code SpaceBuilder}
 	 */
 	public SpaceBuilder withName(String name) {
 		this.name = name;
@@ -36,6 +38,7 @@ public class SpaceBuilder extends Space {
 	 * Set the value of property {@code img}.
 	 *
 	 * @param img the img to with
+	 * @return this {@code SpaceBuilder}
 	 */
 	public SpaceBuilder withImg(String img) {
 		this.img = img;
@@ -47,6 +50,7 @@ public class SpaceBuilder extends Space {
 	 * Set the value of property {@code thumbnail}.
 	 *
 	 * @param thumbnail the thumbnail to with
+	 * @return this {@code SpaceBuilder}
 	 */
 	public SpaceBuilder withThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
@@ -58,6 +62,7 @@ public class SpaceBuilder extends Space {
 	 * Set the value of property {@code description}.
 	 *
 	 * @param description the description to with
+	 * @return this {@code SpaceBuilder}
 	 */
 	public SpaceBuilder withDescription(String description) {
 		this.description = description;
@@ -68,6 +73,7 @@ public class SpaceBuilder extends Space {
 	 * Set the value of property {@code cluster}.
 	 *
 	 * @param cluster the cluster to with
+	 * @return this {@code SpaceBuilder}
 	 */
 	public SpaceBuilder withCluster(Cluster cluster) {
 		this.cluster = cluster;
@@ -79,9 +85,11 @@ public class SpaceBuilder extends Space {
 	 * Set the value of property {@code namespace}.
 	 *
 	 * @param namespace the namespace to with
+	 * @return this {@code SpaceBuilder}
 	 */
-	public void withNamespace(String namespace) {
+	public SpaceBuilder withNamespace(String namespace) {
 		this.namespace = namespace;
+		return this;
 	}
 
 

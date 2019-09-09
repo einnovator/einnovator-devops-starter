@@ -171,6 +171,7 @@ public class ClusterFilter extends ClusterOptions {
 	 * Set the value of property {@code runAs}.
 	 *
 	 * @param runAs the runAs to set
+	 * @return this {@code ClusterFilter}
 	 */
 	public ClusterFilter withRunAs(String runAs) {
 		setRunAs(runAs);
@@ -181,6 +182,7 @@ public class ClusterFilter extends ClusterOptions {
 	 * Set the value of property {@code admin}.
 	 *
 	 * @param admin the admin to set
+	 * @return this {@code ClusterFilter}
 	 */
 	public ClusterFilter withAdmin(Boolean admin) {
 		setAdmin(admin);
