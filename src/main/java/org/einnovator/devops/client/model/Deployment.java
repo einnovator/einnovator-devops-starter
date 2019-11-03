@@ -50,6 +50,10 @@ public class Deployment extends NamedEntity {
 	protected List<Binding> bindings;
 
 	protected List<Connector> connectors;
+	
+	private List<Mount> mounts;
+	
+	private List<Repository> repositories;
 
 	protected Boolean binds;
 		
@@ -501,6 +505,42 @@ public class Deployment extends NamedEntity {
 	 */
 	public void setConnectors(List<Connector> connectors) {
 		this.connectors = connectors;
+	}
+
+	/**
+	 * Get the value of property {@code mounts}.
+	 *
+	 * @return the mounts
+	 */
+	public List<Mount> getMounts() {
+		return mounts;
+	}
+
+	/**
+	 * Set the value of property {@code mounts}.
+	 *
+	 * @param mounts the mounts to set
+	 */
+	public void setMounts(List<Mount> mounts) {
+		this.mounts = mounts;
+	}
+
+	/**
+	 * Get the value of property {@code repositories}.
+	 *
+	 * @return the repositories
+	 */
+	public List<Repository> getRepositories() {
+		return repositories;
+	}
+
+	/**
+	 * Set the value of property {@code repositories}.
+	 *
+	 * @param repositories the repositories to set
+	 */
+	public void setRepositories(List<Repository> repositories) {
+		this.repositories = repositories;
 	}
 
 
@@ -970,6 +1010,74 @@ public class Deployment extends NamedEntity {
 	public void setIngress(String ingress) {
 		this.ingress = ingress;
 	}
+	
+	//
+	// Repository
+	//
+	
+	public void addRepository(Repository mount) {
+		if (getRepositories()==null) {
+			setRepositories(new ArrayList<Repository>());
+		}
+		getRepositories().add(mount);
+	}
+
+	public void addRepositories(Iterable<Repository> mounts) {
+		if (getRepositories()!=null) {
+			for (Repository mount: getRepositories()) {
+				addRepository(mount);
+			}
+		}
+	}
+
+	public Repository removeRepository(int index) {
+		if (getRepositories()==null || index <0 || index>= getRepositories().size()) {
+			return null;
+		}
+		return getRepositories().remove(index);
+	}
+
+	public Repository getRepository(int index) {
+		if (getRepositories()==null || index <0 || index>= getRepositories().size()) {
+			return null;
+		}
+		return getRepositories().get(index);
+	}
+
+	public Repository findRepository(Repository mount) {
+		if (mount!=null && getRepositories()!=null) {
+			for (Repository mount2: getRepositories()) {
+				if ((mount2.getId()!=null && mount2.getId().equals(mount.getId())) || (mount2.getUuid()!=null && mount2.getUuid().equals(mount.getUuid()))) {
+					return mount2;
+				}
+			}
+		}
+		return null;
+	}
+
+	public Repository findRepository(String id) {
+		if (id!=null && getRepositories()!=null) {
+			for (Repository mount: getRepositories()) {
+				if (id.equals(mount.getUuid()) || id.equals(mount.getName())) {
+					return mount;
+				}
+			}
+		}
+		return null;
+	}
+
+	public Repository removeRepository(Repository mount) {
+		if (mount!=null && getRepositories()!=null) {
+			for (int i=0; i<getRepositories().size(); i++) {
+				Repository mount2 = getRepositories().get(i);
+				if ((mount2.getId()!=null && mount2.getId().equals(mount.getId())) || (mount2.getUuid()!=null && mount2.getUuid().equals(mount.getUuid()))) {
+					return getRepositories().remove(i);
+				}
+			}
+		}
+		return null;
+	}
+	
 
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {

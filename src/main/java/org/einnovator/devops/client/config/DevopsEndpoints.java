@@ -78,7 +78,14 @@ public class DevopsEndpoints {
 		return  connectors(deployId, config) +"/" + connectorId;
 	}
 
-	
+	public static String repositories(String deployId, DevopsClientConfiguration config) {
+		return deployment(deployId, config) + "/repository";
+	}
+
+	public static String repository(String deployId, String repositoryId, DevopsClientConfiguration config) {
+		return  repositories(deployId, config) +"/" + repositoryId;
+	}
+
 	public static String volumeclaims(String spaceId, DevopsClientConfiguration config) {
 		return space(spaceId, config) + "/volumeclaim";
 	}
@@ -97,5 +104,13 @@ public class DevopsEndpoints {
 
 	public static String billings(DevopsClientConfiguration config) {
 		return config.getServer() + "/api/billing";
+	}
+	
+	public static String vcs(String id, DevopsClientConfiguration config) {
+		return vcss(config) + "/" + id;
+	}
+
+	public static String vcss(DevopsClientConfiguration config) {
+		return config.getServer() + "/api/vcs";
 	}
 }

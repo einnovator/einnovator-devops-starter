@@ -2,6 +2,8 @@ package org.einnovator.devops.client.config;
 
 
 import org.einnovator.devops.client.DevopsClient;
+import org.einnovator.devops.client.manager.VcsManager;
+import org.einnovator.devops.client.manager.VcsManagerImpl;
 import org.einnovator.devops.client.manager.DeploymentManager;
 import org.einnovator.devops.client.manager.DeploymentManagerImpl;
 import org.einnovator.devops.client.manager.ProjectManager;
@@ -76,6 +78,11 @@ public class DevopsClientConfig {
 	@Bean
 	public DeploymentManager devopsDeploymentManager(CacheManager cacheManager) {
 		return new DeploymentManagerImpl(cacheManager);
+	}
+	
+	@Bean
+	public VcsManager devopsVcsManager(CacheManager cacheManager) {
+		return new VcsManagerImpl(cacheManager);
 	}
 
 }

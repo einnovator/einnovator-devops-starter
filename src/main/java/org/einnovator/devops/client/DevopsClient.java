@@ -15,14 +15,19 @@ import org.einnovator.devops.client.model.Binding;
 import org.einnovator.devops.client.model.Connector;
 import org.einnovator.devops.client.model.Deployment;
 import org.einnovator.devops.client.model.Project;
+import org.einnovator.devops.client.model.Repository;
 import org.einnovator.devops.client.model.Route;
 import org.einnovator.devops.client.model.Space;
+import org.einnovator.devops.client.model.Vcs;
 import org.einnovator.devops.client.modelx.DeploymentFilter;
 import org.einnovator.devops.client.modelx.DeploymentOptions;
 import org.einnovator.devops.client.modelx.ProjectFilter;
 import org.einnovator.devops.client.modelx.ProjectOptions;
 import org.einnovator.devops.client.modelx.SpaceFilter;
 import org.einnovator.devops.client.modelx.SpaceOptions;
+import org.einnovator.devops.client.modelx.VcsFilter;
+import org.einnovator.devops.client.modelx.VcsOptions;
+
 import org.einnovator.util.MappingUtils;
 import org.einnovator.util.PageUtil;
 import org.einnovator.util.PageOptions;
@@ -71,8 +76,9 @@ public class DevopsClient {
 		this.restTemplate = restTemplate;
 	}
 
-
+	//
 	// Project
+	//
 	
 	public Project getProject(String id) {
 		return getProject(id, null);
@@ -336,7 +342,95 @@ public class DevopsClient {
 		exchange(request, Void.class);
 	}
 
+	
 	//
+	// Repository
+	//
+	
+	public URI addRepository(String deployId, Repository repository) {
+		URI uri = makeURI(DevopsEndpoints.repositories(deployId, config));
+		RequestEntity<Repository> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(repository);
+		
+		ResponseEntity<Void> result = exchange(request, Void.class);
+		return result.getHeaders().getLocation();
+		
+	}
+
+	public void updateRepository(String deployId, Repository repository) {
+		URI uri = makeURI(DevopsEndpoints.repository(deployId, repository.getUuid(), config));
+		RequestEntity<Repository> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(repository);
+		
+		exchange(request, Repository.class);
+	}
+
+	public void removeRepository(String deployId, String id) {
+		URI uri = makeURI(DevopsEndpoints.repository(deployId, id, config));
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class);
+	}
+	
+	
+	//
+	// Vcs
+	//
+	
+	public Vcs getVcs(String id) {
+		return getVcs(id, null);
+	}
+	
+	public Vcs getVcs(String id, VcsOptions options) {
+		URI uri = makeURI(DevopsEndpoints.vcs(id, config));
+		if (options!=null) {
+			Map<String, String> params = new LinkedHashMap<>();
+			if (options!=null) {
+				params.putAll(MappingUtils.toMapFormatted(options));
+			}
+			uri = appendQueryParameters(uri, params);
+		}
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Vcs> result = exchange(request, Vcs.class);
+		return result.getBody();
+	}
+
+	
+	public Page<Vcs> listVcss(VcsFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.vcss(config));
+		if (pageable!=null || filter!=null) {
+			Map<String, String> params = new LinkedHashMap<>();
+			if (pageable!=null) {
+				params.putAll(MappingUtils.toMapFormatted(new PageOptions(pageable)));
+			}
+			if (filter!=null) {
+				params.putAll(MappingUtils.toMapFormatted(filter));				
+			}
+			uri = appendQueryParameters(uri, params);
+		}
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class);
+		return PageUtil.create2(result.getBody(),  Vcs.class);
+	}
+	
+	public URI createVcs(Vcs vcs) {
+		URI uri = makeURI(DevopsEndpoints.vcss(config));
+		RequestEntity<Vcs> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(vcs);
+		
+		ResponseEntity<Void> result = exchange(request, Void.class);
+		return result.getHeaders().getLocation();
+	}
+	
+	public void updateVcs(Vcs vcs) {
+		URI uri = makeURI(DevopsEndpoints.vcs(vcs.getUuid(), config));
+		RequestEntity<Vcs> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(vcs);
+		
+		exchange(request, Vcs.class);
+	}
+	
+	public void deleteVcs(String id) {
+		URI uri = makeURI(DevopsEndpoints.vcs(id, config));
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class);
+	}
 	
 	protected <T> ResponseEntity<T> exchange(RequestEntity<?> request, Class<T> responseType) throws RestClientException {
 		return restTemplate.exchange(request, responseType);
