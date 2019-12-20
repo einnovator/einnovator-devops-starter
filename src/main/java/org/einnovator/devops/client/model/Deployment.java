@@ -1099,6 +1099,7 @@ public class Deployment extends NamedEntity {
 				.append("binds", binds)
 				.append("bindings", bindings)
 				.append("connectors", connectors)
+				.append("repositories", repositories)
 				.append("env", env)
 				.append("bill", bill)
 				.append("manifest", manifest)

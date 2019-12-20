@@ -258,7 +258,7 @@ public class DevopsClient {
 	}
 
 	public void deleteDeployment(String id) {
-		URI uri = makeURI(DevopsEndpoints.deployments(id, config));
+		URI uri = makeURI(DevopsEndpoints.deployment(id, config));
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class);
 	}

@@ -89,7 +89,7 @@ public class DeploymentManagerImpl implements DeploymentManager {
 			client.deleteDeployment(id);
 			return true;
 		} catch (RuntimeException e) {
-			logger.error(String.format("deleteDeployment: %s %s %s", e, id));
+			logger.error(String.format("deleteDeployment: %s %s", e, id));
 			return false;
 		}
 	}
