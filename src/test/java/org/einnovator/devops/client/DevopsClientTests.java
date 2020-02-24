@@ -62,7 +62,7 @@ public class DevopsClientTests extends SsoTestHelper {
 	
 	@Test
 	public void listProjectsTest() {
-		Page<Project> spaces = client.listProjects(null, null);
+		Page<Project> spaces = client.listProjects(null, null, null);
 		assertNotNull(spaces);
 		assertNotNull(spaces.getContent());
 		assertFalse(spaces.getNumberOfElements()==0);
@@ -77,7 +77,7 @@ public class DevopsClientTests extends SsoTestHelper {
 		String q = "E";
 		ProjectFilter filter = new ProjectFilter();
 		filter.setQ(q);
-		Page<Project> spaces = client.listProjects(filter, null);
+		Page<Project> spaces = client.listProjects(filter, null, null);
 		assertNotNull(spaces);
 		assertNotNull(spaces.getContent());
 		assertFalse(spaces.getNumberOfElements()==0);
@@ -88,7 +88,7 @@ public class DevopsClientTests extends SsoTestHelper {
 		
 		q = "NOTFOUND-" + UUID.randomUUID();
 		filter.setQ(q);
-		spaces = client.listProjects(filter, null);
+		spaces = client.listProjects(filter, null, null);
 		assertNotNull(spaces);
 		assertNotNull(spaces.getContent());
 		assertTrue(spaces.getNumberOfElements()==0);
@@ -104,24 +104,24 @@ public class DevopsClientTests extends SsoTestHelper {
 
 	public Project getOrCreateProject(String name) {
 		try {
-			Project project = client.getProject(name);		
+			Project project = client.getProject(name, null);		
 			return project;
 		} catch (RuntimeException e) {
 		}
 		ProjectFilter filter = new ProjectFilter();
 		filter.setQ(name);
 		filter.setStrict(true);
-		Page<Project> page = client.listProjects(filter, null);
+		Page<Project> page = client.listProjects(filter, null, null);
 		assertNotNull(page);
 		assertNotNull(page.getContent());
 		if (!page.getContent().isEmpty()) {
 			return page.getContent().get(0);
 		}
 		Project project = new ProjectBuilder().withName(name).build();
-		URI uri = client.createProject(project);
+		URI uri = client.createProject(project, null);
 		assertNotNull(uri);
 		String id = UriUtils.extractId(uri);
-		Project project2 = client.getProject(id);
+		Project project2 = client.getProject(id, null);
 		return project2;
 	}
 
@@ -130,9 +130,9 @@ public class DevopsClientTests extends SsoTestHelper {
 	public void createSpaceTest() {
 		Project project = getOrCreateProject(TEST_PROJECT);
 		Space space = new SpaceBuilder().withName("test-" + UUID.randomUUID()).build();
-		URI uri = client.createSpace(project.getUuid(), space);
+		URI uri = client.createSpace(project.getUuid(), space, null);
 		String id = UriUtils.extractId(uri);
-		Space space2 = client.getSpace(id, null);
+		Space space2 = client.getSpace(id, null, null);
 		assertNotNull(space2);
 		assertEquals(space.getName(), space2.getName());
 	}

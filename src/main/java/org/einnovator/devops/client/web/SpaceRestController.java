@@ -41,7 +41,7 @@ public class SpaceRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			Page<Space> spaces = manager.listSpaces(filter, options.toPageRequest());
+			Page<Space> spaces = manager.listSpaces(filter, options.toPageRequest(), null);
 			return ok(spaces, "listSpaces", response, PageUtil.toString(spaces), filter, options);
 		} catch (RuntimeException e) {
 			return status("listSpace", e, response, filter, options);
@@ -55,7 +55,7 @@ public class SpaceRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			Space space = manager.getSpace(id);
+			Space space = manager.getSpace(id, null);
 			if (space==null) {
 				return badrequest("getSpace", response);				
 			}
@@ -70,7 +70,7 @@ public class SpaceRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {			
 		try {
 			setupToken(principal);
-			if (manager.updateSpace(space)==null) {
+			if (manager.updateSpace(space, null)==null) {
 				return badrequest("getSpace", response);
 			}
 			return nocontent("getSpace", response);
@@ -84,7 +84,7 @@ public class SpaceRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {			
 		try {
 			setupToken(principal);
-			if (!manager.deleteSpace(id)) {
+			if (!manager.deleteSpace(id, null)) {
 				return badrequest("deleteSpace", response);
 			}
 			return nocontent("deleteSpace", response);
@@ -99,7 +99,7 @@ public class SpaceRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {		
 		try {
 			setupToken(principal);
-			Page<Deployment> page = manager.listDeployments(pid, filter, options.toPageRequest());
+			Page<Deployment> page = manager.listDeployments(pid, filter, options.toPageRequest(), null);
 			return ok(page, "listDeploymentsFor", response);
 		} catch (RuntimeException e) {
 			return status("listDeploymentsFor", e, response, pid);
@@ -112,7 +112,7 @@ public class SpaceRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			URI location =  manager.createDeployment(spaceId, deploy);
+			URI location =  manager.createDeployment(spaceId, deploy, null);
 			if (location==null) {
 				return badrequest("createDeployment", response, spaceId, deploy);				
 			}

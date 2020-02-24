@@ -4,6 +4,7 @@ package org.einnovator.devops.client.manager;
 import java.net.URI;
 import java.util.Map;
 
+import org.einnovator.devops.client.config.DevopsClientContext;
 import org.einnovator.devops.client.model.Vcs;
 import org.einnovator.devops.client.modelx.VcsFilter;
 import org.einnovator.devops.client.modelx.VcsOptions;
@@ -13,11 +14,11 @@ import org.springframework.data.domain.Pageable;
 
 public interface VcsManager {
 	
-	Vcs getVcs(String id);
+	Vcs getVcs(String id, DevopsClientContext context);
 	
-	Vcs getVcs(String id, VcsOptions options);
+	Vcs getVcs(String id, VcsOptions options, DevopsClientContext context);
 
-	Page<Vcs> listVcss(VcsFilter filter, Pageable pageable);
+	Page<Vcs> listVcss(VcsFilter filter, Pageable pageable, DevopsClientContext context);
 
 	/**
 	 * Create Vcs.
@@ -26,9 +27,9 @@ public interface VcsManager {
 	 * @return the {@code URI} for te created {@code Vcs}.
 	 */
 
-	URI createVcs(Vcs project);
+	URI createVcs(Vcs project, DevopsClientContext context);
 	
-	Vcs updateVcs(Vcs project);
+	Vcs updateVcs(Vcs project, DevopsClientContext context);
 	
 
 	/**
@@ -38,11 +39,11 @@ public interface VcsManager {
 	 * @param project the {@code Vcs}
 	 * @return the {@code Vcs} with {@code uuid} property set; or null if error.
 	 */
-	Vcs createOrUpdateVcs(Vcs project);
+	Vcs createOrUpdateVcs(Vcs project, DevopsClientContext context);
 	
-	boolean deleteVcs(String id);
+	boolean deleteVcs(String id, DevopsClientContext context);
 
-	void onVcsUpdate(String id, Map<String, Object> details);
+	void onVcsUpdate(String id, Map<String, Object> details, DevopsClientContext context);
 
 	void clearCache();
 	

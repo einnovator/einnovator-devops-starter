@@ -6,12 +6,12 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.einnovator.devops.client.DevopsClient;
+import org.einnovator.devops.client.config.DevopsClientContext;
 import org.einnovator.devops.client.model.Project;
 import org.einnovator.devops.client.model.Space;
 import org.einnovator.devops.client.modelx.ProjectFilter;
 import org.einnovator.devops.client.modelx.ProjectOptions;
 import org.einnovator.devops.client.modelx.SpaceFilter;
-import org.einnovator.devops.client.modelx.SpaceOptions;
 import org.einnovator.util.UriUtils;
 import org.einnovator.util.cache.CacheUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class ProjectManagerImpl implements ProjectManager {
 
 
 	@Override
-	public Project getProject(String id) {
+	public Project getProject(String id, DevopsClientContext context) {
 		if (id==null) {
 			return null;
 		}
@@ -61,7 +61,7 @@ public class ProjectManagerImpl implements ProjectManager {
 			if (project!=null) {
 				return project;
 			}	
-			project = client.getProject(id);		
+			project = client.getProject(id, context);		
 			if (project==null) {
 				logger.error(String.format("getProject: %s", id));
 				return null;
@@ -79,9 +79,9 @@ public class ProjectManagerImpl implements ProjectManager {
 	}
 
 	@Override
-	public Project getProject(String id, ProjectOptions options) {
+	public Project getProject(String id, ProjectOptions options, DevopsClientContext context) {
 		try {
-			Project project = client.getProject(id, options);		
+			Project project = client.getProject(id, options, context);		
 			if (project==null) {
 				logger.error("getProject" + id);
 			}
@@ -98,9 +98,9 @@ public class ProjectManagerImpl implements ProjectManager {
 	}
 
 	@Override
-	public URI createProject(Project project) {
+	public URI createProject(Project project, DevopsClientContext context) {
 		try {
-			return client.createProject(project);
+			return client.createProject(project, null);
 		} catch (RuntimeException e) {
 			logger.error(String.format("createProject: %s %s", e, project));
 			return null;
@@ -109,9 +109,9 @@ public class ProjectManagerImpl implements ProjectManager {
 	
 	@Override
 	@CachePut(value=CACHE_PROJECT, key="#project.uuid")
-	public Project updateProject(Project project) {
+	public Project updateProject(Project project, DevopsClientContext context) {
 		try {
-			client.updateProject(project);
+			client.updateProject(project, context);
 			return project;
 		} catch (RuntimeException e) {
 			logger.error(String.format("updateProject: %s %s", e, project));
@@ -120,25 +120,25 @@ public class ProjectManagerImpl implements ProjectManager {
 	}
 
 	@Override
-	public Project createOrUpdateProject(Project project) {
+	public Project createOrUpdateProject(Project project, DevopsClientContext context) {
 		if (project.getUuid()==null) {
-			URI uri = createProject(project);
+			URI uri = createProject(project, context);
 			if (uri==null) {
 				return null;
 			}
 			project.setUuid(UriUtils.extractId(uri));
 			return project;
 		} else {
-			return updateProject(project);
+			return updateProject(project, context);
 		}
 	}
 	
 	
 	@Override
 	@CacheEvict(value=CACHE_PROJECT, key="#id")
-	public boolean deleteProject(String id) {
+	public boolean deleteProject(String id, DevopsClientContext context) {
 		try {
-			client.deleteProject(id);
+			client.deleteProject(id, context);
 			return true;
 		} catch (RuntimeException e) {
 			logger.error(String.format("deleteProject: %s %s %s", e, id));
@@ -148,17 +148,17 @@ public class ProjectManagerImpl implements ProjectManager {
 	
 	
 	@Override
-	public Page<Project> listProjects(ProjectFilter filter, Pageable pageable) {
+	public Page<Project> listProjects(ProjectFilter filter, Pageable pageable, DevopsClientContext context) {
 		try {
-			return client.listProjects(filter, pageable);
+			return client.listProjects(filter, pageable, context);
 		} catch (RuntimeException e) {
 			logger.error(String.format("listProjects: %s %s %s", e, filter, pageable));
 			return null;
 		}
 	}
 	
-	
-	public void onProjectUpdate(String id, Map<String, Object> details) {
+	@Override
+	public void onProjectUpdate(String id, Map<String, Object> details, DevopsClientContext context) {
 		if (id==null) {
 			return;
 		}
@@ -194,9 +194,9 @@ public class ProjectManagerImpl implements ProjectManager {
 	}
 
 	@Override
-	public Page<Space> listSpaces(String projectId, SpaceFilter filter, Pageable pageable) {
+	public Page<Space> listSpaces(String projectId, SpaceFilter filter, Pageable pageable, DevopsClientContext context) {
 		try {
-			return client.listSpaces(projectId, filter, pageable);
+			return client.listSpaces(projectId, filter, pageable, context);
 		} catch (RuntimeException e) {
 			logger.error(String.format("listSpaces: %s %s %s %s", e, projectId, filter, pageable));
 			return null;
@@ -204,9 +204,9 @@ public class ProjectManagerImpl implements ProjectManager {
 	}
 
 	@Override
-	public URI createSpace(String projectId, Space space) {
+	public URI createSpace(String projectId, Space space, DevopsClientContext context) {
 		try {
-			return client.createSpace(projectId, space);
+			return client.createSpace(projectId, space, context);
 		} catch (RuntimeException e) {
 			logger.error(String.format("postSpace: %s %s %s", e, projectId, space));
 			return null;
