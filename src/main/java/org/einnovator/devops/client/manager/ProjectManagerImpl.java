@@ -14,6 +14,7 @@ import org.einnovator.devops.client.modelx.ProjectOptions;
 import org.einnovator.devops.client.modelx.SpaceFilter;
 import org.einnovator.util.UriUtils;
 import org.einnovator.util.cache.CacheUtils;
+import org.einnovator.util.web.RequestOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -49,99 +50,83 @@ public class ProjectManagerImpl implements ProjectManager {
 	public ProjectManagerImpl() {
 	}
 
-
-	@Override
-	public Project getProject(String id, DevopsClientContext context) {
-		if (id==null) {
-			return null;
-		}
-			
-		try {
-			Project project = CacheUtils.getCacheValue(Project.class, getProjectCache(), id);
-			if (project!=null) {
-				return project;
-			}	
-			project = client.getProject(id, context);		
-			if (project==null) {
-				logger.error(String.format("getProject: %s", id));
-				return null;
-			}
-			return CacheUtils.putCacheValue(project, getProjectCache(), id);
-		} catch (HttpStatusCodeException e) {
-			if (e.getStatusCode()!=HttpStatus.NOT_FOUND) {
-				logger.error(String.format("getProject: %s %s", e, id));
-			}
-			return null;
-		} catch (RuntimeException e) {
-			logger.error(String.format("getProject: %s %s", e, id));
-			return null;
-		}
-	}
-
 	@Override
 	public Project getProject(String id, ProjectOptions options, DevopsClientContext context) {
 		try {
+			if (isCachable(options)) {
+				Project project = CacheUtils.getCacheValue(Project.class, getProjectCache(), id);
+				if (project!=null) {
+					return project;
+				}	
+			}
 			Project project = client.getProject(id, options, context);		
 			if (project==null) {
 				logger.error("getProject" + id);
 			}
+			if (isCachable(options)) {
+				CacheUtils.putCacheValue(project, getProjectCache(), id);
+			}
 			return project;
 		} catch (HttpStatusCodeException e) {
 			if (e.getStatusCode()!=HttpStatus.NOT_FOUND) {
-				logger.error(String.format("getProject: %s %s %s", e, id, options));
+				error("getProject: %s %s %s", options, e, id, options);
 			}
 			return null;
 		} catch (RuntimeException e) {
-			logger.error(String.format("getProject: %s %s %s", e, id, options));
+			error("getProject: %s %s %s", options, e, id, options);
 			return null;
 		}
 	}
 
+	protected boolean isCachable(ProjectOptions options) {
+		return options==null;
+	}
+
 	@Override
-	public URI createProject(Project project, DevopsClientContext context) {
+	public URI createProject(Project project, RequestOptions options, DevopsClientContext context) {
 		try {
-			return client.createProject(project, null);
+			return client.createProject(project, null, null);
 		} catch (RuntimeException e) {
-			logger.error(String.format("createProject: %s %s", e, project));
+			error("createProject: %s %s", options, e, project);
 			return null;
 		}
 	}
 	
 	@Override
 	@CachePut(value=CACHE_PROJECT, key="#project.uuid")
-	public Project updateProject(Project project, DevopsClientContext context) {
+	public Project updateProject(Project project, RequestOptions options, DevopsClientContext context) {
 		try {
-			client.updateProject(project, context);
+			client.updateProject(project, options, context);
 			return project;
 		} catch (RuntimeException e) {
-			logger.error(String.format("updateProject: %s %s", e, project));
+			error("updateProject: %s %s", options, e, project);
 			return null;
 		}
 	}
 
 	@Override
-	public Project createOrUpdateProject(Project project, DevopsClientContext context) {
+	public Project createOrUpdateProject(Project project, RequestOptions options, DevopsClientContext context) {
 		if (project.getUuid()==null) {
-			URI uri = createProject(project, context);
+			URI uri = createProject(project, options, context);
 			if (uri==null) {
 				return null;
 			}
 			project.setUuid(UriUtils.extractId(uri));
 			return project;
 		} else {
-			return updateProject(project, context);
+			return updateProject(project, options, context);
 		}
 	}
 	
 	
 	@Override
 	@CacheEvict(value=CACHE_PROJECT, key="#id")
-	public boolean deleteProject(String id, DevopsClientContext context) {
+	public boolean deleteProject(String id, RequestOptions options, DevopsClientContext context) {
 		try {
-			client.deleteProject(id, context);
+			client.deleteProject(id, options, context);
 			return true;
 		} catch (RuntimeException e) {
-			logger.error(String.format("deleteProject: %s %s %s", e, id));
+			error("deleteProject: %s %s %s", options, e, id);
 			return false;
 		}
 	}
@@ -152,7 +137,7 @@ public class ProjectManagerImpl implements ProjectManager {
 		try {
 			return client.listProjects(filter, pageable, context);
 		} catch (RuntimeException e) {
-			logger.error(String.format("listProjects: %s %s %s", e, filter, pageable));
+			error("listProjects: %s %s %s", filter, e, filter, pageable);
 			return null;
 		}
 	}
@@ -193,26 +178,34 @@ public class ProjectManagerImpl implements ProjectManager {
 		return cache;
 	}
 
+	//
+	// Spaces
+	//
+	
 	@Override
 	public Page<Space> listSpaces(String projectId, SpaceFilter filter, Pageable pageable, DevopsClientContext context) {
 		try {
 			return client.listSpaces(projectId, filter, pageable, context);
 		} catch (RuntimeException e) {
-			logger.error(String.format("listSpaces: %s %s %s %s", e, projectId, filter, pageable));
+			error("listSpaces: %s %s %s %s", filter, e, projectId, filter, pageable);
 			return null;
 		}
 	}
 
 	@Override
-	public URI createSpace(String projectId, Space space, DevopsClientContext context) {
+	public URI createSpace(String projectId, Space space, RequestOptions options, DevopsClientContext context) {
 		try {
-			return client.createSpace(projectId, space, context);
+			return client.createSpace(projectId, space, options, context);
 		} catch (RuntimeException e) {
-			logger.error(String.format("postSpace: %s %s %s", e, projectId, space));
+			error("postSpace: %s %s %s", options, e, projectId, space);
 			return null;
 		}
 	}
-
-
+	
+	protected void error(String s, RequestOptions options, Object... objs) {
+		if (options==null || !options.isSilent()) {
+			logger.error(String.format(s, objs));
+		}
+	}
 	
 }

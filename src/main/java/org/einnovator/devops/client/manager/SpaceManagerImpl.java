@@ -12,6 +12,7 @@ import org.einnovator.devops.client.model.Space;
 import org.einnovator.devops.client.modelx.DeploymentFilter;
 import org.einnovator.devops.client.modelx.SpaceFilter;
 import org.einnovator.devops.client.modelx.SpaceOptions;
+import org.einnovator.util.web.RequestOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -74,9 +75,9 @@ public class SpaceManagerImpl implements SpaceManager {
 
 	@Override
 	@CachePut(value=CACHE_SPACE, key="#space.uuid")
-	public Space updateSpace(Space space, DevopsClientContext context) {
+	public Space updateSpace(Space space, RequestOptions options, DevopsClientContext context) {
 		try {
-			client.updateSpace(space, context);
+			client.updateSpace(space, null, context);
 			return space;
 		} catch (RuntimeException e) {
 			logger.error(String.format("updateSpace: %s %s", e, space));
@@ -87,9 +88,9 @@ public class SpaceManagerImpl implements SpaceManager {
 	
 	@Override
 	@CacheEvict(value=CACHE_SPACE, key="#id")
-	public boolean deleteSpace(String id, DevopsClientContext context) {
+	public boolean deleteSpace(String id, RequestOptions options, DevopsClientContext context) {
 		try {
-			client.deleteSpace(id, context);
+			client.deleteSpace(id, null, context);
 			return true;
 		} catch (RuntimeException e) {
 			logger.error(String.format("deleteSpace: %s %s %s", e, id));
@@ -155,9 +156,9 @@ public class SpaceManagerImpl implements SpaceManager {
 	}
 
 	@Override
-	public URI createDeployment(String spaceId, Deployment deploy, DevopsClientContext context) {
+	public URI createDeployment(String spaceId, Deployment deploy, RequestOptions options, DevopsClientContext context) {
 		try {
-			return client.createDeployment(spaceId, deploy, context);
+			return client.createDeployment(spaceId, deploy, null, context);
 		} catch (RuntimeException e) {
 			logger.error(String.format("postDeployment: %s %s %s", e, spaceId, deploy));
 			return null;

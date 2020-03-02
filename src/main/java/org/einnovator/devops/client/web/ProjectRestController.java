@@ -55,7 +55,7 @@ public class ProjectRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			URI location =  manager.createProject(project, null);
+			URI location =  manager.createProject(project, null, null);
 			if (location==null) {
 				return badrequest("createProject", response, project);				
 			}
@@ -70,7 +70,7 @@ public class ProjectRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			Project project = manager.getProject(id, null);
+			Project project = manager.getProject(id, null, null);
 			if (project==null) {
 				return notfound("getProject", response);				
 			}
@@ -85,7 +85,7 @@ public class ProjectRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {			
 		try {
 			setupToken(principal);
-			if (manager.updateProject(project, null)==null) {
+			if (manager.updateProject(project, null, null)==null) {
 				return badrequest("getProject", response);
 			}
 			return nocontent("getProject", response);
@@ -99,7 +99,7 @@ public class ProjectRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {			
 		try {
 			setupToken(principal);
-			if (!manager.deleteProject(id, null)) {
+			if (!manager.deleteProject(id, null, null)) {
 				return badrequest("deleteProject", response);
 			}
 			return nocontent("deleteProject", response);
@@ -127,7 +127,7 @@ public class ProjectRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			URI location =  manager.createSpace(projectId, space, null);
+			URI location =  manager.createSpace(projectId, space, null, null);
 			if (location==null) {
 				return badrequest("createSpace", response, projectId, space);				
 			}

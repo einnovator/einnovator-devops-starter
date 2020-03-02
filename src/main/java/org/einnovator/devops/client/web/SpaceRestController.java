@@ -70,7 +70,7 @@ public class SpaceRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {			
 		try {
 			setupToken(principal);
-			if (manager.updateSpace(space, null)==null) {
+			if (manager.updateSpace(space, null, null)==null) {
 				return badrequest("getSpace", response);
 			}
 			return nocontent("getSpace", response);
@@ -84,7 +84,7 @@ public class SpaceRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {			
 		try {
 			setupToken(principal);
-			if (!manager.deleteSpace(id, null)) {
+			if (!manager.deleteSpace(id, null, null)) {
 				return badrequest("deleteSpace", response);
 			}
 			return nocontent("deleteSpace", response);
@@ -112,7 +112,7 @@ public class SpaceRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			URI location =  manager.createDeployment(spaceId, deploy, null);
+			URI location =  manager.createDeployment(spaceId, deploy, null, null);
 			if (location==null) {
 				return badrequest("createDeployment", response, spaceId, deploy);				
 			}

@@ -15,7 +15,7 @@ import org.einnovator.devops.client.model.ProjectBuilder;
 import org.einnovator.devops.client.model.Space;
 import org.einnovator.devops.client.model.SpaceBuilder;
 import org.einnovator.devops.client.modelx.ProjectFilter;
-import org.einnovator.sso.client.support.SsoTestHelper;
+import org.einnovator.sso.client.SsoTestHelper;
 import org.einnovator.util.UriUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -118,7 +118,7 @@ public class DevopsClientTests extends SsoTestHelper {
 			return page.getContent().get(0);
 		}
 		Project project = new ProjectBuilder().withName(name).build();
-		URI uri = client.createProject(project, null);
+		URI uri = client.createProject(project, null, null);
 		assertNotNull(uri);
 		String id = UriUtils.extractId(uri);
 		Project project2 = client.getProject(id, null);
@@ -130,7 +130,7 @@ public class DevopsClientTests extends SsoTestHelper {
 	public void createSpaceTest() {
 		Project project = getOrCreateProject(TEST_PROJECT);
 		Space space = new SpaceBuilder().withName("test-" + UUID.randomUUID()).build();
-		URI uri = client.createSpace(project.getUuid(), space, null);
+		URI uri = client.createSpace(project.getUuid(), space, null, null);
 		String id = UriUtils.extractId(uri);
 		Space space2 = client.getSpace(id, null, null);
 		assertNotNull(space2);

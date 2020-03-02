@@ -108,8 +108,31 @@
 					<doctitle>
 					<![CDATA[Devops Client Library and Spring Boot Starter<br/>EInnovator Cloud<br/>${project.name} ${project.version} API]]>
 					</doctitle>
+					<detectLinks>true</detectLinks>
+					<links>
+						<link>https://cdn.einnovator.org/docs/einnovator-util/latest/apidocs/index.html</link>
+						<link>https://docs.spring.io/spring-framework/docs/current/javadoc-api/</link>
+						<link>https://docs.spring.io/spring-security/site/docs/4.2.13.RELEASE/apidocs/</link>
+						<link>https://docs.spring.io/spring-security/oauth/apidocs/</link>
+						<link>https://docs.spring.io/spring-data/data-commons/docs/current/api/</link>
+					</links>
+					<author>support@einnovator.org</author>
+					<doctitle>
+					<![CDATA[Client Library and Spring Boot Starter for<br/>EInnovator SSO Gateway Service<br/>${project.name} ${project.version} API]]>
+					</doctitle>
+					<top>
+					 <![CDATA[
+					 <div style="position:absolute;right:10px;color:white"><span>EInnovator</span></div>
+					 ]]> 
+					</top>
+					<description>
+					 <![CDATA[
+					 This is the documentation for Java Client Library and Spring Boot Starter for EInnovator SSO Gateway Service.
+					 See: <a href="#overview">Description<a>
+					 ]]> 
+					</description>
 					<bottom>
-						 <![CDATA[Copyright 2019, <a href="http://home.einnovator.org">EInnovator, LTD.<a>]]> 
+						 <![CDATA[Copyright 2018-2020, <a href="http://home.einnovator.org">EInnovator, LTD.</a>]]> 
 					</bottom>
 				</configuration>
 				<executions>

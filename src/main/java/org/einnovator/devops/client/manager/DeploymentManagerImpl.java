@@ -12,6 +12,7 @@ import org.einnovator.devops.client.model.Connector;
 import org.einnovator.devops.client.model.Deployment;
 import org.einnovator.devops.client.model.Route;
 import org.einnovator.devops.client.modelx.DeploymentOptions;
+import org.einnovator.util.web.RequestOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -76,9 +77,9 @@ public class DeploymentManagerImpl implements DeploymentManager {
 
 	@Override
 	@CachePut(value=CACHE_DEPLOYMENT, key="#deploy.uuid")
-	public Deployment updateDeployment(Deployment deploy, DevopsClientContext context) {
+	public Deployment updateDeployment(Deployment deploy, RequestOptions options, DevopsClientContext context) {
 		try {
-			client.updateDeployment(deploy, context);
+			client.updateDeployment(deploy, options, context);
 			return deploy;
 		} catch (RuntimeException e) {
 			logger.error(String.format("updateDeployment: %s %s", e, deploy));
@@ -89,9 +90,9 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	
 	@Override
 	@CacheEvict(value=CACHE_DEPLOYMENT, key="#id")
-	public boolean deleteDeployment(String id, DevopsClientContext context) {
+	public boolean deleteDeployment(String id, RequestOptions options, DevopsClientContext context) {
 		try {
-			client.deleteDeployment(id, context);
+			client.deleteDeployment(id, options, context);
 			return true;
 		} catch (RuntimeException e) {
 			logger.error(String.format("deleteDeployment: %s %s", e, id));
@@ -141,9 +142,9 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	//
 	
 	@Override
-	public URI addRoute(String deployId, Route route, DevopsClientContext context) {
+	public URI addRoute(String deployId, Route route, RequestOptions options, DevopsClientContext context) {
 		try {
-			return client.addRoute(deployId, route, context);
+			return client.addRoute(deployId, route, options, context);
 		} catch (RuntimeException e) {
 			logger.error(String.format("addRoute: %s %s %s", e, deployId, route));
 			return null;
@@ -151,9 +152,9 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	}
 	
 	@Override
-	public boolean removeRoute(String deployId, String routeId, DevopsClientContext context) {
+	public boolean removeRoute(String deployId, String routeId, RequestOptions options, DevopsClientContext context) {
 		try {
-			client.removeRoute(deployId, routeId, context);
+			client.removeRoute(deployId, routeId, options, context);
 			return true;
 		} catch (RuntimeException e) {
 			logger.error(String.format("removeRoute: %s %s %s", e, deployId, routeId));
@@ -163,9 +164,9 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	}
 
 	@Override
-	public Route updateRoute(String deployId, Route route, DevopsClientContext context) {
+	public Route updateRoute(String deployId, Route route, RequestOptions options, DevopsClientContext context) {
 		try {
-			client.updateRoute(deployId, route, context);
+			client.updateRoute(deployId, route, options, context);
 			return route;
 		} catch (RuntimeException e) {
 			logger.error(String.format("removeRoute: %s %s %s", e, deployId, route));
@@ -178,9 +179,9 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	//
 	
 	@Override
-	public URI addBinding(String deployId, Binding binding, DevopsClientContext context) {
+	public URI addBinding(String deployId, Binding binding, RequestOptions options, DevopsClientContext context) {
 		try {
-			return client.addBinding(deployId, binding, context);
+			return client.addBinding(deployId, binding, options, context);
 		} catch (RuntimeException e) {
 			logger.error(String.format("addBinding: %s %s %s", e, deployId, binding));
 			return null;
@@ -188,9 +189,9 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	}
 
 	@Override
-	public boolean removeBinding(String deployId, String bindingId, DevopsClientContext context) {
+	public boolean removeBinding(String deployId, String bindingId, RequestOptions options, DevopsClientContext context) {
 		try {
-			client.removeBinding(deployId, bindingId, context);
+			client.removeBinding(deployId, bindingId, options, context);
 			return true;
 		} catch (RuntimeException e) {
 			logger.error(String.format("removeBinding: %s %s %s", e, deployId, bindingId));
@@ -200,9 +201,9 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	}
 
 	@Override
-	public Binding updateBinding(String deployId, Binding binding, DevopsClientContext context) {
+	public Binding updateBinding(String deployId, Binding binding, RequestOptions options, DevopsClientContext context) {
 		try {
-			client.updateBinding(deployId, binding, context);
+			client.updateBinding(deployId, binding, options, context);
 			return binding;
 		} catch (RuntimeException e) {
 			logger.error(String.format("removeBinding: %s %s %s", e, deployId, binding));
@@ -215,9 +216,9 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	//
 	
 	@Override
-	public URI addConnector(String deployId, Connector connector, DevopsClientContext context) {
+	public URI addConnector(String deployId, Connector connector, RequestOptions options, DevopsClientContext context) {
 		try {
-			return client.addConnector(deployId, connector, context);
+			return client.addConnector(deployId, connector, options, context);
 		} catch (RuntimeException e) {
 			logger.error(String.format("addConnector: %s %s %s", e, deployId, connector));
 			return null;
@@ -225,9 +226,9 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	}
 	
 	@Override
-	public boolean removeConnector(String deployId, String connectorId, DevopsClientContext context) {
+	public boolean removeConnector(String deployId, String connectorId, RequestOptions options, DevopsClientContext context) {
 		try {
-			client.removeConnector(deployId, connectorId, context);
+			client.removeConnector(deployId, connectorId, options, context);
 			return true;
 		} catch (RuntimeException e) {
 			logger.error(String.format("removeConnector: %s %s %s", e, deployId, connectorId));
@@ -237,9 +238,9 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	}
 
 	@Override
-	public Connector updateConnector(String deployId, Connector connector, DevopsClientContext context) {
+	public Connector updateConnector(String deployId, Connector connector, RequestOptions options, DevopsClientContext context) {
 		try {
-			client.updateConnector(deployId, connector, context);
+			client.updateConnector(deployId, connector, options, context);
 			return connector;
 		} catch (RuntimeException e) {
 			logger.error(String.format("removeConnector: %s %s %s", e, deployId, connector));
