@@ -1,31 +1,18 @@
 package org.einnovator.devops.client.modelx;
 
-import org.einnovator.devops.client.model.Cluster;
-import org.einnovator.devops.client.model.Domain;
-import org.einnovator.devops.client.model.Image;
-import org.einnovator.devops.client.model.Plan;
-import org.einnovator.devops.client.model.Project;
 import org.einnovator.devops.client.model.Resources;
-import org.einnovator.devops.client.model.Solution;
-import org.einnovator.devops.client.model.Space;
 import org.einnovator.util.model.ObjectBase;
 import org.einnovator.util.model.ToStringCreator;
 
 public class SolutionInstall extends ObjectBase {
 
-	private Solution solution;
-
-	private Plan plan;
-	
-	private Plan subplan;
-	
 	private Integer instances;
 
 	private Resources resources;
 	
-	private Project project;
+	private String project;
 
-	private Space space;
+	private String space;
 
 	private String key;
 
@@ -33,16 +20,19 @@ public class SolutionInstall extends ObjectBase {
 
 	private String host;
 
-	private Domain domain;
+	private String domain;
 
-	private Cluster cluster;
+	private String cluster;
 
-	private Image image;
+	private String plan;
+	
+	private String subplan;
 	
 	private Boolean start;
 	
 	public SolutionInstall() {
 	}
+
 	
 	/**
 	 * Get the value of property {@code key}.
@@ -53,6 +43,7 @@ public class SolutionInstall extends ObjectBase {
 		return key;
 	}
 
+
 	/**
 	 * Set the value of property {@code key}.
 	 *
@@ -61,6 +52,7 @@ public class SolutionInstall extends ObjectBase {
 	public void setKey(String key) {
 		this.key = key;
 	}
+
 
 	/**
 	 * Get the value of property {@code name}.
@@ -71,6 +63,7 @@ public class SolutionInstall extends ObjectBase {
 		return name;
 	}
 
+
 	/**
 	 * Set the value of property {@code name}.
 	 *
@@ -79,6 +72,7 @@ public class SolutionInstall extends ObjectBase {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 
 	/**
 	 * Get the value of property {@code start}.
@@ -99,77 +93,6 @@ public class SolutionInstall extends ObjectBase {
 		this.start = start;
 	}
 
-	/**
-	 * Get the value of property {@code solution}.
-	 *
-	 * @return the solution
-	 */
-	public Solution getSolution() {
-		return solution;
-	}
-
-	/**
-	 * Set the value of property {@code solution}.
-	 *
-	 * @param solution the solution to set
-	 */
-	public void setSolution(Solution solution) {
-		this.solution = solution;
-	}
-
-	/**
-	 * Get the value of property {@code plan}.
-	 *
-	 * @return the plan
-	 */
-	public Plan getPlan() {
-		return plan;
-	}
-
-	/**
-	 * Set the value of property {@code plan}.
-	 *
-	 * @param plan the plan to set
-	 */
-	public void setPlan(Plan plan) {
-		this.plan = plan;
-	}
-
-	/**
-	 * Get the value of property {@code subplan}.
-	 *
-	 * @return the subplan
-	 */
-	public Plan getSubplan() {
-		return subplan;
-	}
-
-	/**
-	 * Set the value of property {@code subplan}.
-	 *
-	 * @param subplan the subplan to set
-	 */
-	public void setSubplan(Plan subplan) {
-		this.subplan = subplan;
-	}
-
-	/**
-	 * Get the value of property {@code instances}.
-	 *
-	 * @return the instances
-	 */
-	public Integer getInstances() {
-		return instances;
-	}
-
-	/**
-	 * Set the value of property {@code instances}.
-	 *
-	 * @param instances the instances to set
-	 */
-	public void setInstances(Integer instances) {
-		this.instances = instances;
-	}
 
 	/**
 	 * Get the value of property {@code resources}.
@@ -190,11 +113,29 @@ public class SolutionInstall extends ObjectBase {
 	}
 
 	/**
+	 * Get the value of property {@code plan}.
+	 *
+	 * @return the plan
+	 */
+	public String getPlan() {
+		return plan;
+	}
+
+	/**
+	 * Set the value of property {@code plan}.
+	 *
+	 * @param plan the plan to set
+	 */
+	public void setPlan(String plan) {
+		this.plan = plan;
+	}
+
+	/**
 	 * Get the value of property {@code project}.
 	 *
 	 * @return the project
 	 */
-	public Project getProject() {
+	public String getProject() {
 		return project;
 	}
 
@@ -203,7 +144,7 @@ public class SolutionInstall extends ObjectBase {
 	 *
 	 * @param project the project to set
 	 */
-	public void setProject(Project project) {
+	public void setProject(String project) {
 		this.project = project;
 	}
 
@@ -212,7 +153,7 @@ public class SolutionInstall extends ObjectBase {
 	 *
 	 * @return the space
 	 */
-	public Space getSpace() {
+	public String getSpace() {
 		return space;
 	}
 
@@ -221,7 +162,7 @@ public class SolutionInstall extends ObjectBase {
 	 *
 	 * @param space the space to set
 	 */
-	public void setSpace(Space space) {
+	public void setSpace(String space) {
 		this.space = space;
 	}
 
@@ -233,6 +174,7 @@ public class SolutionInstall extends ObjectBase {
 	public String getHost() {
 		return host;
 	}
+
 
 	/**
 	 * Set the value of property {@code host}.
@@ -248,7 +190,7 @@ public class SolutionInstall extends ObjectBase {
 	 *
 	 * @return the domain
 	 */
-	public Domain getDomain() {
+	public String getDomain() {
 		return domain;
 	}
 
@@ -257,7 +199,7 @@ public class SolutionInstall extends ObjectBase {
 	 *
 	 * @param domain the domain to set
 	 */
-	public void setDomain(Domain domain) {
+	public void setDomain(String domain) {
 		this.domain = domain;
 	}
 
@@ -266,7 +208,7 @@ public class SolutionInstall extends ObjectBase {
 	 *
 	 * @return the cluster
 	 */
-	public Cluster getCluster() {
+	public String getCluster() {
 		return cluster;
 	}
 
@@ -275,33 +217,52 @@ public class SolutionInstall extends ObjectBase {
 	 *
 	 * @param cluster the cluster to set
 	 */
-	public void setCluster(Cluster cluster) {
+	public void setCluster(String cluster) {
 		this.cluster = cluster;
 	}
 	
-
+	
 	/**
-	 * Get the value of property {@code image}.
+	 * Get the value of property {@code instances}.
 	 *
-	 * @return the image
+	 * @return the instances
 	 */
-	public Image getImage() {
-		return image;
+	public Integer getInstances() {
+		return instances;
 	}
 
 	/**
-	 * Set the value of property {@code image}.
+	 * Set the value of property {@code instances}.
 	 *
-	 * @param image the image to set
+	 * @param instances the instances to set
 	 */
-	public void setImage(Image image) {
-		this.image = image;
+	public void setInstances(Integer instances) {
+		this.instances = instances;
 	}
+
+	/**
+	 * Get the value of property {@code subplan}.
+	 *
+	 * @return the subplan
+	 */
+	public String getSubplan() {
+		return subplan;
+	}
+
+
+	/**
+	 * Set the value of property {@code subplan}.
+	 *
+	 * @param subplan the subplan to set
+	 */
+	public void setSubplan(String subplan) {
+		this.subplan = subplan;
+	}
+
 
 	@Override
 	public ToStringCreator toString(ToStringCreator creator) {
 		return super.toString(creator)
-			.append("solution", solution)
 			.append("plan", plan)
 			.append("subplan", subplan)
 			.append("project", project)
@@ -313,7 +274,6 @@ public class SolutionInstall extends ObjectBase {
 			.append("cluster", cluster)
 			.append("instances", instances)
 			.append("resources", resources)
-			.append("image", image)
 			.append("start", start)
 			;
 	}

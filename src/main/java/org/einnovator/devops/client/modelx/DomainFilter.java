@@ -1,18 +1,20 @@
 package org.einnovator.devops.client.modelx;
 
-import java.util.List;
-
+import org.einnovator.devops.client.model.Domain;
 import org.einnovator.util.model.ToStringCreator;
 
+/**
+ * A filter for {@code Domain}s.
+ *
+ * @see Domain
+ * @author support@einnovator.org
+ *
+ */
 public class DomainFilter extends DomainOptions {
 	
 	private String q;
 	
-	private Boolean strict;
-	
-	private String group;
-	
-	private List<String> groups;
+	private String owner;
 
 	private Boolean root;
 
@@ -20,87 +22,55 @@ public class DomainFilter extends DomainOptions {
 
 	private String type;
 	
+	//
+	// Constructors
+	//
+	
+	/**
+	 * Create instance of {@code DomainFilter}.
+	 *
+	 */
 	public DomainFilter() {
 	}
 
+	//
+	// Getters/Setters
+	//
 
 	/**
 	 * Get the value of property {@code q}.
 	 *
-	 * @return the q
+	 * @return the value of q
 	 */
 	public String getQ() {
 		return q;
 	}
 
-
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to set
+	 * @param q the value of property q
 	 */
 	public void setQ(String q) {
 		this.q = q;
 	}
 
-
 	/**
-	 * Get the value of property {@code strict}.
+	 * Get the value of property {@code owner}.
 	 *
-	 * @return the strict
+	 * @return the owner
 	 */
-	public Boolean getStrict() {
-		return strict;
+	public String getOwner() {
+		return owner;
 	}
 
-
 	/**
-	 * Set the value of property {@code strict}.
+	 * Set the value of property {@code owner}.
 	 *
-	 * @param strict the strict to set
+	 * @param owner the value of property owner
 	 */
-	public void setStrict(Boolean strict) {
-		this.strict = strict;
-	}
-
-
-	/**
-	 * Get the value of property {@code group}.
-	 *
-	 * @return the group
-	 */
-	public String getGroup() {
-		return group;
-	}
-
-
-	/**
-	 * Set the value of property {@code group}.
-	 *
-	 * @param group the group to set
-	 */
-	public void setGroup(String group) {
-		this.group = group;
-	}
-
-
-	/**
-	 * Get the value of property {@code groups}.
-	 *
-	 * @return the groups
-	 */
-	public List<String> getGroups() {
-		return groups;
-	}
-
-
-	/**
-	 * Set the value of property {@code groups}.
-	 *
-	 * @param groups the groups to set
-	 */
-	public void setGroups(List<String> groups) {
-		this.groups = groups;
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 
 	/**
@@ -115,12 +85,11 @@ public class DomainFilter extends DomainOptions {
 	/**
 	 * Set the value of property {@code root}.
 	 *
-	 * @param root the root to set
+	 * @param root the root
 	 */
 	public void setRoot(Boolean root) {
 		this.root = root;
 	}
-
 
 	/**
 	 * Get the value of property {@code enabled}.
@@ -131,17 +100,14 @@ public class DomainFilter extends DomainOptions {
 		return enabled;
 	}
 
-
 	/**
 	 * Set the value of property {@code enabled}.
 	 *
-	 * @param enabled the enabled to set
+	 * @param enabled the enabled
 	 */
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
-
-
 	
 	/**
 	 * Get the value of property {@code type}.
@@ -152,22 +118,23 @@ public class DomainFilter extends DomainOptions {
 		return type;
 	}
 
-
 	/**
 	 * Set the value of property {@code type}.
 	 *
-	 * @param type the type to set
+	 * @param type the type
 	 */
 	public void setType(String type) {
 		this.type = type;
 	}
 
 	//
+	// With
+	//
 	
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to set
+	 * @param q the value of property q
 	 * @return this {@code DomainFilter}
 	 */
 	public DomainFilter withQ(String q) {
@@ -176,42 +143,20 @@ public class DomainFilter extends DomainOptions {
 	}
 
 	/**
-	 * Set the value of property {@code strict}.
+	 * Set the value of property {@code owner}.
 	 *
-	 * @param strict the strict to set
+	 * @param owner the value of property owner
 	 * @return this {@code DomainFilter}
 	 */
-	public DomainFilter withStrict(Boolean strict) {
-		this.strict = strict;
-		return this;
+	public DomainFilter withOwner(String owner) {
+		this.owner = owner;
+		return this;		
 	}
-
-	/**
-	 * Set the value of property {@code group}.
-	 *
-	 * @param group the group to set
-	 * @return this {@code DomainFilter}
-	 */
-	public DomainFilter withGroup(String group) {
-		this.group = group;
-		return this;
-	}
-
-	/**
-	 * Set the value of property {@code groups}.
-	 *
-	 * @param groups the groups to set
-	 * @return this {@code DomainFilter}
-	 */
-	public DomainFilter withGroups(List<String> groups) {
-		this.groups = groups;
-		return this;
-	}
-
+	
 	/**
 	 * Set the value of property {@code root}.
 	 *
-	 * @param root the root to set
+	 * @param root the root
 	 * @return this {@code DomainFilter}
 	 */
 	public DomainFilter withRoot(Boolean root) {
@@ -222,7 +167,7 @@ public class DomainFilter extends DomainOptions {
 	/**
 	 * Set the value of property {@code enabled}.
 	 *
-	 * @param enabled the enabled to set
+	 * @param enabled the enabled
 	 * @return this {@code DomainFilter}
 	 */
 	public DomainFilter withEnabled(Boolean enabled) {
@@ -230,36 +175,13 @@ public class DomainFilter extends DomainOptions {
 		return this;
 	}
 	
-	/**
-	 * Set the value of property {@code runAs}.
-	 *
-	 * @param runAs the runAs to set
-	 * @return this {@code DomainFilter}
-	 */
-	public DomainFilter withRunAs(String runAs) {
-		setRunAs(runAs);
-		return this;
-	}
-	
-	/**
-	 * Set the value of property {@code admin}.
-	 *
-	 * @param admin the admin to set
-	 * @return this {@code DomainFilter}
-	 */
-	public DomainFilter withAdmin(Boolean admin) {
-		setAdmin(admin);
-		return this;
-	}
-
 
 	
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return creator
 				.append("q", q)
-				.append("group", group)
-				.append("groups", groups)
+				.append("owner", owner)
 				.append("root", root)
 				.append("enabled", enabled)
 				.append("type", type)

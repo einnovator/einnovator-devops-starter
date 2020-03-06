@@ -13,7 +13,11 @@ import org.einnovator.util.model.ToStringCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+
 /**
+ * Statistic for {@code Solution}s.
+ *
+ * @author support@einnovator.org
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

@@ -1,65 +1,75 @@
 package org.einnovator.devops.client.modelx;
 
-import java.util.List;
-
+import org.einnovator.devops.client.model.Registry;
 import org.einnovator.util.model.ToStringCreator;
 
+/**
+ * A filter for {@code Registry}s.
+ *
+ * @see Registry
+ * @author support@einnovator.org
+ *
+ */
 public class RegistryFilter extends RegistryOptions {
 	
 	private String q;
-	
-	private Boolean strict;
-	
+
+	private String owner;
+
 	private String group;
 	
-	private List<String> groups;
-
 	private Boolean private_;
 	
+	//
+	// Constructors
+	//
+	
+	/**
+	 * Create instance of {@code RegistryFilter}.
+	 *
+	 */
 	public RegistryFilter() {
 	}
 
+	//
+	// Getters/Setters
+	//
 
 	/**
 	 * Get the value of property {@code q}.
 	 *
-	 * @return the q
+	 * @return the value of q
 	 */
 	public String getQ() {
 		return q;
 	}
 
-
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to set
+	 * @param q the value of property q
 	 */
 	public void setQ(String q) {
 		this.q = q;
 	}
 
-
 	/**
-	 * Get the value of property {@code strict}.
+	 * Get the value of property {@code owner}.
 	 *
-	 * @return the strict
+	 * @return the owner
 	 */
-	public Boolean getStrict() {
-		return strict;
+	public String getOwner() {
+		return owner;
 	}
 
-
 	/**
-	 * Set the value of property {@code strict}.
+	 * Set the value of property {@code owner}.
 	 *
-	 * @param strict the strict to set
+	 * @param owner the value of property owner
 	 */
-	public void setStrict(Boolean strict) {
-		this.strict = strict;
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
-
-
 
 	/**
 	 * Get the value of property {@code group}.
@@ -70,37 +80,14 @@ public class RegistryFilter extends RegistryOptions {
 		return group;
 	}
 
-
 	/**
 	 * Set the value of property {@code group}.
 	 *
-	 * @param group the group to set
+	 * @param group the value of property group
 	 */
 	public void setGroup(String group) {
 		this.group = group;
 	}
-
-
-	/**
-	 * Get the value of property {@code groups}.
-	 *
-	 * @return the groups
-	 */
-	public List<String> getGroups() {
-		return groups;
-	}
-
-
-	/**
-	 * Set the value of property {@code groups}.
-	 *
-	 * @param groups the groups to set
-	 */
-	public void setGroups(List<String> groups) {
-		this.groups = groups;
-	}
-
-
 	/**
 	 * Get the value of property {@code private_}.
 	 *
@@ -121,38 +108,50 @@ public class RegistryFilter extends RegistryOptions {
 	}
 
 	//
-
+	// With
 	//
 
 	/**
-	 * Set the value of property {@code runAs}.
+	 * Set the value of property {@code q}.
 	 *
-	 * @param runAs the runAs to set
+	 * @param q the value of property q
 	 * @return this {@code RegistryFilter}
 	 */
-	public RegistryFilter withRunAs(String runAs) {
-		setRunAs(runAs);
+	public RegistryFilter withQ(String q) {
+		this.q = q;
 		return this;
 	}
 
 	/**
-	 * Set the value of property {@code admin}.
+	 * Set the value of property {@code owner}.
 	 *
-	 * @param admin the admin to set
+	 * @param owner the value of property owner
 	 * @return this {@code RegistryFilter}
 	 */
-	public RegistryFilter withAdmin(Boolean admin) {
-		setAdmin(admin);
-		return this;
+	public RegistryFilter withOwner(String owner) {
+		this.owner = owner;
+		return this;		
+	}
+	
+	/**
+	 * Set the value of property {@code group}.
+	 *
+	 * @param group the value of property group
+	 * @return this {@code RegistryFilter}
+	 */
+	public RegistryFilter withGroup(String group) {
+		this.group = group;
+		return this;		
 
 	}
-
+	
+	
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return creator
 				.append("q", q)
+				.append("owner", owner)
 				.append("group", group)
-				.append("groups", groups)
 				.append("private", private_)
 				;
 	}

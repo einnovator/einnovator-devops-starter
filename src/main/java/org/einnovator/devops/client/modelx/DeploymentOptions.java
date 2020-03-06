@@ -4,10 +4,24 @@ import org.einnovator.devops.client.model.Deployment;
 import org.einnovator.util.model.EntityOptions;
 import org.einnovator.util.model.ToStringCreator;
 
+/**
+ * Options to retrieve {@code Deployment}s.
+ *
+ * @see Deployment
+ * @author support@einnovator.org
+ */
 public class DeploymentOptions extends EntityOptions<Deployment> {
 
 	private Boolean instances;
 	
+	//
+	// Constructors
+	//
+	
+	/**
+	 * Create instance of {@code DeploymentOptions}.
+	 *
+	 */
 	public DeploymentOptions() {
 	}
 	
@@ -24,18 +38,21 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	/**
 	 * Set the value of property {@code instances}.
 	 *
-	 * @param instances the instances to set
+	 * @param instances the instances
 	 */
 	public void setInstances(Boolean instances) {
 		this.instances = instances;
 	}
 
+	
+	//
+	// With
 	//
 	
 	/**
 	 * Set the value of property {@code instances}.
 	 *
-	 * @param instances the instances to set
+	 * @param instances the instances
 	 * @return this {@code DeploymentOptions}
 	 */
 	public DeploymentOptions withInstances(Boolean instances) {
@@ -47,7 +64,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	@Override
 	public ToStringCreator toString(ToStringCreator creator) {
 		return super.toString(creator)
-				.append("instances", instances)
-				;
+			.append("instances", instances)
+			;
 	}
 }

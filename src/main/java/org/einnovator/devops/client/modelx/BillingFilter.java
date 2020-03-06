@@ -3,57 +3,52 @@ package org.einnovator.devops.client.modelx;
 
 import org.einnovator.util.model.ToStringCreator;
 
+/**
+ * A filter for {@code Billing}s.
+ *
+ * @see Billing
+ * @author support@einnovator.org
+ *
+ */
 public class BillingFilter extends BillingOptions {
 	
-	private String q;
-	
-	private Boolean strict;
+private String q;
 	
 	private String owner;
-
-	private String group;
 	
+	private String group;
+
+	//
+	// Constructors
+	//
+	
+	/**
+	 * Create instance of {@code BillingFilter}.
+	 *
+	 */
 	public BillingFilter() {
 	}
 
+	//
+	// Getters/Setters
+	//
 
 	/**
 	 * Get the value of property {@code q}.
 	 *
-	 * @return the q
+	 * @return the value of q
 	 */
 	public String getQ() {
 		return q;
 	}
 
-
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to set
+	 * @param q the value of property q
 	 */
 	public void setQ(String q) {
 		this.q = q;
-	}
-
-
-	/**
-	 * Get the value of property {@code strict}.
-	 *
-	 * @return the strict
-	 */
-	public Boolean getStrict() {
-		return strict;
-	}
-
-
-	/**
-	 * Set the value of property {@code strict}.
-	 *
-	 * @param strict the strict to set
-	 */
-	public void setStrict(Boolean strict) {
-		this.strict = strict;
 	}
 
 	/**
@@ -65,16 +60,15 @@ public class BillingFilter extends BillingOptions {
 		return owner;
 	}
 
-
 	/**
 	 * Set the value of property {@code owner}.
 	 *
-	 * @param owner the owner to set
+	 * @param owner the value of property owner
 	 */
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-	
+
 	/**
 	 * Get the value of property {@code group}.
 	 *
@@ -84,40 +78,52 @@ public class BillingFilter extends BillingOptions {
 		return group;
 	}
 
-
 	/**
 	 * Set the value of property {@code group}.
 	 *
-	 * @param group the group to set
+	 * @param group the value of property group
 	 */
 	public void setGroup(String group) {
 		this.group = group;
 	}
-
+	
+	//
+	// With
+	//
 
 	/**
-	 * Set the value of property {@code runAs}.
+	 * Set the value of property {@code q}.
 	 *
-	 * @param runAs the runAs to set
+	 * @param q the value of property q
 	 * @return this {@code BillingFilter}
 	 */
-	public BillingFilter withRunAs(String runAs) {
-		setRunAs(runAs);
+	public BillingFilter withQ(String q) {
+		this.q = q;
 		return this;
 	}
 
 	/**
-	 * Set the value of property {@code admin}.
+	 * Set the value of property {@code owner}.
 	 *
-	 * @param admin the admin to set
+	 * @param owner the value of property owner
 	 * @return this {@code BillingFilter}
 	 */
-	public BillingFilter withAdmin(Boolean admin) {
-		setAdmin(admin);
-		return this;
+	public BillingFilter withOwner(String owner) {
+		this.owner = owner;
+		return this;		
+	}
+	
+	/**
+	 * Set the value of property {@code group}.
+	 *
+	 * @param group the value of property group
+	 * @return this {@code BillingFilter}
+	 */
+	public BillingFilter withGroup(String group) {
+		this.group = group;
+		return this;		
 
 	}
-
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return creator

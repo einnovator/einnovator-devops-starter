@@ -1,33 +1,50 @@
 package org.einnovator.devops.client.modelx;
 
-import java.util.List;
 
+import org.einnovator.devops.client.model.Solution;
 import org.einnovator.devops.client.model.SolutionType;
 import org.einnovator.util.model.ToStringCreator;
 
+/**
+ * A filter for {@code Solution}s.
+ *
+ * @see Solution
+ * @author support@einnovator.org
+ *
+ */
 public class SolutionFilter extends SolutionOptions {
 	
 	private String q;
-	
-	private Boolean strict;
 
 	private SolutionType type;
 
+	private String owner;
+
 	private String group;
 	
-	private List<String> groups;
-
 	private Boolean popular;
 	
 	private Boolean featured;
 
+	//
+	// Constructors
+	//
+	
+	/**
+	 * Create instance of {@code SolutionFilter}.
+	 *
+	 */
 	public SolutionFilter() {
 	}
+
+	//
+	// Getters/Setters
+	//
 
 	/**
 	 * Get the value of property {@code q}.
 	 *
-	 * @return the q
+	 * @return the value of q
 	 */
 	public String getQ() {
 		return q;
@@ -36,46 +53,28 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to set
+	 * @param q the value of property q
 	 */
 	public void setQ(String q) {
 		this.q = q;
 	}
 
 	/**
-	 * Get the value of property {@code strict}.
+	 * Get the value of property {@code owner}.
 	 *
-	 * @return the strict
+	 * @return the owner
 	 */
-	public Boolean getStrict() {
-		return strict;
+	public String getOwner() {
+		return owner;
 	}
 
 	/**
-	 * Set the value of property {@code strict}.
+	 * Set the value of property {@code owner}.
 	 *
-	 * @param strict the strict to set
+	 * @param owner the value of property owner
 	 */
-	public void setStrict(Boolean strict) {
-		this.strict = strict;
-	}
-	
-	/**
-	 * Get the value of property {@code type}.
-	 *
-	 * @return the type
-	 */
-	public SolutionType getType() {
-		return type;
-	}
-
-	/**
-	 * Set the value of property {@code type}.
-	 *
-	 * @param type the type to set
-	 */
-	public void setType(SolutionType type) {
-		this.type = type;
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 
 	/**
@@ -90,30 +89,29 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code group}.
 	 *
-	 * @param group the group to set
+	 * @param group the value of property group
 	 */
 	public void setGroup(String group) {
 		this.group = group;
 	}
 
 	/**
-	 * Get the value of property {@code groups}.
+	 * Get the value of property {@code type}.
 	 *
-	 * @return the groups
+	 * @return the type
 	 */
-	public List<String> getGroups() {
-		return groups;
+	public SolutionType getType() {
+		return type;
 	}
 
 	/**
-	 * Set the value of property {@code groups}.
+	 * Set the value of property {@code type}.
 	 *
-	 * @param groups the groups to set
+	 * @param type the value of property type
 	 */
-	public void setGroups(List<String> groups) {
-		this.groups = groups;
+	public void setType(SolutionType type) {
+		this.type = type;
 	}
-	
 
 	/**
 	 * Get the value of property {@code popular}.
@@ -127,7 +125,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code popular}.
 	 *
-	 * @param popular the popular to set
+	 * @param popular the value of property popular
 	 */
 	public void setPopular(Boolean popular) {
 		this.popular = popular;
@@ -145,18 +143,20 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code featured}.
 	 *
-	 * @param featured the featured to set
+	 * @param featured the value of property featured
 	 */
 	public void setFeatured(Boolean featured) {
 		this.featured = featured;
 	}
-
-	//
 	
+	//
+	// With
+	//
+
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to with
+	 * @param q the value of property q
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withQ(String q) {
@@ -165,49 +165,28 @@ public class SolutionFilter extends SolutionOptions {
 	}
 
 	/**
-	 * Set the value of property {@code strict}.
+	 * Set the value of property {@code owner}.
 	 *
-	 * @param strict the strict to with
+	 * @param owner the value of property owner
 	 * @return this {@code SolutionFilter}
 	 */
-	public SolutionFilter withStrict(Boolean strict) {
-		this.strict = strict;
-		return this;
+	public SolutionFilter withOwner(String owner) {
+		this.owner = owner;
+		return this;		
 	}
 	
 	/**
-	 * Set the value of property {@code type}.
-	 *
-	 * @param type the type to with
-	 * @return this {@code SolutionFilter}
-	 */
-	public SolutionFilter withType(SolutionType type) {
-		this.type = type;
-		return this;
-	}
-
-	/**
 	 * Set the value of property {@code group}.
 	 *
-	 * @param group the group to with
+	 * @param group the value of property group
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withGroup(String group) {
 		this.group = group;
-		return this;
+		return this;		
+
 	}
 
-	/**
-	 * Set the value of property {@code groups}.
-	 *
-	 * @param groups the groups to with
-	 * @return this {@code SolutionFilter}
-	 */
-	public SolutionFilter withGroups(List<String> groups) {
-		this.groups = groups;
-		return this;
-	}
-	
 
 	/**
 	 * Set the value of property {@code popular}.
@@ -235,10 +214,9 @@ public class SolutionFilter extends SolutionOptions {
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return creator
 			.append("q", q)
-			.append("strict", strict)
 			.append("type", type)
 			.append("group", group)
-			.append("groups", groups)
+			.append("owner", owner)
 			.append("popular", popular)
 			.append("featured", featured)
 			;

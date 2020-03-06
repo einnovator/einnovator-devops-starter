@@ -75,8 +75,7 @@ public class DevopsClientTests extends SsoTestHelper {
 	@Test
 	public void listProjectsWithFilterTest() {
 		String q = "E";
-		ProjectFilter filter = new ProjectFilter();
-		filter.setQ(q);
+		ProjectFilter filter = new ProjectFilter().withQ("q");
 		Page<Project> spaces = client.listProjects(filter, null, null);
 		assertNotNull(spaces);
 		assertNotNull(spaces.getContent());
@@ -110,7 +109,6 @@ public class DevopsClientTests extends SsoTestHelper {
 		}
 		ProjectFilter filter = new ProjectFilter();
 		filter.setQ(name);
-		filter.setStrict(true);
 		Page<Project> page = client.listProjects(filter, null, null);
 		assertNotNull(page);
 		assertNotNull(page.getContent());

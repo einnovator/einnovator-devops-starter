@@ -6,23 +6,41 @@ import org.einnovator.devops.client.model.SolutionType;
 import org.einnovator.util.model.ToStringCreator;
 import org.springframework.util.StringUtils;
 
+/**
+ * A filter for {@code Deployment}s.
+ *
+ * @see Deployment
+ * @author support@einnovator.org
+ *
+ */
 public class DeploymentFilter extends DeploymentOptions {
 	
 	private String q;
 	
-	private Boolean strict;
-
 	private SolutionType type;
 
 	private DeploymentStatus status;
 	
+	
+	//
+	// Constructors
+	//
+	
+	/**
+	 * Create instance of {@code DeploymentFilter}.
+	 *
+	 */
 	public DeploymentFilter() {
 	}
 
+	//
+	// Getters/Setters
+	//
+	
 	/**
 	 * Get the value of property {@code q}.
 	 *
-	 * @return the q
+	 * @return the value of q
 	 */
 	public String getQ() {
 		return q;
@@ -32,37 +50,15 @@ public class DeploymentFilter extends DeploymentOptions {
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to set
+	 * @param q the value of q 
 	 */
 	public void setQ(String q) {
 		this.q = q;
 	}
-
-
-	/**
-	 * Get the value of property {@code strict}.
-	 *
-	 * @return the strict
-	 */
-	public Boolean getStrict() {
-		return strict;
-	}
-
-
-	/**
-	 * Set the value of property {@code strict}.
-	 *
-	 * @param strict the strict to set
-	 */
-	public void setStrict(Boolean strict) {
-		this.strict = strict;
-	}
-
-	
 	/**
 	 * Get the value of property {@code type}.
 	 *
-	 * @return the type
+	 * @return the value of type
 	 */
 	public SolutionType getType() {
 		return type;
@@ -72,7 +68,7 @@ public class DeploymentFilter extends DeploymentOptions {
 	/**
 	 * Set the value of property {@code type}.
 	 *
-	 * @param type the type to set
+	 * @param type the value of type 
 	 */
 	public void setType(SolutionType type) {
 		this.type = type;
@@ -82,7 +78,7 @@ public class DeploymentFilter extends DeploymentOptions {
 	/**
 	 * Get the value of property {@code status}.
 	 *
-	 * @return the status
+	 * @return the value of status
 	 */
 	public DeploymentStatus getStatus() {
 		return status;
@@ -91,19 +87,22 @@ public class DeploymentFilter extends DeploymentOptions {
 	/**
 	 * Set the value of property {@code status}.
 	 *
-	 * @param status the status to set
+	 * @param status the value of status 
 	 */
 	public void setStatus(DeploymentStatus status) {
 		this.status = status;
 	}
-
+	
+	
+	//
+	// With
 	//
 	
 
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to with
+	 * @param q the value of q
 	 * @return this {@code DeploymentFilter}
 	 */
 	public DeploymentFilter withQ(String q) {
@@ -112,20 +111,9 @@ public class DeploymentFilter extends DeploymentOptions {
 	}
 
 	/**
-	 * Set the value of property {@code strict}.
-	 *
-	 * @param strict the strict to with
-	 * @return this {@code DeploymentFilter}
-	 */
-	public DeploymentFilter withStrict(Boolean strict) {
-		this.strict = strict;
-		return this;
-	}
-
-	/**
 	 * Set the value of property {@code type}.
 	 *
-	 * @param type the type to with
+	 * @param type the value of type
 	 * @return this {@code DeploymentFilter}
 	 */
 	public DeploymentFilter withType(SolutionType type) {
@@ -136,7 +124,7 @@ public class DeploymentFilter extends DeploymentOptions {
 	/**
 	 * Set the value of property {@code status}.
 	 *
-	 * @param status the status to with
+	 * @param status the value of status
 	 * @return this {@code DeploymentFilter}
 	 */
 	public DeploymentFilter withStatus(DeploymentStatus status) {
@@ -145,34 +133,10 @@ public class DeploymentFilter extends DeploymentOptions {
 	}
 
 
-	/**
-	 * Set the value of property {@code runAs}.
-	 *
-	 * @param runAs the runAs to set
-	 * @return this {@code DeploymentFilter}
-	 */
-	public DeploymentFilter withRunAs(String runAs) {
-		setRunAs(runAs);
-		return this;
-	}
-
-	/**
-	 * Set the value of property {@code admin}.
-	 *
-	 * @param admin the admin to set
-	 * @return this {@code DeploymentFilter}
-	 */
-	public DeploymentFilter withAdmin(Boolean admin) {
-		setAdmin(admin);
-		return this;
-
-	}
-
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return creator
 			.append("q", q)
-			.append("strict", strict)
 			.append("type", type)
 			.append("status", status);
 
@@ -181,7 +145,7 @@ public class DeploymentFilter extends DeploymentOptions {
 	/**
 	 * Inmemory check if this {@code DeploymentFilter} matches a {@code Deployment}
 	 * 
-	 * @param deploy the {@code Deployment}
+	 * @param deploy the value of {@code Deployment}
 	 * @return true, if match
 	 */
 	public boolean check(Deployment deploy) {

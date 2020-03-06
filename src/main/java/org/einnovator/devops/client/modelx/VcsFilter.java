@@ -23,7 +23,7 @@ public class VcsFilter extends VcsOptions {
 	/**
 	 * Get the value of property {@code q}.
 	 *
-	 * @return the q
+	 * @return the value of q
 	 */
 	public String getQ() {
 		return q;
@@ -33,7 +33,7 @@ public class VcsFilter extends VcsOptions {
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to set
+	 * @param q the value of q to set
 	 */
 	public void setQ(String q) {
 		this.q = q;
