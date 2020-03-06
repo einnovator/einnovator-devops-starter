@@ -26,7 +26,7 @@ public class Endpoint extends EntityBase {
 	}
 	
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 

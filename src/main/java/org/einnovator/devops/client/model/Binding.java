@@ -35,7 +35,7 @@ public class Binding extends EntityBase {
 	}
 	
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 	
 

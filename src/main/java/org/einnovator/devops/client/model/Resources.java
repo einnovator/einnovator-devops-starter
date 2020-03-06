@@ -55,7 +55,7 @@ public class Resources extends ObjectBase {
 	}
 
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 	

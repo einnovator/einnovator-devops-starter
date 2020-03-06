@@ -42,7 +42,7 @@ public class Route extends EntityBase {
 	}
 	
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 	/**

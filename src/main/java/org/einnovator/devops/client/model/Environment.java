@@ -57,7 +57,7 @@ public class Environment extends EntityBase {
 	}
 
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 

@@ -37,7 +37,7 @@ public class Ports extends ObjectBase {
 
 	
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 	/**

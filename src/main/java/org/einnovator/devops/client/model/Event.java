@@ -34,7 +34,7 @@ public class Event extends EntityBase {
 	}
 
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 	/**

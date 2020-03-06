@@ -122,8 +122,8 @@ public class ProjectFilter extends ProjectOptions {
 	public ProjectFilter withGroup(String group) {
 		this.group = group;
 		return this;		
-
 	}
+	
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return creator

@@ -59,7 +59,7 @@ public class Plan extends NamedEntity {
 	}
 	
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 

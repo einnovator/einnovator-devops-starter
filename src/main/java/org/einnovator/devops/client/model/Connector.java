@@ -31,7 +31,7 @@ public class Connector extends EntityBase {
 	}
 	
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 

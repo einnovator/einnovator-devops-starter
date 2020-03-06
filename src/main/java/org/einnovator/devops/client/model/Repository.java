@@ -44,7 +44,7 @@ public class Repository extends NamedEntity {
 	}
 
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 	/**

@@ -42,7 +42,7 @@ public class Secret extends EntityBase {
 
 
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 

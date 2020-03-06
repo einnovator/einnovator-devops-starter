@@ -47,7 +47,7 @@ public class Vcs extends ProtectedEntity {
 	
 	
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 	

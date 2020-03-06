@@ -70,7 +70,7 @@ public class Billing extends ProtectedEntity {
 
 	
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 	
 	/**

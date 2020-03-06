@@ -62,13 +62,13 @@ public class DevopsClientTests extends SsoTestHelper {
 	
 	@Test
 	public void listProjectsTest() {
-		Page<Project> spaces = client.listProjects(null, null, null);
-		assertNotNull(spaces);
-		assertNotNull(spaces.getContent());
-		assertFalse(spaces.getNumberOfElements()==0);
-		assertFalse(spaces.getContent().isEmpty());
-		for (Project space: spaces) {
-			System.out.println(space);			
+		Page<Project> projects = client.listProjects(null, null, null);
+		assertNotNull(projects);
+		assertNotNull(projects.getContent());
+		assertFalse(projects.getNumberOfElements()==0);
+		assertFalse(projects.getContent().isEmpty());
+		for (Project project: projects) {
+			System.out.println(project);			
 		}
 	}
 
@@ -76,22 +76,22 @@ public class DevopsClientTests extends SsoTestHelper {
 	public void listProjectsWithFilterTest() {
 		String q = "E";
 		ProjectFilter filter = new ProjectFilter().withQ("q");
-		Page<Project> spaces = client.listProjects(filter, null, null);
-		assertNotNull(spaces);
-		assertNotNull(spaces.getContent());
-		assertFalse(spaces.getNumberOfElements()==0);
-		assertFalse(spaces.getContent().isEmpty());
-		for (Project space : spaces) {
-			assertTrue(space.getName().contains(q));
+		Page<Project> projects = client.listProjects(filter, null, null);
+		assertNotNull(projects);
+		assertNotNull(projects.getContent());
+		assertFalse(projects.getNumberOfElements()==0);
+		assertFalse(projects.getContent().isEmpty());
+		for (Project project : projects) {
+			assertTrue(project.getName().contains(q));
 		}
 		
 		q = "NOTFOUND-" + UUID.randomUUID();
 		filter.setQ(q);
-		spaces = client.listProjects(filter, null, null);
-		assertNotNull(spaces);
-		assertNotNull(spaces.getContent());
-		assertTrue(spaces.getNumberOfElements()==0);
-		assertTrue(spaces.getContent().isEmpty());
+		projects = client.listProjects(filter, null, null);
+		assertNotNull(projects);
+		assertNotNull(projects.getContent());
+		assertTrue(projects.getNumberOfElements()==0);
+		assertTrue(projects.getContent().isEmpty());
 	}
 
 	@Test

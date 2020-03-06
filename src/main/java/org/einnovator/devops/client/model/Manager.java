@@ -31,7 +31,7 @@ public class Manager extends ObjectBase {
 
 	
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 	/**

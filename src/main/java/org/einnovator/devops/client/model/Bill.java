@@ -44,7 +44,7 @@ public class Bill extends ObjectBase {
 
 	
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 	/**

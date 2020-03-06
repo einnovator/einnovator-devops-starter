@@ -43,7 +43,7 @@ public abstract class NamedEntity extends EntityBase {
 	}
 	
 	//
-	// Getters and setters
+	// Getters/Setters
 	//
 
 
