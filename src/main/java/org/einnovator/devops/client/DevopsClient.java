@@ -7,7 +7,7 @@ import java.net.URI;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.einnovator.devops.client.config.DevopsClientConfiguration;
-import org.einnovator.devops.client.config.DevopsClientContext;
+
 import org.einnovator.devops.client.config.DevopsEndpoints;
 import org.einnovator.devops.client.model.Binding;
 import org.einnovator.devops.client.model.Connector;
@@ -115,96 +115,92 @@ public class DevopsClient {
 	// Project
 	//
 	
-	public Project getProject(String id, DevopsClientContext context) {
-		return getProject(id, null, context);
-	}
-	
-	public Project getProject(String id, ProjectOptions options, DevopsClientContext context) {
+	public Project getProject(String id, ProjectOptions options) {
 		URI uri = makeURI(DevopsEndpoints.project(id, config));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<Project> result = exchange(request, Project.class, context);
+		ResponseEntity<Project> result = exchange(request, Project.class, options);
 		return result.getBody();
 	}
 
 	
-	public Page<Project> listProjects(ProjectFilter filter, Pageable pageable, DevopsClientContext context) {
+	public Page<Project> listProjects(ProjectFilter filter, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.projects(config));
 		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		@SuppressWarnings("rawtypes")
-		ResponseEntity<PageResult> result = exchange(request, PageResult.class, context);
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
 		return PageUtil.create2(result.getBody(),  Project.class);
 	}
 	
-	public URI createProject(Project project, RequestOptions options, DevopsClientContext context) {
+	public URI createProject(Project project, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.projects(config));
 		uri = processURI(uri, options);
 		RequestEntity<Project> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(project);
-		ResponseEntity<Void> result = exchange(request, Void.class, context);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
 		return result.getHeaders().getLocation();
 	}
 	
-	public void updateProject(Project project, RequestOptions options, DevopsClientContext context) {
+	public void updateProject(Project project, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.project(project.getUuid(), config));
 		uri = processURI(uri, options);		
 		RequestEntity<Project> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(project);
-		exchange(request, Project.class, context);
+		exchange(request, Project.class, options);
 	}
 	
-	public void deleteProject(String id, RequestOptions options, DevopsClientContext context) {
+	public void deleteProject(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.project(id, config));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
-		exchange(request, Void.class, context);
+		exchange(request, Void.class, options);
 	}
 
 	//
 	// Spaces
 	//
 
-	public Page<Space> listSpaces(SpaceFilter filter, Pageable pageable, DevopsClientContext context) {
-		return listSpaces(null, filter, pageable, context);
+	public Page<Space> listSpaces(SpaceFilter filter, Pageable pageable) {
+		return listSpaces(null, filter, pageable);
 	}
 
-	public Page<Space> listSpaces(String projectId, SpaceFilter filter, Pageable pageable, DevopsClientContext context) {
+	public Page<Space> listSpaces(String projectId, SpaceFilter filter, Pageable pageable) {
 		URI uri = makeURI(projectId!=null ? DevopsEndpoints.spaces(projectId, config) : DevopsEndpoints.spaces(config));
 		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		@SuppressWarnings("rawtypes")
-		ResponseEntity<PageResult> result = exchange(request, PageResult.class, context);
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
 		return PageUtil.create2(result.getBody(),  Space.class);
 	}
 
-	public URI createSpace(String projectId, Space space, RequestOptions options, DevopsClientContext context) {
+	public URI createSpace(String projectId, Space space, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.spaces(projectId, config));
 		uri = processURI(uri, options);		
 		RequestEntity<Space> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(space);
-		ResponseEntity<Void> result = exchange(request, Void.class, context);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
 		return result.getHeaders().getLocation();	
 	}
 
-	public Space getSpace(String id, SpaceOptions options, DevopsClientContext context) {
+	public Space getSpace(String id, SpaceOptions options) {
 		URI uri = makeURI(DevopsEndpoints.space(id, config));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<Space> result = exchange(request, Space.class, context);
+		ResponseEntity<Space> result = exchange(request, Space.class, options);
 		return result.getBody();
 		
 	}
 	
-	public void updateSpace(Space space, RequestOptions options, DevopsClientContext context) {
+	public void updateSpace(Space space, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.space(space.getUuid(), config));
 		uri = processURI(uri, options);		
 		RequestEntity<Space> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(space);		
-		exchange(request, Space.class, context);
+		exchange(request, Space.class, options);
 	}
 
-	public void deleteSpace(String id, RequestOptions options, DevopsClientContext context) {
+	public void deleteSpace(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.space(id, config));
 		uri = processURI(uri, options);		
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
-		exchange(request, Void.class, context);
+		exchange(request, Void.class, options);
 	}
 	
 	//
@@ -212,46 +208,46 @@ public class DevopsClient {
 	//
 	
 	
-	public Page<Deployment> listDeployments(String spaceId, DeploymentFilter filter, Pageable pageable, DevopsClientContext context) {
+	public Page<Deployment> listDeployments(String spaceId, DeploymentFilter filter, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.deployments(spaceId, config));
 		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		@SuppressWarnings("rawtypes")
-		ResponseEntity<PageResult> result = exchange(request, PageResult.class, context);
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
 		return PageUtil.create2(result.getBody(),  Deployment.class);
 		
 	}
 
-	public URI createDeployment(String spaceId, Deployment deploy, RequestOptions options, DevopsClientContext context) {
+	public URI createDeployment(String spaceId, Deployment deploy, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.deployments(spaceId, config));
 		uri = processURI(uri, options);		
 		RequestEntity<Deployment> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(deploy);
-		ResponseEntity<Void> result = exchange(request, Void.class, context);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
 		return result.getHeaders().getLocation();
 		
 	}
 
-	public Deployment getDeployment(String id, DeploymentOptions options, DevopsClientContext context) {
+	public Deployment getDeployment(String id, DeploymentOptions options) {
 		URI uri = makeURI(DevopsEndpoints.deployment(id, config));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<Deployment> result = exchange(request, Deployment.class, context);
+		ResponseEntity<Deployment> result = exchange(request, Deployment.class, options);
 		return result.getBody();
 		
 	}
 	
-	public void updateDeployment(Deployment deploy, RequestOptions options, DevopsClientContext context) {
+	public void updateDeployment(Deployment deploy, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.deployment(deploy.getUuid(), config));
 		uri = processURI(uri, options);		
 		RequestEntity<Deployment> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(deploy);
-		exchange(request, Deployment.class, context);
+		exchange(request, Deployment.class, options);
 	}
 
-	public void deleteDeployment(String id, RequestOptions options, DevopsClientContext context) {
+	public void deleteDeployment(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.deployment(id, config));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
-		exchange(request, Void.class, context);
+		exchange(request, Void.class, options);
 	}
 
 	
@@ -259,81 +255,81 @@ public class DevopsClient {
 	// Route
 	//
 	
-	public URI addRoute(String deployId, Route route, RequestOptions options, DevopsClientContext context) {
+	public URI addRoute(String deployId, Route route, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.routes(deployId, config));
 		uri = processURI(uri, options);		
 		RequestEntity<Route> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(route);
-		ResponseEntity<Void> result = exchange(request, Void.class, context);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
 		return result.getHeaders().getLocation();
 		
 	}
 
-	public void updateRoute(String deployId, Route route, RequestOptions options, DevopsClientContext context) {
+	public void updateRoute(String deployId, Route route, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.route(deployId, route.getUuid(), config));
 		uri = processURI(uri, options);		
 		RequestEntity<Route> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(route);
-		exchange(request, Route.class, context);
+		exchange(request, Route.class, options);
 	}
 
-	public void removeRoute(String deployId, String id, RequestOptions options, DevopsClientContext context) {
+	public void removeRoute(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.route(deployId, id, config));
 		uri = processURI(uri, options);	
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
-		exchange(request, Void.class, context);
+		exchange(request, Void.class, options);
 	}
 	
 	//
 	// Binding
 	//
 	
-	public URI addBinding(String deployId, Binding binding, RequestOptions options, DevopsClientContext context) {
+	public URI addBinding(String deployId, Binding binding, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.bindings(deployId, config));
 		uri = processURI(uri, options);		
 		RequestEntity<Binding> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(binding);
-		ResponseEntity<Void> result = exchange(request, Void.class, context);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
 		return result.getHeaders().getLocation();
 		
 	}
 
-	public void updateBinding(String deployId, Binding binding, RequestOptions options, DevopsClientContext context) {
+	public void updateBinding(String deployId, Binding binding, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.binding(deployId, binding.getUuid(), config));
 		uri = processURI(uri, options);		
 		RequestEntity<Binding> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(binding);
-		exchange(request, Binding.class, context);
+		exchange(request, Binding.class, options);
 	}
 
-	public void removeBinding(String deployId, String id, RequestOptions options, DevopsClientContext context) {
+	public void removeBinding(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.binding(deployId, id, config));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
-		exchange(request, Void.class, context);
+		exchange(request, Void.class, options);
 	}
 	
 	//
 	// Connector
 	//
 	
-	public URI addConnector(String deployId, Connector connector, RequestOptions options, DevopsClientContext context) {
+	public URI addConnector(String deployId, Connector connector, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.connectors(deployId, config));
 		uri = processURI(uri, options);		
 		RequestEntity<Connector> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(connector);
-		ResponseEntity<Void> result = exchange(request, Void.class, context);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
 		return result.getHeaders().getLocation();
 		
 	}
 
-	public void updateConnector(String deployId, Connector connector, RequestOptions options, DevopsClientContext context) {
+	public void updateConnector(String deployId, Connector connector, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.connector(deployId, connector.getUuid(), config));
 		uri = processURI(uri, options);		
 		RequestEntity<Connector> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(connector);
-		exchange(request, Connector.class, context);
+		exchange(request, Connector.class, options);
 	}
 
-	public void removeConnector(String deployId, String id, RequestOptions options, DevopsClientContext context) {
+	public void removeConnector(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.connector(deployId, id, config));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
-		exchange(request, Void.class, context);
+		exchange(request, Void.class, options);
 	}
 
 	
@@ -341,27 +337,27 @@ public class DevopsClient {
 	// Repository
 	//
 	
-	public URI addRepository(String deployId, Repository repository, RequestOptions options, DevopsClientContext context) {
+	public URI addRepository(String deployId, Repository repository, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.repositories(deployId, config));
 		uri = processURI(uri, options);		
 		RequestEntity<Repository> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(repository);
-		ResponseEntity<Void> result = exchange(request, Void.class, context);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
 		return result.getHeaders().getLocation();
 		
 	}
 
-	public void updateRepository(String deployId, Repository repository, RequestOptions options, DevopsClientContext context) {
+	public void updateRepository(String deployId, Repository repository, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.repository(deployId, repository.getUuid(), config));
 		uri = processURI(uri, options);		
 		RequestEntity<Repository> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(repository);
-		exchange(request, Repository.class, context);
+		exchange(request, Repository.class, options);
 	}
 
-	public void removeRepository(String deployId, String id, RequestOptions options, DevopsClientContext context) {
+	public void removeRepository(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.repository(deployId, id, config));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
-		exchange(request, Void.class, context);
+		exchange(request, Void.class, options);
 	}
 	
 	
@@ -369,80 +365,110 @@ public class DevopsClient {
 	// Vcs
 	//
 	
-	public Vcs getVcs(String id, VcsOptions options, DevopsClientContext context) {
+	public Vcs getVcs(String id, VcsOptions options) {
 		URI uri = makeURI(DevopsEndpoints.vcs(id, config));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<Vcs> result = exchange(request, Vcs.class, context);
+		ResponseEntity<Vcs> result = exchange(request, Vcs.class, options);
 		return result.getBody();
 	}
 
 	
-	public Page<Vcs> listVcss(VcsFilter filter, Pageable pageable, DevopsClientContext context) {
+	public Page<Vcs> listVcss(VcsFilter filter, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.vcss(config));
 		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		@SuppressWarnings("rawtypes")
-		ResponseEntity<PageResult> result = exchange(request, PageResult.class, context);
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
 		return PageUtil.create2(result.getBody(),  Vcs.class);
 	}
 	
-	public URI createVcs(Vcs vcs, RequestOptions options, DevopsClientContext context) {
+	public URI createVcs(Vcs vcs, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.vcss(config));
 		uri = processURI(uri, options);		
 		RequestEntity<Vcs> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(vcs);
-		ResponseEntity<Void> result = exchange(request, Void.class, context);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
 		return result.getHeaders().getLocation();
 	}
 	
-	public void updateVcs(Vcs vcs, RequestOptions options, DevopsClientContext context) {
+	public void updateVcs(Vcs vcs, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.vcs(vcs.getUuid(), config));
 		uri = processURI(uri, options);		
 		RequestEntity<Vcs> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(vcs);
-		exchange(request, Vcs.class, context);
+		exchange(request, Vcs.class, options);
 	}
 	
-	public void deleteVcs(String id, RequestOptions options, DevopsClientContext context) {
+	public void deleteVcs(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.vcs(id, config));
 		uri = processURI(uri, options);		
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
-		exchange(request, Void.class, context);
+		exchange(request, Void.class, options);
 	}
 	
 	//
-	// HTTP transport
+	// HTTP Transport
 	//
 	
-	protected <T> ResponseEntity<T> exchange(RequestEntity<?> request, Class<T> responseType, DevopsClientContext context) throws RestClientException {
-		OAuth2RestTemplate restTemplate = getRequiredRestTemplate(context);
-
+	
+	/**
+	 * Submit HTTP request.
+	 * 
+	 * If {@code context} is not null, use provided {@code OAuth2RestTemplate} if any.
+	 * Otherwise, use session scoped {@code OAuth2RestTemplate} if in web request thread. 
+	 * Otherwise, use client credentials singleton (non thread-safe) @code OAuth2RestTemplate}.
+	 * 
+	 * @param <T> response type
+	 * @param request the {@code RequestEntity}
+	 * @param responseType the response type
+	 * @param options optional {@code RequestOptions}
+	 * @return result {@code ResponseEntity}
+	 * @throws RestClientException if request fails
+	 */
+	protected <T> ResponseEntity<T> exchange(RequestEntity<?> request, Class<T> responseType, RequestOptions options) throws RestClientException {
+		OAuth2RestTemplate restTemplate = getRequiredRestTemplate(options);
 		try {
 			return exchange(restTemplate, request, responseType);			
 		} catch (RuntimeException e) {
-			if (context!=null && !context.isSingleton()) {
-				context.setResult(new Result<Object>(e));
+			if (options!=null && !options.isSingleton()) {
+				options.setResult(new Result<Object>(e));
 			}
 			throw e;
 		}
 	}
 
-
-	protected OAuth2RestTemplate getRequiredRestTemplate(DevopsClientContext context) {
-		OAuth2RestTemplate restTemplate = this.restTemplate;
-		if (context!=null && context.getRestTemplate()!=null) {
-			restTemplate = context.getRestTemplate();
-		} else {
-			if (WebUtil.getHttpServletRequest()==null && this.restTemplate0!=null) {
-				restTemplate = this.restTemplate0;
-			}			
-		}
-		return restTemplate;
-	}
-	
-
+	/**
+	 * Submit HTTP request.
+	 * 
+	 * May be overriden by sub-classes for custom/advanced functionality.
+	 * 
+	 * @param <T> response type
+	 * @param restTemplate the {@code OAuth2RestTemplate} to use
+	 * @param request the {@code RequestEntity}
+	 * @param responseType the response type
+	 * @return the result {@code ResponseEntity}
+	 * @throws RestClientException if request fails
+	 */
 	protected <T> ResponseEntity<T> exchange(OAuth2RestTemplate restTemplate, RequestEntity<?> request, Class<T> responseType) throws RestClientException {
 		return restTemplate.exchange(request, responseType);
 	}
+	
+	/**
+	 * Get the {@code OAuth2RestTemplate} to use to perform a request.
+	 * 
+	 * Return the configured {@code OAuth2RestTemplate} in property {@link #restTemplate}.
+	 * If property {@link web} is true, check if current thread is bound to a web request with a session-scope. If not, fallback
+	 * to client credential {@code OAuth2RestTemplate} in property {@link #restTemplate0} or create one if needed.
+	 * 
+	 * @return the {@code OAuth2RestTemplate}
+	 */
+	protected OAuth2RestTemplate getRequiredRestTemplate(RequestOptions options) {
+		OAuth2RestTemplate restTemplate = this.restTemplate;
+		if (WebUtil.getHttpServletRequest()==null && this.restTemplate0!=null) {
+			restTemplate = this.restTemplate0;
+		}			
+		return restTemplate;
+	}
+
 
 	//
 	// Other

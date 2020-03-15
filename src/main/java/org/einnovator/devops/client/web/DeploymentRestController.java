@@ -38,7 +38,7 @@ public class DeploymentRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			Deployment deploy = manager.getDeployment(id, null, null);
+			Deployment deploy = manager.getDeployment(id, null);
 			if (deploy==null) {
 				return badrequest("getDeployment", response);				
 			}
@@ -53,7 +53,7 @@ public class DeploymentRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {			
 		try {
 			setupToken(principal);
-			if (manager.updateDeployment(deploy, null, null)==null) {
+			if (manager.updateDeployment(deploy, null)==null) {
 				return badrequest("getDeployment", response);
 			}
 			return nocontent("getDeployment", response);
@@ -67,7 +67,7 @@ public class DeploymentRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {			
 		try {
 			setupToken(principal);
-			if (!manager.deleteDeployment(id, null, null)) {
+			if (!manager.deleteDeployment(id, null)) {
 				return badrequest("deleteDeployment", response);
 			}
 			return nocontent("deleteDeployment", response);
@@ -86,7 +86,7 @@ public class DeploymentRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			URI location =  manager.addRoute(deployId, route, null, null);
+			URI location =  manager.addRoute(deployId, route, null);
 			if (location==null) {
 				return badrequest("addRoute", response, deployId, route);				
 			}
@@ -102,7 +102,7 @@ public class DeploymentRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {			
 		try {
 			setupToken(principal);
-			if (!manager.removeRoute(deployId, id, null, null)) {
+			if (!manager.removeRoute(deployId, id, null)) {
 				return badrequest("removeRoute", response);
 			}
 			return nocontent("removeRoute", response);
@@ -117,7 +117,7 @@ public class DeploymentRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			if (manager.updateRoute(deployId, route, null, null)==null) {
+			if (manager.updateRoute(deployId, route, null)==null) {
 				return badrequest("updateRoute", response, deployId, route);				
 			}
 			return nocontent("updateRoute", response);
@@ -136,7 +136,7 @@ public class DeploymentRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			URI location =  manager.addBinding(deployId, binding, null, null);
+			URI location =  manager.addBinding(deployId, binding, null);
 			if (location==null) {
 				return badrequest("addBinding", response, deployId, binding);				
 			}
@@ -152,7 +152,7 @@ public class DeploymentRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {			
 		try {
 			setupToken(principal);
-			if (!manager.removeBinding(deployId, id, null, null)) {
+			if (!manager.removeBinding(deployId, id, null)) {
 				return badrequest("removeBinding", response);
 			}
 			return nocontent("removeBinding", response);
@@ -167,7 +167,7 @@ public class DeploymentRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			if (manager.updateBinding(deployId, binding, null, null)==null) {
+			if (manager.updateBinding(deployId, binding, null)==null) {
 				return badrequest("updateBinding", response, deployId, binding);				
 			}
 			return nocontent("updateBinding", response);
@@ -186,7 +186,7 @@ public class DeploymentRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			URI location =  manager.addConnector(deployId, connector, null, null);
+			URI location =  manager.addConnector(deployId, connector, null);
 			if (location==null) {
 				return badrequest("addConnector", response, deployId, connector);				
 			}
@@ -202,7 +202,7 @@ public class DeploymentRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {			
 		try {
 			setupToken(principal);
-			if (!manager.removeConnector(deployId, id, null, null)) {
+			if (!manager.removeConnector(deployId, id, null)) {
 				return badrequest("removeConnector", response);
 			}
 			return nocontent("removeConnector", response);
@@ -217,7 +217,7 @@ public class DeploymentRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			if (manager.updateConnector(deployId, connector, null, null)==null) {
+			if (manager.updateConnector(deployId, connector, null)==null) {
 				return badrequest("updateConnector", response, deployId, connector);				
 			}
 			return nocontent("updateConnector", response);

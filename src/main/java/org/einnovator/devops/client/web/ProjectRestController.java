@@ -41,7 +41,7 @@ public class ProjectRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			Page<Project> projects = manager.listProjects(filter, options.toPageRequest(), null);
+			Page<Project> projects = manager.listProjects(filter, options.toPageRequest());
 			return ok(projects, "listProject", response, PageUtil.toString(projects), filter, options);
 		} catch (RuntimeException e) {
 			return status("listProject", e, response, filter, options);
@@ -55,7 +55,7 @@ public class ProjectRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			URI location =  manager.createProject(project, null, null);
+			URI location =  manager.createProject(project, null);
 			if (location==null) {
 				return badrequest("createProject", response, project);				
 			}
@@ -70,7 +70,7 @@ public class ProjectRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			Project project = manager.getProject(id, null, null);
+			Project project = manager.getProject(id, null);
 			if (project==null) {
 				return notfound("getProject", response);				
 			}
@@ -85,7 +85,7 @@ public class ProjectRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {			
 		try {
 			setupToken(principal);
-			if (manager.updateProject(project, null, null)==null) {
+			if (manager.updateProject(project, null)==null) {
 				return badrequest("getProject", response);
 			}
 			return nocontent("getProject", response);
@@ -99,7 +99,7 @@ public class ProjectRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {			
 		try {
 			setupToken(principal);
-			if (!manager.deleteProject(id, null, null)) {
+			if (!manager.deleteProject(id, null)) {
 				return badrequest("deleteProject", response);
 			}
 			return nocontent("deleteProject", response);
@@ -114,7 +114,7 @@ public class ProjectRestController extends ControllerBase {
 			Principal principal, HttpServletResponse response) {		
 		try {
 			setupToken(principal);
-			Page<Space> page = manager.listSpaces(pid, filter, options.toPageRequest(), null);
+			Page<Space> page = manager.listSpaces(pid, filter, options.toPageRequest());
 			return ok(page, "listSpacesFor", response);
 		} catch (RuntimeException e) {
 			return status("listSpacesFor", e, response, pid);
@@ -127,7 +127,7 @@ public class ProjectRestController extends ControllerBase {
 		Principal principal, HttpServletResponse response) {
 		try {
 			setupToken(principal);
-			URI location =  manager.createSpace(projectId, space, null, null);
+			URI location =  manager.createSpace(projectId, space, null);
 			if (location==null) {
 				return badrequest("createSpace", response, projectId, space);				
 			}

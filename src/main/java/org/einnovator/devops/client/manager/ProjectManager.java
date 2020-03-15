@@ -4,7 +4,7 @@ package org.einnovator.devops.client.manager;
 import java.net.URI;
 import java.util.Map;
 
-import org.einnovator.devops.client.config.DevopsClientContext;
+
 import org.einnovator.devops.client.model.Project;
 import org.einnovator.devops.client.model.Space;
 import org.einnovator.devops.client.modelx.ProjectFilter;
@@ -22,10 +22,10 @@ public interface ProjectManager {
 	//
 
 	
-	Project getProject(String id, ProjectOptions options, DevopsClientContext context);
+	Project getProject(String id, ProjectOptions options);
 
 
-	Page<Project> listProjects(ProjectFilter filter, Pageable pageable, DevopsClientContext context);
+	Page<Project> listProjects(ProjectFilter filter, Pageable pageable);
 
 	/**
 	 * Create Project.
@@ -36,9 +36,9 @@ public interface ProjectManager {
 	 * @return the {@code URI} for te created {@code Project}.
 	 */
 
-	URI createProject(Project project, RequestOptions options, DevopsClientContext context);
+	URI createProject(Project project, RequestOptions options);
 	
-	Project updateProject(Project project, RequestOptions options, DevopsClientContext context);
+	Project updateProject(Project project, RequestOptions options);
 	
 
 	/**
@@ -50,23 +50,23 @@ public interface ProjectManager {
 	 * @param context TODO
 	 * @return the {@code Project} with {@code uuid} property set; or null if error.
 	 */
-	Project createOrUpdateProject(Project project, RequestOptions options, DevopsClientContext context);
+	Project createOrUpdateProject(Project project, RequestOptions options);
 	
-	boolean deleteProject(String id, RequestOptions options, DevopsClientContext context);
+	boolean deleteProject(String id, RequestOptions options);
 	
 	//
 	// Spaces
 	//
 	
-	Page<Space> listSpaces(String projectId, SpaceFilter filter, Pageable pageable, DevopsClientContext context);
+	Page<Space> listSpaces(String projectId, SpaceFilter filter, Pageable pageable);
 
-	URI createSpace(String projectId, Space space, RequestOptions options, DevopsClientContext context);
+	URI createSpace(String projectId, Space space, RequestOptions options);
 
 	//
 	//
 	//
 	
-	void onProjectUpdate(String id, Map<String, Object> details, DevopsClientContext context);
+	void onProjectUpdate(String id, Map<String, Object> details);
 
 	void clearCache();
 	

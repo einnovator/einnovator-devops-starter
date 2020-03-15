@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.einnovator.devops.client.DevopsClient;
-import org.einnovator.devops.client.config.DevopsClientContext;
+
 import org.einnovator.devops.client.model.Deployment;
 import org.einnovator.devops.client.model.Space;
 import org.einnovator.devops.client.modelx.DeploymentFilter;
@@ -49,14 +49,14 @@ public class SpaceManagerImpl implements SpaceManager {
 
 
 	@Override
-	public Space getSpace(String id, DevopsClientContext context) {
-		return getSpace(id, null, context);
+	public Space getSpace(String id) {
+		return getSpace(id, null);
 	}
 
 	@Override
-	public Space getSpace(String id, SpaceOptions options, DevopsClientContext context) {
+	public Space getSpace(String id, SpaceOptions options) {
 		try {
-			Space space = client.getSpace(id, options, context);		
+			Space space = client.getSpace(id, options);		
 			if (space==null) {
 				logger.error("getSpace" + id);
 			}
@@ -75,9 +75,9 @@ public class SpaceManagerImpl implements SpaceManager {
 
 	@Override
 	@CachePut(value=CACHE_SPACE, key="#space.uuid")
-	public Space updateSpace(Space space, RequestOptions options, DevopsClientContext context) {
+	public Space updateSpace(Space space, RequestOptions options) {
 		try {
-			client.updateSpace(space, null, context);
+			client.updateSpace(space, null);
 			return space;
 		} catch (RuntimeException e) {
 			logger.error(String.format("updateSpace: %s %s", e, space));
@@ -88,9 +88,9 @@ public class SpaceManagerImpl implements SpaceManager {
 	
 	@Override
 	@CacheEvict(value=CACHE_SPACE, key="#id")
-	public boolean deleteSpace(String id, RequestOptions options, DevopsClientContext context) {
+	public boolean deleteSpace(String id, RequestOptions options) {
 		try {
-			client.deleteSpace(id, null, context);
+			client.deleteSpace(id, null);
 			return true;
 		} catch (RuntimeException e) {
 			logger.error(String.format("deleteSpace: %s %s %s", e, id));
@@ -100,9 +100,9 @@ public class SpaceManagerImpl implements SpaceManager {
 	
 	
 	@Override
-	public Page<Space> listSpaces(SpaceFilter filter, Pageable pageable, DevopsClientContext context) {
+	public Page<Space> listSpaces(SpaceFilter filter, Pageable pageable) {
 		try {
-			return client.listSpaces(filter, pageable, context);
+			return client.listSpaces(filter, pageable);
 		} catch (RuntimeException e) {
 			logger.error(String.format("listSpaces: %s %s %s", e, filter, pageable));
 			return null;
@@ -110,7 +110,7 @@ public class SpaceManagerImpl implements SpaceManager {
 	}
 	
 	
-	public void onSpaceUpdate(String id, Map<String, Object> details, DevopsClientContext context) {
+	public void onSpaceUpdate(String id, Map<String, Object> details) {
 		if (id==null) {
 			return;
 		}
@@ -146,9 +146,9 @@ public class SpaceManagerImpl implements SpaceManager {
 	}
 
 	@Override
-	public Page<Deployment> listDeployments(String spaceId, DeploymentFilter filter, Pageable pageable, DevopsClientContext context) {
+	public Page<Deployment> listDeployments(String spaceId, DeploymentFilter filter, Pageable pageable) {
 		try {
-			return client.listDeployments(spaceId, filter, pageable, context);
+			return client.listDeployments(spaceId, filter, pageable);
 		} catch (RuntimeException e) {
 			logger.error(String.format("listDeployments: %s %s %s %s", e, spaceId, filter, pageable));
 			return null;
@@ -156,9 +156,9 @@ public class SpaceManagerImpl implements SpaceManager {
 	}
 
 	@Override
-	public URI createDeployment(String spaceId, Deployment deploy, RequestOptions options, DevopsClientContext context) {
+	public URI createDeployment(String spaceId, Deployment deploy, RequestOptions options) {
 		try {
-			return client.createDeployment(spaceId, deploy, null, context);
+			return client.createDeployment(spaceId, deploy, null);
 		} catch (RuntimeException e) {
 			logger.error(String.format("postDeployment: %s %s %s", e, spaceId, deploy));
 			return null;

@@ -62,7 +62,7 @@ public class DevopsClientTests extends SsoTestHelper {
 	
 	@Test
 	public void listProjectsTest() {
-		Page<Project> projects = client.listProjects(null, null, null);
+		Page<Project> projects = client.listProjects(null, null);
 		assertNotNull(projects);
 		assertNotNull(projects.getContent());
 		assertFalse(projects.getNumberOfElements()==0);
@@ -76,7 +76,7 @@ public class DevopsClientTests extends SsoTestHelper {
 	public void listProjectsWithFilterTest() {
 		String q = "E";
 		ProjectFilter filter = new ProjectFilter().withQ("q");
-		Page<Project> projects = client.listProjects(filter, null, null);
+		Page<Project> projects = client.listProjects(filter, null);
 		assertNotNull(projects);
 		assertNotNull(projects.getContent());
 		assertFalse(projects.getNumberOfElements()==0);
@@ -87,7 +87,7 @@ public class DevopsClientTests extends SsoTestHelper {
 		
 		q = "NOTFOUND-" + UUID.randomUUID();
 		filter.setQ(q);
-		projects = client.listProjects(filter, null, null);
+		projects = client.listProjects(filter, null);
 		assertNotNull(projects);
 		assertNotNull(projects.getContent());
 		assertTrue(projects.getNumberOfElements()==0);
@@ -109,14 +109,14 @@ public class DevopsClientTests extends SsoTestHelper {
 		}
 		ProjectFilter filter = new ProjectFilter();
 		filter.setQ(name);
-		Page<Project> page = client.listProjects(filter, null, null);
+		Page<Project> page = client.listProjects(filter, null);
 		assertNotNull(page);
 		assertNotNull(page.getContent());
 		if (!page.getContent().isEmpty()) {
 			return page.getContent().get(0);
 		}
 		Project project = new ProjectBuilder().withName(name).build();
-		URI uri = client.createProject(project, null, null);
+		URI uri = client.createProject(project, null);
 		assertNotNull(uri);
 		String id = UriUtils.extractId(uri);
 		Project project2 = client.getProject(id, null);
@@ -128,9 +128,9 @@ public class DevopsClientTests extends SsoTestHelper {
 	public void createSpaceTest() {
 		Project project = getOrCreateProject(TEST_PROJECT);
 		Space space = new SpaceBuilder().withName("test-" + UUID.randomUUID()).build();
-		URI uri = client.createSpace(project.getUuid(), space, null, null);
+		URI uri = client.createSpace(project.getUuid(), space, null);
 		String id = UriUtils.extractId(uri);
-		Space space2 = client.getSpace(id, null, null);
+		Space space2 = client.getSpace(id, null);
 		assertNotNull(space2);
 		assertEquals(space.getName(), space2.getName());
 	}

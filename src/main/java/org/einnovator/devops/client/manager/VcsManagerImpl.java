@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.einnovator.devops.client.DevopsClient;
-import org.einnovator.devops.client.config.DevopsClientContext;
+
 import org.einnovator.devops.client.model.Vcs;
 import org.einnovator.devops.client.modelx.VcsFilter;
 import org.einnovator.devops.client.modelx.VcsOptions;
@@ -52,7 +52,7 @@ public class VcsManagerImpl implements VcsManager {
 	
 
 	@Override
-	public Vcs getVcs(String id, VcsOptions options, DevopsClientContext context) {
+	public Vcs getVcs(String id, VcsOptions options) {
 		try {
 			
 			if (isCachable(options)) {
@@ -61,7 +61,7 @@ public class VcsManagerImpl implements VcsManager {
 					return project;
 				}	
 			}
-			Vcs project = client.getVcs(id, options, context);		
+			Vcs project = client.getVcs(id, options);		
 			if (project==null) {
 				logger.error("getVcs" + id);
 			}
@@ -87,9 +87,9 @@ public class VcsManagerImpl implements VcsManager {
 	}
 	
 	@Override
-	public URI createVcs(Vcs project, RequestOptions options, DevopsClientContext context) {
+	public URI createVcs(Vcs project, RequestOptions options) {
 		try {
-			return client.createVcs(project, null, context);
+			return client.createVcs(project, null);
 		} catch (RuntimeException e) {
 			logger.error(String.format("createVcs: %s %s", e, project));
 			return null;
@@ -98,9 +98,9 @@ public class VcsManagerImpl implements VcsManager {
 	
 	@Override
 	@CachePut(value=CACHE_PROJECT, key="#project.uuid")
-	public Vcs updateVcs(Vcs project, RequestOptions options, DevopsClientContext context) {
+	public Vcs updateVcs(Vcs project, RequestOptions options) {
 		try {
-			client.updateVcs(project, null, context);
+			client.updateVcs(project, null);
 			return project;
 		} catch (RuntimeException e) {
 			logger.error(String.format("updateVcs: %s %s", e, project));
@@ -109,25 +109,25 @@ public class VcsManagerImpl implements VcsManager {
 	}
 
 	@Override
-	public Vcs createOrUpdateVcs(Vcs project, RequestOptions options, DevopsClientContext context) {
+	public Vcs createOrUpdateVcs(Vcs project, RequestOptions options) {
 		if (project.getUuid()==null) {
-			URI uri = createVcs(project, null, context);
+			URI uri = createVcs(project, null);
 			if (uri==null) {
 				return null;
 			}
 			project.setUuid(UriUtils.extractId(uri));
 			return project;
 		} else {
-			return updateVcs(project, null, context);
+			return updateVcs(project, null);
 		}
 	}
 	
 	
 	@Override
 	@CacheEvict(value=CACHE_PROJECT, key="#id")
-	public boolean deleteVcs(String id, RequestOptions options, DevopsClientContext context) {
+	public boolean deleteVcs(String id, RequestOptions options) {
 		try {
-			client.deleteVcs(id, null, context);
+			client.deleteVcs(id, null);
 			return true;
 		} catch (RuntimeException e) {
 			logger.error(String.format("deleteVcs: %s %s %s", e, id));
@@ -137,9 +137,9 @@ public class VcsManagerImpl implements VcsManager {
 	
 	
 	@Override
-	public Page<Vcs> listVcss(VcsFilter filter, Pageable pageable, DevopsClientContext context) {
+	public Page<Vcs> listVcss(VcsFilter filter, Pageable pageable) {
 		try {
-			return client.listVcss(filter, pageable, context);
+			return client.listVcss(filter, pageable);
 		} catch (RuntimeException e) {
 			logger.error(String.format("listVcss: %s %s %s", e, filter, pageable));
 			return null;
@@ -147,7 +147,7 @@ public class VcsManagerImpl implements VcsManager {
 	}
 	
 	
-	public void onVcsUpdate(String id, Map<String, Object> details, DevopsClientContext context) {
+	public void onVcsUpdate(String id, Map<String, Object> details) {
 		if (id==null) {
 			return;
 		}
