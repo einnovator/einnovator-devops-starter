@@ -10,11 +10,9 @@ import java.util.UUID;
 
 import org.einnovator.devops.client.config.DevopsClientConfig;
 import org.einnovator.devops.client.config.DevopsClientConfiguration;
-import org.einnovator.devops.client.model.Project;
-import org.einnovator.devops.client.model.ProjectBuilder;
 import org.einnovator.devops.client.model.Space;
 import org.einnovator.devops.client.model.SpaceBuilder;
-import org.einnovator.devops.client.modelx.ProjectFilter;
+import org.einnovator.devops.client.modelx.SpaceFilter;
 import org.einnovator.sso.client.SsoTestHelper;
 import org.einnovator.util.UriUtils;
 import org.junit.Test;
@@ -61,74 +59,73 @@ public class DevopsClientTests extends SsoTestHelper {
 	}
 	
 	@Test
-	public void listProjectsTest() {
-		Page<Project> projects = client.listProjects(null, null);
-		assertNotNull(projects);
-		assertNotNull(projects.getContent());
-		assertFalse(projects.getNumberOfElements()==0);
-		assertFalse(projects.getContent().isEmpty());
-		for (Project project: projects) {
-			System.out.println(project);			
+	public void listSpacesTest() {
+		Page<Space> spaces = client.listSpaces(null, null);
+		assertNotNull(spaces);
+		assertNotNull(spaces.getContent());
+		assertFalse(spaces.getNumberOfElements()==0);
+		assertFalse(spaces.getContent().isEmpty());
+		for (Space space: spaces) {
+			System.out.println(space);			
 		}
 	}
 
 	@Test
-	public void listProjectsWithFilterTest() {
+	public void listSpacesWithFilterTest() {
 		String q = "E";
-		ProjectFilter filter = new ProjectFilter().withQ("q");
-		Page<Project> projects = client.listProjects(filter, null);
-		assertNotNull(projects);
-		assertNotNull(projects.getContent());
-		assertFalse(projects.getNumberOfElements()==0);
-		assertFalse(projects.getContent().isEmpty());
-		for (Project project : projects) {
-			assertTrue(project.getName().contains(q));
+		SpaceFilter filter = new SpaceFilter().withQ("q");
+		Page<Space> spaces = client.listSpaces(filter, null);
+		assertNotNull(spaces);
+		assertNotNull(spaces.getContent());
+		assertFalse(spaces.getNumberOfElements()==0);
+		assertFalse(spaces.getContent().isEmpty());
+		for (Space space : spaces) {
+			assertTrue(space.getName().contains(q));
 		}
 		
 		q = "NOTFOUND-" + UUID.randomUUID();
 		filter.setQ(q);
-		projects = client.listProjects(filter, null);
-		assertNotNull(projects);
-		assertNotNull(projects.getContent());
-		assertTrue(projects.getNumberOfElements()==0);
-		assertTrue(projects.getContent().isEmpty());
+		spaces = client.listSpaces(filter, null);
+		assertNotNull(spaces);
+		assertNotNull(spaces.getContent());
+		assertTrue(spaces.getNumberOfElements()==0);
+		assertTrue(spaces.getContent().isEmpty());
 	}
 
 	@Test
-	public void getExistingProjectTest() {
-		Project project = getOrCreateProject(TEST_PROJECT);
-		assertNotNull(project);
-		assertEquals(TEST_PROJECT, project.getName());
+	public void getExistingSpaceTest() {
+		Space space = getOrCreateSpace(TEST_PROJECT);
+		assertNotNull(space);
+		assertEquals(TEST_PROJECT, space.getName());
 	}
 
-	public Project getOrCreateProject(String name) {
+	public Space getOrCreateSpace(String name) {
 		try {
-			Project project = client.getProject(name, null);		
-			return project;
+			Space space = client.getSpace(name, null);		
+			return space;
 		} catch (RuntimeException e) {
 		}
-		ProjectFilter filter = new ProjectFilter();
+		SpaceFilter filter = new SpaceFilter();
 		filter.setQ(name);
-		Page<Project> page = client.listProjects(filter, null);
+		Page<Space> page = client.listSpaces(filter, null);
 		assertNotNull(page);
 		assertNotNull(page.getContent());
 		if (!page.getContent().isEmpty()) {
 			return page.getContent().get(0);
 		}
-		Project project = new ProjectBuilder().withName(name).build();
-		URI uri = client.createProject(project, null);
+		Space space = new SpaceBuilder().withName(name).build();
+		URI uri = client.createSpace(space, null);
 		assertNotNull(uri);
 		String id = UriUtils.extractId(uri);
-		Project project2 = client.getProject(id, null);
-		return project2;
+		Space space2 = client.getSpace(id, null);
+		return space2;
 	}
 
 	
 	@Test
 	public void createSpaceTest() {
-		Project project = getOrCreateProject(TEST_PROJECT);
 		Space space = new SpaceBuilder().withName("test-" + UUID.randomUUID()).build();
-		URI uri = client.createSpace(project.getUuid(), space, null);
+		URI uri = client.createSpace(space, null);
 		String id = UriUtils.extractId(uri);
 		Space space2 = client.getSpace(id, null);
 		assertNotNull(space2);
