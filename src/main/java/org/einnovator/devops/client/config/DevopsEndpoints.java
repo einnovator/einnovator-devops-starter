@@ -2,14 +2,6 @@ package org.einnovator.devops.client.config;
 
 public class DevopsEndpoints {
 	
-	public static String project(String id, DevopsClientConfiguration config) {
-		return projects(config) + "/" + id;
-	}
-
-	public static String projects(DevopsClientConfiguration config) {
-		return config.getServer() + "/api/project";
-	}
-
 	public static String domain(String id, DevopsClientConfiguration config) {
 		return domains(config) + "/" + id;
 	}
@@ -32,10 +24,6 @@ public class DevopsEndpoints {
 
 	public static String clusters(DevopsClientConfiguration config) {
 		return config.getServer() + "/api/cluster";
-	}
-
-	public static String spaces(String projectId, DevopsClientConfiguration config) {
-		return project(projectId, config) + "/spaces";
 	}
 
 	public static String spaces(DevopsClientConfiguration config) {
