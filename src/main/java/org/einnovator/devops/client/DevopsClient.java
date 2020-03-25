@@ -12,15 +12,12 @@ import org.einnovator.devops.client.config.DevopsEndpoints;
 import org.einnovator.devops.client.model.Binding;
 import org.einnovator.devops.client.model.Connector;
 import org.einnovator.devops.client.model.Deployment;
-import org.einnovator.devops.client.model.Project;
 import org.einnovator.devops.client.model.Repository;
 import org.einnovator.devops.client.model.Route;
 import org.einnovator.devops.client.model.Space;
 import org.einnovator.devops.client.model.Vcs;
 import org.einnovator.devops.client.modelx.DeploymentFilter;
 import org.einnovator.devops.client.modelx.DeploymentOptions;
-import org.einnovator.devops.client.modelx.ProjectFilter;
-import org.einnovator.devops.client.modelx.ProjectOptions;
 import org.einnovator.devops.client.modelx.SpaceFilter;
 import org.einnovator.devops.client.modelx.SpaceOptions;
 import org.einnovator.devops.client.modelx.VcsFilter;
@@ -109,62 +106,13 @@ public class DevopsClient {
 		this.restTemplate0 = restTemplate0;
 	}
 
-	
-
-	//
-	// Project
-	//
-	
-	public Project getProject(String id, ProjectOptions options) {
-		URI uri = makeURI(DevopsEndpoints.project(id, config));
-		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<Project> result = exchange(request, Project.class, options);
-		return result.getBody();
-	}
-
-	
-	public Page<Project> listProjects(ProjectFilter filter, Pageable pageable) {
-		URI uri = makeURI(DevopsEndpoints.projects(config));
-		uri = processURI(uri, filter, pageable);
-		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		@SuppressWarnings("rawtypes")
-		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
-		return PageUtil.create2(result.getBody(),  Project.class);
-	}
-	
-	public URI createProject(Project project, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.projects(config));
-		uri = processURI(uri, options);
-		RequestEntity<Project> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(project);
-		ResponseEntity<Void> result = exchange(request, Void.class, options);
-		return result.getHeaders().getLocation();
-	}
-	
-	public void updateProject(Project project, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.project(project.getUuid(), config));
-		uri = processURI(uri, options);		
-		RequestEntity<Project> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(project);
-		exchange(request, Project.class, options);
-	}
-	
-	public void deleteProject(String id, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.project(id, config));
-		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
-		exchange(request, Void.class, options);
-	}
 
 	//
 	// Spaces
 	//
 
 	public Page<Space> listSpaces(SpaceFilter filter, Pageable pageable) {
-		return listSpaces(null, filter, pageable);
-	}
-
-	public Page<Space> listSpaces(String projectId, SpaceFilter filter, Pageable pageable) {
-		URI uri = makeURI(projectId!=null ? DevopsEndpoints.spaces(projectId, config) : DevopsEndpoints.spaces(config));
+		URI uri = makeURI(DevopsEndpoints.spaces(config));
 		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		@SuppressWarnings("rawtypes")
@@ -172,8 +120,8 @@ public class DevopsClient {
 		return PageUtil.create2(result.getBody(),  Space.class);
 	}
 
-	public URI createSpace(String projectId, Space space, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.spaces(projectId, config));
+	public URI createSpace(Space space, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.spaces(config));
 		uri = processURI(uri, options);		
 		RequestEntity<Space> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(space);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);

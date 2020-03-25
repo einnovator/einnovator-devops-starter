@@ -6,8 +6,6 @@ import org.einnovator.devops.client.manager.VcsManager;
 import org.einnovator.devops.client.manager.VcsManagerImpl;
 import org.einnovator.devops.client.manager.DeploymentManager;
 import org.einnovator.devops.client.manager.DeploymentManagerImpl;
-import org.einnovator.devops.client.manager.ProjectManager;
-import org.einnovator.devops.client.manager.ProjectManagerImpl;
 import org.einnovator.devops.client.manager.SpaceManager;
 import org.einnovator.devops.client.manager.SpaceManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,11 +61,6 @@ public class DevopsClientConfig {
 	@Bean
 	public DevopsClient devopsClient() {
 		return new DevopsClient(config);
-	}
-
-	@Bean
-	public ProjectManager devopsProjectManager(CacheManager cacheManager) {
-		return new ProjectManagerImpl(cacheManager);
 	}
 
 	@Bean
