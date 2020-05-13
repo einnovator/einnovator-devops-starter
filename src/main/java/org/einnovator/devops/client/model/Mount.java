@@ -1,5 +1,7 @@
 package org.einnovator.devops.client.model;
 
+import java.util.List;
+
 import org.einnovator.util.model.EntityBase;
 import org.einnovator.util.model.ToStringCreator;
 
@@ -10,15 +12,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Mount extends EntityBase {
 
+
 	private MountType type;
 	
 	private String mountPath;
 
 	private String name;
 
-	private String secretName;
+	private String secret;
 
-	private String configmapName;
+	private String configmap;
 
 	private String volumePath;
 
@@ -26,23 +29,26 @@ public class Mount extends EntityBase {
 	
 	private String mode;
 
+	private AccessMode accessMode;
+	
 	private String storageClass;
 	
-	private ReclaimType reclaim;
-
 	private Boolean newVolume;
 
 	private String volc;
 
-	private VolumeClaim claim;
-
-	private Volume volume;
-
-	private Secret secret;
+	private List<KeyPath> items;
 
 	private Boolean remove;
 
+	private Boolean readonly;
 
+	private Boolean optional;
+
+	//
+	// Constructors
+	//
+	
 	/**
 	 * Create instance of {@code Mount}.
 	 *
@@ -50,6 +56,9 @@ public class Mount extends EntityBase {
 	public Mount() {
 	}
 
+	//
+	// Getters/Setters
+	//
 
 	/**
 	 * Get the value of property {@code type}.
@@ -60,14 +69,18 @@ public class Mount extends EntityBase {
 		return type;
 	}
 
+
+
 	/**
 	 * Set the value of property {@code type}.
 	 *
-	 * @param type the type to set
+	 * @param type the value of property type
 	 */
 	public void setType(MountType type) {
 		this.type = type;
 	}
+
+
 
 	/**
 	 * Get the value of property {@code mountPath}.
@@ -78,14 +91,18 @@ public class Mount extends EntityBase {
 		return mountPath;
 	}
 
+
+
 	/**
 	 * Set the value of property {@code mountPath}.
 	 *
-	 * @param mountPath the mountPath to set
+	 * @param mountPath the value of property mountPath
 	 */
 	public void setMountPath(String mountPath) {
 		this.mountPath = mountPath;
 	}
+
+
 
 	/**
 	 * Get the value of property {@code name}.
@@ -96,14 +113,62 @@ public class Mount extends EntityBase {
 		return name;
 	}
 
+
+
 	/**
 	 * Set the value of property {@code name}.
 	 *
-	 * @param name the name to set
+	 * @param name the value of property name
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
+
+	/**
+	 * Get the value of property {@code secret}.
+	 *
+	 * @return the secret
+	 */
+	public String getSecret() {
+		return secret;
+	}
+
+
+
+	/**
+	 * Set the value of property {@code secret}.
+	 *
+	 * @param secret the value of property secret
+	 */
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
+
+
+
+	/**
+	 * Get the value of property {@code configmap}.
+	 *
+	 * @return the configmap
+	 */
+	public String getConfigmap() {
+		return configmap;
+	}
+
+
+
+	/**
+	 * Set the value of property {@code configmap}.
+	 *
+	 * @param configmap the value of property configmap
+	 */
+	public void setConfigmap(String configmap) {
+		this.configmap = configmap;
+	}
+
+
 
 	/**
 	 * Get the value of property {@code volumePath}.
@@ -114,122 +179,18 @@ public class Mount extends EntityBase {
 		return volumePath;
 	}
 
+
+
 	/**
 	 * Set the value of property {@code volumePath}.
 	 *
-	 * @param volumePath the volumePath to set
+	 * @param volumePath the value of property volumePath
 	 */
 	public void setVolumePath(String volumePath) {
 		this.volumePath = volumePath;
 	}
 
-	/**
-	 * Get the value of property {@code secretName}.
-	 *
-	 * @return the secretName
-	 */
-	public String getSecretName() {
-		return secretName;
-	}
 
-	/**
-	 * Get the value of property {@code configmapName}.
-	 *
-	 * @return the configmapName
-	 */
-	public String getConfigmapName() {
-		return configmapName;
-	}
-
-	/**
-	 * Set the value of property {@code configmapName}.
-	 *
-	 * @param configmapName the configmapName to set
-	 */
-	public void setConfigmapName(String configmapName) {
-		this.configmapName = configmapName;
-	}
-
-	/**
-	 * Set the value of property {@code secretName}.
-	 *
-	 * @param secretName the secretName to set
-	 */
-	public void setSecretName(String secretName) {
-		this.secretName = secretName;
-	}
-
-	/**
-	 * Get the value of property {@code claim}.
-	 *
-	 * @return the claim
-	 */
-	public VolumeClaim getClaim() {
-		return claim;
-	}
-
-	/**
-	 * Set the value of property {@code claim}.
-	 *
-	 * @param claim the claim to set
-	 */
-	public void setClaim(VolumeClaim claim) {
-		this.claim = claim;
-	}
-
-	/**
-	 * Get the value of property {@code volume}.
-	 *
-	 * @return the volume
-	 */
-	public Volume getVolume() {
-		return volume;
-	}
-
-	/**
-	 * Set the value of property {@code volume}.
-	 *
-	 * @param volume the volume to set
-	 */
-	public void setVolume(Volume volume) {
-		this.volume = volume;
-	}
-
-	/**
-	 * Get the value of property {@code secret}.
-	 *
-	 * @return the secret
-	 */
-	public Secret getSecret() {
-		return secret;
-	}
-
-	/**
-	 * Set the value of property {@code secret}.
-	 *
-	 * @param secret the secret to set
-	 */
-	public void setSecret(Secret secret) {
-		this.secret = secret;
-	}
-
-	/**
-	 * Get the value of property {@code reclaim}.
-	 *
-	 * @return the reclaim
-	 */
-	public ReclaimType getReclaim() {
-		return reclaim;
-	}
-
-	/**
-	 * Set the value of property {@code reclaim}.
-	 *
-	 * @param reclaim the reclaim to set
-	 */
-	public void setReclaim(ReclaimType reclaim) {
-		this.reclaim = reclaim;
-	}
 
 	/**
 	 * Get the value of property {@code size}.
@@ -240,14 +201,18 @@ public class Mount extends EntityBase {
 		return size;
 	}
 
+
+
 	/**
 	 * Set the value of property {@code size}.
 	 *
-	 * @param size the size to set
+	 * @param size the value of property size
 	 */
 	public void setSize(String size) {
 		this.size = size;
 	}
+
+
 
 	/**
 	 * Get the value of property {@code mode}.
@@ -258,14 +223,40 @@ public class Mount extends EntityBase {
 		return mode;
 	}
 
+
+
 	/**
 	 * Set the value of property {@code mode}.
 	 *
-	 * @param mode the mode to set
+	 * @param mode the value of property mode
 	 */
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
+
+
+
+	/**
+	 * Get the value of property {@code accessMode}.
+	 *
+	 * @return the accessMode
+	 */
+	public AccessMode getAccessMode() {
+		return accessMode;
+	}
+
+
+
+	/**
+	 * Set the value of property {@code accessMode}.
+	 *
+	 * @param accessMode the value of property accessMode
+	 */
+	public void setAccessMode(AccessMode accessMode) {
+		this.accessMode = accessMode;
+	}
+
+
 
 	/**
 	 * Get the value of property {@code storageClass}.
@@ -276,14 +267,18 @@ public class Mount extends EntityBase {
 		return storageClass;
 	}
 
+
+
 	/**
 	 * Set the value of property {@code storageClass}.
 	 *
-	 * @param storageClass the storageClass to set
+	 * @param storageClass the value of property storageClass
 	 */
 	public void setStorageClass(String storageClass) {
 		this.storageClass = storageClass;
 	}
+
+
 
 	/**
 	 * Get the value of property {@code newVolume}.
@@ -294,14 +289,18 @@ public class Mount extends EntityBase {
 		return newVolume;
 	}
 
+
+
 	/**
 	 * Set the value of property {@code newVolume}.
 	 *
-	 * @param newVolume the newVolume to set
+	 * @param newVolume the value of property newVolume
 	 */
 	public void setNewVolume(Boolean newVolume) {
 		this.newVolume = newVolume;
 	}
+
+
 
 	/**
 	 * Get the value of property {@code volc}.
@@ -312,14 +311,40 @@ public class Mount extends EntityBase {
 		return volc;
 	}
 
+
+
 	/**
 	 * Set the value of property {@code volc}.
 	 *
-	 * @param volc the volc to set
+	 * @param volc the value of property volc
 	 */
 	public void setVolc(String volc) {
 		this.volc = volc;
 	}
+
+
+
+	/**
+	 * Get the value of property {@code items}.
+	 *
+	 * @return the items
+	 */
+	public List<KeyPath> getItems() {
+		return items;
+	}
+
+
+
+	/**
+	 * Set the value of property {@code items}.
+	 *
+	 * @param items the value of property items
+	 */
+	public void setItems(List<KeyPath> items) {
+		this.items = items;
+	}
+
+
 
 	/**
 	 * Get the value of property {@code remove}.
@@ -330,14 +355,62 @@ public class Mount extends EntityBase {
 		return remove;
 	}
 
+
+
 	/**
 	 * Set the value of property {@code remove}.
 	 *
-	 * @param remove the remove to set
+	 * @param remove the value of property remove
 	 */
 	public void setRemove(Boolean remove) {
 		this.remove = remove;
 	}
+
+
+
+	/**
+	 * Get the value of property {@code readonly}.
+	 *
+	 * @return the readonly
+	 */
+	public Boolean getReadonly() {
+		return readonly;
+	}
+
+
+
+	/**
+	 * Set the value of property {@code readonly}.
+	 *
+	 * @param readonly the value of property readonly
+	 */
+	public void setReadonly(Boolean readonly) {
+		this.readonly = readonly;
+	}
+
+
+
+	/**
+	 * Get the value of property {@code optional}.
+	 *
+	 * @return the optional
+	 */
+	public Boolean getOptional() {
+		return optional;
+	}
+
+
+
+	/**
+	 * Set the value of property {@code optional}.
+	 *
+	 * @param optional the value of property optional
+	 */
+	public void setOptional(Boolean optional) {
+		this.optional = optional;
+	}
+
+
 
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
@@ -345,14 +418,16 @@ public class Mount extends EntityBase {
 				.append("type", type)
 				.append("name", name)
 				.append("mountPath", mountPath)
-				.append("secretName", secretName)
-				.append("configmapName", configmapName)
-				.append("reclaim", reclaim)
+				.append("secret", secret)
+				.append("configmap", configmap)
 				.append("size", size)
 				.append("storageClass", storageClass)
+				.append("accessMode", accessMode)
 				.append("mode", mode)
 				.append("volumePath", volumePath)
 				.append("newVolume", newVolume)
+				.append("items", items)
+				.append("optional", optional)
 				.append("remove", remove)
 				.append("volc", volc)
 

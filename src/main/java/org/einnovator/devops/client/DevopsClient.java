@@ -251,10 +251,11 @@ public class DevopsClient {
 	
 	
 	/**
-	 * List {@code Deployment}s.
+	 * List {@code Deployment}s for a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
+	 * @param spaceId the {@code Space} identifier ({@code uuid})
 	 * @param filter a {@code DeploymentFilter}
 	 * @param pageable a {@code Pageable} (optional)
 	 * @throws RestClientException if request fails
@@ -276,7 +277,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the any set in the Space.
 	 * 
-	 * @param id the identifier
+	 * @param id the identifier ({@code uuid})
 	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Deployment}
 	 * @throws RestClientException if request fails
@@ -294,6 +295,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
+	 * @param spaceId the {@code Space} identifier ({@code uuid})
 	 * @param deploy the {@code Deployment}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Deployment}

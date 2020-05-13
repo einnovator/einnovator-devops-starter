@@ -2,13 +2,12 @@ package org.einnovator.devops.client.model;
 
 
 public enum SolutionType {
-	APPLICATION("Application"),
-	SERVICE("Service"),
-	SUITE("Suite"),
-	DATABASE("Database"),
-	MSGBROKER("Message Broker"),
-	DEVTOOL("Dev Tool");
-	
+	SIMPLE("Simple"),
+	DEPLOYMENT("Deployment"),
+	MANIFEST("Manifest"),
+	EXTERNAL("External")
+	;
+
 	private final String displayValue;
 
 	SolutionType(String displayValue) {
@@ -18,10 +17,14 @@ public enum SolutionType {
 	public String getDisplayValue() {
 		return displayValue;
 	}
-	
+
+	public String getDisplayName() {
+		return displayValue;
+	}
+
 	public static SolutionType parse(String s) {
 		for (SolutionType e: SolutionType.class.getEnumConstants()) {
-			if (e.toString().equalsIgnoreCase(s)) {
+			if (e.toString().equalsIgnoreCase(s) || e.getDisplayName().equalsIgnoreCase(s)) {
 				return e;
 			}
 		}

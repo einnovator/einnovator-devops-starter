@@ -12,8 +12,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Deployment extends DeploymentBase {
 
-public static final String SEPARATOR = ",";
-	
 	private Integer replicas;
 
 	private String replicaSetName;

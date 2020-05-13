@@ -2,6 +2,7 @@ package org.einnovator.devops.client.model;
 
 public enum MountType {
 	VOLUME("Volume"),
+	VOLUME_TEMPLATE("VolumeTemplate"),
 	SECRET("Secret"),
 	CONFIGMAP("ConfigMap");
 	

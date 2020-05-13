@@ -10,9 +10,11 @@ import java.util.UUID;
 
 import org.einnovator.devops.client.config.DevopsClientConfig;
 import org.einnovator.devops.client.config.DevopsClientConfiguration;
+import org.einnovator.devops.client.model.Deployment;
 import org.einnovator.devops.client.model.Space;
 import org.einnovator.devops.client.modelx.SpaceFilter;
 import org.einnovator.sso.client.SsoTestHelper;
+import org.einnovator.util.PageUtil;
 import org.einnovator.util.UriUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -129,6 +131,19 @@ public class DevopsClientTests extends SsoTestHelper {
 		Space space2 = client.getSpace(id, null);
 		assertNotNull(space2);
 		assertEquals(space.getName(), space2.getName());
+	}
+	
+	@Test
+	public void listDeploymentsTest() {
+		Page<Space> spaces = client.listSpaces(null, null);
+		assertNotNull(spaces);
+		assertNotNull(spaces.getContent());
+		assertFalse(spaces.getNumberOfElements()==0);
+		assertFalse(spaces.getContent().isEmpty());
+		for (Space space: spaces) {
+			Page<Deployment> deploys = client.listDeployments(space.getUuid(), null, null);
+			System.out.println(space.getName() + " " + PageUtil.toString(deploys));			
+		}
 	}
 
 

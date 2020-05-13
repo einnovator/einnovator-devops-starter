@@ -118,7 +118,7 @@
 					</links>
 					<author>support@einnovator.org</author>
 					<doctitle>
-					<![CDATA[Client Library and Spring Boot Starter for<br/>EInnovator SSO Gateway Service<br/>${project.name} ${project.version} API]]>
+					<![CDATA[Client Library and Spring Boot Starter for<br/>EInnovator Cloud Manager Service<br/>${project.name} ${project.version} API]]>
 					</doctitle>
 					<top>
 					 <![CDATA[
