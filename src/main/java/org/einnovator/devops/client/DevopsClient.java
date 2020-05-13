@@ -10,8 +10,10 @@ import org.einnovator.devops.client.config.DevopsClientConfiguration;
 
 import org.einnovator.devops.client.config.DevopsEndpoints;
 import org.einnovator.devops.client.model.Binding;
+import org.einnovator.devops.client.model.Cluster;
 import org.einnovator.devops.client.model.Connector;
 import org.einnovator.devops.client.model.Deployment;
+import org.einnovator.devops.client.model.Job;
 import org.einnovator.devops.client.model.Repository;
 import org.einnovator.devops.client.model.Route;
 import org.einnovator.devops.client.model.Space;
@@ -39,6 +41,27 @@ import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.web.client.RestClientException;
 
 
+/**
+ * Client to the Cloud Manager service.
+ * 
+ * <p>Provide methods for all server endpoints and resource types. 
+ * <p>Including: {@link Cluster}, {@link Space}, {@link Deployment}, and {@link Job}.
+ * <p>Errors are propagated using Java runtime exceptions.
+ * <p>For caching enabled "high-level" API, see Manager classes.
+ * <p>{@code DevopsClientConfiguration} specifies configuration details, including server URL and client credentials.
+ * <p>Property {@link #getConfig()} provides the default {@code DevopsClientConfiguration} to use.
+ * <p>Internally, {@code SocialClient} uses a {@code OAuth2RestTemplate} to invoke a remote server.
+ * <p>When setup as a <b>Spring Bean</b> both {@code SocialClientConfiguration} and {@code OAuth2RestTemplate} are auto-configured.
+ * <p>Requests use a session-scoped  {@code OAuth2ClientContext} if running in a web-environment.
+ * <p>If the invoking thread does not have an associated web session, the default behavior is to fallback to use {@link #restTemplate0}.
+ * 
+ * @see org.einnovator.devops.client.manager.SpaceManager
+ * @see org.einnovator.devops.client.manager.DeploymentManager
+ * @see org.einnovator.devops.client.manager.VcsManager
+ * 
+ * @author support@einnovator.org
+ *
+ */
 public class DevopsClient {
 
 	@SuppressWarnings("unused")
@@ -106,28 +129,40 @@ public class DevopsClient {
 		this.restTemplate0 = restTemplate0;
 	}
 
+	/**
+	 * Get the value of property {@code config}.
+	 *
+	 * @return the config
+	 */
+	public DevopsClientConfiguration getConfig() {
+		return config;
+	}
+
+	/**
+	 * Set the value of property {@code config}.
+	 *
+	 * @param config the value of property config
+	 */
+	public void setConfig(DevopsClientConfiguration config) {
+		this.config = config;
+	}
+
 
 	//
 	// Spaces
 	//
 
-	public Page<Space> listSpaces(SpaceFilter filter, Pageable pageable) {
-		URI uri = makeURI(DevopsEndpoints.spaces(config));
-		uri = processURI(uri, filter, pageable);
-		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		@SuppressWarnings("rawtypes")
-		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
-		return PageUtil.create2(result.getBody(),  Space.class);
-	}
 
-	public URI createSpace(Space space, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.spaces(config));
-		uri = processURI(uri, options);		
-		RequestEntity<Space> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(space);
-		ResponseEntity<Void> result = exchange(request, Void.class, options);
-		return result.getHeaders().getLocation();	
-	}
-
+	/**
+	 * Get {@code Space} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching {@link Space#getSharing()} and {@link Space#getAuthorities()}.
+	 * 
+	 * @param id the identifier
+	 * @param options (optional) the {@code SpaceOptions} that tailor which fields are returned (projection)	
+	 * @return the {@code Space}
+	 * @throws RestClientException if request fails
+	 */
 	public Space getSpace(String id, SpaceOptions options) {
 		URI uri = makeURI(DevopsEndpoints.space(id, config));
 		uri = processURI(uri, options);
@@ -137,6 +172,56 @@ public class DevopsClient {
 		
 	}
 	
+	/**
+	 * List {@code Space}s.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching {@link Space#getSharing()} and {@link Space#getAuthorities()}.
+	 * 
+	 * @param filter a {@code SpaceFilter}
+	 * @param pageable a {@code Pageable} (optional)
+	
+	 * @throws RestClientException if request fails
+	 * @return a {@code Page} with {@code Space}s
+	 * @throws RestClientException if request fails
+	 */
+	public Page<Space> listSpaces(SpaceFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.spaces(config));
+		uri = processURI(uri, filter, pageable);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
+		return PageUtil.create2(result.getBody(),  Space.class);
+	}
+
+	/**
+	 * Create a new {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Any.
+	 * 
+	 * @param space the {@code Space}
+	 * @param options optional {@code RequestOptions}
+	
+	 * @return the location {@code URI} for the created {@code Space}
+	 * @throws RestClientException if request fails
+	 */
+	public URI createSpace(Space space, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.spaces(config));
+		uri = processURI(uri, options);		
+		RequestEntity<Space> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(space);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();	
+	}
+
+	/**
+	 * Update existing {@code Space}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param space the {@code Space}
+	 * @param options optional {@code RequestOptions}
+	
+	 * @throws RestClientException if request fails
+	 */
 	public void updateSpace(Space space, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.space(space.getUuid(), config));
 		uri = processURI(uri, options);		
@@ -144,6 +229,15 @@ public class DevopsClient {
 		exchange(request, Space.class, options);
 	}
 
+	/**
+	 * Delete existing {@code Space}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param id the {@code Space} identifier (UUID)
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
 	public void deleteSpace(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.space(id, config));
 		uri = processURI(uri, options);		
@@ -156,6 +250,17 @@ public class DevopsClient {
 	//
 	
 	
+	/**
+	 * List {@code Deployment}s.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param filter a {@code DeploymentFilter}
+	 * @param pageable a {@code Pageable} (optional)
+	 * @throws RestClientException if request fails
+	 * @return a {@code Page} with {@code Deployment}s
+	 * @throws RestClientException if request fails
+	 */
 	public Page<Deployment> listDeployments(String spaceId, DeploymentFilter filter, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.deployments(spaceId, config));
 		uri = processURI(uri, filter, pageable);
@@ -166,6 +271,34 @@ public class DevopsClient {
 		
 	}
 
+	/**
+	 * Get {@code Deployment} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the any set in the Space.
+	 * 
+	 * @param id the identifier
+	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Deployment}
+	 * @throws RestClientException if request fails
+	 */
+	public Deployment getDeployment(String id, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.deployment(id, config));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Deployment> result = exchange(request, Deployment.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Create a new {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deploy the {@code Deployment}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Deployment}
+	 * @throws RestClientException if request fails
+	 */
 	public URI createDeployment(String spaceId, Deployment deploy, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.deployments(spaceId, config));
 		uri = processURI(uri, options);		
@@ -175,15 +308,16 @@ public class DevopsClient {
 		
 	}
 
-	public Deployment getDeployment(String id, DeploymentOptions options) {
-		URI uri = makeURI(DevopsEndpoints.deployment(id, config));
-		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<Deployment> result = exchange(request, Deployment.class, options);
-		return result.getBody();
-		
-	}
 	
+	/**
+	 * Update existing {@code Deployment}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deploy the {@code Deployment}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
 	public void updateDeployment(Deployment deploy, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.deployment(deploy.getUuid(), config));
 		uri = processURI(uri, options);		
@@ -191,6 +325,15 @@ public class DevopsClient {
 		exchange(request, Deployment.class, options);
 	}
 
+	/**
+	 * Delete existing {@code Deployment}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param id the {@code Deployment} identifier (UUID)
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
 	public void deleteDeployment(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.deployment(id, config));
 		uri = processURI(uri, options);
@@ -404,9 +547,10 @@ public class DevopsClient {
 	 * Get the {@code OAuth2RestTemplate} to use to perform a request.
 	 * 
 	 * Return the configured {@code OAuth2RestTemplate} in property {@link #restTemplate}.
-	 * If property {@link web} is true, check if current thread is bound to a web request with a session-scope. If not, fallback
-	 * to client credential {@code OAuth2RestTemplate} in property {@link #restTemplate0} or create one if needed.
+	 * Check if current thread is bound to a web request with a session-scope. If not, fallback
+	 * to client credential {@code OAuth2RestTemplate} in property {@link #restTemplate0}.
 	 * 
+	 * @param options the {@code RequestOptions}
 	 * @return the {@code OAuth2RestTemplate}
 	 */
 	protected OAuth2RestTemplate getRequiredRestTemplate(RequestOptions options) {

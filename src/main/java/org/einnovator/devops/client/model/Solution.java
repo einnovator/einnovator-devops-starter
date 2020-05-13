@@ -1,6 +1,5 @@
 package org.einnovator.devops.client.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.einnovator.util.model.ToStringCreator;
@@ -94,72 +93,6 @@ public class Solution extends ProtectedEntity {
 		this.plans = plans;
 	}
 
-	public void addPlan(Plan plan) {
-		if (plans==null) {
-			plans = new ArrayList<Plan>();
-		}
-		plans.add(plan);
-	}
-
-	public Plan removePlan(int index) {
-		if (plans==null || index <0 || index>= plans.size()) {
-			return null;
-		}
-		return plans.remove(index);
-	}
-
-	public Plan getPlan(int index) {
-		if (plans==null || index <0 || index>= plans.size()) {
-			return null;
-		}
-		return plans.get(index);
-	}
-
-	public Plan findPlan(Plan plan) {
-		if (plan!=null && plans!=null) {
-			for (Plan plan2: plans) {
-				if ((plan2.getId()!=null && plan2.getId().equals(plan.getId())) || (plan2.getUuid()!=null && plan2.getUuid().equals(plan.getUuid()))) {
-					return plan;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Plan findPlan(String id) {
-		if (id!=null && plans!=null) {
-			for (Plan plan: plans) {
-				if (id.equals(plan.getUuid()) || id.equals(plan.getKey())) {
-					return plan;
-				}
-			}
-		}
-		return null;
-	}
-	
-	public Plan findPlanByKey(String key) {
-		if (key!=null && plans!=null) {
-			for (Plan plan: plans) {
-				if (key.equals(plan.getKey())) {
-					return plan;
-				}
-			}
-		}
-		return null;		
-	}
-
-	public Plan removePlan(Plan plan) {
-		if (plan!=null && plans!=null) {
-			for (int i=0; i<plans.size(); i++) {
-				Plan plan2 = plans.get(i);
-				if ((plan2.getId()!=null && plan2.getId().equals(plan.getId())) || (plan2.getUuid()!=null && plan2.getUuid().equals(plan.getUuid()))) {
-					return plans.remove(i);
-				}
-			}
-		}
-		return null;
-	}
-
 
 	/**
 	 * Get the value of property {@code images}.
@@ -178,62 +111,6 @@ public class Solution extends ProtectedEntity {
 	 */
 	public void setImages(List<Image> images) {
 		this.images = images;
-	}
-
-
-	public void addImage(Image image) {
-		if (images==null) {
-			images = new ArrayList<Image>();
-		}
-		images.add(image);
-	}
-
-	public Image removeImage(int index) {
-		if (images==null || index <0 || index>= images.size()) {
-			return null;
-		}
-		return images.remove(index);
-	}
-
-	public Image getImage(int index) {
-		if (images==null || index <0 || index>= images.size()) {
-			return null;
-		}
-		return images.get(index);
-	}
-
-	public Image findImage(Image image) {
-		if (image!=null && images!=null) {
-			for (Image image2: images) {
-				if ((image2.getId()!=null && image2.getId().equals(image.getId())) || (image2.getUuid()!=null && image2.getUuid().equals(image.getUuid()))) {
-					return image;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Image findImage(String id) {
-		if (id!=null && images!=null) {
-			for (Image image: images) {
-				if (id.equals(image.getUuid())) {
-					return image;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Image removeImage(Image image) {
-		if (image!=null && images!=null) {
-			for (int i=0; i<images.size(); i++) {
-				Image image2 = images.get(i);
-				if ((image2.getId()!=null && image2.getId().equals(image.getId())) || (image2.getUuid()!=null && image2.getUuid().equals(image.getUuid()))) {
-					return images.remove(i);
-				}
-			}
-		}
-		return null;
 	}
 
 
@@ -591,22 +468,5 @@ public class Solution extends ProtectedEntity {
 				;
 	}
 	
-
-	public Image getLatestImage() {
-		if (images==null || images.isEmpty()) {
-			return null;
-		}
-		for (Image image: images) {
-			if (image.getKey()!=null) {
-				if (image.getKey().contains(":latest")) {
-					return image;
-				}				
-			}
-		}
-		return images.get(0);
-	}
-
-
-
 
 }

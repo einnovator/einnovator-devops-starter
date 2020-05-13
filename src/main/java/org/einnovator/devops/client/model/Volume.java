@@ -48,7 +48,6 @@ public class Volume extends OwnedEntity {
 	public Volume() {
 	}
 
-	
 	/**
 	 * Get the value of property {@code size}.
 	 *
@@ -58,17 +57,15 @@ public class Volume extends OwnedEntity {
 		return size;
 	}
 
-
 	/**
 	 * Set the value of property {@code size}.
 	 *
-	 * @param size the size to set
+	 * @param size the value of property size
 	 */
 	public void setSize(String size) {
 		this.size = size;
 	}
 
-	
 	/**
 	 * Get the value of property {@code mode}.
 	 *
@@ -78,16 +75,14 @@ public class Volume extends OwnedEntity {
 		return mode;
 	}
 
-
 	/**
 	 * Set the value of property {@code mode}.
 	 *
-	 * @param mode the mode to set
+	 * @param mode the value of property mode
 	 */
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
-
 
 	/**
 	 * Get the value of property {@code storageClass}.
@@ -98,137 +93,13 @@ public class Volume extends OwnedEntity {
 		return storageClass;
 	}
 
-
 	/**
 	 * Set the value of property {@code storageClass}.
 	 *
-	 * @param storageClass the storageClass to set
+	 * @param storageClass the value of property storageClass
 	 */
 	public void setStorageClass(String storageClass) {
 		this.storageClass = storageClass;
-	}
-
-
-	/**
-	 * Get the value of property {@code path}.
-	 *
-	 * @return the path
-	 */
-	public String getPath() {
-		return path;
-	}
-
-
-	/**
-	 * Set the value of property {@code path}.
-	 *
-	 * @param path the path to set
-	 */
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-
-	/**
-	 * Get the value of property {@code reclaimType}.
-	 *
-	 * @return the reclaimType
-	 */
-	public ReclaimType getReclaimType() {
-		return reclaimType;
-	}
-
-
-	/**
-	 * Set the value of property {@code reclaimType}.
-	 *
-	 * @param reclaimType the reclaimType to set
-	 */
-	public void setReclaimType(ReclaimType reclaimType) {
-		this.reclaimType = reclaimType;
-	}
-
-
-	/**
-	 * Get the value of property {@code node}.
-	 *
-	 * @return the node
-	 */
-	public String getNode() {
-		return node;
-	}
-
-
-	/**
-	 * Set the value of property {@code node}.
-	 *
-	 * @param node the node to set
-	 */
-	public void setNode(String node) {
-		this.node = node;
-	}
-
-
-	//yml config hack
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
-	}
-
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
-
-	public String getThumbnail() {
-		return thumbnail;
-	}
-
-	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-
-	/**
-	 * Get the value of property {@code namespace}.
-	 *
-	 * @return the namespace
-	 */
-	public String getNamespace() {
-		return namespace;
-	}
-
-
-	/**
-	 * Set the value of property {@code namespace}.
-	 *
-	 * @param namespace the namespace to set
-	 */
-	public void setNamespace(String namespace) {
-		this.namespace = namespace;
 	}
 
 	/**
@@ -240,16 +111,86 @@ public class Volume extends OwnedEntity {
 		return fs;
 	}
 
-
 	/**
 	 * Set the value of property {@code fs}.
 	 *
-	 * @param fs the fs to set
+	 * @param fs the value of property fs
 	 */
 	public void setFs(String fs) {
 		this.fs = fs;
 	}
 
+	/**
+	 * Get the value of property {@code path}.
+	 *
+	 * @return the path
+	 */
+	public String getPath() {
+		return path;
+	}
+
+	/**
+	 * Set the value of property {@code path}.
+	 *
+	 * @param path the value of property path
+	 */
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	/**
+	 * Get the value of property {@code reclaimType}.
+	 *
+	 * @return the reclaimType
+	 */
+	public ReclaimType getReclaimType() {
+		return reclaimType;
+	}
+
+	/**
+	 * Set the value of property {@code reclaimType}.
+	 *
+	 * @param reclaimType the value of property reclaimType
+	 */
+	public void setReclaimType(ReclaimType reclaimType) {
+		this.reclaimType = reclaimType;
+	}
+
+	/**
+	 * Get the value of property {@code node}.
+	 *
+	 * @return the node
+	 */
+	public String getNode() {
+		return node;
+	}
+
+	/**
+	 * Set the value of property {@code node}.
+	 *
+	 * @param node the value of property node
+	 */
+	public void setNode(String node) {
+		this.node = node;
+	}
+
+	/**
+	 * Get the value of property {@code namespace}.
+	 *
+	 * @return the namespace
+	 */
+	public String getNamespace() {
+		return namespace;
+	}
+
+	/**
+	 * Set the value of property {@code namespace}.
+	 *
+	 * @param namespace the value of property namespace
+	 */
+	public void setNamespace(String namespace) {
+		this.namespace = namespace;
+	}
 
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {

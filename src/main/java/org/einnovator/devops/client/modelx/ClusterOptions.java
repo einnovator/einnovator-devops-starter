@@ -9,17 +9,11 @@ import org.einnovator.util.model.ToStringCreator;
  *
  * @see Cluster
  * @author support@einnovator.org
+ *
  */
 public class ClusterOptions extends EntityOptions<Cluster> {
-	
-	//
-	// Constructors
-	//
 
-	/**
-	 * Create instance of {@code ClusterOptions}.
-	 *
-	 */
+
 	public ClusterOptions() {
 	}
 

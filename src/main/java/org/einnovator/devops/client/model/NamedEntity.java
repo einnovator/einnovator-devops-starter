@@ -3,7 +3,6 @@ package org.einnovator.devops.client.model;
 import org.einnovator.util.model.EntityBase;
 import org.einnovator.util.model.ToStringCreator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -13,7 +12,7 @@ public abstract class NamedEntity extends EntityBase {
 
 	protected String name;
 
-	protected String key;
+	protected String displayName;
 
 	protected String description;
 
@@ -59,30 +58,48 @@ public abstract class NamedEntity extends EntityBase {
 	/**
 	 * Set the value of property {@code name}.
 	 *
-	 * @param name the name to set
+	 * @param name the value of property name
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 
 	/**
-	 * Get the value of property {@code key}.
+	 * Get the value of property {@code displayName}.
 	 *
-	 * @return the key
+	 * @return the displayName
 	 */
-	public String getKey() {
-		return key;
+	public String getDisplayName() {
+		return displayName;
 	}
 
 	/**
-	 * Set the value of property {@code key}.
+	 * Set the value of property {@code displayName}.
 	 *
-	 * @param key the key to set
+	 * @param displayName the value of property displayName
 	 */
-	public void setKey(String key) {
-		this.key = key;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
+
+	/**
+	 * Get the value of property {@code description}.
+	 *
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * Set the value of property {@code description}.
+	 *
+	 * @param description the value of property description
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 
 	/**
 	 * Get the value of property {@code img}.
@@ -96,7 +113,7 @@ public abstract class NamedEntity extends EntityBase {
 	/**
 	 * Set the value of property {@code img}.
 	 *
-	 * @param img the img to set
+	 * @param img the value of property img
 	 */
 	public void setImg(String img) {
 		this.img = img;
@@ -114,39 +131,79 @@ public abstract class NamedEntity extends EntityBase {
 	/**
 	 * Set the value of property {@code thumbnail}.
 	 *
-	 * @param thumbnail the thumbnail to set
+	 * @param thumbnail the value of property thumbnail
 	 */
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
 
+	//
+	// With
+	//
+	
+
 	/**
-	 * Get the value of property {@code description}.
+	 * Set the value of property {@code name}.
 	 *
-	 * @return the description
+	 * @param name the value of property name
+	 * @return this {@code NamedEntity}
 	 */
-	public String getDescription() {
-		return description;
+	public NamedEntity withName(String name) {
+		this.name = name;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code displayName}.
+	 *
+	 * @param displayName the value of property displayName
+	 * @return this {@code NamedEntity}
+	 */
+	public NamedEntity withDisplayName(String displayName) {
+		this.displayName = displayName;
+		return this;
 	}
 
 	/**
 	 * Set the value of property {@code description}.
 	 *
-	 * @param description the description to set
+	 * @param description the value of property description
+	 * @return this {@code NamedEntity}
 	 */
-	public void setDescription(String description) {
+	public NamedEntity withDescription(String description) {
 		this.description = description;
+		return this;
 	}
 
+	/**
+	 * Set the value of property {@code img}.
+	 *
+	 * @param img the value of property img
+	 * @return this {@code NamedEntity}
+	 */
+	public NamedEntity withImg(String img) {
+		this.img = img;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code thumbnail}.
+	 *
+	 * @param thumbnail the value of property thumbnail
+	 * @return this {@code NamedEntity}
+	 */
+	public NamedEntity withThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+		return this;
+	}
 
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
-				.append("key", key)
+				.append("displayName", displayName)
 				.append("name", name)
 				;
 	}
-
 	@Override
 	public ToStringCreator toString2(ToStringCreator creator) {
 		return super.toString2(creator
@@ -156,22 +213,4 @@ public abstract class NamedEntity extends EntityBase {
 				);
 	}
 
-
-
-	@JsonIgnore
-	public String getRequiredKey() {
-		return key!=null ? key : normalize(name);
-	}
-
-
-	public static String normalize(String s) {
-		if (s==null) {
-			return null;
-		}
-		s = s.trim();
-		s = s.replaceAll(" +", " ");
-		s = s.toLowerCase();
-		s = s.replace(' ', '-');
-		return s;
-	}
 }

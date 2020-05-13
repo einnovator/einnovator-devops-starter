@@ -1,8 +1,9 @@
 package org.einnovator.devops.client.modelx;
 
+import java.util.List;
 
 import org.einnovator.devops.client.model.Solution;
-import org.einnovator.devops.client.model.SolutionType;
+import org.einnovator.devops.client.model.SolutionCategory;
 import org.einnovator.util.model.ToStringCreator;
 
 /**
@@ -10,21 +11,24 @@ import org.einnovator.util.model.ToStringCreator;
  *
  * @see Solution
  * @author support@einnovator.org
- *
  */
 public class SolutionFilter extends SolutionOptions {
-	
+
 	private String q;
-
-	private SolutionType type;
-
-	private String owner;
+	
+	private SolutionCategory category;
 
 	private String group;
 	
+	private List<String> groups;
+
 	private Boolean popular;
 	
 	private Boolean featured;
+
+	private Boolean enabled;
+
+	private Boolean license;
 
 	//
 	// Constructors
@@ -44,7 +48,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Get the value of property {@code q}.
 	 *
-	 * @return the value of q
+	 * @return the q
 	 */
 	public String getQ() {
 		return q;
@@ -53,28 +57,28 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the value of property q
+	 * @param q the q to set
 	 */
 	public void setQ(String q) {
 		this.q = q;
 	}
 
 	/**
-	 * Get the value of property {@code owner}.
+	 * Get the value of property {@code category}.
 	 *
-	 * @return the owner
+	 * @return the category
 	 */
-	public String getOwner() {
-		return owner;
+	public SolutionCategory getCategory() {
+		return category;
 	}
 
 	/**
-	 * Set the value of property {@code owner}.
+	 * Set the value of property {@code category}.
 	 *
-	 * @param owner the value of property owner
+	 * @param category the category to set
 	 */
-	public void setOwner(String owner) {
-		this.owner = owner;
+	public void setCategory(SolutionCategory category) {
+		this.category = category;
 	}
 
 	/**
@@ -89,29 +93,30 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code group}.
 	 *
-	 * @param group the value of property group
+	 * @param group the group to set
 	 */
 	public void setGroup(String group) {
 		this.group = group;
 	}
 
 	/**
-	 * Get the value of property {@code type}.
+	 * Get the value of property {@code groups}.
 	 *
-	 * @return the type
+	 * @return the groups
 	 */
-	public SolutionType getType() {
-		return type;
+	public List<String> getGroups() {
+		return groups;
 	}
 
 	/**
-	 * Set the value of property {@code type}.
+	 * Set the value of property {@code groups}.
 	 *
-	 * @param type the value of property type
+	 * @param groups the groups to set
 	 */
-	public void setType(SolutionType type) {
-		this.type = type;
+	public void setGroups(List<String> groups) {
+		this.groups = groups;
 	}
+	
 
 	/**
 	 * Get the value of property {@code popular}.
@@ -125,7 +130,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code popular}.
 	 *
-	 * @param popular the value of property popular
+	 * @param popular the popular to set
 	 */
 	public void setPopular(Boolean popular) {
 		this.popular = popular;
@@ -143,20 +148,56 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code featured}.
 	 *
-	 * @param featured the value of property featured
+	 * @param featured the featured to set
 	 */
 	public void setFeatured(Boolean featured) {
 		this.featured = featured;
 	}
-	
+
+	/**
+	 * Get the value of property {@code enabled}.
+	 *
+	 * @return the enabled
+	 */
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	/**
+	 * Set the value of property {@code enabled}.
+	 *
+	 * @param enabled the value of property enabled
+	 */
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	/**
+	 * Get the value of property {@code license}.
+	 *
+	 * @return the license
+	 */
+	public Boolean getLicense() {
+		return license;
+	}
+
+	/**
+	 * Set the value of property {@code license}.
+	 *
+	 * @param license the value of property license
+	 */
+	public void setLicense(Boolean license) {
+		this.license = license;
+	}
+
 	//
 	// With
 	//
-
+	
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the value of property q
+	 * @param q the q to set
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withQ(String q) {
@@ -165,33 +206,43 @@ public class SolutionFilter extends SolutionOptions {
 	}
 
 	/**
-	 * Set the value of property {@code owner}.
+	 * Set the value of property {@code category}.
 	 *
-	 * @param owner the value of property owner
+	 * @param category the category to set
 	 * @return this {@code SolutionFilter}
 	 */
-	public SolutionFilter withOwner(String owner) {
-		this.owner = owner;
-		return this;		
+	public SolutionFilter withCategory(SolutionCategory category) {
+		this.category = category;
+		return this;
 	}
-	
+
 	/**
 	 * Set the value of property {@code group}.
 	 *
-	 * @param group the value of property group
+	 * @param group the group to set
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withGroup(String group) {
 		this.group = group;
-		return this;		
-
+		return this;
 	}
 
+	/**
+	 * Set the value of property {@code groups}.
+	 *
+	 * @param groups the groups to set
+	 * @return this {@code SolutionFilter}
+	 */
+	public SolutionFilter withGroups(List<String> groups) {
+		this.groups = groups;
+		return this;
+	}
+	
 
 	/**
 	 * Set the value of property {@code popular}.
 	 *
-	 * @param popular the popular to with
+	 * @param popular the popular to set
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withPopular(Boolean popular) {
@@ -202,7 +253,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code featured}.
 	 *
-	 * @param featured the featured to with
+	 * @param featured the featured to set
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withFeatured(Boolean featured) {
@@ -210,15 +261,40 @@ public class SolutionFilter extends SolutionOptions {
 		return this;
 	}
 
+	/**
+	 * Set the value of property {@code enabled}.
+	 *
+	 * @param enabled the featured to set
+	 * @return this {@code SolutionFilter}
+	 */
+	public SolutionFilter withEnabled(Boolean enabled) {
+		this.enabled = enabled;
+		return this;
+	}
+
+
+	/**
+	 * Set the value of property {@code license}.
+	 *
+	 * @param license the featured to set
+	 * @return this {@code SolutionFilter}
+	 */
+	public SolutionFilter withLicense(Boolean license) {
+		this.license = license;
+		return this;
+	}
+	
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return creator
 			.append("q", q)
-			.append("type", type)
+			.append("category", category)
 			.append("group", group)
-			.append("owner", owner)
+			.append("groups", groups)
 			.append("popular", popular)
 			.append("featured", featured)
+			.append("enabled", enabled)
+			.append("license", license)
 			;
 	}
 	

@@ -2,9 +2,7 @@ package org.einnovator.devops.client.model;
 
 import org.einnovator.util.model.EntityBase;
 import org.einnovator.util.model.ToStringCreator;
-import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 

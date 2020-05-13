@@ -2,9 +2,10 @@ package org.einnovator.devops.client.modelx;
 
 import org.einnovator.devops.client.model.Deployment;
 import org.einnovator.devops.client.model.DeploymentStatus;
-import org.einnovator.devops.client.model.SolutionType;
+import org.einnovator.devops.client.model.DeploymentKind;
+import org.einnovator.devops.client.model.SolutionCategory;
+import org.einnovator.devops.client.modelx.DeploymentFilter;
 import org.einnovator.util.model.ToStringCreator;
-import org.springframework.util.StringUtils;
 
 /**
  * A filter for {@code Deployment}s.
@@ -17,10 +18,11 @@ public class DeploymentFilter extends DeploymentOptions {
 	
 	private String q;
 	
-	private SolutionType type;
+	private SolutionCategory category;
 
 	private DeploymentStatus status;
 	
+	private DeploymentKind kind;
 	
 	//
 	// Constructors
@@ -36,73 +38,90 @@ public class DeploymentFilter extends DeploymentOptions {
 	//
 	// Getters/Setters
 	//
-	
+
 	/**
 	 * Get the value of property {@code q}.
 	 *
-	 * @return the value of q
+	 * @return the q
 	 */
 	public String getQ() {
 		return q;
 	}
 
-
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the value of q 
+	 * @param q the value of property q
 	 */
 	public void setQ(String q) {
 		this.q = q;
 	}
+
 	/**
-	 * Get the value of property {@code type}.
+	 * Get the value of property {@code category}.
 	 *
-	 * @return the value of type
+	 * @return the category
 	 */
-	public SolutionType getType() {
-		return type;
+	public SolutionCategory getCategory() {
+		return category;
 	}
 
 
 	/**
-	 * Set the value of property {@code type}.
+	 * Set the value of property {@code category}.
 	 *
-	 * @param type the value of type 
+	 * @param category the value of property category
 	 */
-	public void setType(SolutionType type) {
-		this.type = type;
+	public void setCategory(SolutionCategory category) {
+		this.category = category;
 	}
-
 
 	/**
 	 * Get the value of property {@code status}.
 	 *
-	 * @return the value of status
+	 * @return the status
 	 */
 	public DeploymentStatus getStatus() {
 		return status;
 	}
 
+
 	/**
 	 * Set the value of property {@code status}.
 	 *
-	 * @param status the value of status 
+	 * @param status the value of property status
 	 */
 	public void setStatus(DeploymentStatus status) {
 		this.status = status;
 	}
-	
-	
+
+	/**
+	 * Get the value of property {@code kind}.
+	 *
+	 * @return the kind
+	 */
+	public DeploymentKind getKind() {
+		return kind;
+	}
+
+	/**
+	 * Set the value of property {@code kind}.
+	 *
+	 * @param kind the value of property kind
+	 */
+	public void setKind(DeploymentKind kind) {
+		this.kind = kind;
+	}
+
+
 	//
 	// With
 	//
 	
-
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the value of q
+	 * @param q the value of property q
 	 * @return this {@code DeploymentFilter}
 	 */
 	public DeploymentFilter withQ(String q) {
@@ -111,20 +130,21 @@ public class DeploymentFilter extends DeploymentOptions {
 	}
 
 	/**
-	 * Set the value of property {@code type}.
+	 * Set the value of property {@code category}.
 	 *
-	 * @param type the value of type
+	 * @param category the value of property category
 	 * @return this {@code DeploymentFilter}
 	 */
-	public DeploymentFilter withType(SolutionType type) {
-		this.type = type;
+	public DeploymentFilter withCategory(SolutionCategory category) {
+		this.category = category;
 		return this;
 	}
+
 
 	/**
 	 * Set the value of property {@code status}.
 	 *
-	 * @param status the value of status
+	 * @param status the value of property status
 	 * @return this {@code DeploymentFilter}
 	 */
 	public DeploymentFilter withStatus(DeploymentStatus status) {
@@ -133,35 +153,26 @@ public class DeploymentFilter extends DeploymentOptions {
 	}
 
 
+	/**
+	 * Set the value of property {@code kind}.
+	 *
+	 * @param kind the value of property kind
+	 * @return this {@code DeploymentFilter}
+	 */
+	public DeploymentFilter withKind(DeploymentKind kind) {
+		this.kind = kind;
+		return this;
+	}
+
+	
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return creator
 			.append("q", q)
-			.append("type", type)
-			.append("status", status);
-
+			.append("category", category)
+			.append("status", status)
+			.append("kind", kind)
+			;
 	}
 
-	/**
-	 * Inmemory check if this {@code DeploymentFilter} matches a {@code Deployment}
-	 * 
-	 * @param deploy the value of {@code Deployment}
-	 * @return true, if match
-	 */
-	public boolean check(Deployment deploy) {
-		if (deploy==null) {
-			return false;
-		}
-		if (status!=null && status!=deploy.getStatus()) {
-			return false;
-		}
-		if (type!=null && (deploy.getSolution()==null || type!=deploy.getSolution().getType())) {
-			return false;
-		}
-		if (StringUtils.hasText(q) && (deploy.getName()==null || !deploy.getName().contains(q))) {
-			return false;
-		}
-		return true;
-	}
-	
 }

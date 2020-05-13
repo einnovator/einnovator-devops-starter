@@ -7,14 +7,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Node extends NamedEntity {
+public class Node extends AnnotatedEntity {
 
 	private String ip;
 
 	private Resources resources;
 	
 	
-	protected Node() {
+	public Node() {
 	}
 
 	/**

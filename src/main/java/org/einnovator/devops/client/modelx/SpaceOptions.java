@@ -7,7 +7,7 @@ import org.einnovator.util.model.ToStringCreator;
 /**
  * Options to retrieve {@code Space}s.
  *
- * @see Project
+ * @see Space
  * @author support@einnovator.org
  *
  */

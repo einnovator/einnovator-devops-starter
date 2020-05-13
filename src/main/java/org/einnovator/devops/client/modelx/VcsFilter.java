@@ -2,8 +2,16 @@ package org.einnovator.devops.client.modelx;
 
 import java.util.List;
 
+import org.einnovator.devops.client.model.Vcs;
 import org.einnovator.util.model.ToStringCreator;
 
+/**
+ * A filter for {@code Vcs}s.
+ *
+ * @see Vcs
+ * @author support@einnovator.org
+ *
+ */
 public class VcsFilter extends VcsOptions {
 	
 	private String q;

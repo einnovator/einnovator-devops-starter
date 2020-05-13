@@ -20,6 +20,9 @@ public enum DeploymentStatus {
 		return displayValue;
 	}
 	
+	public String getDisplayName() {
+		return displayValue;
+	}
 	public static DeploymentStatus parse(String s) {
 		for (DeploymentStatus e: DeploymentStatus.class.getEnumConstants()) {
 			if (e.toString().equalsIgnoreCase(s)) {
@@ -34,17 +37,22 @@ public enum DeploymentStatus {
 		return value!=null ? value: defaultValue;
 	}
 
-	/**
-	 * @return
-	 */
 	public boolean isActive() {
 		switch (this) {
 		case RUNNING: case STARTING:
 			return true;
 		default:
-			break;		
+			return false;
 		}
-		return false;
+	}
+
+	public boolean isStopped() {
+		switch (this) {
+		case STOPPED: case CREATED:
+			return true;
+		default:
+			return false;
+		}
 	}
 
 }

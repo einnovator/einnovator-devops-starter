@@ -11,7 +11,6 @@ import java.util.UUID;
 import org.einnovator.devops.client.config.DevopsClientConfig;
 import org.einnovator.devops.client.config.DevopsClientConfiguration;
 import org.einnovator.devops.client.model.Space;
-import org.einnovator.devops.client.model.SpaceBuilder;
 import org.einnovator.devops.client.modelx.SpaceFilter;
 import org.einnovator.sso.client.SsoTestHelper;
 import org.einnovator.util.UriUtils;
@@ -113,7 +112,7 @@ public class DevopsClientTests extends SsoTestHelper {
 		if (!page.getContent().isEmpty()) {
 			return page.getContent().get(0);
 		}
-		Space space = new SpaceBuilder().withName(name).build();
+		Space space = (Space) new Space().withName(name);
 		URI uri = client.createSpace(space, null);
 		assertNotNull(uri);
 		String id = UriUtils.extractId(uri);
@@ -124,7 +123,7 @@ public class DevopsClientTests extends SsoTestHelper {
 	
 	@Test
 	public void createSpaceTest() {
-		Space space = new SpaceBuilder().withName("test-" + UUID.randomUUID()).build();
+		Space space = (Space) new Space().withName("test-" + UUID.randomUUID());
 		URI uri = client.createSpace(space, null);
 		String id = UriUtils.extractId(uri);
 		Space space2 = client.getSpace(id, null);

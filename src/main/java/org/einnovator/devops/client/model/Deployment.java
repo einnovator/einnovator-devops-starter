@@ -2,7 +2,6 @@ package org.einnovator.devops.client.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.einnovator.util.model.ToStringCreator;
 
@@ -11,275 +10,56 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Deployment extends NamedEntity {
+public class Deployment extends DeploymentBase {
 
-	protected SolutionType type;
-
-	protected DeploymentStatus status;
-
-	protected Boolean stateful;
-
-	protected Stack stack;
+public static final String SEPARATOR = ",";
 	
-	protected Integer replicas;
+	private Integer replicas;
 
-	protected Integer desiredReplicas;
+	private String replicaSetName;
+	
+	private Integer desiredReplicas;
 
-	protected Integer readyReplicas;
+	private Integer readyReplicas;
 
-	protected Integer availableReplicas;
+	private Integer availableReplicas;
 
-	protected Integer unavailableReplicas;
+	private Integer unavailableReplicas;
 
-	protected Integer updatedReplicas;
+	private Integer updatedReplicas;
 
-	protected Endpoint endpoints;
+	private Boolean binds;
 
-	protected Resources resources;
+	private String serviceName;
 
-	protected Plan plan;
+	private ServiceType serviceType;
 
-	protected Plan subplan;
+	private String ingress;
 
-	protected Solution solution;
+	private Boolean autoConnectors;
 
-	protected Manager manager;
+	private Integer revisionHistoryLimit;
+	
+	private Integer minReadySeconds;
+	
+	private Integer progressDeadlineSeconds;
 
-	protected List<Route> routes;
+	private Strategy strategy;
 
-	protected List<Binding> bindings;
+	private Boolean sandbox;
 
+	
 	protected List<Connector> connectors;
 	
-	private List<Mount> mounts;
+	protected List<Route> routes;
 	
-	private List<Repository> repositories;
+	protected List<Port> ports;
 
-	protected Boolean binds;
-		
-	protected Image image;
-
-	protected List<Event> events;
-
-	protected String serviceKey;
-
-	protected String ingress;
-
-	protected Boolean sandbox;
-
-	protected Ports ports;
-	
-	protected String clusterIp;
-	
-	protected List<Instance> instances;
-	
-	protected Environment env;
-	
-	protected Map<String, String> envVars;
-	
-	
-	protected Map<String, Object> meta;
-
-	protected Map<String, Object> svcmeta;
-
-	protected Bill bill;
-
-	protected String livenessProbe;
-
-	protected String readinessProbe;
-
-	protected List<Label> labels;
-	
-	protected String manifest;
-	
 	public Deployment() {
 	}
-	
-	public Deployment(Deployment deploy) {
-		super(deploy);
-	}
 
-
-	/**
-	 * Get the value of property {@code type}.
-	 *
-	 * @return the type
-	 */
-	public SolutionType getType() {
-		return type;
-	}
-
-
-	/**
-	 * Set the value of property {@code type}.
-	 *
-	 * @param type the type to set
-	 */
-	public void setType(SolutionType type) {
-		this.type = type;
-	}
-
-
-	/**
-	 * Get the value of property {@code status}.
-	 *
-	 * @return the status
-	 */
-	public DeploymentStatus getStatus() {
-		return status;
-	}
-
-
-	/**
-	 * Set the value of property {@code status}.
-	 *
-	 * @param status the status to set
-	 */
-	public void setStatus(DeploymentStatus status) {
-		this.status = status;
-	}
-	
-	
-	/**
-	 * Get the value of property {@code clusterIp}.
-	 *
-	 * @return the clusterIp
-	 */
-	public String getClusterIp() {
-		return clusterIp;
-	}
-
-
-	/**
-	 * Set the value of property {@code clusterIp}.
-	 *
-	 * @param clusterIp the clusterIp to set
-	 */
-	public void setClusterIp(String clusterIp) {
-		this.clusterIp = clusterIp;
-	}
-
-
-	/**
-	 * Get the value of property {@code endpoints}.
-	 *
-	 * @return the endpoints
-	 */
-	public Endpoint getEndpoints() {
-		return endpoints;
-	}
-
-
-	/**
-	 * Set the value of property {@code endpoints}.
-	 *
-	 * @param endpoints the endpoints to set
-	 */
-	public void setEndpoints(Endpoint endpoints) {
-		this.endpoints = endpoints;
-	}
-
-
-	/**
-	 * Get the value of property {@code image}.
-	 *
-	 * @return the image
-	 */
-	public Image getImage() {
-		return image;
-	}
-
-
-	/**
-	 * Set the value of property {@code image}.
-	 *
-	 * @param image the image to set
-	 */
-	public void setImage(Image image) {
-		this.image = image;
-	}
-
-
-	/**
-	 * Get the value of property {@code events}.
-	 *
-	 * @return the events
-	 */
-	public List<Event> getEvents() {
-		return events;
-	}
-
-
-	/**
-	 * Set the value of property {@code events}.
-	 *
-	 * @param events the events to set
-	 */
-	public void setEvents(List<Event> events) {
-		this.events = events;
-	}
-
-	public void addEvent(Event event) {
-		if (this.events==null) {
-			this.events = new ArrayList<>();
-		}
-		this.events.add(event);
-	}
-
-	/**
-	 * Get the value of property {@code solution}.
-	 *
-	 * @return the solution
-	 */
-	public Solution getSolution() {
-		return solution;
-	}
-
-	/**
-	 * Set the value of property {@code solution}.
-	 *
-	 * @param solution the solution to set
-	 */
-	public void setSolution(Solution solution) {
-		this.solution = solution;
-	}
-
-
-	/**
-	 * Get the value of property {@code plan}.
-	 *
-	 * @return the plan
-	 */
-	public Plan getPlan() {
-		return plan;
-	}
-
-	/**
-	 * Set the value of property {@code plan}.
-	 *
-	 * @param plan the plan to set
-	 */
-	public void setPlan(Plan plan) {
-		this.plan = plan;
-	}
-	
-	/**
-	 * Get the value of property {@code resources}.
-	 *
-	 * @return the resources
-	 */
-	public Resources getResources() {
-		return resources;
-	}
-
-
-	/**
-	 * Set the value of property {@code resources}.
-	 *
-	 * @param resources the resources to set
-	 */
-	public void setResources(Resources resources) {
-		this.resources = resources;
+	public Deployment(Object obj) {
+		super(obj);
 	}
 
 	/**
@@ -291,7 +71,6 @@ public class Deployment extends NamedEntity {
 		return sandbox;
 	}
 
-
 	/**
 	 * Set the value of property {@code sandbox}.
 	 *
@@ -301,44 +80,23 @@ public class Deployment extends NamedEntity {
 		this.sandbox = sandbox;
 	}
 
-
 	/**
-	 * Get the value of property {@code ports}.
+	 * Get the value of property {@code replicaSetName}.
 	 *
-	 * @return the ports
+	 * @return the replicaSetName
 	 */
-	public Ports getPorts() {
-		return ports;
+	public String getReplicaSetName() {
+		return replicaSetName;
 	}
 
 	/**
-	 * Set the value of property {@code ports}.
+	 * Set the value of property {@code replicaSetName}.
 	 *
-	 * @param ports the ports to set
+	 * @param replicaSetName the value of property replicaSetName
 	 */
-	public void setPorts(Ports ports) {
-		this.ports = ports;
+	public void setReplicaSetName(String replicaSetName) {
+		this.replicaSetName = replicaSetName;
 	}
-
-	
-	/**
-	 * Get the value of property {@code instances}.
-	 *
-	 * @return the instances
-	 */
-	public List<Instance> getInstances() {
-		return instances;
-	}
-
-	/**
-	 * Set the value of property {@code instances}.
-	 *
-	 * @param instances the instances to set
-	 */
-	public void setInstances(List<Instance> instances) {
-		this.instances = instances;
-	}
-	
 
 	/**
 	 * Get the value of property {@code replicas}.
@@ -358,7 +116,6 @@ public class Deployment extends NamedEntity {
 		this.replicas = replicas;
 	}
 
-
 	/**
 	 * Get the value of property {@code desiredReplicas}.
 	 *
@@ -376,7 +133,6 @@ public class Deployment extends NamedEntity {
 	public void setDesiredReplicas(Integer desiredReplicas) {
 		this.desiredReplicas = desiredReplicas;
 	}
-
 
 	/**
 	 * Get the value of property {@code readyReplicas}.
@@ -449,197 +205,6 @@ public class Deployment extends NamedEntity {
 	public void setUpdatedReplicas(Integer updatedReplicas) {
 		this.updatedReplicas = updatedReplicas;
 	}
-	
-	/**
-	 * Get the value of property {@code routes}.
-	 *
-	 * @return the routes
-	 */
-	public List<Route> getRoutes() {
-		return routes;
-	}
-
-	/**
-	 * Set the value of property {@code routes}.
-	 *
-	 * @param routes the routes to set
-	 */
-	public void setRoutes(List<Route> routes) {
-		this.routes = routes;
-	}
-
-	/**
-	 * Get the value of property {@code bindings}.
-	 *
-	 * @return the bindings
-	 */
-	public List<Binding> getBindings() {
-		return bindings;
-	}
-
-
-	/**
-	 * Set the value of property {@code bindings}.
-	 *
-	 * @param bindings the bindings to set
-	 */
-	public void setBindings(List<Binding> bindings) {
-		this.bindings = bindings;
-	}
-
-
-	/**
-	 * Get the value of property {@code connectors}.
-	 *
-	 * @return the connectors
-	 */
-	public List<Connector> getConnectors() {
-		return connectors;
-	}
-
-
-	/**
-	 * Set the value of property {@code connectors}.
-	 *
-	 * @param connectors the connectors to set
-	 */
-	public void setConnectors(List<Connector> connectors) {
-		this.connectors = connectors;
-	}
-
-	/**
-	 * Get the value of property {@code mounts}.
-	 *
-	 * @return the mounts
-	 */
-	public List<Mount> getMounts() {
-		return mounts;
-	}
-
-	/**
-	 * Set the value of property {@code mounts}.
-	 *
-	 * @param mounts the mounts to set
-	 */
-	public void setMounts(List<Mount> mounts) {
-		this.mounts = mounts;
-	}
-
-	/**
-	 * Get the value of property {@code repositories}.
-	 *
-	 * @return the repositories
-	 */
-	public List<Repository> getRepositories() {
-		return repositories;
-	}
-
-	/**
-	 * Set the value of property {@code repositories}.
-	 *
-	 * @param repositories the repositories to set
-	 */
-	public void setRepositories(List<Repository> repositories) {
-		this.repositories = repositories;
-	}
-
-
-	/**
-	 * Get the value of property {@code env}.
-	 *
-	 * @return the env
-	 */
-	public Environment getEnv() {
-		return env;
-	}
-
-
-	/**
-	 * Set the value of property {@code env}.
-	 *
-	 * @param env the env to set
-	 */
-	public void setEnv(Environment env) {
-		this.env = env;
-	}
-
-	/**
-	 * Get the value of property {@code bill}.
-	 *
-	 * @return the bill
-	 */
-	public Bill getBill() {
-		return bill;
-	}
-
-	/**
-	 * Set the value of property {@code bill}.
-	 *
-	 * @param bill the bill to set
-	 */
-	public void setBill(Bill bill) {
-		this.bill = bill;
-	}
-
-
-	/**
-	 * Get the value of property {@code manager}.
-	 *
-	 * @return the manager
-	 */
-	public Manager getManager() {
-		return manager;
-	}
-
-
-	/**
-	 * Set the value of property {@code manager}.
-	 *
-	 * @param manager the manager to set
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
-
-	
-
-	/**
-	 * Get the value of property {@code meta}.
-	 *
-	 * @return the meta
-	 */
-	public Map<String, Object> getMeta() {
-		return meta;
-	}
-
-
-	/**
-	 * Set the value of property {@code meta}.
-	 *
-	 * @param meta the meta to set
-	 */
-	public void setMeta(Map<String, Object> meta) {
-		this.meta = meta;
-	}
-
-	/**
-	 * Get the value of property {@code svcmeta}.
-	 *
-	 * @return the svcmeta
-	 */
-	public Map<String, Object> getSvcmeta() {
-		return svcmeta;
-	}
-
-
-	/**
-	 * Set the value of property {@code svcmeta}.
-	 *
-	 * @param svcmeta the svcmeta to set
-	 */
-	public void setSvcmeta(Map<String, Object> svcmeta) {
-		this.svcmeta = svcmeta;
-	}
 
 
 	/**
@@ -651,7 +216,6 @@ public class Deployment extends NamedEntity {
 		return binds;
 	}
 
-
 	/**
 	 * Set the value of property {@code binds}.
 	 *
@@ -661,336 +225,59 @@ public class Deployment extends NamedEntity {
 		this.binds = binds;
 	}
 
-	
-
 	/**
-	 * Get the value of property {@code stateful}.
+	 * Get the value of property {@code serviceName}.
 	 *
-	 * @return the stateful
+	 * @return the serviceName
 	 */
-	public Boolean getStateful() {
-		return stateful;
+	public String getServiceName() {
+		return serviceName;
 	}
 
-
 	/**
-	 * Set the value of property {@code stateful}.
+	 * Set the value of property {@code serviceName}.
 	 *
-	 * @param stateful the stateful to set
+	 * @param serviceName the serviceName to set
 	 */
-	public void setStateful(Boolean stateful) {
-		this.stateful = stateful;
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
 	}
 
 
 	/**
-	 * Get the value of property {@code stack}.
+	 * Get the value of property {@code serviceType}.
 	 *
-	 * @return the stack
+	 * @return the serviceType
 	 */
-	public Stack getStack() {
-		return stack;
-	}
-
-
-	/**
-	 * Set the value of property {@code stack}.
-	 *
-	 * @param stack the stack to set
-	 */
-	public void setStack(Stack stack) {
-		this.stack = stack;
-	}
-
-
-	/**
-	 * Get the value of property {@code livenessProbe}.
-	 *
-	 * @return the livenessProbe
-	 */
-	public String getLivenessProbe() {
-		return livenessProbe;
-	}
-
-
-	/**
-	 * Set the value of property {@code livenessProbe}.
-	 *
-	 * @param livenessProbe the livenessProbe to set
-	 */
-	public void setLivenessProbe(String livenessProbe) {
-		this.livenessProbe = livenessProbe;
-	}
-
-
-	/**
-	 * Get the value of property {@code readinessProbe}.
-	 *
-	 * @return the readinessProbe
-	 */
-	public String getReadinessProbe() {
-		return readinessProbe;
-	}
-
-
-	/**
-	 * Set the value of property {@code readinessProbe}.
-	 *
-	 * @param readinessProbe the readinessProbe to set
-	 */
-	public void setReadinessProbe(String readinessProbe) {
-		this.readinessProbe = readinessProbe;
-	}
-
-
-	//
-	public void addRoute(Route route) {
-		if (routes==null) {
-			routes = new ArrayList<Route>();
-		}
-		routes.add(route);
-	}
-
-	public Route removeRoute(int index) {
-		if (routes==null || index <0 || index>= routes.size()) {
-			return null;
-		}
-		return routes.remove(index);
-	}
-
-	public Route getRoute(int index) {
-		if (routes==null || index <0 || index>= routes.size()) {
-			return null;
-		}
-		return routes.get(index);
-	}
-
-	public Route findRoute(Route route) {
-		if (route!=null && routes!=null) {
-			for (Route route2: routes) {
-				if ((route2.getId()!=null && route2.getId().equals(route.getId())) || (route2.getUuid()!=null && route2.getUuid().equals(route.getUuid()))) {
-					return route;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Route findRoute(String id) {
-		if (id!=null && routes!=null) {
-			for (Route route: routes) {
-				if (id.equals(route.getUuid())) {
-					return route;
-				}
-			}
-		}
-		return null;
-	}
-
-
-	//
-	
-	public void addBinding(Binding binding) {
-		if (bindings==null) {
-			bindings = new ArrayList<Binding>();
-		}
-		bindings.add(binding);
-	}
-
-	public Binding removeBinding(int index) {
-		if (bindings==null || index <0 || index>= bindings.size()) {
-			return null;
-		}
-		return bindings.remove(index);
-	}
-
-	public Binding getBinding(int index) {
-		if (bindings==null || index <0 || index>= bindings.size()) {
-			return null;
-		}
-		return bindings.get(index);
-	}
-
-	public Binding findBinding(Binding binding) {
-		if (binding!=null && bindings!=null) {
-			for (Binding binding2: bindings) {
-				if ((binding2.getId()!=null && binding2.getId().equals(binding.getId())) || (binding2.getUuid()!=null && binding2.getUuid().equals(binding.getUuid()))) {
-					return binding;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Binding findBinding(String id) {
-		if (id!=null && bindings!=null) {
-			for (Binding binding: bindings) {
-				if (id.equals(binding.getUuid())) {
-					return binding;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Binding removeBinding(Binding binding) {
-		if (binding!=null && bindings!=null) {
-			for (int i=0; i<bindings.size(); i++) {
-				Binding binding2 = bindings.get(i);
-				if ((binding2.getId()!=null && binding2.getId().equals(binding.getId())) || (binding2.getUuid()!=null && binding2.getUuid().equals(binding.getUuid()))) {
-					return bindings.remove(i);
-				}
-			}
-		}
-		return null;
-	}
-
-	//
-	
-	public void addConnector(Connector connector) {
-		if (connectors==null) {
-			connectors = new ArrayList<Connector>();
-		}
-		connectors.add(connector);
-	}
-
-	public Connector removeConnector(int index) {
-		if (connectors==null || index <0 || index>= connectors.size()) {
-			return null;
-		}
-		return connectors.remove(index);
-	}
-
-	public Connector getConnector(int index) {
-		if (connectors==null || index <0 || index>= connectors.size()) {
-			return null;
-		}
-		return connectors.get(index);
-	}
-
-	public Connector findConnector(Connector connector) {
-		if (connector!=null && connectors!=null) {
-			for (Connector connector2: connectors) {
-				if ((connector2.getId()!=null && connector2.getId().equals(connector.getId())) || (connector2.getUuid()!=null && connector2.getUuid().equals(connector.getUuid()))) {
-					return connector;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Connector findConnector(String id) {
-		if (id!=null && connectors!=null) {
-			for (Connector connector: connectors) {
-				if (id.equals(connector.getUuid())) {
-					return connector;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Connector removeConnector(Connector connector) {
-		if (connector!=null && connectors!=null) {
-			for (int i=0; i<connectors.size(); i++) {
-				Connector connector2 = connectors.get(i);
-				if ((connector2.getId()!=null && connector2.getId().equals(connector.getId())) || (connector2.getUuid()!=null && connector2.getUuid().equals(connector.getUuid()))) {
-					return connectors.remove(i);
-				}
-			}
-		}
-		return null;
+	public ServiceType getServiceType() {
+		return serviceType;
 	}
 
 	/**
-	 * Get the value of property {@code subplan}.
+	 * Set the value of property {@code serviceType}.
 	 *
-	 * @return the subplan
+	 * @param serviceType the value of property serviceType
 	 */
-	public Plan getSubplan() {
-		return subplan;
+	public void setServiceType(ServiceType serviceType) {
+		this.serviceType = serviceType;
 	}
 
 	/**
-	 * Set the value of property {@code subplan}.
+	 * Get the value of property {@code strategy}.
 	 *
-	 * @param subplan the subplan to set
+	 * @return the strategy
 	 */
-	public void setSubplan(Plan subplan) {
-		this.subplan = subplan;
+	public Strategy getStrategy() {
+		return strategy;
 	}
 
 	/**
-	 * Get the value of property {@code labels}.
+	 * Set the value of property {@code strategy}.
 	 *
-	 * @return the labels
+	 * @param strategy the value of property strategy
 	 */
-	public List<Label> getLabels() {
-		return labels;
-	}
-
-	/**
-	 * Set the value of property {@code labels}.
-	 *
-	 * @param labels the labels to set
-	 */
-	public void setLabels(List<Label> labels) {
-		this.labels = labels;
-	}
-	
-	/**
-	 * Get the value of property {@code envVars}.
-	 *
-	 * @return the envVars
-	 */
-	public Map<String, String> getEnvVars() {
-		return envVars;
-	}
-
-	/**
-	 * Set the value of property {@code envVars}.
-	 *
-	 * @param envVars the envVars to set
-	 */
-	public void setEnvVars(Map<String, String> envVars) {
-		this.envVars = envVars;
-	}
-
-	/**
-	 * Get the value of property {@code manifest}.
-	 *
-	 * @return the manifest
-	 */
-	public String getManifest() {
-		return manifest;
-	}
-
-	/**
-	 * Set the value of property {@code manifest}.
-	 *
-	 * @param manifest the manifest to set
-	 */
-	public void setManifest(String manifest) {
-		this.manifest = manifest;
-	}
-
-
-	/**
-	 * Get the value of property {@code serviceKey}.
-	 *
-	 * @return the serviceKey
-	 */
-	public String getServiceKey() {
-		return serviceKey;
-	}
-
-	/**
-	 * Set the value of property {@code serviceKey}.
-	 *
-	 * @param serviceKey the serviceKey to set
-	 */
-	public void setServiceKey(String serviceKey) {
-		this.serviceKey = serviceKey;
+	public void setStrategy(Strategy strategy) {
+		this.strategy = strategy;
 	}
 
 	/**
@@ -1010,68 +297,332 @@ public class Deployment extends NamedEntity {
 	public void setIngress(String ingress) {
 		this.ingress = ingress;
 	}
-	
-	//
-	// Repository
-	//
-	
-	public void addRepository(Repository mount) {
-		if (getRepositories()==null) {
-			setRepositories(new ArrayList<Repository>());
-		}
-		getRepositories().add(mount);
+
+	/**
+	 * Get the value of property {@code autoConnectors}.
+	 *
+	 * @return the autoConnectors
+	 */
+	public Boolean getAutoConnectors() {
+		return autoConnectors;
 	}
 
-	public void addRepositories(Iterable<Repository> mounts) {
-		if (getRepositories()!=null) {
-			for (Repository mount: getRepositories()) {
-				addRepository(mount);
-			}
-		}
+	/**
+	 * Set the value of property {@code autoConnectors}.
+	 *
+	 * @param autoConnectors the autoConnectors to set
+	 */
+	public void setAutoConnectors(Boolean autoConnectors) {
+		this.autoConnectors = autoConnectors;
 	}
 
-	public Repository removeRepository(int index) {
-		if (getRepositories()==null || index <0 || index>= getRepositories().size()) {
+
+	/**
+	 * Get the value of property {@code revisionHistoryLimit}.
+	 *
+	 * @return the revisionHistoryLimit
+	 */
+	public Integer getRevisionHistoryLimit() {
+		return revisionHistoryLimit;
+	}
+
+	/**
+	 * Set the value of property {@code revisionHistoryLimit}.
+	 *
+	 * @param revisionHistoryLimit the value of property revisionHistoryLimit
+	 */
+	public void setRevisionHistoryLimit(Integer revisionHistoryLimit) {
+		this.revisionHistoryLimit = revisionHistoryLimit;
+	}
+
+	/**
+	 * Get the value of property {@code minReadySeconds}.
+	 *
+	 * @return the minReadySeconds
+	 */
+	public Integer getMinReadySeconds() {
+		return minReadySeconds;
+	}
+
+	/**
+	 * Set the value of property {@code minReadySeconds}.
+	 *
+	 * @param minReadySeconds the value of property minReadySeconds
+	 */
+	public void setMinReadySeconds(Integer minReadySeconds) {
+		this.minReadySeconds = minReadySeconds;
+	}
+
+
+	/**
+	 * Get the value of property {@code progressDeadlineSeconds}.
+	 *
+	 * @return the progressDeadlineSeconds
+	 */
+	public Integer getProgressDeadlineSeconds() {
+		return progressDeadlineSeconds;
+	}
+
+	/**
+	 * Set the value of property {@code progressDeadlineSeconds}.
+	 *
+	 * @param progressDeadlineSeconds the value of property progressDeadlineSeconds
+	 */
+	public void setProgressDeadlineSeconds(Integer progressDeadlineSeconds) {
+		this.progressDeadlineSeconds = progressDeadlineSeconds;
+	}
+
+	//
+	// With
+	//
+
+	/**
+	 * Set the value of property {@code sandbox}.
+	 *
+	 * @param sandbox the sandbox to with
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withSandbox(Boolean sandbox) {
+		this.sandbox = sandbox;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code replicaSetName}.
+	 *
+	 * @param replicaSetName the value of property replicaSetName
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withReplicaSetName(String replicaSetName) {
+		this.replicaSetName = replicaSetName;
+		return this;
+	}
+
+
+	/**
+	 * Set the value of property {@code replicas}.
+	 *
+	 * @param replicas the replicas to with
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withReplicas(Integer replicas) {
+		this.replicas = replicas;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code desiredReplicas}.
+	 *
+	 * @param desiredReplicas the desiredReplicas to with
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withDesiredReplicas(Integer desiredReplicas) {
+		this.desiredReplicas = desiredReplicas;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code readyReplicas}.
+	 *
+	 * @param readyReplicas the readyReplicas to with
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withReadyReplicas(Integer readyReplicas) {
+		this.readyReplicas = readyReplicas;
+		return this;
+	}
+
+
+	/**
+	 * Set the value of property {@code availableReplicas}.
+	 *
+	 * @param availableReplicas the availableReplicas to with
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withAvailableReplicas(Integer availableReplicas) {
+		this.availableReplicas = availableReplicas;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code unavailableReplicas}.
+	 *
+	 * @param unavailableReplicas the unavailableReplicas to with
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withUnavailableReplicas(Integer unavailableReplicas) {
+		this.unavailableReplicas = unavailableReplicas;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code updatedReplicas}.
+	 *
+	 * @param updatedReplicas the updatedReplicas to with
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withUpdatedReplicas(Integer updatedReplicas) {
+		this.updatedReplicas = updatedReplicas;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code binds}.
+	 *
+	 * @param binds the binds to with
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withBinds(Boolean binds) {
+		this.binds = binds;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code serviceName}.
+	 *
+	 * @param serviceName the serviceName to with
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withServiceName(String serviceName) {
+		this.serviceName = serviceName;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code serviceType}.
+	 *
+	 * @param serviceType the value of property serviceType
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withServiceType(ServiceType serviceType) {
+		this.serviceType = serviceType;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code strategy}.
+	 *
+	 * @param strategy the value of property strategy
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withStrategy(Strategy strategy) {
+		this.strategy = strategy;
+		return this;
+	}
+
+
+	/**
+	 * Set the value of property {@code ingress}.
+	 *
+	 * @param ingress the ingress to with
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withIngress(String ingress) {
+		this.ingress = ingress;
+		return this;
+	}
+
+
+	/**
+	 * Set the value of property {@code autoConnectors}.
+	 *
+	 * @param autoConnectors the autoConnectors to with
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withAutoConnectors(Boolean autoConnectors) {
+		this.autoConnectors = autoConnectors;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code revisionHistoryLimit}.
+	 *
+	 * @param revisionHistoryLimit the value of property revisionHistoryLimit
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withRevisionHistoryLimit(Integer revisionHistoryLimit) {
+		this.revisionHistoryLimit = revisionHistoryLimit;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code minReadySeconds}.
+	 *
+	 * @param minReadySeconds the value of property minReadySeconds
+	 * @return this {@code Deployment}
+	 */
+	public Deployment withMinReadySeconds(Integer minReadySeconds) {
+		this.minReadySeconds = minReadySeconds;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code progressDeadlineSeconds}.
+	 *
+	 * @param progressDeadlineSeconds the value of property progressDeadlineSeconds
+	 * @return this {@code Deployment}
+	 */
+	public Deployment widthProgressDeadlineSeconds(Integer progressDeadlineSeconds) {
+		this.progressDeadlineSeconds = progressDeadlineSeconds;
+		return this;
+	}
+
+	//
+	// Routes
+	//
+
+	public void addRoute(Route route) {
+		if (routes == null) {
+			routes = new ArrayList<Route>();
+		}
+		routes.add(route);
+	}
+
+	public Route removeRoute(int index) {
+		if (routes == null || index < 0 || index >= routes.size()) {
 			return null;
 		}
-		return getRepositories().remove(index);
+		return routes.remove(index);
 	}
 
-	public Repository getRepository(int index) {
-		if (getRepositories()==null || index <0 || index>= getRepositories().size()) {
+	public Route getRoute(int index) {
+		if (routes == null || index < 0 || index >= routes.size()) {
 			return null;
 		}
-		return getRepositories().get(index);
+		return routes.get(index);
 	}
 
-	public Repository findRepository(Repository mount) {
-		if (mount!=null && getRepositories()!=null) {
-			for (Repository mount2: getRepositories()) {
-				if ((mount2.getId()!=null && mount2.getId().equals(mount.getId())) || (mount2.getUuid()!=null && mount2.getUuid().equals(mount.getUuid()))) {
-					return mount2;
+	public Route findRoute(Route route) {
+		if (route != null && routes != null) {
+			for (Route route2 : routes) {
+				if ((route2.getUuid() != null && route2.getUuid().equals(route.getUuid()))
+						|| (route2.getRequiredDns() != null
+								&& route2.getRequiredDns().equals(route.getRequiredDns()))) {
+					return route2;
 				}
 			}
 		}
 		return null;
 	}
 
-	public Repository findRepository(String id) {
-		if (id!=null && getRepositories()!=null) {
-			for (Repository mount: getRepositories()) {
-				if (id.equals(mount.getUuid()) || id.equals(mount.getName())) {
-					return mount;
+	public Route findRoute(String id) {
+		if (id != null && routes != null) {
+			for (Route route : routes) {
+				if (id.equals(route.getUuid())) {
+					return route;
 				}
 			}
 		}
 		return null;
 	}
 
-	public Repository removeRepository(Repository mount) {
-		if (mount!=null && getRepositories()!=null) {
-			for (int i=0; i<getRepositories().size(); i++) {
-				Repository mount2 = getRepositories().get(i);
-				if ((mount2.getId()!=null && mount2.getId().equals(mount.getId())) || (mount2.getUuid()!=null && mount2.getUuid().equals(mount.getUuid()))) {
-					return getRepositories().remove(i);
+	
+	public Route removeRoute(Route route) {
+		if (route != null && routes != null) {
+			for (int i = 0; i < routes.size(); i++) {
+				Route route2 = routes.get(i);
+				if (route2.getUuid() != null && route2.getUuid().equals(route.getUuid())) {
+					return routes.remove(i);
 				}
 			}
 		}
@@ -1082,45 +633,15 @@ public class Deployment extends NamedEntity {
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
-				.append("type", type)
-				.append("status", status)
-				.append("stack", stack)
-				.append("stateful", stateful)
 				.append("replicas", replicas)
 				.append("readyReplicas", readyReplicas)
 				.append("availableReplicas", availableReplicas)
 				.append("unavailableReplicas", unavailableReplicas)
 				.append("updatedReplicas", updatedReplicas)
-				.append("manager", manager)
-				.append("endpoints", endpoints)
-				.append("ports", ports)
-				.append("resources", resources)
-				.append("routes", routes)
 				.append("binds", binds)
-				.append("bindings", bindings)
-				.append("connectors", connectors)
-				.append("repositories", repositories)
-				.append("env", env)
-				.append("bill", bill)
-				.append("manifest", manifest)
-				.append("serviceKey", serviceKey)
+				.append("serviceName", serviceName)
 				.append("ingress", ingress)
 				;
 	}
-
-	void printMeta() {
-		System.out.println(meta.get("metadata"));
-		System.out.println(meta.get("spec"));
-		System.out.println(meta.get("status"));
-		System.out.println(meta.get("properties"));
-	}
-
-	void printSvcMeta() {
-		System.out.println(meta.get("metadata"));
-		System.out.println(meta.get("spec"));
-		System.out.println(meta.get("status"));
-		System.out.println(meta.get("properties"));
-	}
-	
 
 }

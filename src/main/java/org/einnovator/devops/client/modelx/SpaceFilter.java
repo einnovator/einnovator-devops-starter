@@ -1,8 +1,9 @@
 package org.einnovator.devops.client.modelx;
 
+import java.util.List;
+
 import org.einnovator.devops.client.model.Space;
 import org.einnovator.util.model.ToStringCreator;
-import org.springframework.util.StringUtils;
 
 /**
  * A filter for {@code Space}s.
@@ -14,20 +15,37 @@ import org.springframework.util.StringUtils;
 public class SpaceFilter extends SpaceOptions {
 	
 	private String q;
-
+		
+	private String group;
+	
+	private List<String> groups;
+	
 	private String owner;
 
+	private String cluster;
+
+	private Boolean auth;
+
+	//
+	// Constructors
+	//
+	
+	/**
+	 * Create instance of {@code SpaceFilter}.
+	 *
+	 */
 	public SpaceFilter() {
 	}
-
+	
 	//
 	// Getters/Setters
 	//
+	
 
 	/**
 	 * Get the value of property {@code q}.
 	 *
-	 * @return the value of q
+	 * @return the q
 	 */
 	public String getQ() {
 		return q;
@@ -40,6 +58,43 @@ public class SpaceFilter extends SpaceOptions {
 	 */
 	public void setQ(String q) {
 		this.q = q;
+	}
+
+
+	/**
+	 * Get the value of property {@code group}.
+	 *
+	 * @return the group
+	 */
+	public String getGroup() {
+		return group;
+	}
+
+	/**
+	 * Set the value of property {@code group}.
+	 *
+	 * @param group the value of property group
+	 */
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
+	/**
+	 * Get the value of property {@code groups}.
+	 *
+	 * @return the groups
+	 */
+	public List<String> getGroups() {
+		return groups;
+	}
+
+	/**
+	 * Set the value of property {@code groups}.
+	 *
+	 * @param groups the value of property groups
+	 */
+	public void setGroups(List<String> groups) {
+		this.groups = groups;
 	}
 
 	/**
@@ -60,6 +115,41 @@ public class SpaceFilter extends SpaceOptions {
 		this.owner = owner;
 	}
 
+	/**
+	 * Get the value of property {@code cluster}.
+	 *
+	 * @return the cluster
+	 */
+	public String getCluster() {
+		return cluster;
+	}
+
+	/**
+	 * Set the value of property {@code cluster}.
+	 *
+	 * @param cluster the value of property cluster
+	 */
+	public void setCluster(String cluster) {
+		this.cluster = cluster;
+	}
+
+	/**
+	 * Get the value of property {@code auth}.
+	 *
+	 * @return the auth
+	 */
+	public Boolean getAuth() {
+		return auth;
+	}
+
+	/**
+	 * Set the value of property {@code auth}.
+	 *
+	 * @param auth the value of property auth
+	 */
+	public void setAuth(Boolean auth) {
+		this.auth = auth;
+	}
 
 	//
 	// With
@@ -77,6 +167,28 @@ public class SpaceFilter extends SpaceOptions {
 	}
 
 	/**
+	 * Set the value of property {@code group}.
+	 *
+	 * @param group the value of property group
+	 * @return this {@code SpaceFilter}
+	 */
+	public SpaceFilter withGroup(String group) {
+		this.group = group;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code groups}.
+	 *
+	 * @param groups the value of property groups
+	 * @return this {@code SpaceFilter}
+	 */
+	public SpaceFilter withGroups(List<String> groups) {
+		this.groups = groups;
+		return this;
+	}
+
+	/**
 	 * Set the value of property {@code owner}.
 	 *
 	 * @param owner the value of property owner
@@ -84,32 +196,41 @@ public class SpaceFilter extends SpaceOptions {
 	 */
 	public SpaceFilter withOwner(String owner) {
 		this.owner = owner;
-		return this;		
+		return this;
 	}
 
+	/**
+	 * Set the value of property {@code cluster}.
+	 *
+	 * @param cluster the value of property cluster
+	 * @return this {@code SpaceFilter}
+	 */
+	public SpaceFilter withCluster(String cluster) {
+		this.cluster = cluster;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code auth}.
+	 *
+	 * @param auth the value of property auth
+	 * @return this {@code SpaceFilter}
+	 */
+	public SpaceFilter withAuth(Boolean auth) {
+		this.auth = auth;
+		return this;
+	}
 
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return creator
-			.append("q", q)
-			.append("owner", owner)
-			;
-	}
-	
-	/**
-	 * Inmemory check if this {@code SpaceFilter} matches a {@code Space}
-	 * 
-	 * @param space the {@code Space}
-	 * @return true, if match
-	 */
-	public boolean check(Space space) {
-		if (space==null) {
-			return false;
-		}
-		if (StringUtils.hasText(q) && (space.getName()==null || !space.getName().contains(q))) {
-			return false;
-		}
-		return true;
+				.append("q", q)
+				.append("group", group)
+				.append("groups", groups)
+				.append("owner", owner)
+				.append("cluster", cluster)
+				.append("auth", auth)
+				;
 	}
 	
 }

@@ -2,6 +2,7 @@ package org.einnovator.devops.client.modelx;
 
 import java.util.Date;
 
+import org.einnovator.devops.client.model.Event;
 import org.einnovator.devops.client.model.EventType;
 import org.einnovator.util.model.ToStringCreator;
 

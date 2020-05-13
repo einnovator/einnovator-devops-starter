@@ -362,31 +362,4 @@ public class Plan extends NamedEntity {
 		return super.toString2(creator
 				);
 	}
-
-
-
-	
-	
-
-	public Plan findPlan(String id) {
-		if (id!=null && plans!=null) {
-			for (Plan plan: plans) {
-				if (id.equals(plan.getUuid()) || id.equals(plan.getKey())) {
-					return plan;
-				}
-			}
-		}
-		return null;
-	}
-	
-	public Plan findPlanByKey(String key) {
-		if (key!=null && plans!=null) {
-			for (Plan plan: plans) {
-				if (key.equals(plan.getKey())) {
-					return plan;
-				}
-			}
-		}
-		return null;		
-	}
 }

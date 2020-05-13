@@ -15,6 +15,7 @@ public class Image extends NamedEntity {
 
 	private Registry registry;
 	
+	
 	public Image() {
 	}
 
@@ -41,8 +42,6 @@ public class Image extends NamedEntity {
 		this.type = type;
 	}
 
-	
-
 	/**
 	 * Get the value of property {@code registry}.
 	 *
@@ -61,49 +60,6 @@ public class Image extends NamedEntity {
 	public void setRegistry(Registry registry) {
 		this.registry = registry;
 	}
-
-	//yml config hack
-	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
-	}
-
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
-
-	public String getThumbnail() {
-		return thumbnail;
-	}
-
-	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {

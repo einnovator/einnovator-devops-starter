@@ -9,13 +9,14 @@ import org.einnovator.util.model.ToStringCreator;
  *
  * @see Solution
  * @author support@einnovator.org
+ *
  */
 public class SolutionOptions extends EntityOptions<Solution> {
-
 
 	//
 	// Constructors
 	//
+	
 	/**
 	 * Create instance of {@code SolutionOptions}.
 	 *

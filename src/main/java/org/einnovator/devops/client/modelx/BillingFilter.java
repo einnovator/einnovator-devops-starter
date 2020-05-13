@@ -1,6 +1,7 @@
 package org.einnovator.devops.client.modelx;
 
 
+import org.einnovator.devops.client.model.Billing;
 import org.einnovator.util.model.ToStringCreator;
 
 /**

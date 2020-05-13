@@ -268,6 +268,7 @@ public class LogOptions extends ObjectBase {
 	 * Set the value of property {@code pretty}.
 	 *
 	 * @param pretty the value of pretty
+	 * @return this {@code LogOptions}
 	 */
 	public LogOptions withPretty(Boolean pretty) {
 		this.pretty = pretty;

@@ -1,35 +1,45 @@
 package org.einnovator.devops.client.model;
 
 import org.einnovator.util.model.ToStringCreator;
-
+import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Registry extends OwnedEntity {
-
+	
 	private RegistryType type;
-
+	
 	private String username;
-
+	
 	private String email;
-
+	
 	private String password;
-
+	
+	private CredentialsType credentialsType;
+	
+	private String token;
+	
+	private String key;
+	
+	private String jsonKey;
+	
+	private String keyRaw;
+	
 	private String server;
 	
 	private String secret;
 	
-	@JsonProperty("private")
-	private Boolean private_;
+	private Boolean global;
 	
-	private Boolean builtin;
 	
+	/**
+	 * Create instance of {@code Registry}.
+	 *
+	 */
 	public Registry() {
 	}
-
 
 	/**
 	 * Get the value of property {@code type}.
@@ -43,32 +53,12 @@ public class Registry extends OwnedEntity {
 	/**
 	 * Set the value of property {@code type}.
 	 *
-	 * @param type the type to set
+	 * @param type the value of property type
 	 */
 	public void setType(RegistryType type) {
 		this.type = type;
 	}
 
-
-	/**
-	 * Get the value of property {@code server}.
-	 *
-	 * @return the server
-	 */
-	public String getServer() {
-		return server;
-	}
-
-
-	/**
-	 * Set the value of property {@code server}.
-	 *
-	 * @param server the server to set
-	 */
-	public void setServer(String server) {
-		this.server = server;
-	}
-	
 	/**
 	 * Get the value of property {@code username}.
 	 *
@@ -78,16 +68,14 @@ public class Registry extends OwnedEntity {
 		return username;
 	}
 
-
 	/**
 	 * Set the value of property {@code username}.
 	 *
-	 * @param username the username to set
+	 * @param username the value of property username
 	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 
 	/**
 	 * Get the value of property {@code email}.
@@ -98,16 +86,14 @@ public class Registry extends OwnedEntity {
 		return email;
 	}
 
-
 	/**
 	 * Set the value of property {@code email}.
 	 *
-	 * @param email the email to set
+	 * @param email the value of property email
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 
 	/**
 	 * Get the value of property {@code password}.
@@ -118,101 +104,122 @@ public class Registry extends OwnedEntity {
 		return password;
 	}
 
-
 	/**
 	 * Set the value of property {@code password}.
 	 *
-	 * @param password the password to set
+	 * @param password the value of property password
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 
-	//yml config hack
-	
-
-	public String getName() {
-		return name;
+	/**
+	 * Get the value of property {@code credentialsType}.
+	 *
+	 * @return the credentialsType
+	 */
+	public CredentialsType getCredentialsType() {
+		return credentialsType;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	/**
+	 * Set the value of property {@code credentialsType}.
+	 *
+	 * @param credentialsType the value of property credentialsType
+	 */
+	public void setCredentialsType(CredentialsType credentialsType) {
+		this.credentialsType = credentialsType;
 	}
-	
 
+	/**
+	 * Get the value of property {@code token}.
+	 *
+	 * @return the token
+	 */
+	public String getToken() {
+		return token;
+	}
+
+	/**
+	 * Set the value of property {@code token}.
+	 *
+	 * @param token the value of property token
+	 */
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	/**
+	 * Get the value of property {@code key}.
+	 *
+	 * @return the key
+	 */
 	public String getKey() {
 		return key;
 	}
 
+	/**
+	 * Set the value of property {@code key}.
+	 *
+	 * @param key the value of property key
+	 */
 	public void setKey(String key) {
 		this.key = key;
 	}
 
-	public String getImg() {
-		return img;
+	/**
+	 * Get the value of property {@code jsonKey}.
+	 *
+	 * @return the jsonKey
+	 */
+	public String getJsonKey() {
+		return jsonKey;
 	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
-
-	public String getThumbnail() {
-		return thumbnail;
-	}
-
-	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 
 	/**
-	 * Get the value of property {@code private}.
+	 * Set the value of property {@code jsonKey}.
 	 *
-	 * @return the value of property private
+	 * @param jsonKey the value of property jsonKey
 	 */
-	public Boolean getPrivate() {
-		return private_;
+	public void setJsonKey(String jsonKey) {
+		this.jsonKey = jsonKey;
 	}
-
 
 	/**
-	 * Set the value of property {@code private}.
+	 * Get the value of property {@code keyRaw}.
 	 *
-	 * @param priv the value of private
+	 * @return the keyRaw
 	 */
-	public void setPrivate(Boolean priv) {
-		this.private_ = priv;
+	public String getKeyRaw() {
+		return keyRaw;
 	}
-	
 
 	/**
-	 * Get the value of property {@code builtin}.
+	 * Set the value of property {@code keyRaw}.
 	 *
-	 * @return the builtin
+	 * @param keyRaw the value of property keyRaw
 	 */
-	public Boolean getBuiltin() {
-		return builtin;
+	public void setKeyRaw(String keyRaw) {
+		this.keyRaw = keyRaw;
 	}
-
 
 	/**
-	 * Set the value of property {@code builtin}.
+	 * Get the value of property {@code server}.
 	 *
-	 * @param builtin the builtin to set
+	 * @return the server
 	 */
-	public void setBuiltin(Boolean builtin) {
-		this.builtin = builtin;
+	public String getServer() {
+		return server;
 	}
 
+	/**
+	 * Set the value of property {@code server}.
+	 *
+	 * @param server the value of property server
+	 */
+	public void setServer(String server) {
+		this.server = server;
+	}
 
 	/**
 	 * Get the value of property {@code secret}.
@@ -223,16 +230,32 @@ public class Registry extends OwnedEntity {
 		return secret;
 	}
 
-
 	/**
 	 * Set the value of property {@code secret}.
 	 *
-	 * @param secret the secret to set
+	 * @param secret the value of property secret
 	 */
 	public void setSecret(String secret) {
 		this.secret = secret;
 	}
 
+	/**
+	 * Get the value of property {@code global}.
+	 *
+	 * @return the global
+	 */
+	public Boolean getGlobal() {
+		return global;
+	}
+
+	/**
+	 * Set the value of property {@code global}.
+	 *
+	 * @param global the value of property global
+	 */
+	public void setGlobal(Boolean global) {
+		this.global = global;
+	}
 
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
@@ -241,12 +264,14 @@ public class Registry extends OwnedEntity {
 				.append("server", server)
 				.append("username", username)
 				.append("email", email)
-				.append("password", password)
-				.append("private", private_)
-				.append("builtin", builtin)
+				.append("credentialsType", credentialsType)
+				.append("password", StringUtils.hasText(password) ? "******" : null)
+				.append("token", StringUtils.hasText(token) ? "******" : null)
+				.append("key", StringUtils.hasText(key) ? "******" : null)
+				.append("jsonKey", StringUtils.hasText(jsonKey) ? "******" : null)
+				.append("global", global)
 				.append("secret", secret)
 				;
 	}
-	
 	
 }

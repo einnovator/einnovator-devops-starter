@@ -118,9 +118,6 @@ public class OwnedEntity extends NamedEntity {
 				);
 	}
 
-	/**
-	 * @return
-	 */
 	public boolean isOwnerUser() {
 		return ownerType==null || ownerType==OwnerType.USER;
 	}

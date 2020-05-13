@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Space extends NamedEntity {
+public class Space extends ProtectedEntity {
 
 	protected List<Deployment> deployments;
 
@@ -98,7 +98,7 @@ public class Space extends NamedEntity {
 	public Deployment findDeployment(String id) {
 		if (id!=null && deployments!=null) {
 			for (Deployment deploy: deployments) {
-				if (id.equals(deploy.getUuid()) || id.equals(deploy.getKey())) {
+				if (id.equals(deploy.getUuid()) || id.equals(deploy.getName())) {
 					return deploy;
 				}
 			}
