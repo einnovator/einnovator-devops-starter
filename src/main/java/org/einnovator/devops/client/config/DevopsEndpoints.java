@@ -2,103 +2,119 @@ package org.einnovator.devops.client.config;
 
 public class DevopsEndpoints {
 	
-	public static String domain(String id, DevopsClientConfiguration config) {
-		return domains(config) + "/" + id;
+	public static String domain(String id, DevopsClientConfiguration config,  boolean admin) {
+		return domains(config, admin) + "/" + id;
 	}
 
-	public static String domains(DevopsClientConfiguration config) {
-		return config.getServer() + "/api/domain";
+	public static String domains(DevopsClientConfiguration config, boolean admin) {
+		return api(config, admin) + "/domain";
 	}
 
-	public static String registry(String id, DevopsClientConfiguration config) {
-		return registrys(config) + "/" + id;
+	public static String registry(String id, DevopsClientConfiguration config,  boolean admin) {
+		return registries(config, admin) + "/" + id;
 	}
 
-	public static String registrys(DevopsClientConfiguration config) {
-		return config.getServer() + "/api/registry";
+	public static String registries(DevopsClientConfiguration config, boolean admin) {
+		return api(config, admin) + "/registry";
 	}
 
-	public static String cluster(String id, DevopsClientConfiguration config) {
-		return clusters(config) + "/" + id;
+	public static String cluster(String id, DevopsClientConfiguration config,  boolean admin) {
+		return clusters(config, admin) + "/" + id;
 	}
 
-	public static String clusters(DevopsClientConfiguration config) {
-		return config.getServer() + "/api/cluster";
+	public static String clusters(DevopsClientConfiguration config, boolean admin) {
+		return api(config, admin) + "/cluster";
 	}
 
-	public static String spaces(DevopsClientConfiguration config) {
-		return config.getServer() + "/api/space";
+	public static String spaces(DevopsClientConfiguration config, boolean admin) {
+		return api(config, admin) + "/space";
 	}
 
-	public static String space(String spaceId, DevopsClientConfiguration config) {
-		return  config.getServer() + "/api/space/" + spaceId;
+	public static String space(String spaceId, DevopsClientConfiguration config,  boolean admin) {
+		return  api(config, admin) + "/space/" + spaceId;
 	}
 
-	public static String deployments(String spaceId, DevopsClientConfiguration config) {
-		return space(spaceId, config) + "/deployment";
+	public static String deployments(String spaceId, DevopsClientConfiguration config,  boolean admin) {
+		return space(spaceId, config, admin) + "/deployment";
 	}
 
-	public static String deployment(String deployId, DevopsClientConfiguration config) {
-		return config.getServer() + "/api/deployment/" + deployId;
+	public static String deployment(String deployId, DevopsClientConfiguration config,  boolean admin) {
+		return api(config, admin) + "/deployment/" + deployId;
 	}
 	
-	public static String routes(String deployId, DevopsClientConfiguration config) {
-		return deployment(deployId, config) + "/route";
+	public static String routes(String deployId, DevopsClientConfiguration config,  boolean admin) {
+		return deployment(deployId, config, admin) + "/route";
 	}
 
-	public static String route(String deployId, String routeId, DevopsClientConfiguration config) {
-		return  routes(deployId, config) +"/" + routeId;
+	public static String route(String deployId, String routeId, DevopsClientConfiguration config,  boolean admin) {
+		return  routes(deployId, config, admin) +"/" + routeId;
 	}
 
-	public static String bindings(String deployId, DevopsClientConfiguration config) {
-		return deployment(deployId, config) + "/binding";
+	public static String bindings(String deployId, DevopsClientConfiguration config,  boolean admin) {
+		return deployment(deployId, config, admin) + "/binding";
 	}
 
-	public static String binding(String deployId, String bindingId, DevopsClientConfiguration config) {
-		return  bindings(deployId, config) +"/" + bindingId;
+	public static String binding(String deployId, String bindingId, DevopsClientConfiguration config,  boolean admin) {
+		return  bindings(deployId, config, admin) +"/" + bindingId;
 	}
 
-	public static String connectors(String deployId, DevopsClientConfiguration config) {
-		return deployment(deployId, config) + "/connector";
+	public static String connectors(String deployId, DevopsClientConfiguration config,  boolean admin) {
+		return deployment(deployId, config, admin) + "/connector";
 	}
 
-	public static String connector(String deployId, String connectorId, DevopsClientConfiguration config) {
-		return  connectors(deployId, config) +"/" + connectorId;
+	public static String connector(String deployId, String connectorId, DevopsClientConfiguration config,  boolean admin) {
+		return connectors(deployId, config, admin) + "/" + connectorId;
 	}
 
-	public static String repositories(String deployId, DevopsClientConfiguration config) {
-		return deployment(deployId, config) + "/repository";
+	public static String repositories(String deployId, DevopsClientConfiguration config,  boolean admin) {
+		return deployment(deployId, config, admin) + "/repository";
 	}
 
-	public static String repository(String deployId, String repositoryId, DevopsClientConfiguration config) {
-		return  repositories(deployId, config) +"/" + repositoryId;
+	public static String repository(String deployId, String repositoryId, DevopsClientConfiguration config,  boolean admin) {
+		return repositories(deployId, config, admin) +"/" + repositoryId;
 	}
 
-	public static String volumeclaims(String spaceId, DevopsClientConfiguration config) {
-		return space(spaceId, config) + "/volumeclaim";
+	public static String volumeclaims(String spaceId, DevopsClientConfiguration config,  boolean admin) {
+		return space(spaceId, config, admin) + "/volumeclaim";
 	}
 	
-	public static String solutions(String spaceId, DevopsClientConfiguration config) {
-		return space(spaceId, config) + "/solution";
+	public static String solutions(DevopsClientConfiguration config, boolean admin) {
+		return api(config, admin) + "/solution";
 	}
 
-	public static String solution(String deployId, DevopsClientConfiguration config) {
-		return config.getServer() + "/api/solution/" + deployId;
+	public static String solution(String id, DevopsClientConfiguration config,  boolean admin) {
+		return solutions(config, admin) + "/" + id;
 	}
 
-	public static String billing(String id, DevopsClientConfiguration config) {
-		return billings(config) + "/" + id;
+	public static String catalogs(DevopsClientConfiguration config, boolean admin) {
+		return api(config, admin) + "/catalog";
 	}
 
-	public static String billings(DevopsClientConfiguration config) {
-		return config.getServer() + "/api/billing";
+	public static String catalog(String id, DevopsClientConfiguration config, boolean admin) {
+		return catalogs(config, admin) + "/" + id;
+	}
+
+	public static String billing(String id, DevopsClientConfiguration config, boolean admin) {
+		return billings(config, admin) + "/" + id;
+	}
+
+	public static String billings(DevopsClientConfiguration config, boolean admin) {
+		return api(config, admin) + "/billing";
 	}
 	
-	public static String vcs(String id, DevopsClientConfiguration config) {
-		return vcss(config) + "/" + id;
+	public static String vcs(String id, DevopsClientConfiguration config,  boolean admin) {
+		return vcss(config, admin) + "/" + id;
 	}
 
-	public static String vcss(DevopsClientConfiguration config) {
-		return config.getServer() + "/api/vcs";
+	public static String vcss(DevopsClientConfiguration config, boolean admin) {
+		return api(config, admin) + "/vcs";
+	}
+	
+	public static String api(DevopsClientConfiguration config, boolean admin) {
+		String s = config.getServer() + "/api";
+		if (admin) {
+			s += "/admin";
+		}
+		return s;
 	}
 }

@@ -10,16 +10,28 @@ import org.einnovator.devops.client.config.DevopsClientConfiguration;
 
 import org.einnovator.devops.client.config.DevopsEndpoints;
 import org.einnovator.devops.client.model.Binding;
+import org.einnovator.devops.client.model.Catalog;
 import org.einnovator.devops.client.model.Cluster;
 import org.einnovator.devops.client.model.Connector;
 import org.einnovator.devops.client.model.Deployment;
+import org.einnovator.devops.client.model.Domain;
 import org.einnovator.devops.client.model.Job;
+import org.einnovator.devops.client.model.Registry;
 import org.einnovator.devops.client.model.Repository;
 import org.einnovator.devops.client.model.Route;
+import org.einnovator.devops.client.model.Solution;
 import org.einnovator.devops.client.model.Space;
 import org.einnovator.devops.client.model.Vcs;
+import org.einnovator.devops.client.modelx.CatalogFilter;
+import org.einnovator.devops.client.modelx.CatalogOptions;
 import org.einnovator.devops.client.modelx.DeploymentFilter;
 import org.einnovator.devops.client.modelx.DeploymentOptions;
+import org.einnovator.devops.client.modelx.DomainFilter;
+import org.einnovator.devops.client.modelx.DomainOptions;
+import org.einnovator.devops.client.modelx.RegistryFilter;
+import org.einnovator.devops.client.modelx.RegistryOptions;
+import org.einnovator.devops.client.modelx.SolutionFilter;
+import org.einnovator.devops.client.modelx.SolutionOptions;
 import org.einnovator.devops.client.modelx.SpaceFilter;
 import org.einnovator.devops.client.modelx.SpaceOptions;
 import org.einnovator.devops.client.modelx.VcsFilter;
@@ -39,6 +51,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.web.client.RestClientException;
+import static org.einnovator.util.web.RequestOptions.isAdminRequest;
 
 
 /**
@@ -164,7 +177,7 @@ public class DevopsClient {
 	 * @throws RestClientException if request fails
 	 */
 	public Space getSpace(String id, SpaceOptions options) {
-		URI uri = makeURI(DevopsEndpoints.space(id, config));
+		URI uri = makeURI(DevopsEndpoints.space(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		ResponseEntity<Space> result = exchange(request, Space.class, options);
@@ -185,7 +198,7 @@ public class DevopsClient {
 	 * @throws RestClientException if request fails
 	 */
 	public Page<Space> listSpaces(SpaceFilter filter, Pageable pageable) {
-		URI uri = makeURI(DevopsEndpoints.spaces(config));
+		URI uri = makeURI(DevopsEndpoints.spaces(config, isAdminRequest(filter)));
 		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		@SuppressWarnings("rawtypes")
@@ -205,7 +218,7 @@ public class DevopsClient {
 	 * @throws RestClientException if request fails
 	 */
 	public URI createSpace(Space space, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.spaces(config));
+		URI uri = makeURI(DevopsEndpoints.spaces(config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Space> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(space);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
@@ -223,7 +236,7 @@ public class DevopsClient {
 	 * @throws RestClientException if request fails
 	 */
 	public void updateSpace(Space space, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.space(space.getUuid(), config));
+		URI uri = makeURI(DevopsEndpoints.space(space.getUuid(), config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Space> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(space);		
 		exchange(request, Space.class, options);
@@ -239,7 +252,7 @@ public class DevopsClient {
 	 * @throws RestClientException if request fails
 	 */
 	public void deleteSpace(String id, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.space(id, config));
+		URI uri = makeURI(DevopsEndpoints.space(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
@@ -263,7 +276,7 @@ public class DevopsClient {
 	 * @throws RestClientException if request fails
 	 */
 	public Page<Deployment> listDeployments(String spaceId, DeploymentFilter filter, Pageable pageable) {
-		URI uri = makeURI(DevopsEndpoints.deployments(spaceId, config));
+		URI uri = makeURI(DevopsEndpoints.deployments(spaceId, config, isAdminRequest(filter)));
 		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		@SuppressWarnings("rawtypes")
@@ -283,7 +296,7 @@ public class DevopsClient {
 	 * @throws RestClientException if request fails
 	 */
 	public Deployment getDeployment(String id, DeploymentOptions options) {
-		URI uri = makeURI(DevopsEndpoints.deployment(id, config));
+		URI uri = makeURI(DevopsEndpoints.deployment(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		ResponseEntity<Deployment> result = exchange(request, Deployment.class, options);
@@ -302,7 +315,7 @@ public class DevopsClient {
 	 * @throws RestClientException if request fails
 	 */
 	public URI createDeployment(String spaceId, Deployment deploy, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.deployments(spaceId, config));
+		URI uri = makeURI(DevopsEndpoints.deployments(spaceId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Deployment> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(deploy);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
@@ -321,7 +334,7 @@ public class DevopsClient {
 	 * @throws RestClientException if request fails
 	 */
 	public void updateDeployment(Deployment deploy, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.deployment(deploy.getUuid(), config));
+		URI uri = makeURI(DevopsEndpoints.deployment(deploy.getUuid(), config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Deployment> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(deploy);
 		exchange(request, Deployment.class, options);
@@ -337,7 +350,7 @@ public class DevopsClient {
 	 * @throws RestClientException if request fails
 	 */
 	public void deleteDeployment(String id, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.deployment(id, config));
+		URI uri = makeURI(DevopsEndpoints.deployment(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
@@ -349,7 +362,7 @@ public class DevopsClient {
 	//
 	
 	public URI addRoute(String deployId, Route route, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.routes(deployId, config));
+		URI uri = makeURI(DevopsEndpoints.routes(deployId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Route> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(route);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
@@ -358,14 +371,14 @@ public class DevopsClient {
 	}
 
 	public void updateRoute(String deployId, Route route, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.route(deployId, route.getUuid(), config));
+		URI uri = makeURI(DevopsEndpoints.route(deployId, route.getUuid(), config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Route> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(route);
 		exchange(request, Route.class, options);
 	}
 
 	public void removeRoute(String deployId, String id, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.route(deployId, id, config));
+		URI uri = makeURI(DevopsEndpoints.route(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
@@ -376,7 +389,7 @@ public class DevopsClient {
 	//
 	
 	public URI addBinding(String deployId, Binding binding, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.bindings(deployId, config));
+		URI uri = makeURI(DevopsEndpoints.bindings(deployId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Binding> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(binding);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
@@ -385,14 +398,14 @@ public class DevopsClient {
 	}
 
 	public void updateBinding(String deployId, Binding binding, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.binding(deployId, binding.getUuid(), config));
+		URI uri = makeURI(DevopsEndpoints.binding(deployId, binding.getUuid(), config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Binding> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(binding);
 		exchange(request, Binding.class, options);
 	}
 
 	public void removeBinding(String deployId, String id, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.binding(deployId, id, config));
+		URI uri = makeURI(DevopsEndpoints.binding(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
@@ -403,7 +416,7 @@ public class DevopsClient {
 	//
 	
 	public URI addConnector(String deployId, Connector connector, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.connectors(deployId, config));
+		URI uri = makeURI(DevopsEndpoints.connectors(deployId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Connector> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(connector);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
@@ -412,14 +425,14 @@ public class DevopsClient {
 	}
 
 	public void updateConnector(String deployId, Connector connector, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.connector(deployId, connector.getUuid(), config));
+		URI uri = makeURI(DevopsEndpoints.connector(deployId, connector.getUuid(), config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Connector> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(connector);
 		exchange(request, Connector.class, options);
 	}
 
 	public void removeConnector(String deployId, String id, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.connector(deployId, id, config));
+		URI uri = makeURI(DevopsEndpoints.connector(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
@@ -431,7 +444,7 @@ public class DevopsClient {
 	//
 	
 	public URI addRepository(String deployId, Repository repository, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.repositories(deployId, config));
+		URI uri = makeURI(DevopsEndpoints.repositories(deployId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Repository> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(repository);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
@@ -440,26 +453,113 @@ public class DevopsClient {
 	}
 
 	public void updateRepository(String deployId, Repository repository, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.repository(deployId, repository.getUuid(), config));
+		URI uri = makeURI(DevopsEndpoints.repository(deployId, repository.getUuid(), config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Repository> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(repository);
 		exchange(request, Repository.class, options);
 	}
 
 	public void removeRepository(String deployId, String id, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.repository(deployId, id, config));
+		URI uri = makeURI(DevopsEndpoints.repository(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
 	}
 	
+	//
+	// Domain
+	//
+	
+	public Domain getDomain(String id, DomainOptions options) {
+		URI uri = makeURI(DevopsEndpoints.domain(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Domain> result = exchange(request, Domain.class, options);
+		return result.getBody();
+	}
+
+	
+	public Page<Domain> listDomains(DomainFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.domains(config, isAdminRequest(filter)));
+		uri = processURI(uri, filter, pageable);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
+		return PageUtil.create2(result.getBody(),  Domain.class);
+	}
+	
+	public URI createDomain(Domain domain, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.domains(config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Domain> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(domain);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();
+	}
+	
+	public void updateDomain(Domain domain, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.domain(domain.getUuid(), config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Domain> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(domain);
+		exchange(request, Domain.class, options);
+	}
+	
+	public void deleteDomain(String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.domain(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+	
+	//
+	// Registry
+	//
+	
+	public Registry getRegistry(String id, RegistryOptions options) {
+		URI uri = makeURI(DevopsEndpoints.registry(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Registry> result = exchange(request, Registry.class, options);
+		return result.getBody();
+	}
+
+	
+	public Page<Registry> listRegistrys(RegistryFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.registries(config, isAdminRequest(filter)));
+		uri = processURI(uri, filter, pageable);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
+		return PageUtil.create2(result.getBody(),  Registry.class);
+	}
+	
+	public URI createRegistry(Registry registry, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.registries(config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Registry> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(registry);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();
+	}
+	
+	public void updateRegistry(Registry registry, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.registry(registry.getUuid(), config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Registry> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(registry);
+		exchange(request, Registry.class, options);
+	}
+	
+	public void deleteRegistry(String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.registry(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
 	
 	//
 	// Vcs
 	//
 	
 	public Vcs getVcs(String id, VcsOptions options) {
-		URI uri = makeURI(DevopsEndpoints.vcs(id, config));
+		URI uri = makeURI(DevopsEndpoints.vcs(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		ResponseEntity<Vcs> result = exchange(request, Vcs.class, options);
@@ -468,7 +568,7 @@ public class DevopsClient {
 
 	
 	public Page<Vcs> listVcss(VcsFilter filter, Pageable pageable) {
-		URI uri = makeURI(DevopsEndpoints.vcss(config));
+		URI uri = makeURI(DevopsEndpoints.vcss(config, isAdminRequest(filter)));
 		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		@SuppressWarnings("rawtypes")
@@ -477,7 +577,7 @@ public class DevopsClient {
 	}
 	
 	public URI createVcs(Vcs vcs, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.vcss(config));
+		URI uri = makeURI(DevopsEndpoints.vcss(config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Vcs> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(vcs);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
@@ -485,14 +585,103 @@ public class DevopsClient {
 	}
 	
 	public void updateVcs(Vcs vcs, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.vcs(vcs.getUuid(), config));
+		URI uri = makeURI(DevopsEndpoints.vcs(vcs.getUuid(), config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Vcs> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(vcs);
 		exchange(request, Vcs.class, options);
 	}
 	
 	public void deleteVcs(String id, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.vcs(id, config));
+		URI uri = makeURI(DevopsEndpoints.vcs(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+	
+	
+	//
+	// Solution
+	//
+	
+	public Solution getSolution(String id, SolutionOptions options) {
+		URI uri = makeURI(DevopsEndpoints.solution(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Solution> result = exchange(request, Solution.class, options);
+		return result.getBody();
+	}
+
+	
+	public Page<Solution> listSolutions(SolutionFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.solutions(config, isAdminRequest(filter)));
+		uri = processURI(uri, filter, pageable);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
+		return PageUtil.create2(result.getBody(),  Solution.class);
+	}
+	
+	public URI createSolution(Solution solution, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.solutions(config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Solution> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(solution);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();
+	}
+	
+	public void updateSolution(Solution solution, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.solution(solution.getUuid(), config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Solution> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(solution);
+		exchange(request, Solution.class, options);
+	}
+	
+	public void deleteSolution(String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.solution(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+	
+	//
+	// Catalog
+	//
+	
+	public Catalog getCatalog(String id, CatalogOptions options) {
+		URI uri = makeURI(DevopsEndpoints.catalog(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Catalog> result = exchange(request, Catalog.class, options);
+		return result.getBody();
+	}
+
+	
+	public Page<Catalog> listCatalogs(CatalogFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.catalogs(config, isAdminRequest(filter)));
+		uri = processURI(uri, filter, pageable);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
+		return PageUtil.create2(result.getBody(),  Catalog.class);
+	}
+	
+	public URI createCatalog(Catalog catalog, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.catalogs(config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Catalog> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(catalog);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();
+	}
+	
+	public void updateCatalog(Catalog catalog, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.catalog(catalog.getUuid(), config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Catalog> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(catalog);
+		exchange(request, Catalog.class, options);
+	}
+	
+	public void deleteCatalog(String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.catalog(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);

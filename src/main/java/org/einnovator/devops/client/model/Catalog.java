@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SolutionRepo extends NamedEntity {
+public class Catalog extends NamedEntity {
 
 	private SolutionRepoType type;
 
@@ -53,7 +53,7 @@ public class SolutionRepo extends NamedEntity {
 	 * Create instance of {@code SolutionRepo}.
 	 *
 	 */
-	public SolutionRepo() {	
+	public Catalog() {	
 	}
 
 	//
@@ -68,7 +68,7 @@ public class SolutionRepo extends NamedEntity {
 	 * @param name the name
 	 * @param url the url
 	 */
-	public SolutionRepo(SolutionRepoType type, String name, String url) {
+	public Catalog(SolutionRepoType type, String name, String url) {
 		this.name = name;
 		this.type = type;
 		this.url = url;

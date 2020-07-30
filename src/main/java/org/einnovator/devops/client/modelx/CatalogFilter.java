@@ -2,17 +2,17 @@ package org.einnovator.devops.client.modelx;
 
 import java.util.List;
 
-import org.einnovator.devops.client.model.SolutionRepo;
+import org.einnovator.devops.client.model.Catalog;
 import org.einnovator.devops.client.model.SolutionRepoType;
 import org.einnovator.util.model.ToStringCreator;
 
 /**
  * A filter for {@code SolutionRepo}s.
  *
- * @see SolutionRepo
+ * @see Catalog
  * @author support@einnovator.org
  */
-public class SolutionRepoFilter extends SolutionRepoOptions {
+public class CatalogFilter extends CatalogOptions {
 
 	private SolutionRepoType type;
 
@@ -36,7 +36,7 @@ public class SolutionRepoFilter extends SolutionRepoOptions {
 	 * Create instance of {@code SolutionRepoFilter}.
 	 *
 	 */
-	public SolutionRepoFilter() {
+	public CatalogFilter() {
 	}
 
 	//
@@ -180,7 +180,7 @@ public class SolutionRepoFilter extends SolutionRepoOptions {
 	 * @param enabled the enabled to set
 	 * @return this {@code SolutionRepoFilter}
 	 */
-	public SolutionRepoFilter withEnabled(Boolean enabled) {
+	public CatalogFilter withEnabled(Boolean enabled) {
 		this.enabled = enabled;
 		return this;
 	}
@@ -191,7 +191,7 @@ public class SolutionRepoFilter extends SolutionRepoOptions {
 	 * @param featured the featured to set
 	 * @return this {@code SolutionRepoFilter}
 	 */
-	public SolutionRepoFilter withFeatured(Boolean featured) {
+	public CatalogFilter withFeatured(Boolean featured) {
 		this.featured = featured;
 		return this;
 	}
@@ -203,7 +203,7 @@ public class SolutionRepoFilter extends SolutionRepoOptions {
 	 * @param license the license to set
 	 * @return this {@code SolutionRepoFilter}
 	 */
-	public SolutionRepoFilter withLicense(Boolean license) {
+	public CatalogFilter withLicense(Boolean license) {
 		this.license = license;
 		return this;
 	}
