@@ -6,6 +6,8 @@ import org.einnovator.devops.client.manager.VcsManager;
 import org.einnovator.devops.client.manager.VcsManagerImpl;
 import org.einnovator.devops.client.manager.DeploymentManager;
 import org.einnovator.devops.client.manager.DeploymentManagerImpl;
+import org.einnovator.devops.client.manager.LicenseManager;
+import org.einnovator.devops.client.manager.LicenseManagerImpl;
 import org.einnovator.devops.client.manager.SpaceManager;
 import org.einnovator.devops.client.manager.SpaceManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,4 +80,8 @@ public class DevopsClientConfig {
 		return new VcsManagerImpl(cacheManager);
 	}
 
+	@Bean
+	public LicenseManager devopsLicenseManager(CacheManager cacheManager) {
+		return new LicenseManagerImpl(cacheManager);
+	}
 }

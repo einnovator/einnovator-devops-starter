@@ -219,7 +219,6 @@ public class ClusterFilter extends ClusterOptions {
 	// With
 	//
 
-
 	/**
 	 * Set the value of property {@code q}.
 	 *

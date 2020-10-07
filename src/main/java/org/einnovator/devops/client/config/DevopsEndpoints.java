@@ -42,6 +42,22 @@ public class DevopsEndpoints {
 		return api(config, admin) + "/deployment/" + deployId;
 	}
 	
+	public static String jobs(String spaceId, DevopsClientConfiguration config,  boolean admin) {
+		return space(spaceId, config, admin) + "/job";
+	}
+
+	public static String job(String deployId, DevopsClientConfiguration config,  boolean admin) {
+		return api(config, admin) + "/job/" + deployId;
+	}
+
+	public static String cronjobs(String spaceId, DevopsClientConfiguration config,  boolean admin) {
+		return space(spaceId, config, admin) + "/cronjob";
+	}
+
+	public static String cronjob(String deployId, DevopsClientConfiguration config,  boolean admin) {
+		return api(config, admin) + "/cronjob/" + deployId;
+	}
+
 	public static String routes(String deployId, DevopsClientConfiguration config,  boolean admin) {
 		return deployment(deployId, config, admin) + "/route";
 	}
@@ -92,6 +108,14 @@ public class DevopsEndpoints {
 
 	public static String catalog(String id, DevopsClientConfiguration config, boolean admin) {
 		return catalogs(config, admin) + "/" + id;
+	}
+
+	public static String license(String id, DevopsClientConfiguration config, boolean admin) {
+		return licenses(config, admin) + "/" + id;
+	}
+
+	public static String licenses(DevopsClientConfiguration config, boolean admin) {
+		return api(config, admin) + "/license";
 	}
 
 	public static String billing(String id, DevopsClientConfiguration config, boolean admin) {

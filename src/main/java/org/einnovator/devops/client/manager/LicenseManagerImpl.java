@@ -7,9 +7,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.einnovator.devops.client.DevopsClient;
 
-import org.einnovator.devops.client.model.Vcs;
-import org.einnovator.devops.client.modelx.VcsFilter;
-import org.einnovator.devops.client.modelx.VcsOptions;
+import org.einnovator.devops.client.model.License;
+import org.einnovator.devops.client.modelx.LicenseFilter;
+import org.einnovator.devops.client.modelx.LicenseOptions;
 import org.einnovator.util.UriUtils;
 import org.einnovator.util.cache.CacheUtils;
 import org.einnovator.util.web.RequestOptions;
@@ -23,9 +23,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpStatusCodeException;
 
-public class VcsManagerImpl implements VcsManager {
+public class LicenseManagerImpl implements LicenseManager {
 
-	public static final String CACHE_VCS = "Vcs";
+	public static final String CACHE_LICENSE = "License";
 
 	private final Log logger = LogFactory.getLog(getClass());
 
@@ -35,125 +35,122 @@ public class VcsManagerImpl implements VcsManager {
 	private CacheManager cacheManager;
 
 	@Autowired
-	public VcsManagerImpl(CacheManager cacheManager) {
+	public LicenseManagerImpl(CacheManager cacheManager) {
 		this.cacheManager = cacheManager;
 	}
 
-	public VcsManagerImpl(DevopsClient client, CacheManager cacheManager) {
+	public LicenseManagerImpl(DevopsClient client, CacheManager cacheManager) {
 		this.client = client;
 		this.cacheManager = cacheManager;
 	}
 	
-	public VcsManagerImpl() {
+	public LicenseManagerImpl() {
 	}
 
-
-	
-
 	@Override
-	public Vcs getVcs(String id, VcsOptions options) {
+	public License getLicense(String id, LicenseOptions options) {
 		try {
 			
 			if (isCachable(options)) {
-				Vcs project = CacheUtils.getCacheValue(Vcs.class, getVcsCache(), id);
+				License project = CacheUtils.getCacheValue(License.class, getLicenseCache(), id);
 				if (project!=null) {
 					return project;
 				}	
 			}
-			Vcs project = client.getVcs(id, options);		
+			License project = client.getLicense(id, options);		
 			if (project==null) {
-				logger.error("getVcs" + id);
+				logger.error("getLicense" + id);
 			}
 			if (isCachable(options)) {
-				CacheUtils.putCacheValue(project, getVcsCache(), id);				
+				CacheUtils.putCacheValue(project, getLicenseCache(), id);				
 			}
 
 			return project;
 		} catch (HttpStatusCodeException e) {
 			if (e.getStatusCode()!=HttpStatus.NOT_FOUND) {
-				logger.error(String.format("getVcs: %s %s %s", e, id, options));
+				logger.error(String.format("getLicense: %s %s %s", e, id, options));
 			}
 			return null;
 		} catch (RuntimeException e) {
-			logger.error(String.format("getVcs: %s %s %s", e, id, options));
+			logger.error(String.format("getLicense: %s %s %s", e, id, options));
 			return null;
 		}
 	}
 
 
-	protected boolean isCachable(VcsOptions options) {
+	protected boolean isCachable(LicenseOptions options) {
 		return options==null;
 	}
 	
 	@Override
-	public URI createVcs(Vcs project, RequestOptions options) {
+	public URI createLicense(License project, RequestOptions options) {
 		try {
-			return client.createVcs(project, null);
+			return client.createLicense(project, null);
 		} catch (RuntimeException e) {
-			logger.error(String.format("createVcs: %s %s", e, project));
+			logger.error(String.format("createLicense: %s %s", e, project));
 			return null;
 		}
 	}
 	
 	@Override
-	@CachePut(value=CACHE_VCS, key="#project.uuid")
-	public Vcs updateVcs(Vcs project, RequestOptions options) {
+	@CachePut(value=CACHE_LICENSE, key="#project.uuid")
+	public License updateLicense(License project, RequestOptions options) {
 		try {
-			client.updateVcs(project, null);
+			client.updateLicense(project, null);
 			return project;
 		} catch (RuntimeException e) {
-			logger.error(String.format("updateVcs: %s %s", e, project));
+			logger.error(String.format("updateLicense: %s %s", e, project));
 			return null;
 		}
 	}
 
 	@Override
-	public Vcs createOrUpdateVcs(Vcs project, RequestOptions options) {
+	public License createOrUpdateLicense(License project, RequestOptions options) {
 		if (project.getUuid()==null) {
-			URI uri = createVcs(project, null);
+			URI uri = createLicense(project, null);
 			if (uri==null) {
 				return null;
 			}
 			project.setUuid(UriUtils.extractId(uri));
 			return project;
 		} else {
-			return updateVcs(project, null);
+			return updateLicense(project, null);
 		}
 	}
 	
 	
 	@Override
-	@CacheEvict(value=CACHE_VCS, key="#id")
-	public boolean deleteVcs(String id, RequestOptions options) {
+	@CacheEvict(value=CACHE_LICENSE, key="#id")
+	public boolean deleteLicense(String id, RequestOptions options) {
 		try {
-			client.deleteVcs(id, null);
+			client.deleteLicense(id, null);
 			return true;
 		} catch (RuntimeException e) {
-			logger.error(String.format("deleteVcs: %s %s %s", e, id));
+			logger.error(String.format("deleteLicense: %s %s %s", e, id));
 			return false;
 		}
 	}
 	
 	
 	@Override
-	public Page<Vcs> listVcss(VcsFilter filter, Pageable pageable) {
+	public Page<License> listLicenses(LicenseFilter filter, Pageable pageable) {
 		try {
-			return client.listVcss(filter, pageable);
+			return client.listLicenses(filter, pageable);
 		} catch (RuntimeException e) {
-			logger.error(String.format("listVcss: %s %s %s", e, filter, pageable));
+			logger.error(String.format("listLicenses: %s %s %s", e, filter, pageable));
 			return null;
 		}
 	}
 	
 	
-	public void onVcsUpdate(String id, Map<String, Object> details) {
+	public void onLicenseUpdate(String id, Map<String, Object> details) {
 		if (id==null) {
 			return;
 		}
 		try {
-			Cache cache = getVcsCache();
+			Cache cache = getLicenseCache();
 			if (cache!=null) {
-				Vcs project = (Vcs) cache.get(id);
+				License project = (License) cache.get(id);
 				if (project!=null) {
 					if (details!=null) {
 						project.updateFrom(details);						
@@ -163,21 +160,21 @@ public class VcsManagerImpl implements VcsManager {
 				}
 			}
 		} catch (RuntimeException e) {
-			logger.error(String.format("onVcsUpdate: %s", e));
+			logger.error(String.format("onLicenseUpdate: %s", e));
 		}
 	}
 
 	@Override
 	public void clearCache() {
-		Cache cache = getVcsCache();
+		Cache cache = getLicenseCache();
 		if (cache!=null) {
 			cache.clear();
 		}
 	}
 
 	@Override
-	public Cache getVcsCache() {
-		Cache cache = cacheManager.getCache(VcsManagerImpl.CACHE_VCS);
+	public Cache getLicenseCache() {
+		Cache cache = cacheManager.getCache(LicenseManagerImpl.CACHE_LICENSE);
 		return cache;
 	}
 
