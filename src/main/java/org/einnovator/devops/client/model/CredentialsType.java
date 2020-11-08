@@ -2,9 +2,12 @@ package org.einnovator.devops.client.model;
 
 
 public enum CredentialsType {
+	NONE("None (Public)"),
 	USERNAME_PASSWORD("Username/Password"),
 	OAUTH2_TOKEN("OAuth2 Token"),
 	SSH_KEY("SSH Private Key"),
+	CERTIFICATE("Certificate"),
+	KEY_SECRET("Key/Secret"),
 	JSON_KEY("Json Key");
 	
 	private final String displayValue;
