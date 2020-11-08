@@ -26,6 +26,8 @@ public class Cluster extends BilledEntity {
 	
 	private String master;
 
+	private CredentialsType credentialsType;
+	
 	private String caCertData;
 
 	private String caCertUri;
@@ -254,7 +256,25 @@ public class Cluster extends BilledEntity {
 	public void setMaster(String master) {
 		this.master = master;
 	}
+	
+	/**
+	 * Get the value of property {@code credentialsType}.
+	 *
+	 * @return the credentialsType
+	 */
+	public CredentialsType getCredentialsType() {
+		return credentialsType;
+	}
 
+
+	/**
+	 * Set the value of property {@code credentialsType}.
+	 *
+	 * @param credentialsType the value of property credentialsType
+	 */
+	public void setCredentialsType(CredentialsType credentialsType) {
+		this.credentialsType = credentialsType;
+	}
 	/**
 	 * Get the value of property {@code caCertData}.
 	 *
