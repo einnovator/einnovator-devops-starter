@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProtectedEntity extends OwnedEntity {
 
-
 	protected ShareType sharing;
 
 	private List<Authority> authorities;	

@@ -22,8 +22,6 @@ public class Cluster extends BilledEntity {
 
 	private Boolean fallback;
 
-	private String img;
-	
 	private Boolean enabled;
 	
 	private String master;
@@ -41,6 +39,18 @@ public class Cluster extends BilledEntity {
 	private String clientKeyUri;
 
 	private String clientKeyAlgo;
+	
+	private String username;
+
+	private String key;
+	
+	private String secret;
+
+	private String svcacc;
+	
+	private String token;
+	
+
 
 	/**
 	 * Create instance of {@code Cluster}.
@@ -371,6 +381,97 @@ public class Cluster extends BilledEntity {
 		this.clientKeyAlgo = clientKeyAlgo;
 	}
 
+	/**
+	 * Get the value of property {@code key}.
+	 *
+	 * @return the value of {@code key}
+	 */
+	public String getKey() {
+		return key;
+	}
+
+	/**
+	 * Get the value of property {@code username}.
+	 *
+	 * @return the value of {@code username}
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * Set the value of property {@code username}.
+	 *
+	 * @param username the value of {@code username}
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	/**
+	 * Set the value of property {@code key}.
+	 *
+	 * @param key the value of {@code key}
+	 */
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	/**
+	 * Get the value of property {@code secret}.
+	 *
+	 * @return the value of {@code secret}
+	 */
+	public String getSecret() {
+		return secret;
+	}
+
+	/**
+	 * Set the value of property {@code secret}.
+	 *
+	 * @param secret the value of {@code secret}
+	 */
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
+
+	/**
+	 * Get the value of property {@code svcacc}.
+	 *
+	 * @return the value of {@code svcacc}
+	 */
+	public String getSvcacc() {
+		return svcacc;
+	}
+
+	/**
+	 * Set the value of property {@code svcacc}.
+	 *
+	 * @param svcacc the value of {@code svcacc}
+	 */
+	public void setSvcacc(String svcacc) {
+		this.svcacc = svcacc;
+	}
+
+	/**
+	 * Get the value of property {@code token}.
+	 *
+	 * @return the value of {@code token}
+	 */
+	public String getToken() {
+		return token;
+	}
+
+	/**
+	 * Set the value of property {@code token}.
+	 *
+	 * @param token the value of {@code token}
+	 */
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
@@ -381,7 +482,11 @@ public class Cluster extends BilledEntity {
 				.append("region", region)
 				.append("nodes", nodes)
 				.append("enabled", enabled)
-				.append("img", img)
+				.append("username", username)
+				.append("key", key)
+				.append("secret", secret!=null ? "****" : null)
+				.append("svcacc", svcacc!=null ? "****" : null)
+				.append("token", token!=null ? "****" : null)
 				.append("#caCertData", caCertData!=null ? caCertData.length() : null)
 				.append("caCertUri", caCertUri)
 				.append("#clientCertData", clientCertData!=null ? clientCertData.length() : null)

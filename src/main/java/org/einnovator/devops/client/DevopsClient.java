@@ -93,8 +93,8 @@ public class DevopsClient {
 	@Autowired
 	private DevopsClientConfiguration config;
 	
-	@Autowired
-	@Qualifier("metaRestTemplate")
+	@Autowired(required=false)
+	@Qualifier("devopsRestTemplate")
 	private OAuth2RestTemplate restTemplate;
 	
 	private OAuth2RestTemplate restTemplate0;

@@ -11,6 +11,8 @@ import org.einnovator.devops.client.manager.LicenseManagerImpl;
 import org.einnovator.devops.client.manager.SpaceManager;
 import org.einnovator.devops.client.manager.SpaceManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -30,10 +32,10 @@ public class DevopsClientConfig {
 	@Autowired
 	private DevopsClientConfiguration config;
 	
-	@Autowired
+	@Autowired(required=false)
 	private OAuth2ClientContext oauth2ClientContext;
 
-	@Autowired
+	@Autowired(required=false)
 	private OAuth2ProtectedResourceDetails oauth2ResourceDetails;
 
 	public ClientHttpRequestFactory clientHttpRequestFactory() {
@@ -53,7 +55,9 @@ public class DevopsClientConfig {
 	}
 	
 	@Bean
-	public OAuth2RestTemplate metaRestTemplate() {
+	@ConditionalOnMissingBean(name = "devopsRestTemplate")
+	@ConditionalOnProperty(matchIfMissing = true, name = "devops.client.session", havingValue = "true")
+	public OAuth2RestTemplate devopsRestTemplate() {
 		OAuth2RestTemplate template;
 		template = new OAuth2RestTemplate(oauth2ResourceDetails, oauth2ClientContext);			
 		template.setRequestFactory(clientHttpRequestFactory());
