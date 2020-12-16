@@ -7,17 +7,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Registry extends OwnedEntity {
+public class Registry extends ProtectedEntity {
 	
 	private RegistryType type;
+	
+	private String server;
+
+	private CredentialsType credentialsType;
 	
 	private String username;
 	
 	private String email;
 	
 	private String password;
-	
-	private CredentialsType credentialsType;
 	
 	private String token;
 	
@@ -26,8 +28,6 @@ public class Registry extends OwnedEntity {
 	private String jsonKey;
 	
 	private String keyRaw;
-	
-	private String server;
 	
 	private String secret;
 	
@@ -262,15 +262,15 @@ public class Registry extends OwnedEntity {
 		return super.toString1(creator)
 				.append("type", type)
 				.append("server", server)
+				.append("global", global)
+				.append("credentialsType", credentialsType)
 				.append("username", username)
 				.append("email", email)
-				.append("credentialsType", credentialsType)
 				.append("password", StringUtils.hasText(password) ? "******" : null)
 				.append("token", StringUtils.hasText(token) ? "******" : null)
 				.append("key", StringUtils.hasText(key) ? "******" : null)
 				.append("jsonKey", StringUtils.hasText(jsonKey) ? "******" : null)
-				.append("global", global)
-				.append("secret", secret)
+				.append("secret", StringUtils.hasText(secret) ? "******" : null)
 				;
 	}
 	

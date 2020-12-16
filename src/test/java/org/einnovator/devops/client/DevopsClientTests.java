@@ -29,7 +29,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { DevopsClientConfig.class, DevopsClientTests.TestConfig.class }, webEnvironment = WebEnvironment.NONE)
-@TestPropertySource(properties = { "devops.server=http://localhost:2501", "sso.server=http://localhost:2001",
+@TestPropertySource(properties = { "devops.server=http://localhost:2501", "sso.server=http://localhost:2000",
 		"spring.cache.ehcache.config:ehcache-devops-starter.xml" })
 public class DevopsClientTests extends SsoTestHelper {
 

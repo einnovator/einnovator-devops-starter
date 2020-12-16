@@ -7,9 +7,10 @@ public enum ProviderType {
 	AWS("AWS"),
 	GOOGLE("Google"),
 	AZURE("Azure"),
+	IBM("IBM"),
 	DO("DigitalOcean"),
 	LINODE("Linode"),
-	RACKSPACE("Rackspace"),
+	SCALEWAY("Scaleway"),
 	OTHER("Other"),
 	;
 	

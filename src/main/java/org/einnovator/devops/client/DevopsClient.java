@@ -767,15 +767,37 @@ public class DevopsClient {
 	// Domain
 	//
 	
+	/**
+	 * Get {@code Domain} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching {@link Domain#getSharing()} and {@link Domain#getAuthorities()}.
+	 * 
+	 * @param id the identifier
+	 * @param options (optional) the {@code DomainOptions} that tailor which fields are returned (projection)	
+	 * @return the {@code Domain}
+	 * @throws RestClientException if request fails
+	 */
 	public Domain getDomain(String id, DomainOptions options) {
 		URI uri = makeURI(DevopsEndpoints.domain(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		ResponseEntity<Domain> result = exchange(request, Domain.class, options);
 		return result.getBody();
+		
 	}
-
 	
+	/**
+	 * List {@code Domain}s.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching {@link Domain#getSharing()} and {@link Domain#getAuthorities()}.
+	 * 
+	 * @param filter a {@code DomainFilter}
+	 * @param pageable a {@code Pageable} (optional)
+	
+	 * @throws RestClientException if request fails
+	 * @return a {@code Page} with {@code Domain}s
+	 * @throws RestClientException if request fails
+	 */
 	public Page<Domain> listDomains(DomainFilter filter, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.domains(config, isAdminRequest(filter)));
 		uri = processURI(uri, filter, pageable);
@@ -784,22 +806,52 @@ public class DevopsClient {
 		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
 		return PageUtil.create2(result.getBody(),  Domain.class);
 	}
+
+	/**
+	 * Create a new {@code Domain}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Any.
+	 * 
+	 * @param domain the {@code Domain}
+	 * @param options optional {@code RequestOptions}
 	
+	 * @return the location {@code URI} for the created {@code Domain}
+	 * @throws RestClientException if request fails
+	 */
 	public URI createDomain(Domain domain, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.domains(config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Domain> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(domain);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
-		return result.getHeaders().getLocation();
+		return result.getHeaders().getLocation();	
 	}
+
+	/**
+	 * Update existing {@code Domain}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param domain the {@code Domain}
+	 * @param options optional {@code RequestOptions}
 	
+	 * @throws RestClientException if request fails
+	 */
 	public void updateDomain(Domain domain, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.domain(domain.getUuid(), config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Domain> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(domain);
+		RequestEntity<Domain> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(domain);		
 		exchange(request, Domain.class, options);
 	}
-	
+
+	/**
+	 * Delete existing {@code Domain}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param id the {@code Domain} identifier (UUID)
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
 	public void deleteDomain(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.domain(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
@@ -811,16 +863,38 @@ public class DevopsClient {
 	// Registry
 	//
 	
+	/**
+	 * Get {@code Registry} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching {@link Registry#getSharing()} and {@link Registry#getAuthorities()}.
+	 * 
+	 * @param id the identifier
+	 * @param options (optional) the {@code RegistryOptions} that tailor which fields are returned (projection)	
+	 * @return the {@code Registry}
+	 * @throws RestClientException if request fails
+	 */
 	public Registry getRegistry(String id, RegistryOptions options) {
 		URI uri = makeURI(DevopsEndpoints.registry(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		ResponseEntity<Registry> result = exchange(request, Registry.class, options);
 		return result.getBody();
+		
 	}
-
 	
-	public Page<Registry> listRegistrys(RegistryFilter filter, Pageable pageable) {
+	/**
+	 * List {@code Registry}s.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching {@link Registry#getSharing()} and {@link Registry#getAuthorities()}.
+	 * 
+	 * @param filter a {@code RegistryFilter}
+	 * @param pageable a {@code Pageable} (optional)
+	
+	 * @throws RestClientException if request fails
+	 * @return a {@code Page} with {@code Registry}s
+	 * @throws RestClientException if request fails
+	 */
+	public Page<Registry> listRegistries(RegistryFilter filter, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.registries(config, isAdminRequest(filter)));
 		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
@@ -828,42 +902,94 @@ public class DevopsClient {
 		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
 		return PageUtil.create2(result.getBody(),  Registry.class);
 	}
+
+	/**
+	 * Create a new {@code Registry}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Any.
+	 * 
+	 * @param registry the {@code Registry}
+	 * @param options optional {@code RequestOptions}
 	
+	 * @return the location {@code URI} for the created {@code Registry}
+	 * @throws RestClientException if request fails
+	 */
 	public URI createRegistry(Registry registry, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.registries(config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Registry> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(registry);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
-		return result.getHeaders().getLocation();
+		return result.getHeaders().getLocation();	
 	}
+
+	/**
+	 * Update existing {@code Registry}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param registry the {@code Registry}
+	 * @param options optional {@code RequestOptions}
 	
+	 * @throws RestClientException if request fails
+	 */
 	public void updateRegistry(Registry registry, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.registry(registry.getUuid(), config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Registry> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(registry);
+		RequestEntity<Registry> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(registry);		
 		exchange(request, Registry.class, options);
 	}
-	
+
+	/**
+	 * Delete existing {@code Registry}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param id the {@code Registry} identifier (UUID)
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
 	public void deleteRegistry(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.registry(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
 	}
-	
+
 	//
 	// Vcs
 	//
 	
+	/**
+	 * Get {@code Vcs} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching {@link Vcs#getSharing()} and {@link Vcs#getAuthorities()}.
+	 * 
+	 * @param id the identifier
+	 * @param options (optional) the {@code VcsOptions} that tailor which fields are returned (projection)	
+	 * @return the {@code Vcs}
+	 * @throws RestClientException if request fails
+	 */
 	public Vcs getVcs(String id, VcsOptions options) {
 		URI uri = makeURI(DevopsEndpoints.vcs(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		ResponseEntity<Vcs> result = exchange(request, Vcs.class, options);
 		return result.getBody();
+		
 	}
-
 	
+	/**
+	 * List {@code Vcs}s.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching {@link Vcs#getSharing()} and {@link Vcs#getAuthorities()}.
+	 * 
+	 * @param filter a {@code VcsFilter}
+	 * @param pageable a {@code Pageable} (optional)
+	
+	 * @throws RestClientException if request fails
+	 * @return a {@code Page} with {@code Vcs}s
+	 * @throws RestClientException if request fails
+	 */
 	public Page<Vcs> listVcss(VcsFilter filter, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.vcss(config, isAdminRequest(filter)));
 		uri = processURI(uri, filter, pageable);
@@ -872,43 +998,94 @@ public class DevopsClient {
 		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
 		return PageUtil.create2(result.getBody(),  Vcs.class);
 	}
+
+	/**
+	 * Create a new {@code Vcs}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Any.
+	 * 
+	 * @param vcs the {@code Vcs}
+	 * @param options optional {@code RequestOptions}
 	
+	 * @return the location {@code URI} for the created {@code Vcs}
+	 * @throws RestClientException if request fails
+	 */
 	public URI createVcs(Vcs vcs, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.vcss(config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Vcs> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(vcs);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
-		return result.getHeaders().getLocation();
+		return result.getHeaders().getLocation();	
 	}
+
+	/**
+	 * Update existing {@code Vcs}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param vcs the {@code Vcs}
+	 * @param options optional {@code RequestOptions}
 	
+	 * @throws RestClientException if request fails
+	 */
 	public void updateVcs(Vcs vcs, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.vcs(vcs.getUuid(), config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Vcs> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(vcs);
+		RequestEntity<Vcs> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(vcs);		
 		exchange(request, Vcs.class, options);
 	}
-	
+
+	/**
+	 * Delete existing {@code Vcs}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param id the {@code Vcs} identifier (UUID)
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
 	public void deleteVcs(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.vcs(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
 	}
-	
-	
+
 	//
 	// Solution
 	//
 	
+	/**
+	 * Get {@code Solution} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching {@link Solution#getSharing()} and {@link Solution#getAuthorities()}.
+	 * 
+	 * @param id the identifier
+	 * @param options (optional) the {@code SolutionOptions} that tailor which fields are returned (projection)	
+	 * @return the {@code Solution}
+	 * @throws RestClientException if request fails
+	 */
 	public Solution getSolution(String id, SolutionOptions options) {
 		URI uri = makeURI(DevopsEndpoints.solution(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		ResponseEntity<Solution> result = exchange(request, Solution.class, options);
 		return result.getBody();
+		
 	}
-
 	
+	/**
+	 * List {@code Solution}s.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching {@link Solution#getSharing()} and {@link Solution#getAuthorities()}.
+	 * 
+	 * @param filter a {@code SolutionFilter}
+	 * @param pageable a {@code Pageable} (optional)
+	
+	 * @throws RestClientException if request fails
+	 * @return a {@code Page} with {@code Solution}s
+	 * @throws RestClientException if request fails
+	 */
 	public Page<Solution> listSolutions(SolutionFilter filter, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.solutions(config, isAdminRequest(filter)));
 		uri = processURI(uri, filter, pageable);
@@ -917,42 +1094,95 @@ public class DevopsClient {
 		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
 		return PageUtil.create2(result.getBody(),  Solution.class);
 	}
+
+	/**
+	 * Create a new {@code Solution}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Any.
+	 * 
+	 * @param solution the {@code Solution}
+	 * @param options optional {@code RequestOptions}
 	
+	 * @return the location {@code URI} for the created {@code Solution}
+	 * @throws RestClientException if request fails
+	 */
 	public URI createSolution(Solution solution, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.solutions(config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Solution> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(solution);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
-		return result.getHeaders().getLocation();
+		return result.getHeaders().getLocation();	
 	}
+
+	/**
+	 * Update existing {@code Solution}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param solution the {@code Solution}
+	 * @param options optional {@code RequestOptions}
 	
+	 * @throws RestClientException if request fails
+	 */
 	public void updateSolution(Solution solution, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.solution(solution.getUuid(), config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Solution> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(solution);
+		RequestEntity<Solution> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(solution);		
 		exchange(request, Solution.class, options);
 	}
-	
+
+	/**
+	 * Delete existing {@code Solution}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param id the {@code Solution} identifier (UUID)
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
 	public void deleteSolution(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.solution(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
 	}
-	
+
 	//
 	// Catalog
 	//
 	
+	
+	/**
+	 * Get {@code Catalog} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: If Enabled: any. If not enabled: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param id the identifier
+	 * @param options (optional) the {@code CatalogOptions} that tailor which fields are returned (projection)	
+	 * @return the {@code Catalog}
+	 * @throws RestClientException if request fails
+	 */
 	public Catalog getCatalog(String id, CatalogOptions options) {
 		URI uri = makeURI(DevopsEndpoints.catalog(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		ResponseEntity<Catalog> result = exchange(request, Catalog.class, options);
 		return result.getBody();
+		
 	}
-
 	
+	/**
+	 * List {@code Catalog}s.
+	 * 
+	 * <p><b>Required Security Credentials</b>: If Enabled: any. If not enabled: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param filter a {@code CatalogFilter}
+	 * @param pageable a {@code Pageable} (optional)
+	
+	 * @throws RestClientException if request fails
+	 * @return a {@code Page} with {@code Catalog}s
+	 * @throws RestClientException if request fails
+	 */
 	public Page<Catalog> listCatalogs(CatalogFilter filter, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.catalogs(config, isAdminRequest(filter)));
 		uri = processURI(uri, filter, pageable);
@@ -961,29 +1191,59 @@ public class DevopsClient {
 		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
 		return PageUtil.create2(result.getBody(),  Catalog.class);
 	}
+
+	/**
+	 * Create a new {@code Catalog}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param catalog the {@code Catalog}
+	 * @param options optional {@code RequestOptions}
 	
+	 * @return the location {@code URI} for the created {@code Catalog}
+	 * @throws RestClientException if request fails
+	 */
 	public URI createCatalog(Catalog catalog, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.catalogs(config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Catalog> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(catalog);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
-		return result.getHeaders().getLocation();
+		return result.getHeaders().getLocation();	
 	}
+
+	/**
+	 * Update existing {@code Catalog}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param catalog the {@code Catalog}
+	 * @param options optional {@code RequestOptions}
 	
+	 * @throws RestClientException if request fails
+	 */
 	public void updateCatalog(Catalog catalog, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.catalog(catalog.getUuid(), config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Catalog> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(catalog);
+		RequestEntity<Catalog> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(catalog);		
 		exchange(request, Catalog.class, options);
 	}
-	
+
+	/**
+	 * Delete existing {@code Catalog}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param id the {@code Catalog} identifier (UUID)
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
 	public void deleteCatalog(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.catalog(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
 	}
-	
+
 	//
 	// License
 	//
@@ -1159,6 +1419,6 @@ public class DevopsClient {
 	private static URI processURI(URI uri, Object... objs) {
 		return UriUtils.appendQueryParameters(uri, objs);
 	}
-	
+
 	
 }

@@ -31,7 +31,7 @@ public class DevopsEndpoints {
 	}
 
 	public static String space(String spaceId, DevopsClientConfiguration config,  boolean admin) {
-		return  api(config, admin) + "/space/" + spaceId;
+		return  api(config, admin) + "/space/" + processId(spaceId);
 	}
 
 	public static String deployments(String spaceId, DevopsClientConfiguration config,  boolean admin) {
@@ -39,7 +39,7 @@ public class DevopsEndpoints {
 	}
 
 	public static String deployment(String deployId, DevopsClientConfiguration config,  boolean admin) {
-		return api(config, admin) + "/deployment/" + deployId;
+		return api(config, admin) + "/deployment/" + processId(deployId);
 	}
 	
 	public static String jobs(String spaceId, DevopsClientConfiguration config,  boolean admin) {
@@ -47,7 +47,7 @@ public class DevopsEndpoints {
 	}
 
 	public static String job(String deployId, DevopsClientConfiguration config,  boolean admin) {
-		return api(config, admin) + "/job/" + deployId;
+		return api(config, admin) + "/job/" + processId(deployId);
 	}
 
 	public static String cronjobs(String spaceId, DevopsClientConfiguration config,  boolean admin) {
@@ -55,7 +55,7 @@ public class DevopsEndpoints {
 	}
 
 	public static String cronjob(String deployId, DevopsClientConfiguration config,  boolean admin) {
-		return api(config, admin) + "/cronjob/" + deployId;
+		return api(config, admin) + "/cronjob/" + processId(deployId);
 	}
 
 	public static String routes(String deployId, DevopsClientConfiguration config,  boolean admin) {
@@ -141,4 +141,11 @@ public class DevopsEndpoints {
 		}
 		return s;
 	}
+	
+	
+	
+	private static String processId(String id) {
+		return id.replaceAll("/", "@");
+	}
+	
 }

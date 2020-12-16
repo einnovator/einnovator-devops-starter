@@ -13,7 +13,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Cluster extends BilledEntity {
 
 	private Region region;
-	
+
+	private ProviderType provider;
+
 	private List<Node> nodes;
 
 	private Boolean sandbox;
@@ -53,6 +55,9 @@ public class Cluster extends BilledEntity {
 	private String token;
 	
 
+	//
+	// Constructor
+	//
 
 	/**
 	 * Create instance of {@code Cluster}.
@@ -61,7 +66,31 @@ public class Cluster extends BilledEntity {
 	public Cluster() {
 	}
 
+
+	//
+	// Gettes/Setter
+	//
 	
+	/**
+	 * Get the value of property {@code provider}.
+	 *
+	 * @return the value of {@code provider}
+	 */
+	public ProviderType getProvider() {
+		return provider;
+	}
+
+
+	/**
+	 * Set the value of property {@code provider}.
+	 *
+	 * @param provider the value of {@code provider}
+	 */
+	public void setProvider(ProviderType provider) {
+		this.provider = provider;
+	}
+
+
 	/**
 	 * Get the value of property {@code region}.
 	 *
@@ -496,10 +525,11 @@ public class Cluster extends BilledEntity {
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
+				.append("provider", provider)
+				.append("region", region)
 				.append("sandbox", sandbox)
 				.append("shared", shared)
 				.append("fallback", fallback)
-				.append("region", region)
 				.append("nodes", nodes)
 				.append("enabled", enabled)
 				.append("username", username)

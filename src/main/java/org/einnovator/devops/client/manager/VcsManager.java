@@ -4,7 +4,6 @@ package org.einnovator.devops.client.manager;
 import java.net.URI;
 import java.util.Map;
 
-
 import org.einnovator.devops.client.model.Vcs;
 import org.einnovator.devops.client.modelx.VcsFilter;
 import org.einnovator.devops.client.modelx.VcsOptions;

@@ -228,7 +228,7 @@ public class Vcs extends ProtectedEntity {
 				.append("token", StringUtils.hasText(token) ? "******" : null)
 				.append("key", StringUtils.hasText(key) ? "******" : null)
 				.append("jsonKey", StringUtils.hasText(jsonKey) ? "******" : null)
-				.append("secret", secret)
+				.append("secret", StringUtils.hasText(secret) ? "******" : null)
 				.append("authorities", authorities)
 				;
 	}

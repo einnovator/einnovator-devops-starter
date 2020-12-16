@@ -191,7 +191,6 @@ public class Domain extends BilledEntity {
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
-				.append("name", name)
 				.append("dns", dns)
 				.append("sandbox", sandbox)
 				.append("verified", verified)
