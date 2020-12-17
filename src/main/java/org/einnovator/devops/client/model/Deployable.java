@@ -32,13 +32,23 @@ abstract public class Deployable extends AnnotatedEntity {
 
 	protected Image image;
 
-	protected Image buildImage;
+	//
+	// CICD
+	//
 	
+	protected Image buildImage;
+		
 	protected String builder;
 
 	protected String builderKind;
 
+	protected Workspace workspace;
+
 	protected List<Repository> repositories;
+
+	protected Webhook webhook;
+
+	//
 	
 	protected List<Instance> instances;
 

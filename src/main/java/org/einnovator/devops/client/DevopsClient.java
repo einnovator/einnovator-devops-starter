@@ -241,7 +241,6 @@ public class DevopsClient {
 	 * 
 	 * @param cluster the {@code Cluster}
 	 * @param options optional {@code RequestOptions}
-	
 	 * @throws RestClientException if request fails
 	 */
 	public void updateCluster(Cluster cluster, RequestOptions options) {
