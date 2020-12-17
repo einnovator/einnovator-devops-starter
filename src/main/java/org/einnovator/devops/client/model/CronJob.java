@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CronJob extends JobBase {
 
+	protected CronJobStatus status;
+
 	private String schedule;
 
 	private Long startingDeadline;
@@ -30,6 +32,24 @@ public class CronJob extends JobBase {
 	
 	public CronJob(CronJob job) {
 		super(job);
+	}
+
+	/**
+	 * Get the value of property {@code status}.
+	 *
+	 * @return the value of {@code status}
+	 */
+	public CronJobStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * Set the value of property {@code status}.
+	 *
+	 * @param status the value of {@code status}
+	 */
+	public void setStatus(CronJobStatus status) {
+		this.status = status;
 	}
 
 	/**
@@ -179,6 +199,7 @@ public class CronJob extends JobBase {
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
+				.append("status", status)
 				.append("schedule", schedule)
 				.append("startingDeadline", startingDeadline)
 				.append("concurrencyPolicy", concurrencyPolicy)

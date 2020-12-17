@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Job extends JobBase {
 	
+	protected JobStatus status;
+
 	private Integer completions;
 
 	private Integer parallelism;
@@ -25,6 +27,24 @@ public class Job extends JobBase {
 	
 	public Job(Job job) {
 		super(job);
+	}
+
+	/**
+	 * Get the value of property {@code status}.
+	 *
+	 * @return the status
+	 */
+	public JobStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * Set the value of property {@code status}.
+	 *
+	 * @param status the value of property status
+	 */
+	public void setStatus(JobStatus status) {
+		this.status = status;
 	}
 
 	/**
@@ -121,6 +141,7 @@ public class Job extends JobBase {
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
+				.append("status", status)
 				.append("completions", completions)
 				.append("parallelism", parallelism)
 				.append("backoffLimit", backoffLimit)

@@ -1,18 +1,19 @@
 package org.einnovator.devops.client.model;
 
 
-public enum JobStatus {
+public enum CronJobStatus {
 	CREATED("Created"),
 	STARTING("Starting"),
-	RUNNING("Running"),
-	COMPLETED("Completed"),
+	ACTIVE("Active"),
+	SUSPENDED("Suspended"),
+	SCHEDULED("Scheduled"),
 	SHUTTING_DOWN("Shutting Down"),
 	STOPPED("Stopped"),
 	ERROR("Error");
 	
 	private final String displayValue;
 
-	JobStatus(String displayValue) {
+	CronJobStatus(String displayValue) {
 		this.displayValue = displayValue;
 	}
 
@@ -23,8 +24,8 @@ public enum JobStatus {
 	public String getDisplayName() {
 		return displayValue;
 	}
-	public static JobStatus parse(String s) {
-		for (JobStatus e: JobStatus.class.getEnumConstants()) {
+	public static CronJobStatus parse(String s) {
+		for (CronJobStatus e: CronJobStatus.class.getEnumConstants()) {
 			if (e.toString().equalsIgnoreCase(s)) {
 				return e;
 			}
@@ -32,10 +33,9 @@ public enum JobStatus {
 		return null;
 	}
 	
-	public static JobStatus parse(String s, JobStatus defaultValue) {
-		JobStatus value = parse(s);
+	public static CronJobStatus parse(String s, CronJobStatus defaultValue) {
+		CronJobStatus value = parse(s);
 		return value!=null ? value: defaultValue;
 	}
-
 
 }
