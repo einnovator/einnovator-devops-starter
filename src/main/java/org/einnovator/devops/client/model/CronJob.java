@@ -23,7 +23,7 @@ public class CronJob extends JobBase {
 	
 	private Integer failedJobsHistoryLimit;
 	
-	private Boolean suspeded;
+	private Boolean suspend;
 	
 	private Integer backoffLimit;
 
@@ -123,25 +123,25 @@ public class CronJob extends JobBase {
 	public void setLastScheduleTime(String lastScheduleTime) {
 		this.lastScheduleTime = lastScheduleTime;
 	}
-
-	/**
-	 * Get the value of property {@code suspeded}.
-	 *
-	 * @return the suspeded
-	 */
-	public Boolean getSuspeded() {
-		return suspeded;
-	}
-
-	/**
-	 * Set the value of property {@code suspeded}.
-	 *
-	 * @param suspeded the suspeded to set
-	 */
-	public void setSuspeded(Boolean suspeded) {
-		this.suspeded = suspeded;
-	}
 	
+	/**
+	 * Get the value of property {@code suspend}.
+	 *
+	 * @return the value of {@code suspend}
+	 */
+	public Boolean getSuspend() {
+		return suspend;
+	}
+
+	/**
+	 * Set the value of property {@code suspend}.
+	 *
+	 * @param suspend the value of {@code suspend}
+	 */
+	public void setSuspend(Boolean suspend) {
+		this.suspend = suspend;
+	}
+
 	/**
 	 * Get the value of property {@code successfulJobsHistoryLimit}.
 	 *
@@ -204,7 +204,7 @@ public class CronJob extends JobBase {
 				.append("startingDeadline", startingDeadline)
 				.append("concurrencyPolicy", concurrencyPolicy)
 				.append("lastScheduleTime", lastScheduleTime)
-				.append("suspeded", suspeded)
+				.append("suspend", suspend)
 				.append("successfulJobsHistoryLimit", successfulJobsHistoryLimit)
 				.append("failedJobsHistoryLimit", failedJobsHistoryLimit)
 				.append("backoffLimit", backoffLimit)
