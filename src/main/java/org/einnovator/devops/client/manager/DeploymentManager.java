@@ -25,7 +25,7 @@ public interface DeploymentManager {
 	
 	Deployment updateDeployment(Deployment deployment, RequestOptions options);
 	
-	boolean deleteDeployment(String id, RequestOptions options);
+	boolean deleteDeployment(String id, DeploymentOptions options);
 
 	//
 	// Routes
@@ -33,7 +33,7 @@ public interface DeploymentManager {
 
 	URI addRoute(String deployId, Route route, RequestOptions options);
 	boolean removeRoute(String deployId, String routeId, RequestOptions options);
-	Route updateRoute(String deployId, Route route, RequestOptions options);
+	Route updateRoute(String deployId, String routeId, Route route, RequestOptions options);
 
 	//
 	// Bindings
@@ -41,7 +41,7 @@ public interface DeploymentManager {
 
 	URI addBinding(String deployId, Binding binding, RequestOptions options);
 	boolean removeBinding(String deployId, String bindingId, RequestOptions options);
-	Binding updateBinding(String deployId, Binding binding, RequestOptions options);
+	Binding updateBinding(String deployId, String bindingId, Binding binding, RequestOptions options);
 
 	//
 	// Connectors
@@ -49,9 +49,8 @@ public interface DeploymentManager {
 	
 	URI addConnector(String deployId, Connector connector, RequestOptions options);
 	boolean removeConnector(String deployId, String connectorId, RequestOptions options);
-	Connector updateConnector(String deployId, Connector connector, RequestOptions options);
+	Connector updateConnector(String deployId, String connectorId, Connector connector, RequestOptions options);
 
-	
 	
 	void onDeploymentUpdate(String id, Map<String, Object> details);
 

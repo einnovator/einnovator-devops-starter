@@ -141,7 +141,7 @@ public class CronJobManagerImpl implements CronJobManager {
 	@Override
 	public URI addBinding(String cronjobId, Binding binding, RequestOptions options) {
 		try {
-			return client.addBinding(cronjobId, binding, options);
+			return client.addBindingCronJob(cronjobId, binding, options);
 		} catch (RuntimeException e) {
 			logger.error(String.format("addBinding: %s %s %s", e, cronjobId, binding));
 			return null;
@@ -151,7 +151,7 @@ public class CronJobManagerImpl implements CronJobManager {
 	@Override
 	public boolean removeBinding(String cronjobId, String bindingId, RequestOptions options) {
 		try {
-			client.removeBinding(cronjobId, bindingId, options);
+			client.removeBindingCronJob(cronjobId, bindingId, options);
 			return true;
 		} catch (RuntimeException e) {
 			logger.error(String.format("removeBinding: %s %s %s", e, cronjobId, bindingId));
@@ -161,9 +161,9 @@ public class CronJobManagerImpl implements CronJobManager {
 	}
 
 	@Override
-	public Binding updateBinding(String cronjobId, Binding binding, RequestOptions options) {
+	public Binding updateBinding(String cronjobId, String bindingId, Binding binding, RequestOptions options) {
 		try {
-			client.updateBinding(cronjobId, binding, options);
+			client.updateBindingCronJob(cronjobId, bindingId, binding, options);
 			return binding;
 		} catch (RuntimeException e) {
 			logger.error(String.format("removeBinding: %s %s %s", e, cronjobId, binding));

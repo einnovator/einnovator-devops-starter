@@ -22,6 +22,7 @@ public interface CatalogManager {
 	 * <p><b>Required Security Credentials</b>: Admin or owner.
 	 * 
 	 * @param id the {@code Catalog} uuid
+	 * @param options (optional) {@code CatalogOptions}
 	 * @return the {@code Catalog} if found, or null if not found or request failed
 	 */
 	Catalog getCatalog(String id, CatalogOptions options);
@@ -42,7 +43,7 @@ public interface CatalogManager {
 	 * Create Catalog.
 	 * 
 	 * @param vcs the {@code Catalog}
-	 * @param options TODO
+	 * @param options (optional) {@code RequestOptions}
 	 * @return the {@code URI} for te created {@code Catalog}.
 	 */
 	URI createCatalog(Catalog vcs, RequestOptions options);
@@ -63,7 +64,7 @@ public interface CatalogManager {
 	 * 
 	 * If {@code Catalog.uuid} has text is assumed to be an edit. Otherwise a create. A single call is made to seerver.
 	 * @param vcs the {@code Catalog}
-	 * @param options TODO
+	 * @param options (optional) {@code RequestOptions}
 	 * @return the {@code Catalog} with {@code uuid} property set; or null if error.
 	 */
 	Catalog createOrUpdateCatalog(Catalog vcs, RequestOptions options);

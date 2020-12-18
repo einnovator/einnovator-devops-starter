@@ -1,13 +1,15 @@
 package org.einnovator.devops.client;
 
 import static org.einnovator.util.UriUtils.makeURI;
+import static org.einnovator.util.web.RequestOptions.isAdminRequest;
 
 import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.einnovator.devops.client.config.DevopsClientConfiguration;
-
 import org.einnovator.devops.client.config.DevopsEndpoints;
 import org.einnovator.devops.client.model.Binding;
 import org.einnovator.devops.client.model.Catalog;
@@ -18,11 +20,15 @@ import org.einnovator.devops.client.model.Deployment;
 import org.einnovator.devops.client.model.Domain;
 import org.einnovator.devops.client.model.Job;
 import org.einnovator.devops.client.model.License;
+import org.einnovator.devops.client.model.Mount;
+import org.einnovator.devops.client.model.NamedEntity;
 import org.einnovator.devops.client.model.Registry;
 import org.einnovator.devops.client.model.Repository;
+import org.einnovator.devops.client.model.Resources;
 import org.einnovator.devops.client.model.Route;
 import org.einnovator.devops.client.model.Solution;
 import org.einnovator.devops.client.model.Space;
+import org.einnovator.devops.client.model.Variable;
 import org.einnovator.devops.client.model.Vcs;
 import org.einnovator.devops.client.modelx.CatalogFilter;
 import org.einnovator.devops.client.modelx.CatalogOptions;
@@ -38,6 +44,8 @@ import org.einnovator.devops.client.modelx.JobFilter;
 import org.einnovator.devops.client.modelx.JobOptions;
 import org.einnovator.devops.client.modelx.LicenseFilter;
 import org.einnovator.devops.client.modelx.LicenseOptions;
+import org.einnovator.devops.client.modelx.LogOptions;
+import org.einnovator.devops.client.modelx.ManifestOptions;
 import org.einnovator.devops.client.modelx.RegistryFilter;
 import org.einnovator.devops.client.modelx.RegistryOptions;
 import org.einnovator.devops.client.modelx.SolutionFilter;
@@ -49,6 +57,7 @@ import org.einnovator.devops.client.modelx.VcsOptions;
 import org.einnovator.util.PageResult;
 import org.einnovator.util.PageUtil;
 import org.einnovator.util.UriUtils;
+import org.einnovator.util.model.EntityBase;
 import org.einnovator.util.web.RequestOptions;
 import org.einnovator.util.web.Result;
 import org.einnovator.util.web.WebUtil;
@@ -60,8 +69,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
-import static org.einnovator.util.web.RequestOptions.isAdminRequest;
 
 
 /**
@@ -180,7 +189,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching {@link Cluster#getSharing()} and {@link Cluster#getAuthorities()}.
 	 * 
-	 * @param id the identifier
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options (optional) the {@code ClusterOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Cluster}
 	 * @throws RestClientException if request fails
@@ -201,7 +210,6 @@ public class DevopsClient {
 	 * 
 	 * @param filter a {@code ClusterFilter}
 	 * @param pageable a {@code Pageable} (optional)
-	
 	 * @throws RestClientException if request fails
 	 * @return a {@code Page} with {@code Cluster}s
 	 * @throws RestClientException if request fails
@@ -222,7 +230,6 @@ public class DevopsClient {
 	 * 
 	 * @param cluster the {@code Cluster}
 	 * @param options optional {@code RequestOptions}
-	
 	 * @return the location {@code URI} for the created {@code Cluster}
 	 * @throws RestClientException if request fails
 	 */
@@ -239,15 +246,31 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
+	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param cluster the {@code Cluster}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateCluster(String id, Cluster cluster, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.cluster(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Cluster> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(cluster);		
+		exchange(request, Cluster.class, options);
+	}
+	
+	/**
+	 * Update existing {@code Cluster}
+	 * 
+	 * ID is extracted from fields: UUID, ID, name;
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
 	 * @param cluster the {@code Cluster}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
 	public void updateCluster(Cluster cluster, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.cluster(cluster.getUuid(), config, isAdminRequest(options)));
-		uri = processURI(uri, options);		
-		RequestEntity<Cluster> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(cluster);		
-		exchange(request, Cluster.class, options);
+		updateCluster(getId(cluster), cluster, options);
 	}
 
 	/**
@@ -255,7 +278,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the {@code Cluster} identifier (UUID)
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -275,7 +298,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching {@link Space#getSharing()} and {@link Space#getAuthorities()}.
 	 * 
-	 * @param id the identifier
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options (optional) the {@code SpaceOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Space}
 	 * @throws RestClientException if request fails
@@ -296,7 +319,6 @@ public class DevopsClient {
 	 * 
 	 * @param filter a {@code SpaceFilter}
 	 * @param pageable a {@code Pageable} (optional)
-	
 	 * @throws RestClientException if request fails
 	 * @return a {@code Page} with {@code Space}s
 	 * @throws RestClientException if request fails
@@ -317,7 +339,6 @@ public class DevopsClient {
 	 * 
 	 * @param space the {@code Space}
 	 * @param options optional {@code RequestOptions}
-	
 	 * @return the location {@code URI} for the created {@code Space}
 	 * @throws RestClientException if request fails
 	 */
@@ -334,16 +355,30 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param space the {@code Space}
 	 * @param options optional {@code RequestOptions}
-	
 	 * @throws RestClientException if request fails
 	 */
-	public void updateSpace(Space space, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.space(space.getUuid(), config, isAdminRequest(options)));
+	public void updateSpace(String id, Space space, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.space(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Space> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(space);		
 		exchange(request, Space.class, options);
+	}
+	
+	/**
+	 * Update existing {@code Space}
+	 * 
+	 * <p>ID is extracted from fields: UUID, ID, or name.
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param space the {@code Space}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateSpace(Space space, RequestOptions options) {
+		updateSpace(getId(space), space, options);
 	}
 
 	/**
@@ -351,7 +386,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the {@code Space} identifier (UUID)
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -391,9 +426,9 @@ public class DevopsClient {
 	/**
 	 * Get {@code Deployment} with specified identifier.
 	 * 
-	 * <p><b>Required Security Credentials</b>: Matching the any set in the Space.
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid})
+	 * @param id the identifier ({@code uuid, id, or qualified name})
 	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Deployment}
 	 * @throws RestClientException if request fails
@@ -422,14 +457,31 @@ public class DevopsClient {
 		uri = processURI(uri, options);		
 		RequestEntity<Deployment> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(deploy);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
-		return result.getHeaders().getLocation();
-		
+		return result.getHeaders().getLocation();	
+	}
+	
+	/**
+	 * Update existing {@code Deployment}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param deploy the {@code Deployment}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateDeployment(String id, Deployment deploy, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.deployment(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Deployment> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(deploy);
+		exchange(request, Deployment.class, options);
 	}
 
 	
 	/**
 	 * Update existing {@code Deployment}
 	 * 
+	 * <p>ID is extracted from fields: UUID, ID, or name.
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
 	 * @param deploy the {@code Deployment}
@@ -437,32 +489,423 @@ public class DevopsClient {
 	 * @throws RestClientException if request fails
 	 */
 	public void updateDeployment(Deployment deploy, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.deployment(deploy.getUuid(), config, isAdminRequest(options)));
-		uri = processURI(uri, options);		
-		RequestEntity<Deployment> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(deploy);
-		exchange(request, Deployment.class, options);
+		updateDeployment(getId(deploy), deploy, options);
 	}
-
+	
 	/**
 	 * Delete existing {@code Deployment}
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param id the {@code Deployment} identifier (UUID)
-	 * @param options optional {@code RequestOptions}
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options optional {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
 	 */
-	public void deleteDeployment(String id, RequestOptions options) {
+	public void deleteDeployment(String id, DeploymentOptions options) {
 		URI uri = makeURI(DevopsEndpoints.deployment(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
 	}
 	
+
+	/**
+	 * Get Manifest for {@code Deployment} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) the {@code ManifestOptions} that manifest generation
+	 * @return the manifest
+	 * @throws RestClientException if request fails
+	 */
+	public String getDeploymentManifest(String id, ManifestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.deploymentManifest(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).build();
+		ResponseEntity<String> result = exchange(request, String.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Scale {@code Deployment} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param n number of replicas/pods/instances
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void scaleDeployment(String id, int n, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.deploymentScale(id, config, isAdminRequest(options)));
+		uri = processURI(uri, "n", n);
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+
+	/**
+	 * Scale Resources of {@code Deployment} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param resources the {@code Resources}
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void scaleDeployment(String id, Resources resources, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.deploymentRScale(id, config, isAdminRequest(options)));
+		uri = processURI(uri, resources);
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+
+	/**
+	 * Start {@code Deployment} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void startDeployment(String id, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.deploymentStart(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Restart {@code Deployment} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void restartDeployment(String id, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.deploymentRestart(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Stop {@code Deployment} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void stopDeployment(String id, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.deploymentStop(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Sync {@code Deployment} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void syncDeployment(String id, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.deploymentSync(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Get log of {@code Deployment} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code LogOptions}
+	 * @return the log
+	 * @throws RestClientException if request fails
+	 */
+	public String logDeployment(String id, LogOptions options) {
+		URI uri = makeURI(DevopsEndpoints.deploymentLog(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).build();
+		ResponseEntity<String> result = exchange(request, String.class, options);
+		return result.getBody();
+	}
+	
 	//
-	// Route
+	// Deployment Mount
 	//
 	
+	/**
+	 * List {@code Mount}s for a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @return the list of {@code Mount}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Mount> listMounts(String deployId, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mounts(deployId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Mount[]> result = exchange(request, Mount[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+
+	/**
+	 * Get {@code Mount} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Mount}
+	 * @throws RestClientException if request fails
+	 */
+	public Mount getMount(String deployId, String id, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mount(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Mount> result = exchange(request, Mount.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Add a new {@code Mount} to a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param mount the {@code Mount}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Mount}
+	 * @throws RestClientException if request fails
+	 */
+	public URI addMount(String deployId, Mount mount, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mounts(deployId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Mount> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(mount);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();
+		
+	}
+
+	/**
+	 * Update existing {@code Mount} of a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param mount the {@code Mount}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateMount(String deployId, String id, Mount mount, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mount(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Mount> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(mount);
+		exchange(request, Mount.class, options);
+	}
+
+	/**
+	 * Delete existing {@code Mount} from a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code DeploymentOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void removeMount(String deployId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mount(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);	
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Provision existing {@code Mount} of a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void provisionMount(String deployId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mount(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	//
+	// Deployment Variable
+	//
+	
+	/**
+	 * List {@code Variable}s for a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @return the list of {@code Variable}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Variable> listVariables(String deployId, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.vars(deployId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Variable[]> result = exchange(request, Variable[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+
+	/**
+	 * Get {@code Variable} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Variable}
+	 * @throws RestClientException if request fails
+	 */
+	public Variable getVariable(String deployId, String id, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.var(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Variable> result = exchange(request, Variable.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Add a new {@code Variable} to a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param var the {@code Variable}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Variable}
+	 * @throws RestClientException if request fails
+	 */
+	public URI addVariable(String deployId, Variable var, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.vars(deployId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Variable> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(var);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();
+		
+	}
+
+	/**
+	 * Update existing {@code Variable} of a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param var the {@code Variable}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateVariable(String deployId, String id, Variable var, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.var(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Variable> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(var);
+		exchange(request, Variable.class, options);
+	}
+
+	/**
+	 * Delete existing {@code Variable} from a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code DeploymentOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void removeVariable(String deployId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.var(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);	
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+
+	//
+	// Deployment Route
+	//
+	
+	/**
+	 * List {@code Route}s for a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @return the list of {@code Route}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Route> listRoutes(String deployId, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.routes(deployId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Route[]> result = exchange(request, Route[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+
+	/**
+	 * Get {@code Route} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Route} ({@code uuid, id, unique host, or unique dns})
+	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Route}
+	 * @throws RestClientException if request fails
+	 */
+	public Route getRoute(String deployId, String id, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.route(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Route> result = exchange(request, Route.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Add a new {@code Route} to a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param route the {@code Route}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Route}
+	 * @throws RestClientException if request fails
+	 */
 	public URI addRoute(String deployId, Route route, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.routes(deployId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
@@ -472,13 +915,34 @@ public class DevopsClient {
 		
 	}
 
-	public void updateRoute(String deployId, Route route, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.route(deployId, route.getUuid(), config, isAdminRequest(options)));
+	/**
+	 * Update existing {@code Route} of a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Route} ({@code uuid, id, unique host, or unique dns})
+	 * @param route the {@code Route}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateRoute(String deployId, String id, Route route, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.route(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Route> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(route);
-		exchange(request, Route.class, options);
+		exchange(request, Void.class, options);
 	}
 
+	/**
+	 * Delete existing {@code Route} from a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Route} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code DeploymentOptions}
+	 * @throws RestClientException if request fails
+	 */
 	public void removeRoute(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.route(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
@@ -486,26 +950,113 @@ public class DevopsClient {
 		exchange(request, Void.class, options);
 	}
 	
+	/**
+	 * Make existing {@code Route} of a {@code Deployment} primary.
+	 * 
+	 * Primary {@code Routes} are used when resolving connector and binding variables.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Route} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void primaryRoute(String deployId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.primaryRoute(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
 	//
-	// Binding
+	// Deployment Binding
 	//
 	
+	/**
+	 * List {@code Binding}s for a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @return the list of {@code Binding}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Binding> listBindings(String deployId, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.bindings(deployId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Binding[]> result = exchange(request, Binding[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+
+	/**
+	 * Get {@code Binding} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Binding}
+	 * @throws RestClientException if request fails
+	 */
+	public Binding getBinding(String deployId, String id, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.binding(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Binding> result = exchange(request, Binding.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Add a new {@code Binding} to a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param binding the {@code Binding}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Binding}
+	 * @throws RestClientException if request fails
+	 */
 	public URI addBinding(String deployId, Binding binding, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.bindings(deployId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Binding> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(binding);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
-		return result.getHeaders().getLocation();
-		
+		return result.getHeaders().getLocation();		
 	}
 
-	public void updateBinding(String deployId, Binding binding, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.binding(deployId, binding.getUuid(), config, isAdminRequest(options)));
+	/**
+	 * Update existing {@code Binding} of a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param binding the {@code Binding}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateBinding(String deployId, String id, Binding binding, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.binding(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Binding> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(binding);
 		exchange(request, Binding.class, options);
 	}
 
+	/**
+	 * Delete existing {@code Binding} from a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code DeploymentOptions}
+	 * @throws RestClientException if request fails
+	 */
 	public void removeBinding(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.binding(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
@@ -513,10 +1064,75 @@ public class DevopsClient {
 		exchange(request, Void.class, options);
 	}
 	
-	//
-	// Connector
-	//
+	/**
+	 * Refresh existing {@code Binding} of a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void refreshBinding(String deployId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.binding(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
 	
+	//
+	// Deployment Connector
+	//
+
+	/**
+	 * List {@code Connector}s for a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @return the list of {@code Connector}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Connector> listConnectors(String deployId, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.connectors(deployId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Connector[]> result = exchange(request, Connector[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+
+	/**
+	 * Get {@code Connector} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Connector} ({@code uuid, id, unique host, or unique dns})
+	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Connector}
+	 * @throws RestClientException if request fails
+	 */
+	public Connector getConnector(String deployId, String id, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.connector(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Connector> result = exchange(request, Connector.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Add a new {@code Connector} to a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param connector the {@code Connector}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Connector}
+	 * @throws RestClientException if request fails
+	 */
 	public URI addConnector(String deployId, Connector connector, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.connectors(deployId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
@@ -526,13 +1142,34 @@ public class DevopsClient {
 		
 	}
 
-	public void updateConnector(String deployId, Connector connector, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.connector(deployId, connector.getUuid(), config, isAdminRequest(options)));
+	/**
+	 * Update existing {@code Connector} of a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Connector} ({@code uuid, id, unique host, or unique dns})
+	 * @param connector the {@code Connector}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateConnector(String deployId, String id, Connector connector, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.connector(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Connector> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(connector);
 		exchange(request, Connector.class, options);
 	}
 
+	/**
+	 * Delete existing {@code Connector} from a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Connector} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code DeploymentOptions}
+	 * @throws RestClientException if request fails
+	 */
 	public void removeConnector(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.connector(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
@@ -540,11 +1177,75 @@ public class DevopsClient {
 		exchange(request, Void.class, options);
 	}
 
+	/**
+	 * Refresh existing {@code Connector} of a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Connector} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void refreshConnector(String deployId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.connector(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
 	
 	//
-	// Repository
+	// Deployment Repository
 	//
 	
+	/**
+	 * List {@code Repository}s for a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @return the list of {@code Repository}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Repository> listRepositories(String deployId, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.repositories(deployId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Repository[]> result = exchange(request, Repository[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+
+	/**
+	 * Get {@code Repository} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Repository} ({@code uuid, id, unique host, or unique dns})
+	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Repository}
+	 * @throws RestClientException if request fails
+	 */
+	public Repository getRepository(String deployId, String id, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.repository(deployId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Repository> result = exchange(request, Repository.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Add a new {@code Repository} to a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param repository the {@code Repository}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Repository}
+	 * @throws RestClientException if request fails
+	 */
 	public URI addRepository(String deployId, Repository repository, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.repositories(deployId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
@@ -554,13 +1255,34 @@ public class DevopsClient {
 		
 	}
 
-	public void updateRepository(String deployId, Repository repository, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.repository(deployId, repository.getUuid(), config, isAdminRequest(options)));
+	/**
+	 * Update existing {@code Repository} of a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Repository} ({@code uuid, id, unique host, or unique dns})
+	 * @param repository the {@code Repository}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateRepository(String deployId, String id, Repository repository, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.repository(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Repository> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(repository);
 		exchange(request, Repository.class, options);
 	}
 
+	/**
+	 * Delete existing {@code Repository} from a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Repository} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code DeploymentOptions}
+	 * @throws RestClientException if request fails
+	 */
 	public void removeRepository(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.repository(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
@@ -597,9 +1319,9 @@ public class DevopsClient {
 	/**
 	 * Get {@code Job} with specified identifier.
 	 * 
-	 * <p><b>Required Security Credentials</b>: Matching the any set in the Space.
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid})
+	 * @param id the identifier ({@code uuid, id, or qualified name})
 	 * @param options (optional) the {@code JobOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Job}
 	 * @throws RestClientException if request fails
@@ -629,7 +1351,6 @@ public class DevopsClient {
 		RequestEntity<Job> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(job);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
 		return result.getHeaders().getLocation();
-		
 	}
 
 	
@@ -638,23 +1359,38 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
 	 * @param job the {@code Job}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
-	public void updateJob(Job job, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.job(job.getUuid(), config, isAdminRequest(options)));
+	public void updateJob(String id, Job job, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.job(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Job> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(job);
 		exchange(request, Job.class, options);
 	}
 
 	/**
+	 * Update existing {@code Job}
+	 * 
+	 * <p>ID is extracted from fields: UUID, ID, or name.
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param job the {@code Job}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateJob(Job job, RequestOptions options) {
+		updateJob(getId(job), job, options);
+	}
+	
+	/**
 	 * Delete existing {@code Job}
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param id the {@code Job} identifier (UUID)
+	 * @param id the identifier ({@code uuid, id, or qualified name})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -665,6 +1401,445 @@ public class DevopsClient {
 		exchange(request, Void.class, options);
 	}
 
+	/**
+	 * Get Manifest for {@code Job} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) the {@code ManifestOptions} that manifest generation
+	 * @return the manifest
+	 * @throws RestClientException if request fails
+	 */
+	public String getJobManifest(String id, ManifestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.jobManifest(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).build();
+		ResponseEntity<String> result = exchange(request, String.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Scale Resources of {@code Job} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param resources the {@code Resources}
+	 * @param options (optional) {@code JobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void scaleJob(String id, Resources resources, JobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.jobRScale(id, config, isAdminRequest(options)));
+		uri = processURI(uri, resources);
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+
+	/**
+	 * Start {@code Job} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code JobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void startJob(String id, JobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.jobStart(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Restart {@code Job} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code JobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void restartJob(String id, JobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.jobRestart(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Stop {@code Job} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code JobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void stopJob(String id, JobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.jobStop(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Sync {@code Job} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code JobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void syncJob(String id, JobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.jobSync(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Get log of {@code Job} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code LogOptions}
+	 * @return the log
+	 * @throws RestClientException if request fails
+	 */
+	public String logJob(String id, LogOptions options) {
+		URI uri = makeURI(DevopsEndpoints.jobLog(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).build();
+		ResponseEntity<String> result = exchange(request, String.class, options);
+		return result.getBody();
+	}
+	
+	//
+	// Job Mount
+	//
+	
+	/**
+	 * List {@code Mount}s for a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param jobId the {@code Job} identifier ({@code uuid})
+	 * @param options (optional) {@code JobOptions}
+	 * @return the list of {@code Mount}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Mount> listMountsJob(String jobId, JobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mountsJob(jobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Mount[]> result = exchange(request, Mount[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+
+	/**
+	 * Get {@code Mount} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param options (optional) the {@code JobOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Mount}
+	 * @throws RestClientException if request fails
+	 */
+	public Mount getMountJob(String jobId, String id, JobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mountJob(jobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Mount> result = exchange(request, Mount.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Add a new {@code Mount} to a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param mount the {@code Mount}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Mount}
+	 * @throws RestClientException if request fails
+	 */
+	public URI addMountJob(String jobId, Mount mount, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mountsJob(jobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Mount> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(mount);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();
+		
+	}
+
+	/**
+	 * Update existing {@code Mount} of a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param mount the {@code Mount}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateMountJob(String jobId, String id, Mount mount, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mountJob(jobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Mount> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(mount);
+		exchange(request, Mount.class, options);
+	}
+
+	/**
+	 * Delete existing {@code Mount} from a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code JobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void removeMountJob(String jobId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mountJob(jobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);	
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Provision existing {@code Mount} of a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void provisionMountJob(String jobId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mountJob(jobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	//
+	// Job Variable
+	//
+	
+	/**
+	 * List {@code Variable}s for a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param jobId the {@code Job} identifier ({@code uuid})
+	 * @param options (optional) {@code JobOptions}
+	 * @return the list of {@code Variable}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Variable> listVariablesJob(String jobId, JobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.varsJob(jobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Variable[]> result = exchange(request, Variable[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+
+	/**
+	 * Get {@code Variable} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param options (optional) the {@code JobOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Variable}
+	 * @throws RestClientException if request fails
+	 */
+	public Variable getVariableJob(String jobId, String id, JobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.varJob(jobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Variable> result = exchange(request, Variable.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Add a new {@code Variable} to a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param var the {@code Variable}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Variable}
+	 * @throws RestClientException if request fails
+	 */
+	public URI addVariableJob(String jobId, Variable var, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.varsJob(jobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Variable> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(var);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();
+		
+	}
+
+	/**
+	 * Update existing {@code Variable} of a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param var the {@code Variable}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateVariableJob(String jobId, String id, Variable var, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.varJob(jobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Variable> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(var);
+		exchange(request, Variable.class, options);
+	}
+
+	/**
+	 * Delete existing {@code Variable} from a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code JobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void removeVariableJob(String jobId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.varJob(jobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);	
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+
+	//
+	// Job Binding
+	//
+	
+	/**
+	 * List {@code Binding}s for a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param jobId the {@code Job} identifier ({@code uuid})
+	 * @param options (optional) {@code JobOptions}
+	 * @return the list of {@code Binding}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Binding> listBindingsJob(String jobId, JobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.bindingsJob(jobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Binding[]> result = exchange(request, Binding[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+
+	/**
+	 * Get {@code Binding} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param options (optional) the {@code JobOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Binding}
+	 * @throws RestClientException if request fails
+	 */
+	public Binding getBindingJob(String jobId, String id, JobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.bindingJob(jobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Binding> result = exchange(request, Binding.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Add a new {@code Binding} to a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param binding the {@code Binding}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Binding}
+	 * @throws RestClientException if request fails
+	 */
+	public URI addBindingJob(String jobId, Binding binding, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.bindingsJob(jobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Binding> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(binding);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();		
+	}
+
+	/**
+	 * Update existing {@code Binding} of a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param binding the {@code Binding}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateBindingJob(String jobId, String id, Binding binding, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.bindingJob(jobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Binding> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(binding);
+		exchange(request, Binding.class, options);
+	}
+
+	/**
+	 * Delete existing {@code Binding} from a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code JobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void removeBindingJob(String jobId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.bindingJob(jobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Refresh existing {@code Binding} of a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void refreshBindingJob(String jobId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.bindingJob(jobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
 	//
 	// CronJob
 	//
@@ -694,9 +1869,9 @@ public class DevopsClient {
 	/**
 	 * Get {@code CronJob} with specified identifier.
 	 * 
-	 * <p><b>Required Security Credentials</b>: Matching the any set in the Space.
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid})
+	 * @param id the identifier ({@code uuid, id, or qualified name})
 	 * @param options (optional) the {@code CronJobOptions} that tailor which fields are returned (projection)
 	 * @return the {@code CronJob}
 	 * @throws RestClientException if request fails
@@ -735,17 +1910,32 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
 	 * @param cronjob the {@code CronJob}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
-	public void updateCronJob(CronJob cronjob, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.cronjob(cronjob.getUuid(), config, isAdminRequest(options)));
+	public void updateCronJob(String id, CronJob cronjob, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.cronjob(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<CronJob> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(cronjob);
 		exchange(request, CronJob.class, options);
 	}
 
+	/**
+	 * Update existing {@code CronJob}
+	 * 
+	 * <p>ID is extracted from fields: UUID, ID, or name.
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param cronjob the {@code CronJob}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateCronJob(CronJob cronjob, RequestOptions options) {
+		updateCronJob(getId(cronjob), cronjob, options);
+	}
+	
 	/**
 	 * Delete existing {@code CronJob}
 	 * 
@@ -762,6 +1952,461 @@ public class DevopsClient {
 		exchange(request, Void.class, options);
 	}
 
+	/**
+	 * Scale Resources of {@code CronJob} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param resources the {@code Resources}
+	 * @param options (optional) {@code CronJobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void scaleCronJob(String id, Resources resources, CronJobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.cronjobRScale(id, config, isAdminRequest(options)));
+		uri = processURI(uri, resources);
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+
+	/**
+	 * Get Manifest for {@code CronJob} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) the {@code ManifestOptions} that manifest generation
+	 * @return the manifest
+	 * @throws RestClientException if request fails
+	 */
+	public String getCronJobManifest(String id, ManifestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.cronjobManifest(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).build();
+		ResponseEntity<String> result = exchange(request, String.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Start {@code CronJob} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code CronJobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void startCronJob(String id, CronJobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.cronjobStart(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Restart {@code CronJob} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code CronJobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void restartCronJob(String id, CronJobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.cronjobRestart(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Stop {@code CronJob} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code CronJobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void stopCronJob(String id, CronJobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.cronjobStop(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Suspend {@code CronJob} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code CronJobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void suspendCronJob(String id, CronJobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.cronjobSuspend(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Sync {@code CronJob} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code CronJobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void syncCronJob(String id, CronJobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.cronjobSync(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Get log of {@code CronJob} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code LogOptions}
+	 * @return the log
+	 * @throws RestClientException if request fails
+	 */
+	public String logCronJob(String id, LogOptions options) {
+		URI uri = makeURI(DevopsEndpoints.cronjobLog(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).build();
+		ResponseEntity<String> result = exchange(request, String.class, options);
+		return result.getBody();
+	}
+	
+	//
+	// Job Mount
+	//
+	
+	/**
+	 * List {@code Mount}s for a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param cronjobId the {@code CronJob} identifier ({@code uuid})
+	 * @param options (optional) {@code CronJobOptions}
+	 * @return the list of {@code Mount}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Mount> listMountsCronJob(String cronjobId, CronJobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mountsCronJob(cronjobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Mount[]> result = exchange(request, Mount[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+
+	/**
+	 * Get {@code Mount} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param options (optional) the {@code CronJobOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Mount}
+	 * @throws RestClientException if request fails
+	 */
+	public Mount getMountCronJob(String cronjobId, String id, CronJobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mountCronJob(cronjobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Mount> result = exchange(request, Mount.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Add a new {@code Mount} to a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param mount the {@code Mount}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Mount}
+	 * @throws RestClientException if request fails
+	 */
+	public URI addMountCronJob(String cronjobId, Mount mount, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mountsCronJob(cronjobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Mount> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(mount);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();
+		
+	}
+
+	/**
+	 * Update existing {@code Mount} of a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param mount the {@code Mount}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateMountCronJob(String cronjobId, String id, Mount mount, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mountCronJob(cronjobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Mount> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(mount);
+		exchange(request, Mount.class, options);
+	}
+
+	/**
+	 * Delete existing {@code Mount} from a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code CronJobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void removeMountCronJob(String cronjobId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mountCronJob(cronjobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);	
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Provision existing {@code Mount} of a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void provisionMountCronJob(String cronjobId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.mountCronJob(cronjobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	//
+	// CronJob Variable
+	//
+	
+	/**
+	 * List {@code Variable}s for a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param cronjobId the {@code CronJob} identifier ({@code uuid})
+	 * @param options (optional) {@code CronJobOptions}
+	 * @return the list of {@code Variable}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Variable> listVariablesCronJob(String cronjobId, CronJobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.varsCronJob(cronjobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Variable[]> result = exchange(request, Variable[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+
+	/**
+	 * Get {@code Variable} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param options (optional) the {@code CronJobOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Variable}
+	 * @throws RestClientException if request fails
+	 */
+	public Variable getVariableCronJob(String cronjobId, String id, CronJobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.varCronJob(cronjobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Variable> result = exchange(request, Variable.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Add a new {@code Variable} to a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param var the {@code Variable}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Variable}
+	 * @throws RestClientException if request fails
+	 */
+	public URI addVariableCronJob(String cronjobId, Variable var, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.varsCronJob(cronjobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Variable> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(var);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();
+		
+	}
+
+	/**
+	 * Update existing {@code Variable} of a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param var the {@code Variable}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateVariableCronJob(String cronjobId, String id, Variable var, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.varCronJob(cronjobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Variable> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(var);
+		exchange(request, Variable.class, options);
+	}
+
+	/**
+	 * Delete existing {@code Variable} from a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code CronJobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void removeVariableCronJob(String cronjobId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.varCronJob(cronjobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);	
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+
+	//
+	// CronJob Binding
+	//
+	
+	/**
+	 * List {@code Binding}s for a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param cronjobId the {@code CronJob} identifier ({@code uuid})
+	 * @param options (optional) {@code CronJobOptions}
+	 * @return the list of {@code Binding}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Binding> listBindingsCronJob(String cronjobId, CronJobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.bindingsCronJob(cronjobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Binding[]> result = exchange(request, Binding[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+
+	/**
+	 * Get {@code Binding} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param options (optional) the {@code CronJobOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Binding}
+	 * @throws RestClientException if request fails
+	 */
+	public Binding getBindingCronJob(String cronjobId, String id, CronJobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.bindingCronJob(cronjobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Binding> result = exchange(request, Binding.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Add a new {@code Binding} to a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param binding the {@code Binding}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Binding}
+	 * @throws RestClientException if request fails
+	 */
+	public URI addBindingCronJob(String cronjobId, Binding binding, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.bindingsCronJob(cronjobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Binding> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(binding);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();		
+	}
+
+	/**
+	 * Update existing {@code Binding} of a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param binding the {@code Binding}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateBindingCronJob(String cronjobId, String id, Binding binding, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.bindingCronJob(cronjobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Binding> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(binding);
+		exchange(request, Binding.class, options);
+	}
+
+	/**
+	 * Delete existing {@code Binding} from a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code CronJobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void removeBindingCronJob(String cronjobId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.bindingCronJob(cronjobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Refresh existing {@code Binding} of a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void refreshBindingCronJob(String cronjobId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.bindingCronJob(cronjobId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+
 	//
 	// Domain
 	//
@@ -771,7 +2416,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching {@link Domain#getSharing()} and {@link Domain#getAuthorities()}.
 	 * 
-	 * @param id the identifier
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options (optional) the {@code DomainOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Domain}
 	 * @throws RestClientException if request fails
@@ -791,8 +2436,7 @@ public class DevopsClient {
 	 * <p><b>Required Security Credentials</b>: Matching {@link Domain#getSharing()} and {@link Domain#getAuthorities()}.
 	 * 
 	 * @param filter a {@code DomainFilter}
-	 * @param pageable a {@code Pageable} (optional)
-	
+	 * @param pageable a {@code Pageable} (optional)	
 	 * @throws RestClientException if request fails
 	 * @return a {@code Page} with {@code Domain}s
 	 * @throws RestClientException if request fails
@@ -830,16 +2474,30 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param domain the {@code Domain}
 	 * @param options optional {@code RequestOptions}
-	
 	 * @throws RestClientException if request fails
 	 */
-	public void updateDomain(Domain domain, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.domain(domain.getUuid(), config, isAdminRequest(options)));
+	public void updateDomain(String id, Domain domain, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.domain(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Domain> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(domain);		
 		exchange(request, Domain.class, options);
+	}
+	
+	/**
+	 * Update existing {@code Domain}
+	 * 
+	 * <p>ID is extracted from fields: UUID, ID, or name.
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param domain the {@code Domain}
+	 * @param options optional {@code RequestOptions}	
+	 * @throws RestClientException if request fails
+	 */
+	public void updateDomain(Domain domain, RequestOptions options) {
+		updateDomain(getId(domain), domain, options);
 	}
 
 	/**
@@ -847,7 +2505,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the {@code Domain} identifier (UUID)
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -867,7 +2525,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching {@link Registry#getSharing()} and {@link Registry#getAuthorities()}.
 	 * 
-	 * @param id the identifier
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options (optional) the {@code RegistryOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Registry}
 	 * @throws RestClientException if request fails
@@ -888,7 +2546,6 @@ public class DevopsClient {
 	 * 
 	 * @param filter a {@code RegistryFilter}
 	 * @param pageable a {@code Pageable} (optional)
-	
 	 * @throws RestClientException if request fails
 	 * @return a {@code Page} with {@code Registry}s
 	 * @throws RestClientException if request fails
@@ -909,7 +2566,6 @@ public class DevopsClient {
 	 * 
 	 * @param registry the {@code Registry}
 	 * @param options optional {@code RequestOptions}
-	
 	 * @return the location {@code URI} for the created {@code Registry}
 	 * @throws RestClientException if request fails
 	 */
@@ -926,24 +2582,38 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param registry the {@code Registry}
 	 * @param options optional {@code RequestOptions}
-	
 	 * @throws RestClientException if request fails
 	 */
-	public void updateRegistry(Registry registry, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.registry(registry.getUuid(), config, isAdminRequest(options)));
+	public void updateRegistry(String id, Registry registry, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.registry(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Registry> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(registry);		
 		exchange(request, Registry.class, options);
 	}
 
 	/**
+	 * Update existing {@code Registry}
+	 * 
+	 * <p>ID is extracted from fields: UUID, ID, or name.
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param registry the {@code Registry}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateRegistry(Registry registry, RequestOptions options) {
+		updateRegistry(getId(registry), registry, options);
+	}
+	
+	/**
 	 * Delete existing {@code Registry}
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the {@code Registry} identifier (UUID)
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -963,7 +2633,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching {@link Vcs#getSharing()} and {@link Vcs#getAuthorities()}.
 	 * 
-	 * @param id the identifier
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options (optional) the {@code VcsOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Vcs}
 	 * @throws RestClientException if request fails
@@ -984,7 +2654,6 @@ public class DevopsClient {
 	 * 
 	 * @param filter a {@code VcsFilter}
 	 * @param pageable a {@code Pageable} (optional)
-	
 	 * @throws RestClientException if request fails
 	 * @return a {@code Page} with {@code Vcs}s
 	 * @throws RestClientException if request fails
@@ -1005,7 +2674,6 @@ public class DevopsClient {
 	 * 
 	 * @param vcs the {@code Vcs}
 	 * @param options optional {@code RequestOptions}
-	
 	 * @return the location {@code URI} for the created {@code Vcs}
 	 * @throws RestClientException if request fails
 	 */
@@ -1022,16 +2690,30 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param vcs the {@code Vcs}
 	 * @param options optional {@code RequestOptions}
-	
 	 * @throws RestClientException if request fails
 	 */
-	public void updateVcs(Vcs vcs, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.vcs(vcs.getUuid(), config, isAdminRequest(options)));
+	public void updateVcs(String id, Vcs vcs, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.vcs(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Vcs> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(vcs);		
 		exchange(request, Vcs.class, options);
+	}
+	
+	/**
+	 * Update existing {@code Vcs}
+	 * 
+	 * <p>ID is extracted from fields: UUID, ID, or name.
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param vcs the {@code Vcs}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateVcs(Vcs vcs, RequestOptions options) {
+		updateVcs(getId(vcs), vcs, options);
 	}
 
 	/**
@@ -1039,7 +2721,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the {@code Vcs} identifier (UUID)
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1059,7 +2741,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching {@link Solution#getSharing()} and {@link Solution#getAuthorities()}.
 	 * 
-	 * @param id the identifier
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options (optional) the {@code SolutionOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Solution}
 	 * @throws RestClientException if request fails
@@ -1080,7 +2762,6 @@ public class DevopsClient {
 	 * 
 	 * @param filter a {@code SolutionFilter}
 	 * @param pageable a {@code Pageable} (optional)
-	
 	 * @throws RestClientException if request fails
 	 * @return a {@code Page} with {@code Solution}s
 	 * @throws RestClientException if request fails
@@ -1101,7 +2782,6 @@ public class DevopsClient {
 	 * 
 	 * @param solution the {@code Solution}
 	 * @param options optional {@code RequestOptions}
-	
 	 * @return the location {@code URI} for the created {@code Solution}
 	 * @throws RestClientException if request fails
 	 */
@@ -1118,16 +2798,30 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param solution the {@code Solution}
 	 * @param options optional {@code RequestOptions}
-	
 	 * @throws RestClientException if request fails
 	 */
-	public void updateSolution(Solution solution, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.solution(solution.getUuid(), config, isAdminRequest(options)));
+	public void updateSolution(String id, Solution solution, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.solution(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Solution> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(solution);		
 		exchange(request, Solution.class, options);
+	}
+	
+	/**
+	 * Update existing {@code Solution}
+	 * 
+	 * <p>ID is extracted from fields: UUID, ID, or name.
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param solution the {@code Solution}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateSolution(Solution solution, RequestOptions options) {
+		updateSolution(getId(solution), solution, options);
 	}
 
 	/**
@@ -1135,7 +2829,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the {@code Solution} identifier (UUID)
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1156,7 +2850,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: If Enabled: any. If not enabled: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options (optional) the {@code CatalogOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Catalog}
 	 * @throws RestClientException if request fails
@@ -1177,7 +2871,6 @@ public class DevopsClient {
 	 * 
 	 * @param filter a {@code CatalogFilter}
 	 * @param pageable a {@code Pageable} (optional)
-	
 	 * @throws RestClientException if request fails
 	 * @return a {@code Page} with {@code Catalog}s
 	 * @throws RestClientException if request fails
@@ -1198,7 +2891,6 @@ public class DevopsClient {
 	 * 
 	 * @param catalog the {@code Catalog}
 	 * @param options optional {@code RequestOptions}
-	
 	 * @return the location {@code URI} for the created {@code Catalog}
 	 * @throws RestClientException if request fails
 	 */
@@ -1215,16 +2907,30 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param catalog the {@code Catalog}
-	 * @param options optional {@code RequestOptions}
-	
+	 * @param options optional {@code RequestOptions}	
 	 * @throws RestClientException if request fails
 	 */
-	public void updateCatalog(Catalog catalog, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.catalog(catalog.getUuid(), config, isAdminRequest(options)));
+	public void updateCatalog(String id, Catalog catalog, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.catalog(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Catalog> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(catalog);		
 		exchange(request, Catalog.class, options);
+	}
+	
+	/**
+	 * Update existing {@code Catalog}
+	 * 
+	 * <p>ID is extracted from fields: UUID, ID, or name.
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param catalog the {@code Catalog}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateCatalog(Catalog catalog, RequestOptions options) {
+		updateCatalog(getId(catalog), catalog, options);
 	}
 
 	/**
@@ -1232,7 +2938,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the {@code Catalog} identifier (UUID)
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1252,7 +2958,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options (optional) the {@code LicenseOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code License}
 	 * @throws RestClientException if request fails
@@ -1273,7 +2979,6 @@ public class DevopsClient {
 	 * 
 	 * @param filter a {@code LicenseFilter}
 	 * @param pageable a {@code Pageable} (optional)
-	
 	 * @throws RestClientException if request fails
 	 * @return a {@code Page} with {@code License}s
 	 * @throws RestClientException if request fails
@@ -1310,24 +3015,38 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Admin (global role ADMIN), or owner.
 	 * 
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param license the {@code License}
 	 * @param options optional {@code RequestOptions}
-	
 	 * @throws RestClientException if request fails
 	 */
-	public void updateLicense(License license, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.license(license.getUuid(), config, isAdminRequest(options)));
+	public void updateLicense(String id, License license, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.license(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<License> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(license);		
 		exchange(request, License.class, options);
 	}
 
 	/**
+	 * Update existing {@code License}
+	 * 
+	 * <p>ID is extracted from fields: UUID, ID, or name.
+	 * <p><b>Required Security Credentials</b>: Admin (global role ADMIN), or owner.
+	 * 
+	 * @param license the {@code License}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateLicense(License license, RequestOptions options) {
+		updateLicense(getId(license), license, options);
+	}
+	
+	/**
 	 * Delete existing {@code License}
 	 * 
 	 * <p><b>Required Security Credentials</b>: Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the {@code License} identifier (UUID)
+	 * @param id the identifier ({@code uuid, id, or unique name})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1419,5 +3138,33 @@ public class DevopsClient {
 		return UriUtils.appendQueryParameters(uri, objs);
 	}
 
+	private static URI processURI(URI uri, String name, Object value) {
+		return UriUtils.appendQueryParameter(uri, name, value);
+	}
+
+	private static String getId(EntityBase obj) {
+		if (StringUtils.hasText(obj.getUuid())) {
+			return obj.getUuid();
+		}
+		if (StringUtils.hasText(obj.getId())) {
+			return obj.getId();
+		}
+		return null;
+	}
 	
+	private static String getId(NamedEntity obj, boolean name) {
+		String id = getId((EntityBase)obj);
+		if (id!=null) {
+			return id;
+		}
+		if (name && StringUtils.hasText(obj.getName())) {
+			return obj.getName();
+		}
+		return null;
+	}
+
+	private static String getId(NamedEntity obj) {
+		return getId(obj, true);
+	}
+
 }

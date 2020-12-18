@@ -42,7 +42,7 @@ public interface DomainManager {
 	 * Create Domain.
 	 * 
 	 * @param dolution the {@code Domain}
-	 * @param options TODO
+	 * @param options optional {@code RequestOptions}
 	 * @return the {@code URI} for te created {@code Domain}.
 	 */
 	URI createDomain(Domain dolution, RequestOptions options);
@@ -63,7 +63,7 @@ public interface DomainManager {
 	 * 
 	 * If {@code Domain.uuid} has text is assumed to be an edit. Otherwise a create. A single call is made to seerver.
 	 * @param dolution the {@code Domain}
-	 * @param options TODO
+	 * @param options optional {@code RequestOptions}
 	 * @return the {@code Domain} with {@code uuid} property set; or null if error.
 	 */
 	Domain createOrUpdateDomain(Domain dolution, RequestOptions options);

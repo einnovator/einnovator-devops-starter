@@ -23,6 +23,7 @@ public interface LicenseManager {
 	 * <p><b>Required Security Credentials</b>: Admin or owner.
 	 * 
 	 * @param id the {@code License} uuid
+	 * @param options (optional) {@code LicenseOptions}
 	 * @return the {@code License} if found, or null if not found or request failed
 	 */
 	License getLicense(String id, LicenseOptions options);
@@ -43,7 +44,7 @@ public interface LicenseManager {
 	 * Create License.
 	 * 
 	 * @param license the {@code License}
-	 * @param options TODO
+	 * @param options optional {@code RequestOptions}
 	 * @return the {@code URI} for te created {@code License}.
 	 */
 	URI createLicense(License license, RequestOptions options);
@@ -64,7 +65,7 @@ public interface LicenseManager {
 	 * 
 	 * If {@code License.uuid} has text is assumed to be an edit. Otherwise a create. A single call is made to seerver.
 	 * @param license the {@code License}
-	 * @param options TODO
+	 * @param options optional {@code RequestOptions}
 	 * @return the {@code License} with {@code uuid} property set; or null if error.
 	 */
 	License createOrUpdateLicense(License license, RequestOptions options);

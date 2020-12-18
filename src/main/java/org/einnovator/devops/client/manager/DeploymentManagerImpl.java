@@ -90,7 +90,7 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	
 	@Override
 	@CacheEvict(value=CACHE_DEPLOYMENT, key="#id")
-	public boolean deleteDeployment(String id, RequestOptions options) {
+	public boolean deleteDeployment(String id, DeploymentOptions options) {
 		try {
 			client.deleteDeployment(id, options);
 			return true;
@@ -164,9 +164,9 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	}
 
 	@Override
-	public Route updateRoute(String deployId, Route route, RequestOptions options) {
+	public Route updateRoute(String deployId, String routeId, Route route, RequestOptions options) {
 		try {
-			client.updateRoute(deployId, route, options);
+			client.updateRoute(deployId, routeId, route, options);
 			return route;
 		} catch (RuntimeException e) {
 			logger.error(String.format("removeRoute: %s %s %s", e, deployId, route));
@@ -201,9 +201,9 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	}
 
 	@Override
-	public Binding updateBinding(String deployId, Binding binding, RequestOptions options) {
+	public Binding updateBinding(String deployId, String bindingId, Binding binding, RequestOptions options) {
 		try {
-			client.updateBinding(deployId, binding, options);
+			client.updateBinding(deployId, bindingId, binding, options);
 			return binding;
 		} catch (RuntimeException e) {
 			logger.error(String.format("removeBinding: %s %s %s", e, deployId, binding));
@@ -238,12 +238,12 @@ public class DeploymentManagerImpl implements DeploymentManager {
 	}
 
 	@Override
-	public Connector updateConnector(String deployId, Connector connector, RequestOptions options) {
+	public Connector updateConnector(String deployId, String connectorId, Connector connector, RequestOptions options) {
 		try {
-			client.updateConnector(deployId, connector, options);
+			client.updateConnector(deployId, connectorId, connector, options);
 			return connector;
 		} catch (RuntimeException e) {
-			logger.error(String.format("removeConnector: %s %s %s", e, deployId, connector));
+			logger.error(String.format("updateConnector: %s %s %s", e, deployId, connector));
 			return null;
 		}
 	}

@@ -30,9 +30,7 @@ public interface CronJobManager {
 
 	URI addBinding(String cronjobId, Binding binding, RequestOptions options);
 	boolean removeBinding(String cronjobId, String bindingId, RequestOptions options);
-	Binding updateBinding(String cronjobId, Binding binding, RequestOptions options);
-
-	
+	Binding updateBinding(String cronjobId, String bindingId, Binding binding, RequestOptions options);
 	
 	void onCronJobUpdate(String id, Map<String, Object> details);
 

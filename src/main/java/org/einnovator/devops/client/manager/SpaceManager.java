@@ -31,7 +31,7 @@ public interface SpaceManager {
 	 * Create Space.
 	 * 
 	 * @param space the {@code Space}
-	 * @param options TODO
+	 * @param options optional {@code RequestOptions}
 	 * @return the {@code URI} for te created {@code Space}.
 	 */
 	Space updateSpace(Space space, RequestOptions options);

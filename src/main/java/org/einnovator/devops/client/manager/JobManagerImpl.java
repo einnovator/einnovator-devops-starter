@@ -141,7 +141,7 @@ public class JobManagerImpl implements JobManager {
 	@Override
 	public URI addBinding(String jobId, Binding binding, RequestOptions options) {
 		try {
-			return client.addBinding(jobId, binding, options);
+			return client.addBindingJob(jobId, binding, options);
 		} catch (RuntimeException e) {
 			logger.error(String.format("addBinding: %s %s %s", e, jobId, binding));
 			return null;
@@ -151,7 +151,7 @@ public class JobManagerImpl implements JobManager {
 	@Override
 	public boolean removeBinding(String jobId, String bindingId, RequestOptions options) {
 		try {
-			client.removeBinding(jobId, bindingId, options);
+			client.removeBindingJob(jobId, bindingId, options);
 			return true;
 		} catch (RuntimeException e) {
 			logger.error(String.format("removeBinding: %s %s %s", e, jobId, bindingId));
@@ -161,9 +161,9 @@ public class JobManagerImpl implements JobManager {
 	}
 
 	@Override
-	public Binding updateBinding(String jobId, Binding binding, RequestOptions options) {
+	public Binding updateBinding(String jobId, String bindingId, Binding binding, RequestOptions options) {
 		try {
-			client.updateBinding(jobId, binding, options);
+			client.updateBindingJob(jobId, bindingId, binding, options);
 			return binding;
 		} catch (RuntimeException e) {
 			logger.error(String.format("removeBinding: %s %s %s", e, jobId, binding));

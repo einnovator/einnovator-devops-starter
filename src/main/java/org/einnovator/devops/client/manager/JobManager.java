@@ -30,7 +30,7 @@ public interface JobManager {
 
 	URI addBinding(String jobId, Binding binding, RequestOptions options);
 	boolean removeBinding(String jobId, String bindingId, RequestOptions options);
-	Binding updateBinding(String jobId, Binding binding, RequestOptions options);
+	Binding updateBinding(String jobId, String bindingId, Binding binding, RequestOptions options);
 
 	
 	

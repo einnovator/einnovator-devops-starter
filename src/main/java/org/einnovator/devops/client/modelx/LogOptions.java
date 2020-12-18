@@ -3,9 +3,8 @@
  */
 package org.einnovator.devops.client.modelx;
 
-import org.einnovator.util.model.ObjectBase;
 import org.einnovator.util.model.ToStringCreator;
-
+import org.einnovator.util.web.RequestOptions;
 
 /**
  * A {@code LogOptions}.
@@ -13,8 +12,10 @@ import org.einnovator.util.model.ToStringCreator;
  * @author support@einnovator.org
  *
  */
-public class LogOptions extends ObjectBase {
+public class LogOptions extends RequestOptions {
 
+	private String pod;
+	
 	private String container;
 	
 	private Boolean pretty;
@@ -42,14 +43,33 @@ public class LogOptions extends ObjectBase {
 	public LogOptions() {
 	}
 
+	
 	//
-	// Getters/Setters
+	// Getter/Setter
 	//
+	
+	/**
+	 * Get the value of property {@code pod}.
+	 *
+	 * @return the value of {@code pod}
+	 */
+	public String getPod() {
+		return pod;
+	}
+
+	/**
+	 * Set the value of property {@code pod}.
+	 *
+	 * @param pod the value of {@code pod}
+	 */
+	public void setPod(String pod) {
+		this.pod = pod;
+	}
 
 	/**
 	 * Get the value of property {@code container}.
 	 *
-	 * @return the value of container
+	 * @return the container
 	 */
 	public String getContainer() {
 		return container;
@@ -58,7 +78,7 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code container}.
 	 *
-	 * @param container the value of container
+	 * @param container the container to set
 	 */
 	public void setContainer(String container) {
 		this.container = container;
@@ -68,7 +88,7 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Get the value of property {@code follow}.
 	 *
-	 * @return the value of follow
+	 * @return the follow
 	 */
 	public Boolean getFollow() {
 		return follow;
@@ -77,7 +97,7 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code follow}.
 	 *
-	 * @param follow the value of follow
+	 * @param follow the follow to set
 	 */
 	public void setFollow(Boolean follow) {
 		this.follow = follow;
@@ -86,7 +106,7 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Get the value of property {@code sinceSeconds}.
 	 *
-	 * @return the value of sinceSeconds
+	 * @return the sinceSeconds
 	 */
 	public Integer getSinceSeconds() {
 		return sinceSeconds;
@@ -95,7 +115,7 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code sinceSeconds}.
 	 *
-	 * @param sinceSeconds the value of sinceSeconds
+	 * @param sinceSeconds the sinceSeconds to set
 	 */
 	public void setSinceSeconds(Integer sinceSeconds) {
 		this.sinceSeconds = sinceSeconds;
@@ -104,7 +124,7 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Get the value of property {@code tailLines}.
 	 *
-	 * @return the value of tailLines
+	 * @return the tailLines
 	 */
 	public Integer getTailLines() {
 		return tailLines;
@@ -113,7 +133,7 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code tailLines}.
 	 *
-	 * @param tailLines the value of tailLines
+	 * @param tailLines the tailLines to set
 	 */
 	public void setTailLines(Integer tailLines) {
 		this.tailLines = tailLines;
@@ -122,7 +142,7 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Get the value of property {@code timestamps}.
 	 *
-	 * @return the value of timestamps
+	 * @return the timestamps
 	 */
 	public Boolean getTimestamps() {
 		return timestamps;
@@ -131,17 +151,16 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code timestamps}.
 	 *
-	 * @param timestamps the value of timestamps
+	 * @param timestamps the timestamps to set
 	 */
 	public void setTimestamps(Boolean timestamps) {
 		this.timestamps = timestamps;
 	}
-
 	
 	/**
 	 * Get the value of property {@code limitBytes}.
 	 *
-	 * @return the value of limitBytes
+	 * @return the limitBytes
 	 */
 	public Integer getLimitBytes() {
 		return limitBytes;
@@ -150,17 +169,16 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code limitBytes}.
 	 *
-	 * @param limitBytes the value of limitBytes
+	 * @param limitBytes the limitBytes to set
 	 */
 	public void setLimitBytes(Integer limitBytes) {
 		this.limitBytes = limitBytes;
 	}
-	
 
 	/**
 	 * Get the value of property {@code pretty}.
 	 *
-	 * @return the value of pretty
+	 * @return the pretty
 	 */
 	public Boolean getPretty() {
 		return pretty;
@@ -169,17 +187,16 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code pretty}.
 	 *
-	 * @param pretty the value of pretty
+	 * @param pretty the pretty to set
 	 */
 	public void setPretty(Boolean pretty) {
 		this.pretty = pretty;
 	}
 
-	
 	/**
 	 * Get the value of property {@code previous}.
 	 *
-	 * @return the value of previous
+	 * @return the previous
 	 */
 	public Boolean getPrevious() {
 		return previous;
@@ -188,31 +205,41 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code previous}.
 	 *
-	 * @param previous the value of previous
+	 * @param previous the previous to set
 	 */
 	public void setPrevious(Boolean previous) {
 		this.previous = previous;
 	}
-	
+
 	//
 	// With
 	//
-	
+
+	/**
+	 * Set the value of property {@code pod}.
+	 *
+	 * @param pod the value of {@code pod}
+	 * @return this {@code LogOptions}
+	 */
+	public LogOptions withPod(String pod) {
+		this.pod = pod;
+		return this;
+	}
+
 	/**
 	 * Set the value of property {@code container}.
 	 *
-	 * @param container the value of container
+	 * @param container the container to with
 	 * @return this {@code LogOptions}
 	 */
 	public LogOptions withContainer(String container) {
-		this.container = container;
-		return this;
+		this.container = container;return this;
 	}
 
 	/**
 	 * Set the value of property {@code follow}.
 	 *
-	 * @param follow the value of follow
+	 * @param follow the follow to with
 	 * @return this {@code LogOptions}
 	 */
 	public LogOptions withFollow(Boolean follow) {
@@ -223,7 +250,7 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code sinceSeconds}.
 	 *
-	 * @param sinceSeconds the value of sinceSeconds
+	 * @param sinceSeconds the sinceSeconds to with
 	 * @return this {@code LogOptions}
 	 */
 	public LogOptions withSinceSeconds(Integer sinceSeconds) {
@@ -234,7 +261,7 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code tailLines}.
 	 *
-	 * @param tailLines the value of tailLines
+	 * @param tailLines the tailLines to with
 	 * @return this {@code LogOptions}
 	 */
 	public LogOptions withTailLines(Integer tailLines) {
@@ -245,7 +272,7 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code timestamps}.
 	 *
-	 * @param timestamps the value of timestamps
+	 * @param timestamps the timestamps to with
 	 * @return this {@code LogOptions}
 	 */
 	public LogOptions withTimestamps(Boolean timestamps) {
@@ -256,7 +283,7 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code limitBytes}.
 	 *
-	 * @param limitBytes the value of limitBytes
+	 * @param limitBytes the limitBytes to with
 	 * @return this {@code LogOptions}
 	 */
 	public LogOptions withLimitBytes(Integer limitBytes) {
@@ -267,7 +294,7 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code pretty}.
 	 *
-	 * @param pretty the value of pretty
+	 * @param pretty the pretty to with
 	 * @return this {@code LogOptions}
 	 */
 	public LogOptions withPretty(Boolean pretty) {
@@ -278,18 +305,18 @@ public class LogOptions extends ObjectBase {
 	/**
 	 * Set the value of property {@code previous}.
 	 *
-	 * @param previous the value of previous
+	 * @param previous the previous to with
 	 * @return this {@code LogOptions}
 	 */
 	public LogOptions withPrevious(Boolean previous) {
 		this.previous = previous;
 		return this;
 	}
-
-
+	
 	@Override
 	public ToStringCreator toString(ToStringCreator creator) {
 		return super.toString(creator)
+				.append("pod", pod)
 				.append("container", container)
 				.append("pretty", pretty)
 				.append("follow", follow)
@@ -302,3 +329,4 @@ public class LogOptions extends ObjectBase {
 	}
 	
 }
+

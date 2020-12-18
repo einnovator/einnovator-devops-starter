@@ -42,7 +42,7 @@ public interface SolutionManager {
 	 * Create Solution.
 	 * 
 	 * @param solution the {@code Solution}
-	 * @param options TODO
+	 * @param options optional {@code RequestOptions}
 	 * @return the {@code URI} for te created {@code Solution}.
 	 */
 	URI createSolution(Solution solution, RequestOptions options);
@@ -63,7 +63,7 @@ public interface SolutionManager {
 	 * 
 	 * If {@code Solution.uuid} has text is assumed to be an edit. Otherwise a create. A single call is made to seerver.
 	 * @param solution the {@code Solution}
-	 * @param options TODO
+	 * @param options optional {@code RequestOptions}
 	 * @return the {@code Solution} with {@code uuid} property set; or null if error.
 	 */
 	Solution createOrUpdateSolution(Solution solution, RequestOptions options);

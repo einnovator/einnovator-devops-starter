@@ -42,7 +42,7 @@ public interface RegistryManager {
 	 * Create Registry.
 	 * 
 	 * @param registry the {@code Registry}
-	 * @param options TODO
+	 * @param options optional {@code RequestOptions}
 	 * @return the {@code URI} for te created {@code Registry}.
 	 */
 	URI createRegistry(Registry registry, RequestOptions options);
@@ -63,7 +63,7 @@ public interface RegistryManager {
 	 * 
 	 * If {@code Registry.uuid} has text is assumed to be an edit. Otherwise a create. A single call is made to seerver.
 	 * @param registry the {@code Registry}
-	 * @param options TODO
+	 * @param options optional {@code RequestOptions}
 	 * @return the {@code Registry} with {@code uuid} property set; or null if error.
 	 */
 	Registry createOrUpdateRegistry(Registry registry, RequestOptions options);

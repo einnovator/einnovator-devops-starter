@@ -42,7 +42,7 @@ public interface VcsManager {
 	 * Create Vcs.
 	 * 
 	 * @param vcs the {@code Vcs}
-	 * @param options TODO
+	 * @param options optional {@code RequestOptions}
 	 * @return the {@code URI} for te created {@code Vcs}.
 	 */
 	URI createVcs(Vcs vcs, RequestOptions options);
@@ -63,7 +63,7 @@ public interface VcsManager {
 	 * 
 	 * If {@code Vcs.uuid} has text is assumed to be an edit. Otherwise a create. A single call is made to seerver.
 	 * @param vcs the {@code Vcs}
-	 * @param options TODO
+	 * @param options optional {@code RequestOptions}
 	 * @return the {@code Vcs} with {@code uuid} property set; or null if error.
 	 */
 	Vcs createOrUpdateVcs(Vcs vcs, RequestOptions options);
