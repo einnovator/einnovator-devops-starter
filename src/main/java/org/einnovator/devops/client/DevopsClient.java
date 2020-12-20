@@ -3087,6 +3087,29 @@ public class DevopsClient {
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
 	}
+	
+	
+	/**
+	 * List {@code Solution}s for a {@code Catalog}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Any if enabled.
+	 * 
+	 * @param catalogId the identifier of the {@code Catalog} (uuid, id, or unique name)
+	 * @param filter a {@code SolutionFilter}
+	 * @param pageable a {@code Pageable} (optional)
+	 * @throws RestClientException if request fails
+	 * @return a {@code Page} with {@code Solution}s
+	 * @throws RestClientException if request fails
+	 */
+	public Page<Solution> listSolutionsFor(String catalogId, SolutionFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.solutionsFor(catalogId, config, isAdminRequest(filter)));
+		uri = processURI(uri, filter, pageable);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
+		return PageUtil.create2(result.getBody(), Solution.class);
+	}
+
 
 	/**
 	 * Install {@code Solution} from a {@code Catalog} in a {@code Space}.

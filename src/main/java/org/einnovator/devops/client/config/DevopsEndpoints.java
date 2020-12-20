@@ -356,7 +356,11 @@ public class DevopsEndpoints {
 	public static String catalog(String id, DevopsClientConfiguration config, boolean admin) {
 		return catalogs(config, admin) + "/" + id;
 	}
-	
+
+	public static String solutionsFor(String id, DevopsClientConfiguration config, boolean admin) {
+		return catalog(id, config, admin) + "/solution";
+	}
+
 	public static String installFromCatalog(String catalogId, String solutionId, DevopsClientConfiguration config, boolean admin) {
 		return catalog(catalogId, config, admin) + "/install/" + solutionId;
 	}
