@@ -82,6 +82,14 @@ public class DevopsEndpoints {
 		return deployment(deployId, config, admin) + "/build";
 	}
 
+	public static String instances(String deployId, DevopsClientConfiguration config, boolean admin) {
+		return deployment(deployId, config, admin) + "/instance";
+	}
+
+	public static String instance(String deployId, String pod, DevopsClientConfiguration config, boolean admin) {
+		return instances(deployId, config, admin) +"/" + pod;
+	}
+
 	public static String routes(String deployId, DevopsClientConfiguration config, boolean admin) {
 		return deployment(deployId, config, admin) + "/route";
 	}
@@ -182,6 +190,14 @@ public class DevopsEndpoints {
 		return job(jobId, config, admin) + "/build";
 	}
 	
+	public static String instancesJob(String jobId, DevopsClientConfiguration config, boolean admin) {
+		return job(jobId, config, admin) + "/instance";
+	}
+
+	public static String instanceJob(String jobId, String pod, DevopsClientConfiguration config, boolean admin) {
+		return instancesJob(jobId, config, admin) +"/" + pod;
+	}
+
 	public static String bindingsJob(String jobId, DevopsClientConfiguration config, boolean admin) {
 		return job(jobId, config, admin) + "/binding";
 	}
@@ -258,6 +274,14 @@ public class DevopsEndpoints {
 		return cronjob(cronjobId, config, admin) + "/build";
 	}
 	
+	public static String jobsCronJob(String jobId, DevopsClientConfiguration config, boolean admin) {
+		return cronjob(jobId, config, admin) + "/job";
+	}
+
+	public static String jobCronJob(String jobId, String pod, DevopsClientConfiguration config, boolean admin) {
+		return jobsCronJob(jobId, config, admin) +"/" + pod;
+	}
+	
 	public static String bindingsCronJob(String jobId, DevopsClientConfiguration config, boolean admin) {
 		return cronjob(jobId, config, admin) + "/binding";
 	}
@@ -317,6 +341,10 @@ public class DevopsEndpoints {
 		return solutions(config, admin) + "/" + id;
 	}
 
+	public static String install(String id, DevopsClientConfiguration config, boolean admin) {
+		return solution(id, config, admin) + "/install";
+	}
+
 	//
 	// Catalog
 	//
@@ -329,6 +357,10 @@ public class DevopsEndpoints {
 		return catalogs(config, admin) + "/" + id;
 	}
 	
+	public static String installFromCatalog(String catalogId, String solutionId, DevopsClientConfiguration config, boolean admin) {
+		return catalog(catalogId, config, admin) + "/install/" + solutionId;
+	}
+
 	//
 	// VCS
 	//

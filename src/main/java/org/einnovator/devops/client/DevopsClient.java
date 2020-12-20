@@ -18,6 +18,7 @@ import org.einnovator.devops.client.model.Connector;
 import org.einnovator.devops.client.model.CronJob;
 import org.einnovator.devops.client.model.Deployment;
 import org.einnovator.devops.client.model.Domain;
+import org.einnovator.devops.client.model.Instance;
 import org.einnovator.devops.client.model.Job;
 import org.einnovator.devops.client.model.License;
 import org.einnovator.devops.client.model.Mount;
@@ -40,6 +41,8 @@ import org.einnovator.devops.client.modelx.DeploymentFilter;
 import org.einnovator.devops.client.modelx.DeploymentOptions;
 import org.einnovator.devops.client.modelx.DomainFilter;
 import org.einnovator.devops.client.modelx.DomainOptions;
+import org.einnovator.devops.client.modelx.ExecOptions;
+import org.einnovator.devops.client.modelx.InstallOptions;
 import org.einnovator.devops.client.modelx.JobFilter;
 import org.einnovator.devops.client.modelx.JobOptions;
 import org.einnovator.devops.client.modelx.LicenseFilter;
@@ -643,6 +646,63 @@ public class DevopsClient {
 		RequestEntity<Void> request = RequestEntity.get(uri).build();
 		ResponseEntity<String> result = exchange(request, String.class, options);
 		return result.getBody();
+	}
+	
+	/**
+	 * Execute command in pod/replica of {@code Deployment} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param options (optional) {@code LogOptions}
+	 * @return the log
+	 * @throws RestClientException if request fails
+	 */
+	public String execDeployment(String id, ExecOptions options) {
+		URI uri = makeURI(DevopsEndpoints.deploymentExec(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).build();
+		ResponseEntity<String> result = exchange(request, String.class, options);
+		return result.getBody();
+	}
+	
+	//
+	// Deployment Instances (Pods/Replicas)
+	//
+	
+	/**
+	 * List Pod/Replica instances for a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @return the list of {@code Instance}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Instance> listInstances(String deployId, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.instances(deployId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Instance[]> result = exchange(request, Instance[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+	
+	/**
+	 * Delete existing {@code Instance} for a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param pod the identifier of the {@code Instance/Pod} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code DeploymentOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void deleteInstance(String deployId, String pod, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.instance(deployId, pod, config, isAdminRequest(options)));
+		uri = processURI(uri, options);	
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
 	}
 	
 	//
@@ -1520,6 +1580,45 @@ public class DevopsClient {
 	}
 	
 	//
+	// Job Instances (Pods/Replicas)
+	//
+	
+	/**
+	 * List Pod/Replica instances for a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param jobId the {@code Job} identifier ({@code uuid})
+	 * @param options (optional) {@code JobOptions}
+	 * @return the list of {@code Instance}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Instance> listInstancesForJob(String jobId, JobOptions options) {
+		URI uri = makeURI(DevopsEndpoints.instancesJob(jobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Instance[]> result = exchange(request, Instance[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+	
+	/**
+	 * Delete existing {@code Instance} for a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param pod the identifier of the {@code Instance/Pod} ({@code uuid, id, unique host, or unique dns})
+	 * @param options optional {@code JobOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void deleteInstanceForJob(String jobId, String pod, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.instanceJob(jobId, pod, config, isAdminRequest(options)));
+		uri = processURI(uri, options);	
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+	
+	//
 	// Job Mount
 	//
 	
@@ -2087,7 +2186,29 @@ public class DevopsClient {
 	}
 	
 	//
-	// Job Mount
+	// Deployment Jobs (Pods/Replicas)
+	//
+	
+	/**
+	 * List Job instances for a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param cronjobId the {@code CronJob} identifier ({@code uuid})
+	 * @param options (optional) {@code DeploymentOptions}
+	 * @return the list of {@code Job}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Job> listJobsForCronJob(String cronjobId, DeploymentOptions options) {
+		URI uri = makeURI(DevopsEndpoints.jobsCronJob(cronjobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Job[]> result = exchange(request, Job[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+	
+	//
+	// CronJob Mount
 	//
 	
 	/**
@@ -2840,6 +2961,23 @@ public class DevopsClient {
 		exchange(request, Void.class, options);
 	}
 
+	
+	/**
+	 * Install {@code Solution} in a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param solutionId the identifier of the {@code Solution) ({@code uuid, id, or unique/qualified name})
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public URI install(String solutionId, InstallOptions options) {
+		URI uri = makeURI(DevopsEndpoints.install(solutionId, config, isAdminRequest(options)));
+		RequestEntity<InstallOptions> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(options);		
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();	
+	}
+
 	//
 	// Catalog
 	//
@@ -2947,6 +3085,23 @@ public class DevopsClient {
 		uri = processURI(uri, options);		
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
+	}
+
+	/**
+	 * Install {@code Solution} from a {@code Catalog} in a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * 
+	 * @param catalogId the identifier of the {@code Catalog) ({@code uuid, id, or unique name})
+	 * @param solutionId the identifier of the {@code Solution) ({@code uuid, id, or unique name})
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public URI install(String catalogId, String solutionId, InstallOptions options) {
+		URI uri = makeURI(DevopsEndpoints.installFromCatalog(catalogId, solutionId, config, isAdminRequest(options)));
+		RequestEntity<InstallOptions> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(options);		
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();	
 	}
 
 	//
