@@ -22,6 +22,7 @@ public interface SolutionManager {
 	 * <p><b>Required Security Credentials</b>: Admin or owner.
 	 * 
 	 * @param id the {@code Solution} uuid
+	 * @param options optional {@code SolutionOptions}
 	 * @return the {@code Solution} if found, or null if not found or request failed
 	 */
 	Solution getSolution(String id, SolutionOptions options);

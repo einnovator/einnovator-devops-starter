@@ -4,100 +4,36 @@ import java.util.Map;
 
 import org.einnovator.util.model.ToStringCreator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Secret extends AnnotatedEntity {
-
-	private String name;
-
-	private String type;
+public class ConfigMap extends AnnotatedEntity {
 	
 	private String kind;
 	
 	private Map<String, String> data;
+	
+	private Map<String, String> binData;
 
-	private Map<String, String> strData;
-
-	@JsonIgnore
 	private Map<String, Object> meta;
-	
-	
-	private String value;
 	
 	//
 	// Constructors
 	//
 	
 	/**
-	 * Create instance of {@code Secret}.
+	 * Create instance of {@code ConfigMap}.
 	 *
 	 */
-	public Secret() {
+	public ConfigMap() {
 	}
 
-
+	
 	//
 	// Getters/Setters
 	//
-
-
-	/**
-	 * Get the value of property {@code name}.
-	 *
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Set the value of property {@code name}.
-	 *
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * Get the value of property {@code type}.
-	 *
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
-	}
-
-	/**
-	 * Set the value of property {@code type}.
-	 *
-	 * @param type the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	/**
-	 * Get the value of property {@code value}.
-	 *
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
-	}
-
-	/**
-	 * Set the value of property {@code value}.
-	 *
-	 * @param value the value to set
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
 
 	/**
 	 * Get the value of property {@code kind}.
@@ -134,26 +70,24 @@ public class Secret extends AnnotatedEntity {
 	public void setData(Map<String, String> data) {
 		this.data = data;
 	}
-
+	
 	/**
-	 * Get the value of property {@code strData}.
+	 * Get the value of property {@code binData}.
 	 *
-	 * @return the strData
+	 * @return the binData
 	 */
-	public Map<String, String> getStrData() {
-		return strData;
+	public Map<String, String> getBinData() {
+		return binData;
 	}
 
-
 	/**
-	 * Set the value of property {@code strData}.
+	 * Set the value of property {@code binData}.
 	 *
-	 * @param strData the strData to set
+	 * @param binData the binData to set
 	 */
-	public void setStrData(Map<String, String> strData) {
-		this.strData = strData;
+	public void setBinData(Map<String, String> binData) {
+		this.binData = binData;
 	}
-
 
 	/**
 	 * Get the value of property {@code meta}.
@@ -173,18 +107,21 @@ public class Secret extends AnnotatedEntity {
 		this.meta = meta;
 	}
 
-
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator
 				.append("name", name)
-				.append("type", type)
 				.append("kind", kind)
 				.append("data", data)
-				.append("strData", strData)
-				.append("value", value)
+				.append("binData", binData)
 				);
 	}
 
-	
+	public String getItem(String name) {
+		if (data==null) {
+			return null;
+		}
+		String value = data.get(name);
+		return value;
+	}
 }

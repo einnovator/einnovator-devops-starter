@@ -22,6 +22,7 @@ public interface VcsManager {
 	 * <p><b>Required Security Credentials</b>: Admin or owner.
 	 * 
 	 * @param id the {@code Vcs} uuid
+	 * @param options optional {@code VcsOptions}
 	 * @return the {@code Vcs} if found, or null if not found or request failed
 	 */
 	Vcs getVcs(String id, VcsOptions options);

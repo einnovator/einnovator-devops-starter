@@ -74,6 +74,7 @@ public class ExecOptions extends RequestOptions {
 	 * Set the value of property {@code cmd}.
 	 *
 	 * @param cmd the value of {@code cmd}
+	 * @return this {@code ExecOptions}
 	 */
 	public ExecOptions withCmd(String cmd) {
 		this.cmd = cmd;
@@ -84,6 +85,7 @@ public class ExecOptions extends RequestOptions {
 	 * Set the value of property {@code pod}.
 	 *
 	 * @param pod the value of {@code pod}
+	 * @return this {@code ExecOptions}
 	 */
 	public ExecOptions withPod(String pod) {
 		this.pod = pod;

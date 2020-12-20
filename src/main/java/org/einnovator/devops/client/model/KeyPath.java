@@ -41,9 +41,9 @@ public class KeyPath extends ObjectBase {
 	/**
 	 * Create instance of {@code KeyPath}.
 	 *
-	 * @param key
-	 * @param path
-	 * @param mode
+	 * @param key the key
+	 * @param path the path
+	 * @param mode the mode
 	 */
 	public KeyPath(String key, String path, String mode) {
 		super();
@@ -52,6 +52,13 @@ public class KeyPath extends ObjectBase {
 		this.mode = mode;
 	}
 
+	/**
+	 * Create instance of {@code KeyPath}.
+	 *
+	 * @param key the key
+	 * @param path the path
+	 * @param mode the mode
+	 */
 	public KeyPath(String key, String path, Integer mode) {
 		this(key, path, (String)null);
 		this.mode = formatMode(mode);

@@ -192,7 +192,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching {@link Cluster#getSharing()} and {@link Cluster#getAuthorities()}.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options (optional) the {@code ClusterOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Cluster}
 	 * @throws RestClientException if request fails
@@ -249,7 +249,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param cluster the {@code Cluster}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -281,7 +281,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -301,7 +301,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching {@link Space#getSharing()} and {@link Space#getAuthorities()}.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options (optional) the {@code SpaceOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Space}
 	 * @throws RestClientException if request fails
@@ -358,7 +358,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param space the {@code Space}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -389,7 +389,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -409,7 +409,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param spaceId the {@code Space} identifier ({@code uuid})
+	 * @param spaceId the {@code Space} identifier (uuid})
 	 * @param filter a {@code DeploymentFilter}
 	 * @param pageable a {@code Pageable} (optional)
 	 * @throws RestClientException if request fails
@@ -431,7 +431,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Deployment}
 	 * @throws RestClientException if request fails
@@ -449,7 +449,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param spaceId the {@code Space} identifier ({@code uuid})
+	 * @param spaceId the {@code Space} identifier (uuid})
 	 * @param deploy the {@code Deployment}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Deployment}
@@ -468,7 +468,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param deploy the {@code Deployment}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -500,7 +500,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options optional {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -517,7 +517,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) the {@code ManifestOptions} that manifest generation
 	 * @return the manifest
 	 * @throws RestClientException if request fails
@@ -535,7 +535,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param n number of replicas/pods/instances
 	 * @param options (optional) {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
@@ -553,7 +553,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param resources the {@code Resources}
 	 * @param options (optional) {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
@@ -571,7 +571,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -587,7 +587,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -603,7 +603,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -619,7 +619,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -635,7 +635,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code LogOptions}
 	 * @return the log
 	 * @throws RestClientException if request fails
@@ -653,7 +653,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code LogOptions}
 	 * @return the log
 	 * @throws RestClientException if request fails
@@ -675,7 +675,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param deployId the {@code Deployment} identifier (uuid})
 	 * @param options (optional) {@code DeploymentOptions}
 	 * @return the list of {@code Instance}
 	 * @throws RestClientException if request fails
@@ -693,8 +693,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param pod the identifier of the {@code Instance/Pod} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param pod the identifier of the {@code Instance/Pod} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -714,7 +714,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param deployId the {@code Deployment} identifier (uuid})
 	 * @param options (optional) {@code DeploymentOptions}
 	 * @return the list of {@code Mount}
 	 * @throws RestClientException if request fails
@@ -732,8 +732,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Mount} (uuid, id, unique host, or unique dns})
 	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Mount}
 	 * @throws RestClientException if request fails
@@ -751,7 +751,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
 	 * @param mount the {@code Mount}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Mount}
@@ -771,8 +771,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Mount} (uuid, id, unique host, or unique dns})
 	 * @param mount the {@code Mount}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -789,8 +789,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Mount} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -806,8 +806,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Mount} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -827,7 +827,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param deployId the {@code Deployment} identifier (uuid})
 	 * @param options (optional) {@code DeploymentOptions}
 	 * @return the list of {@code Variable}
 	 * @throws RestClientException if request fails
@@ -845,8 +845,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Variable} (uuid, id, unique host, or unique dns})
 	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Variable}
 	 * @throws RestClientException if request fails
@@ -864,7 +864,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
 	 * @param var the {@code Variable}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Variable}
@@ -884,8 +884,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Variable} (uuid, id, unique host, or unique dns})
 	 * @param var the {@code Variable}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -902,8 +902,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Variable} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -923,7 +923,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param deployId the {@code Deployment} identifier (uuid})
 	 * @param options (optional) {@code DeploymentOptions}
 	 * @return the list of {@code Route}
 	 * @throws RestClientException if request fails
@@ -941,8 +941,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Route} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Route} (uuid, id, unique host, or unique dns})
 	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Route}
 	 * @throws RestClientException if request fails
@@ -960,7 +960,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
 	 * @param route the {@code Route}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Route}
@@ -980,8 +980,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Route} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Route} (uuid, id, unique host, or unique dns})
 	 * @param route the {@code Route}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -998,8 +998,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Route} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Route} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1017,8 +1017,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Route} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Route} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1038,7 +1038,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param deployId the {@code Deployment} identifier (uuid})
 	 * @param options (optional) {@code DeploymentOptions}
 	 * @return the list of {@code Binding}
 	 * @throws RestClientException if request fails
@@ -1056,8 +1056,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Binding} (uuid, id, unique host, or unique dns})
 	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Binding}
 	 * @throws RestClientException if request fails
@@ -1075,7 +1075,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
 	 * @param binding the {@code Binding}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Binding}
@@ -1094,8 +1094,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Binding} (uuid, id, unique host, or unique dns})
 	 * @param binding the {@code Binding}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -1112,8 +1112,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Binding} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1129,8 +1129,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Binding} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1150,7 +1150,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param deployId the {@code Deployment} identifier (uuid})
 	 * @param options (optional) {@code DeploymentOptions}
 	 * @return the list of {@code Connector}
 	 * @throws RestClientException if request fails
@@ -1168,8 +1168,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Connector} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Connector} (uuid, id, unique host, or unique dns})
 	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Connector}
 	 * @throws RestClientException if request fails
@@ -1187,7 +1187,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
 	 * @param connector the {@code Connector}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Connector}
@@ -1207,8 +1207,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Connector} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Connector} (uuid, id, unique host, or unique dns})
 	 * @param connector the {@code Connector}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -1225,8 +1225,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Connector} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Connector} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1242,8 +1242,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Connector} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Connector} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1263,7 +1263,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param deployId the {@code Deployment} identifier ({@code uuid})
+	 * @param deployId the {@code Deployment} identifier (uuid})
 	 * @param options (optional) {@code DeploymentOptions}
 	 * @return the list of {@code Repository}
 	 * @throws RestClientException if request fails
@@ -1281,8 +1281,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Repository} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Repository} (uuid, id, unique host, or unique dns})
 	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Repository}
 	 * @throws RestClientException if request fails
@@ -1300,7 +1300,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
 	 * @param repository the {@code Repository}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Repository}
@@ -1320,8 +1320,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Repository} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Repository} (uuid, id, unique host, or unique dns})
 	 * @param repository the {@code Repository}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -1338,8 +1338,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param deployId the identifier of the {@code Deployment} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Repository} ({@code uuid, id, unique host, or unique dns})
+	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Repository} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code DeploymentOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1359,7 +1359,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param spaceId the {@code Space} identifier ({@code uuid})
+	 * @param spaceId the {@code Space} identifier (uuid})
 	 * @param filter a {@code JobFilter}
 	 * @param pageable a {@code Pageable} (optional)
 	 * @throws RestClientException if request fails
@@ -1381,7 +1381,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) the {@code JobOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Job}
 	 * @throws RestClientException if request fails
@@ -1399,7 +1399,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param spaceId the {@code Space} identifier ({@code uuid})
+	 * @param spaceId the {@code Space} identifier (uuid})
 	 * @param job the {@code Job}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Job}
@@ -1419,7 +1419,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param job the {@code Job}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -1450,7 +1450,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1466,7 +1466,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) the {@code ManifestOptions} that manifest generation
 	 * @return the manifest
 	 * @throws RestClientException if request fails
@@ -1484,7 +1484,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param resources the {@code Resources}
 	 * @param options (optional) {@code JobOptions}
 	 * @throws RestClientException if request fails
@@ -1502,7 +1502,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code JobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1518,7 +1518,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code JobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1534,7 +1534,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code JobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1550,7 +1550,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code JobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1566,7 +1566,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code LogOptions}
 	 * @return the log
 	 * @throws RestClientException if request fails
@@ -1588,7 +1588,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param jobId the {@code Job} identifier ({@code uuid})
+	 * @param jobId the {@code Job} identifier (uuid})
 	 * @param options (optional) {@code JobOptions}
 	 * @return the list of {@code Instance}
 	 * @throws RestClientException if request fails
@@ -1606,8 +1606,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
-	 * @param pod the identifier of the {@code Instance/Pod} ({@code uuid, id, unique host, or unique dns})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
+	 * @param pod the identifier of the {@code Instance/Pod} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code JobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1627,7 +1627,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param jobId the {@code Job} identifier ({@code uuid})
+	 * @param jobId the {@code Job} identifier (uuid})
 	 * @param options (optional) {@code JobOptions}
 	 * @return the list of {@code Mount}
 	 * @throws RestClientException if request fails
@@ -1645,8 +1645,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Mount} (uuid, id, unique host, or unique dns})
 	 * @param options (optional) the {@code JobOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Mount}
 	 * @throws RestClientException if request fails
@@ -1664,7 +1664,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
 	 * @param mount the {@code Mount}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Mount}
@@ -1684,8 +1684,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Mount} (uuid, id, unique host, or unique dns})
 	 * @param mount the {@code Mount}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -1702,8 +1702,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Mount} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code JobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1719,8 +1719,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Mount} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1740,7 +1740,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param jobId the {@code Job} identifier ({@code uuid})
+	 * @param jobId the {@code Job} identifier (uuid})
 	 * @param options (optional) {@code JobOptions}
 	 * @return the list of {@code Variable}
 	 * @throws RestClientException if request fails
@@ -1758,8 +1758,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Variable} (uuid, id, unique host, or unique dns})
 	 * @param options (optional) the {@code JobOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Variable}
 	 * @throws RestClientException if request fails
@@ -1777,7 +1777,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
 	 * @param var the {@code Variable}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Variable}
@@ -1797,8 +1797,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Variable} (uuid, id, unique host, or unique dns})
 	 * @param var the {@code Variable}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -1815,8 +1815,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Variable} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code JobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1836,7 +1836,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param jobId the {@code Job} identifier ({@code uuid})
+	 * @param jobId the {@code Job} identifier (uuid})
 	 * @param options (optional) {@code JobOptions}
 	 * @return the list of {@code Binding}
 	 * @throws RestClientException if request fails
@@ -1854,8 +1854,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Binding} (uuid, id, unique host, or unique dns})
 	 * @param options (optional) the {@code JobOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Binding}
 	 * @throws RestClientException if request fails
@@ -1873,7 +1873,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
 	 * @param binding the {@code Binding}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Binding}
@@ -1892,8 +1892,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Binding} (uuid, id, unique host, or unique dns})
 	 * @param binding the {@code Binding}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -1910,8 +1910,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Binding} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code JobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1927,8 +1927,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param jobId the identifier of the {@code Job} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param jobId the identifier of the {@code Job} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Binding} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -1948,7 +1948,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param spaceId the {@code Space} identifier ({@code uuid})
+	 * @param spaceId the {@code Space} identifier (uuid})
 	 * @param filter a {@code CronJobFilter}
 	 * @param pageable a {@code Pageable} (optional)
 	 * @throws RestClientException if request fails
@@ -1970,7 +1970,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) the {@code CronJobOptions} that tailor which fields are returned (projection)
 	 * @return the {@code CronJob}
 	 * @throws RestClientException if request fails
@@ -1988,7 +1988,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param spaceId the {@code Space} identifier ({@code uuid})
+	 * @param spaceId the {@code Space} identifier (uuid})
 	 * @param cronjob the {@code CronJob}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code CronJob}
@@ -2009,7 +2009,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param cronjob the {@code CronJob}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -2056,7 +2056,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param resources the {@code Resources}
 	 * @param options (optional) {@code CronJobOptions}
 	 * @throws RestClientException if request fails
@@ -2074,7 +2074,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) the {@code ManifestOptions} that manifest generation
 	 * @return the manifest
 	 * @throws RestClientException if request fails
@@ -2092,7 +2092,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code CronJobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2108,7 +2108,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code CronJobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2124,7 +2124,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code CronJobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2140,7 +2140,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code CronJobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2156,7 +2156,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code CronJobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2172,7 +2172,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or qualified name})
+	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code LogOptions}
 	 * @return the log
 	 * @throws RestClientException if request fails
@@ -2194,12 +2194,12 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param cronjobId the {@code CronJob} identifier ({@code uuid})
-	 * @param options (optional) {@code DeploymentOptions}
+	 * @param cronjobId the {@code CronJob} identifier (uuid})
+	 * @param options (optional) {@code CronJobOptions}
 	 * @return the list of {@code Job}
 	 * @throws RestClientException if request fails
 	 */
-	public List<Job> listJobsForCronJob(String cronjobId, DeploymentOptions options) {
+	public List<Job> listJobsForCronJob(String cronjobId, CronJobOptions options) {
 		URI uri = makeURI(DevopsEndpoints.jobsCronJob(cronjobId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
@@ -2216,7 +2216,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param cronjobId the {@code CronJob} identifier ({@code uuid})
+	 * @param cronjobId the {@code CronJob} identifier (uuid})
 	 * @param options (optional) {@code CronJobOptions}
 	 * @return the list of {@code Mount}
 	 * @throws RestClientException if request fails
@@ -2234,8 +2234,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Mount} (uuid, id, unique host, or unique dns})
 	 * @param options (optional) the {@code CronJobOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Mount}
 	 * @throws RestClientException if request fails
@@ -2253,7 +2253,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
 	 * @param mount the {@code Mount}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Mount}
@@ -2273,8 +2273,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Mount} (uuid, id, unique host, or unique dns})
 	 * @param mount the {@code Mount}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -2291,8 +2291,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Mount} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code CronJobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2308,8 +2308,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Mount} ({@code uuid, id, unique host, or unique dns})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Mount} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2329,7 +2329,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param cronjobId the {@code CronJob} identifier ({@code uuid})
+	 * @param cronjobId the {@code CronJob} identifier (uuid})
 	 * @param options (optional) {@code CronJobOptions}
 	 * @return the list of {@code Variable}
 	 * @throws RestClientException if request fails
@@ -2347,8 +2347,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Variable} (uuid, id, unique host, or unique dns})
 	 * @param options (optional) the {@code CronJobOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Variable}
 	 * @throws RestClientException if request fails
@@ -2366,7 +2366,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
 	 * @param var the {@code Variable}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Variable}
@@ -2386,8 +2386,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Variable} (uuid, id, unique host, or unique dns})
 	 * @param var the {@code Variable}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -2404,8 +2404,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Variable} ({@code uuid, id, unique host, or unique dns})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Variable} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code CronJobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2425,7 +2425,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
-	 * @param cronjobId the {@code CronJob} identifier ({@code uuid})
+	 * @param cronjobId the {@code CronJob} identifier (uuid})
 	 * @param options (optional) {@code CronJobOptions}
 	 * @return the list of {@code Binding}
 	 * @throws RestClientException if request fails
@@ -2443,8 +2443,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Binding} (uuid, id, unique host, or unique dns})
 	 * @param options (optional) the {@code CronJobOptions} that tailor which fields are returned (projection)
 	 * @return the {@code Binding}
 	 * @throws RestClientException if request fails
@@ -2462,7 +2462,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
 	 * @param binding the {@code Binding}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Binding}
@@ -2481,8 +2481,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Binding} (uuid, id, unique host, or unique dns})
 	 * @param binding the {@code Binding}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -2499,8 +2499,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Binding} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code CronJobOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2516,8 +2516,8 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
-	 * @param cronjobId the identifier of the {@code CronJob} ({@code uuid, id, or qualified name})
-	 * @param id the identifier of the {@code Binding} ({@code uuid, id, unique host, or unique dns})
+	 * @param cronjobId the identifier of the {@code CronJob} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Binding} (uuid, id, unique host, or unique dns})
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2537,7 +2537,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching {@link Domain#getSharing()} and {@link Domain#getAuthorities()}.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options (optional) the {@code DomainOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Domain}
 	 * @throws RestClientException if request fails
@@ -2595,7 +2595,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param domain the {@code Domain}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -2626,7 +2626,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2646,7 +2646,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching {@link Registry#getSharing()} and {@link Registry#getAuthorities()}.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options (optional) the {@code RegistryOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Registry}
 	 * @throws RestClientException if request fails
@@ -2703,7 +2703,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param registry the {@code Registry}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -2734,7 +2734,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2754,7 +2754,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching {@link Vcs#getSharing()} and {@link Vcs#getAuthorities()}.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options (optional) the {@code VcsOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Vcs}
 	 * @throws RestClientException if request fails
@@ -2811,7 +2811,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param vcs the {@code Vcs}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -2842,7 +2842,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2860,9 +2860,9 @@ public class DevopsClient {
 	/**
 	 * Get {@code Solution} with specified identifier.
 	 * 
-	 * <p><b>Required Security Credentials</b>: Matching {@link Solution#getSharing()} and {@link Solution#getAuthorities()}.
+	 * <p><b>Required Security Credentials</b>: Any if enabled, or admin.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options (optional) the {@code SolutionOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Solution}
 	 * @throws RestClientException if request fails
@@ -2879,7 +2879,7 @@ public class DevopsClient {
 	/**
 	 * List {@code Solution}s.
 	 * 
-	 * <p><b>Required Security Credentials</b>: Matching {@link Solution#getSharing()} and {@link Solution#getAuthorities()}.
+	 * <p><b>Required Security Credentials</b>: Any if enabled, or Admin (global role ADMIN).
 	 * 
 	 * @param filter a {@code SolutionFilter}
 	 * @param pageable a {@code Pageable} (optional)
@@ -2899,7 +2899,7 @@ public class DevopsClient {
 	/**
 	 * Create a new {@code Solution}.
 	 * 
-	 * <p><b>Required Security Credentials</b>: Any.
+	 * <p><b>Required Security Credentials</b>: Admin (global role ADMIN).
 	 * 
 	 * @param solution the {@code Solution}
 	 * @param options optional {@code RequestOptions}
@@ -2917,9 +2917,9 @@ public class DevopsClient {
 	/**
 	 * Update existing {@code Solution}
 	 * 
-	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * <p><b>Required Security Credentials</b>: Admin (global role ADMIN).
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param solution the {@code Solution}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -2935,7 +2935,7 @@ public class DevopsClient {
 	 * Update existing {@code Solution}
 	 * 
 	 * <p>ID is extracted from fields: UUID, ID, or name.
-	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * <p><b>Required Security Credentials</b>: Admin (global role ADMIN).
 	 * 
 	 * @param solution the {@code Solution}
 	 * @param options optional {@code RequestOptions}
@@ -2948,9 +2948,9 @@ public class DevopsClient {
 	/**
 	 * Delete existing {@code Solution}
 	 * 
-	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
+	 * <p><b>Required Security Credentials</b>: Admin (global role ADMIN).
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -2967,8 +2967,9 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param solutionId the identifier of the {@code Solution) ({@code uuid, id, or unique/qualified name})
+	 * @param solutionId the identifier of the {@code Solution} (uuid, id, or unique/qualified name)
 	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created resource (main one)
 	 * @throws RestClientException if request fails
 	 */
 	public URI install(String solutionId, InstallOptions options) {
@@ -2988,7 +2989,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: If Enabled: any. If not enabled: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options (optional) the {@code CatalogOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code Catalog}
 	 * @throws RestClientException if request fails
@@ -3045,7 +3046,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param catalog the {@code Catalog}
 	 * @param options optional {@code RequestOptions}	
 	 * @throws RestClientException if request fails
@@ -3076,7 +3077,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -3092,9 +3093,10 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
 	 * 
-	 * @param catalogId the identifier of the {@code Catalog) ({@code uuid, id, or unique name})
-	 * @param solutionId the identifier of the {@code Solution) ({@code uuid, id, or unique name})
+	 * @param catalogId the identifier of the {@code Catalog} (uuid, id, or unique name)
+	 * @param solutionId the identifier of the {@code Solution} (uuid, id, or unique name)
 	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created resource (main one)
 	 * @throws RestClientException if request fails
 	 */
 	public URI install(String catalogId, String solutionId, InstallOptions options) {
@@ -3113,7 +3115,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options (optional) the {@code LicenseOptions} that tailor which fields are returned (projection)	
 	 * @return the {@code License}
 	 * @throws RestClientException if request fails
@@ -3170,7 +3172,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param license the {@code License}
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
@@ -3201,7 +3203,7 @@ public class DevopsClient {
 	 * 
 	 * <p><b>Required Security Credentials</b>: Admin (global role ADMIN), or owner.
 	 * 
-	 * @param id the identifier ({@code uuid, id, or unique name})
+	 * @param id the identifier (uuid, id, or unique name)
 	 * @param options optional {@code RequestOptions}
 	 * @throws RestClientException if request fails
 	 */

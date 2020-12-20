@@ -167,6 +167,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	 * Set the value of property {@code instances}.
 	 *
 	 * @param instances the instances to set
+	 * @return this {@code DeploymentOptions}
 	 */
 	public DeploymentOptions withInstances(Boolean instances) {
 		this.instances = instances;
@@ -177,6 +178,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	 * Set the value of property {@code service}.
 	 *
 	 * @param service the service to set
+	 * @return this {@code DeploymentOptions}
 	 */
 	public DeploymentOptions withService(Boolean service) {
 		this.service = service;
@@ -188,6 +190,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	 * Set the value of property {@code unprocessed}.
 	 *
 	 * @param unprocessed the unprocessed to set
+	 * @return this {@code DeploymentOptions}
 	 */
 	public DeploymentOptions withUnprocessed(Boolean unprocessed) {
 		this.unprocessed = unprocessed;
@@ -199,6 +202,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	 * Set the value of property {@code resolve}.
 	 *
 	 * @param resolve the resolve to set
+	 * @return this {@code DeploymentOptions}
 	 */
 	public DeploymentOptions withResolve(Boolean resolve) {
 		this.resolve = resolve;
@@ -210,6 +214,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	 * Set the value of property {@code deployment}.
 	 *
 	 * @param deployment the value of {@code deployment}
+	 * @return this {@code DeploymentOptions}
 	 */
 	public DeploymentOptions withDeployment(Boolean deployment) {
 		this.deployment = deployment;
@@ -220,6 +225,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	 * Set the value of property {@code ingress}.
 	 *
 	 * @param ingress the value of {@code ingress}
+	 * @return this {@code DeploymentOptions}
 	 */
 	public DeploymentOptions withIngress(Boolean ingress) {
 		this.ingress = ingress;

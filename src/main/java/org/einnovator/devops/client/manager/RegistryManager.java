@@ -22,6 +22,7 @@ public interface RegistryManager {
 	 * <p><b>Required Security Credentials</b>: Admin or owner.
 	 * 
 	 * @param id the {@code Registry} uuid
+	 * @param options optional {@code RegistryOptions}
 	 * @return the {@code Registry} if found, or null if not found or request failed
 	 */
 	Registry getRegistry(String id, RegistryOptions options);

@@ -22,6 +22,7 @@ public interface DomainManager {
 	 * <p><b>Required Security Credentials</b>: Admin or owner.
 	 * 
 	 * @param id the {@code Domain} uuid
+	 * @param options optional {@code DomainOptions}
 	 * @return the {@code Domain} if found, or null if not found or request failed
 	 */
 	Domain getDomain(String id, DomainOptions options);

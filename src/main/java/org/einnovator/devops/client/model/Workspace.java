@@ -40,6 +40,7 @@ public class Workspace extends Mount {
 	/**
 	 * Get the value of property {@code subPath}.
 	 *
+	 * @param defaultName fallback path value
 	 * @return the value of {@code subPath}
 	 */
 	public String getRequiredSubPath(String defaultName) {
