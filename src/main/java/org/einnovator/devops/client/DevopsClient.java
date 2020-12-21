@@ -2974,7 +2974,7 @@ public class DevopsClient {
 	 */
 	public URI install(String solutionId, InstallOptions options) {
 		URI uri = makeURI(DevopsEndpoints.install(solutionId, config, isAdminRequest(options)));
-		RequestEntity<InstallOptions> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(options);		
+		RequestEntity<InstallOptions> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(options);		
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
 		return result.getHeaders().getLocation();	
 	}
@@ -3124,7 +3124,7 @@ public class DevopsClient {
 	 */
 	public URI install(String catalogId, String solutionId, InstallOptions options) {
 		URI uri = makeURI(DevopsEndpoints.installFromCatalog(catalogId, solutionId, config, isAdminRequest(options)));
-		RequestEntity<InstallOptions> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(options);		
+		RequestEntity<InstallOptions> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(options);		
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
 		return result.getHeaders().getLocation();	
 	}
