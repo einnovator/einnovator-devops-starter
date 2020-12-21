@@ -54,6 +54,7 @@ public class Cluster extends BilledEntity {
 	
 	private String token;
 	
+	private String kubeconfig;
 
 	//
 	// Constructor
@@ -519,6 +520,26 @@ public class Cluster extends BilledEntity {
 	 */
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+
+	/**
+	 * Get the value of property {@code kubeconfig}.
+	 *
+	 * @return the value of {@code kubeconfig}
+	 */
+	public String getKubeconfig() {
+		return kubeconfig;
+	}
+
+
+	/**
+	 * Set the value of property {@code kubeconfig}.
+	 *
+	 * @param kubeconfig the value of {@code kubeconfig}
+	 */
+	public void setKubeconfig(String kubeconfig) {
+		this.kubeconfig = kubeconfig;
 	}
 
 
