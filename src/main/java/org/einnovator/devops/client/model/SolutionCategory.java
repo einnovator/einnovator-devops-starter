@@ -8,7 +8,12 @@ public enum SolutionCategory {
 	DATABASE("Database"),
 	MSGBROKER("Message Broker"),
 	TOOL("Tool"),
-	SUITE("Suite/Composite"),
+	JOB("Job"),
+	CRONJOB("CronJob"),
+	PIPELINE("Pipeline"),
+	TASK("Task"),
+	CLUSTER_TASK("ClusterTask"),
+	SUITE("Suite"),
 	OTHER("Other"),
 	;
 	
