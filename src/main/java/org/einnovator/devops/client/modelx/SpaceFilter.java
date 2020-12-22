@@ -2,6 +2,8 @@ package org.einnovator.devops.client.modelx;
 
 import java.util.List;
 
+import org.einnovator.devops.client.model.ProviderType;
+import org.einnovator.devops.client.model.Region;
 import org.einnovator.devops.client.model.Space;
 import org.einnovator.util.model.ToStringCreator;
 
@@ -25,6 +27,10 @@ public class SpaceFilter extends SpaceOptions {
 	private String cluster;
 
 	private Boolean auth;
+	
+	private Region region;
+
+	private ProviderType provider;
 
 	//
 	// Constructors
@@ -151,6 +157,42 @@ public class SpaceFilter extends SpaceOptions {
 		this.auth = auth;
 	}
 
+	/**
+	 * Get the value of property {@code region}.
+	 *
+	 * @return the value of {@code region}
+	 */
+	public Region getRegion() {
+		return region;
+	}
+
+	/**
+	 * Set the value of property {@code region}.
+	 *
+	 * @param region the value of {@code region}
+	 */
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	/**
+	 * Get the value of property {@code provider}.
+	 *
+	 * @return the value of {@code provider}
+	 */
+	public ProviderType getProvider() {
+		return provider;
+	}
+
+	/**
+	 * Set the value of property {@code provider}.
+	 *
+	 * @param provider the value of {@code provider}
+	 */
+	public void setProvider(ProviderType provider) {
+		this.provider = provider;
+	}
+
 	//
 	// With
 	//
@@ -220,11 +262,34 @@ public class SpaceFilter extends SpaceOptions {
 		this.auth = auth;
 		return this;
 	}
+	
+	/**
+	 * Set the value of property {@code region}.
+	 *
+	 * @param region the value of {@code region}
+	 */
+	public SpaceFilter withRegion(Region region) {
+		this.region = region;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code provider}.
+	 *
+	 * @param provider the value of {@code provider}
+	 */
+	public SpaceFilter withProvider(ProviderType provider) {
+		this.provider = provider;
+		return this;
+	}
+
 
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return creator
 				.append("q", q)
+				.append("provider", provider)
+				.append("region", region)
 				.append("group", group)
 				.append("groups", groups)
 				.append("owner", owner)
