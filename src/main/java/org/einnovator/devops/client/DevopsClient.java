@@ -74,6 +74,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 
 /**
@@ -109,21 +110,43 @@ public class DevopsClient {
 	@Qualifier("devopsRestTemplate")
 	private OAuth2RestTemplate restTemplate;
 	
-	private OAuth2RestTemplate restTemplate0;
+	private RestTemplate restTemplate0;
 	
 	@Autowired
 	public DevopsClient() {
 	}
-	
+
+	/**
+	 * Create instance of {@code DevopsClient}.
+	 * 
+	 * @param config the {@code DevopsClientConfiguration}
+	 */
 	public DevopsClient(DevopsClientConfiguration config) {
 		this.config = config;
 	}
 
+	/**
+	 * Create instance of {@code DevopsClient}.
+	 * 
+	 * @param restTemplate a {@code OAuth2RestTemplate}
+	 * @param config the {@code DevopsClientConfiguration}
+	 */
 	public DevopsClient(OAuth2RestTemplate restTemplate, DevopsClientConfiguration config) {
 		this.restTemplate = restTemplate;
 		this.config = config;
 	}
-	
+
+	/**
+	 * Create instance of {@code DevopsClient}.
+	 * 
+	 * @param restTemplate a {@code RestTemplate}
+	 * @param config the {@code DevopsClientConfiguration}
+	 */
+	public DevopsClient(RestTemplate restTemplate, DevopsClientConfiguration config) {
+		this.restTemplate0 = restTemplate;
+		this.config = config;
+	}
+
 	//
 	// Getters/Setters
 	//
@@ -151,7 +174,7 @@ public class DevopsClient {
 	 *
 	 * @return the restTemplate0
 	 */
-	public OAuth2RestTemplate getRestTemplate0() {
+	public RestTemplate getRestTemplate0() {
 		return restTemplate0;
 	}
 
@@ -160,7 +183,7 @@ public class DevopsClient {
 	 *
 	 * @param restTemplate0 the value of property restTemplate0
 	 */
-	public void setRestTemplate0(OAuth2RestTemplate restTemplate0) {
+	public void setRestTemplate0(RestTemplate restTemplate0) {
 		this.restTemplate0 = restTemplate0;
 	}
 
@@ -3257,7 +3280,7 @@ public class DevopsClient {
 	 * @throws RestClientException if request fails
 	 */
 	protected <T> ResponseEntity<T> exchange(RequestEntity<?> request, Class<T> responseType, RequestOptions options) throws RestClientException {
-		OAuth2RestTemplate restTemplate = getRequiredRestTemplate(options);
+		RestTemplate restTemplate = getRequiredRestTemplate(options);
 		try {
 			return exchange(restTemplate, request, responseType);			
 		} catch (RuntimeException e) {
@@ -3274,13 +3297,13 @@ public class DevopsClient {
 	 * May be overriden by sub-classes for custom/advanced functionality.
 	 * 
 	 * @param <T> response type
-	 * @param restTemplate the {@code OAuth2RestTemplate} to use
+	 * @param restTemplate the {@code RestTemplate} to use
 	 * @param request the {@code RequestEntity}
 	 * @param responseType the response type
 	 * @return the result {@code ResponseEntity}
 	 * @throws RestClientException if request fails
 	 */
-	protected <T> ResponseEntity<T> exchange(OAuth2RestTemplate restTemplate, RequestEntity<?> request, Class<T> responseType) throws RestClientException {
+	protected <T> ResponseEntity<T> exchange(RestTemplate restTemplate, RequestEntity<?> request, Class<T> responseType) throws RestClientException {
 		return restTemplate.exchange(request, responseType);
 	}
 	
@@ -3294,11 +3317,13 @@ public class DevopsClient {
 	 * @param options the {@code RequestOptions}
 	 * @return the {@code OAuth2RestTemplate}
 	 */
-	protected OAuth2RestTemplate getRequiredRestTemplate(RequestOptions options) {
-		OAuth2RestTemplate restTemplate = this.restTemplate;
-		if (WebUtil.getHttpServletRequest()==null && this.restTemplate0!=null) {
-			restTemplate = this.restTemplate0;
-		}			
+	protected RestTemplate getRequiredRestTemplate(RequestOptions options) {
+		RestTemplate restTemplate = this.restTemplate;
+		if (this.restTemplate0!=null) {
+			if (restTemplate==null || WebUtil.getHttpServletRequest()==null ) {
+				restTemplate = this.restTemplate0;
+			}		
+		}
 		return restTemplate;
 	}
 
