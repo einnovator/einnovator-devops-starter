@@ -23,6 +23,8 @@ public class Route extends EntityBase {
 	
 	private Certificate certificate;
 	
+	private Boolean primary;
+
 	//
 	// Constructors
 	//
@@ -135,6 +137,24 @@ public class Route extends EntityBase {
 		this.certificate = certificate;
 	}
 
+	/**
+	 * Get the value of property {@code primary}.
+	 *
+	 * @return the value of {@code primary}
+	 */
+	public Boolean getPrimary() {
+		return primary;
+	}
+
+	/**
+	 * Set the value of property {@code primary}.
+	 *
+	 * @param primary the value of {@code primary}
+	 */
+	public void setPrimary(Boolean primary) {
+		this.primary = primary;
+	}
+
 	public void normalize() {
 		if (host!=null) {
 			dns = makeDns();		
@@ -219,6 +239,20 @@ public class Route extends EntityBase {
 			routes.add(makeRoute(dns1));
 		}
 		return routes;
+	}
+
+	public static Route findPrimary(List<Route> routes, boolean required) {
+		if (routes!=null && routes.size()>0) {
+			for (Route route : routes) {
+				if (Boolean.TRUE.equals(route.getPrimary())) {
+					return route;
+				}
+			}
+			if (required) {
+				return routes.get(0);				
+			}
+		}
+		return null;
 	}
 
 }

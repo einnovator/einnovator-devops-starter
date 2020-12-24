@@ -1,10 +1,10 @@
 package org.einnovator.devops.client.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.einnovator.util.model.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -565,68 +565,11 @@ public class Deployment extends DeploymentBase {
 		return this;
 	}
 
-	//
-	// Routes
-	//
 
-	public void addRoute(Route route) {
-		if (routes == null) {
-			routes = new ArrayList<Route>();
-		}
-		routes.add(route);
+	@JsonIgnore
+	public Route getPrimaryRoute() {
+		return Route.findPrimary(routes, true);
 	}
-
-	public Route removeRoute(int index) {
-		if (routes == null || index < 0 || index >= routes.size()) {
-			return null;
-		}
-		return routes.remove(index);
-	}
-
-	public Route getRoute(int index) {
-		if (routes == null || index < 0 || index >= routes.size()) {
-			return null;
-		}
-		return routes.get(index);
-	}
-
-	public Route findRoute(Route route) {
-		if (route != null && routes != null) {
-			for (Route route2 : routes) {
-				if ((route2.getUuid() != null && route2.getUuid().equals(route.getUuid()))
-						|| (route2.getRequiredDns() != null
-								&& route2.getRequiredDns().equals(route.getRequiredDns()))) {
-					return route2;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Route findRoute(String id) {
-		if (id != null && routes != null) {
-			for (Route route : routes) {
-				if (id.equals(route.getUuid())) {
-					return route;
-				}
-			}
-		}
-		return null;
-	}
-
-	
-	public Route removeRoute(Route route) {
-		if (route != null && routes != null) {
-			for (int i = 0; i < routes.size(); i++) {
-				Route route2 = routes.get(i);
-				if (route2.getUuid() != null && route2.getUuid().equals(route.getUuid())) {
-					return routes.remove(i);
-				}
-			}
-		}
-		return null;
-	}
-	
 
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
