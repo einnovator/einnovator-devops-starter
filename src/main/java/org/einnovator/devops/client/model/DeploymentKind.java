@@ -1,5 +1,6 @@
 package org.einnovator.devops.client.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public enum DeploymentKind {
 	DEPLOYMENT("Deployment"),
@@ -7,6 +8,8 @@ public enum DeploymentKind {
 	STATEFUL_SET("StatefulSet"),
 	DAEMON_SET("DaemonSet"),
 	POD("Pod"),
+	JOB("Job"),
+	CRONJOB("CronJob")
 	;
 	
 	private final String displayValue;
@@ -35,6 +38,11 @@ public enum DeploymentKind {
 	public static DeploymentKind parse(String s, DeploymentKind defaultValue) {
 		DeploymentKind value = parse(s);
 		return value!=null ? value: defaultValue;
+	}
+	
+	@JsonIgnore
+	public boolean isJobLike() {
+		return this==JOB || this==CRONJOB;
 	}
 
 }

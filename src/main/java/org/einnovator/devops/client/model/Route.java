@@ -23,6 +23,8 @@ public class Route extends EntityBase {
 	
 	private Certificate certificate;
 	
+	private String url;
+	
 	private Boolean primary;
 
 	//
@@ -30,19 +32,12 @@ public class Route extends EntityBase {
 	//
 	
 	/**
-	 * Create instance of {@code Binding}.
+	 * Create instance of {@code Route}.
 	 *
 	 */
 	public Route() {
 	}
-	
-	public Route(String host, Domain domain, Boolean tls) {
-		this.host = host;
-		this.domain = domain;
-		this.tls = tls;
-		makeDns();
-	}
-	
+		
 	//
 	// Getters/Setters
 	//
@@ -138,6 +133,24 @@ public class Route extends EntityBase {
 	}
 
 	/**
+	 * Get the value of property {@code url}.
+	 *
+	 * @return the value of {@code url}
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	/**
+	 * Set the value of property {@code url}.
+	 *
+	 * @param url the value of {@code url}
+	 */
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	/**
 	 * Get the value of property {@code primary}.
 	 *
 	 * @return the value of {@code primary}
@@ -155,27 +168,8 @@ public class Route extends EntityBase {
 		this.primary = primary;
 	}
 
-	public void normalize() {
-		if (host!=null) {
-			dns = makeDns();		
-		}
-	}
 
-	public String makeDns() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(host);
-		if (domain!=null) {
-			if (domain.getDns()==null) {
-				domain.normalize();				
-			}
-			if (domain.getDns()!=null) {				
-				sb.append(".");
-				sb.append(domain.getDns());			
-			}
-		}
-		return sb.toString();
-	}
-	
+
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
@@ -183,6 +177,7 @@ public class Route extends EntityBase {
 				.append("domain", domain)
 				.append("dns", dns)
 				.append("tls", tls)
+				.append("url", url)
 				.append("certificate", certificate)
 				;
 	}
@@ -197,25 +192,6 @@ public class Route extends EntityBase {
 		route.setHost(host);
 		route.setDns(dns);
 		return route;
-	}
-
-	public String getRequiredDns() {
-		if (dns!=null) {
-			return dns;
-		}
-		return makeDns();
-	}
-
-	public String getHttpUri() {
-		return "http://" + getRequiredDns();
-	}
-
-	public String getHttpsUri() {
-		return "https://" + getRequiredDns();
-	}
-
-	public String getWebUri() {
-		return Boolean.TRUE.equals(tls) ? getHttpsUri() : getHttpUri();
 	}
 
 	public Certificate getRequiredCertificate() {

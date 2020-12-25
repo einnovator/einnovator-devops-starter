@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 abstract public class DeploymentBase extends Deployable {
 
-	private DeploymentKind kind;
 	
 	private SolutionCategory category;
 
@@ -22,28 +21,6 @@ abstract public class DeploymentBase extends Deployable {
 		super(obj);
 	}
 
-	/**
-	 * Get the value of property {@code kind}.
-	 *
-	 * @return the kind
-	 */
-	public DeploymentKind getKind() {
-		return kind;
-	}
-
-	/**
-	 * Set the value of property {@code kind}.
-	 *
-	 * @param kind the value of property kind
-	 */
-	public void setKind(DeploymentKind kind) {
-		this.kind = kind;
-	}
-	
-	public DeploymentKind getRequiredKind() {
-		return kind!=null ? kind : DeploymentKind.DEPLOYMENT;
-	}
-	
 	/**
 	 * Get the value of property {@code type}.
 	 *
@@ -84,7 +61,6 @@ abstract public class DeploymentBase extends Deployable {
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
-				.append("kind", kind)
 				.append("category", category)
 				.append("status", status)
 				;

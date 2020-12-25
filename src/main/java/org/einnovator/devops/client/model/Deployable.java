@@ -7,6 +7,7 @@ import java.util.List;
 import org.einnovator.util.MappingUtils;
 import org.einnovator.util.model.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -15,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 abstract public class Deployable extends AnnotatedEntity {
 
 	public static final String SEPARATOR = " ";
+
+	private DeploymentKind kind;
 
 	private Stack stack;
 
@@ -103,6 +106,9 @@ abstract public class Deployable extends AnnotatedEntity {
 
 	protected String url;
 
+	//
+	// Constructor
+	//
 
 	/**
 	 * Create instance of {@code Deployable}.
@@ -118,6 +124,33 @@ abstract public class Deployable extends AnnotatedEntity {
 	 */
 	public Deployable(Object obj) {
 		super(obj);
+	}
+	
+	//
+	// Getter/Setter
+	//
+	
+	/**
+	 * Get the value of property {@code kind}.
+	 *
+	 * @return the kind
+	 */
+	public DeploymentKind getKind() {
+		return kind;
+	}
+
+	/**
+	 * Set the value of property {@code kind}.
+	 *
+	 * @param kind the value of property kind
+	 */
+	public void setKind(DeploymentKind kind) {
+		this.kind = kind;
+	}
+	
+	@JsonIgnore
+	public DeploymentKind getRequiredKind() {
+		return kind!=null ? kind : DeploymentKind.DEPLOYMENT;
 	}
 	
 	/**
@@ -1426,6 +1459,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	@Override
 	public ToStringCreator toString2(ToStringCreator creator) {
 		return super.toString2(creator
+				.append("kind", kind)
 				.append("solutionId", solutionId)
 				.append("solutionRepoId", solutionRepoId)
 				.append("bindings", bindings)
