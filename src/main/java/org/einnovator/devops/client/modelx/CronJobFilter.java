@@ -1,7 +1,7 @@
 package org.einnovator.devops.client.modelx;
 
 import org.einnovator.devops.client.model.CronJob;
-import org.einnovator.devops.client.model.JobStatus;
+import org.einnovator.devops.client.model.CronJobStatus;
 import org.einnovator.util.model.ToStringCreator;
 
 /**
@@ -15,7 +15,7 @@ public class CronJobFilter extends CronJobOptions {
 	
 	private String q;
 	
-	private JobStatus status;
+	private CronJobStatus status;
 
 	//
 	// Constructors
@@ -55,7 +55,7 @@ public class CronJobFilter extends CronJobOptions {
 	 *
 	 * @return the status
 	 */
-	public JobStatus getStatus() {
+	public CronJobStatus getStatus() {
 		return status;
 	}
 
@@ -64,7 +64,7 @@ public class CronJobFilter extends CronJobOptions {
 	 *
 	 * @param status the value of property status
 	 */
-	public void setStatus(JobStatus status) {
+	public void setStatus(CronJobStatus status) {
 		this.status = status;
 	}
 
@@ -90,7 +90,7 @@ public class CronJobFilter extends CronJobOptions {
 	 * @param status the value of property status
 	 * @return this {@code CronJobFilter}
 	 */
-	public CronJobFilter withStatus(JobStatus status) {
+	public CronJobFilter withStatus(CronJobStatus status) {
 		this.status = status;
 		return this;
 	}
