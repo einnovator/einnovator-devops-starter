@@ -17,6 +17,8 @@ public class CronJobFilter extends CronJobOptions {
 	
 	private CronJobStatus status;
 
+	private CronJobStatus[] anyStatus;
+
 	//
 	// Constructors
 	//
@@ -68,7 +70,23 @@ public class CronJobFilter extends CronJobOptions {
 		this.status = status;
 	}
 
+	/**
+	 * Get the value of property {@code anyStatus}.
+	 *
+	 * @return the value of {@code anyStatus}
+	 */
+	public CronJobStatus[] getAnyStatus() {
+		return anyStatus;
+	}
 
+	/**
+	 * Set the value of property {@code anyStatus}.
+	 *
+	 * @param anyStatus the value of {@code anyStatus}
+	 */
+	public void setAnyStatus(CronJobStatus[] anyStatus) {
+		this.anyStatus = anyStatus;
+	}
 	//
 	// With
 	//
@@ -95,14 +113,24 @@ public class CronJobFilter extends CronJobOptions {
 		return this;
 	}
 
-
+	/**
+	 * Set the value of property {@code anyStatus}.
+	 *
+	 * @param anyStatus the value of property anyStatus
+	 * @return this {@code CronJobFilter}
+	 */
+	public CronJobFilter withAnyStatus(CronJobStatus[] anyStatus) {
+		this.anyStatus = anyStatus;
+		return this;
+	}
+	
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return creator
 			.append("q", q)
 			.append("status", status)
+			.append("anyStatus", anyStatus)
 			;
-
 	}
 
 }

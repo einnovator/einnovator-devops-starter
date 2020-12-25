@@ -17,6 +17,8 @@ public class JobFilter extends JobOptions {
 	
 	private JobStatus status;
 
+	private JobStatus[] anyStatus;
+
 	//
 	// Constructors
 	//
@@ -67,12 +69,29 @@ public class JobFilter extends JobOptions {
 	public void setStatus(JobStatus status) {
 		this.status = status;
 	}
+	
+	/**
+	 * Get the value of property {@code anyStatus}.
+	 *
+	 * @return the value of {@code anyStatus}
+	 */
+	public JobStatus[] getAnyStatus() {
+		return anyStatus;
+	}
 
+	/**
+	 * Set the value of property {@code anyStatus}.
+	 *
+	 * @param anyStatus the value of {@code anyStatus}
+	 */
+	public void setAnyStatus(JobStatus[] anyStatus) {
+		this.anyStatus = anyStatus;
+	}
 
 	//
 	// With
 	//
-	
+
 	/**
 	 * Set the value of property {@code q}.
 	 *
@@ -95,12 +114,23 @@ public class JobFilter extends JobOptions {
 		return this;
 	}
 
-
+	/**
+	 * Set the value of property {@code anyStatus}.
+	 *
+	 * @param anyStatus the value of property anyStatus
+	 * @return this {@code JobFilter}
+	 */
+	public JobFilter withAnyStatus(JobStatus[] anyStatus) {
+		this.anyStatus = anyStatus;
+		return this;
+	}
+	
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return creator
 			.append("q", q)
 			.append("status", status)
+			.append("anyStatus", anyStatus)
 			;
 
 	}
