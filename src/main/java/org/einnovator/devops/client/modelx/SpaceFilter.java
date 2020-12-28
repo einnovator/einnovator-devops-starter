@@ -267,6 +267,7 @@ public class SpaceFilter extends SpaceOptions {
 	 * Set the value of property {@code region}.
 	 *
 	 * @param region the value of {@code region}
+	 * @return this {@code SpaceFilter}
 	 */
 	public SpaceFilter withRegion(Region region) {
 		this.region = region;
@@ -277,6 +278,7 @@ public class SpaceFilter extends SpaceOptions {
 	 * Set the value of property {@code provider}.
 	 *
 	 * @param provider the value of {@code provider}
+	 * @return this {@code SpaceFilter}
 	 */
 	public SpaceFilter withProvider(ProviderType provider) {
 		this.provider = provider;

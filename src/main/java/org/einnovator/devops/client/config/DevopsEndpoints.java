@@ -29,6 +29,18 @@ public class DevopsEndpoints {
 	public static String volumeclaims(String spaceId, DevopsClientConfiguration config, boolean admin) {
 		return space(spaceId, config, admin) + "/volumeclaim";
 	}
+	
+	public static String spaceAuths(String spaceId, DevopsClientConfiguration config, boolean admin) {
+		return space(spaceId, config, admin) + "/auth";
+	}
+
+	public static String spaceAuth(String spaceId, String authId, DevopsClientConfiguration config, boolean admin) {
+		return spaceAuths(spaceId, config, admin) + "/" + authId;
+	}
+
+	public static String spaceAuthResend(String spaceId, String authId, DevopsClientConfiguration config, boolean admin) {
+		return spaceAuth(spaceId, authId, config, admin) + "/resend";
+	}
 
 	//
 	// Deployment
@@ -414,5 +426,6 @@ public class DevopsEndpoints {
 	private static String processId(String id) {
 		return id.replaceAll("/", "@");
 	}
+
 	
 }

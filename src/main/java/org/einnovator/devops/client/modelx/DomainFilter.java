@@ -20,8 +20,16 @@ public class DomainFilter extends DomainOptions {
 
 	private Boolean enabled;
 
-	private String type;
+	private Boolean tls;
+
+	private Boolean cert;
 	
+	private Boolean auto;
+
+	private Boolean global;
+	
+	private String parent;
+
 	//
 	// Constructors
 	//
@@ -108,23 +116,95 @@ public class DomainFilter extends DomainOptions {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
-	
+
 	/**
-	 * Get the value of property {@code type}.
+	 * Get the value of property {@code tls}.
 	 *
-	 * @return the type
+	 * @return the value of {@code tls}
 	 */
-	public String getType() {
-		return type;
+	public Boolean getTls() {
+		return tls;
 	}
 
 	/**
-	 * Set the value of property {@code type}.
+	 * Set the value of property {@code tls}.
 	 *
-	 * @param type the type
+	 * @param tls the value of {@code tls}
 	 */
-	public void setType(String type) {
-		this.type = type;
+	public void setTls(Boolean tls) {
+		this.tls = tls;
+	}
+
+	/**
+	 * Get the value of property {@code cert}.
+	 *
+	 * @return the value of {@code cert}
+	 */
+	public Boolean getCert() {
+		return cert;
+	}
+
+	/**
+	 * Set the value of property {@code cert}.
+	 *
+	 * @param cert the value of {@code cert}
+	 */
+	public void setCert(Boolean cert) {
+		this.cert = cert;
+	}
+
+	/**
+	 * Get the value of property {@code auto}.
+	 *
+	 * @return the value of {@code auto}
+	 */
+	public Boolean getAuto() {
+		return auto;
+	}
+
+	/**
+	 * Set the value of property {@code auto}.
+	 *
+	 * @param auto the value of {@code auto}
+	 */
+	public void setAuto(Boolean auto) {
+		this.auto = auto;
+	}
+
+	/**
+	 * Get the value of property {@code global}.
+	 *
+	 * @return the value of {@code global}
+	 */
+	public Boolean getGlobal() {
+		return global;
+	}
+
+	/**
+	 * Set the value of property {@code global}.
+	 *
+	 * @param global the value of {@code global}
+	 */
+	public void setGlobal(Boolean global) {
+		this.global = global;
+	}
+
+	/**
+	 * Get the value of property {@code parent}.
+	 *
+	 * @return the value of {@code parent}
+	 */
+	public String getParent() {
+		return parent;
+	}
+
+	/**
+	 * Set the value of property {@code parent}.
+	 *
+	 * @param parent the value of {@code parent}
+	 */
+	public void setParent(String parent) {
+		this.parent = parent;
 	}
 
 	//
@@ -176,15 +256,74 @@ public class DomainFilter extends DomainOptions {
 	}
 	
 
+	/**
+	 * Set the value of property {@code tls}.
+	 *
+	 * @param tls the value of {@code tls}
+	 * @return this {@code DomainFilter}
+	 */
+	public DomainFilter withTls(Boolean tls) {
+		this.tls = tls;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code cert}.
+	 *
+	 * @param cert the value of {@code cert}
+	 * @return this {@code DomainFilter}
+	 */
+	public DomainFilter withCert(Boolean cert) {
+		this.cert = cert;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code auto}.
+	 *
+	 * @param auto the value of {@code auto}
+	 * @return this {@code DomainFilter}
+	 */
+	public DomainFilter withAuto(Boolean auto) {
+		this.auto = auto;
+		return this;
+	}
+
+	/**
+	 * Set the value of property {@code global}.
+	 *
+	 * @param global the value of {@code global}
+	 * @return this {@code DomainFilter}
+	 */
+	public DomainFilter withGlobal(Boolean global) {
+		this.global = global;
+		return this;
+	}
+	
+	/**
+	 * Set the value of property {@code parent}.
+	 *
+	 * @param parent the value of {@code parent}
+	 */
+	public DomainFilter withParent(String parent) {
+		this.parent = parent;
+		return this;
+	}
 	
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return creator
 				.append("q", q)
-				.append("owner", owner)
 				.append("root", root)
 				.append("enabled", enabled)
-				.append("type", type)
+				.append("root", root)
+				.append("global", global)
+				.append("auto", auto)
+				.append("tls", tls)
+				.append("cert", cert)
+				.append("auto", auto)
+				.append("parent", parent)
+				.append("owner", owner)
 				;
 	}
 	

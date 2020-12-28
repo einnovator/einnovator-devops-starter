@@ -1,7 +1,6 @@
 package org.einnovator.devops.client.model;
 
 import org.einnovator.util.model.ToStringCreator;
-import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,6 +22,12 @@ public class Domain extends BilledEntity {
 	private Boolean enabled;
 
 	private Boolean tls;
+
+	private Boolean cert;
+
+	private Boolean auto;
+
+	private Boolean global;	
 	
 	private Certificate certificate;
 	
@@ -186,7 +191,59 @@ public class Domain extends BilledEntity {
 		this.certificate = certificate;
 	}
 
+	/**
+	 * Get the value of property {@code cert}.
+	 *
+	 * @return the value of {@code cert}
+	 */
+	public Boolean getCert() {
+		return cert;
+	}
 
+	/**
+	 * Set the value of property {@code cert}.
+	 *
+	 * @param cert the value of {@code cert}
+	 */
+	public void setCert(Boolean cert) {
+		this.cert = cert;
+	}
+
+	/**
+	 * Get the value of property {@code auto}.
+	 *
+	 * @return the value of {@code auto}
+	 */
+	public Boolean getAuto() {
+		return auto;
+	}
+
+	/**
+	 * Set the value of property {@code auto}.
+	 *
+	 * @param auto the value of {@code auto}
+	 */
+	public void setAuto(Boolean auto) {
+		this.auto = auto;
+	}
+
+	/**
+	 * Get the value of property {@code global}.
+	 *
+	 * @return the value of {@code global}
+	 */
+	public Boolean getGlobal() {
+		return global;
+	}
+
+	/**
+	 * Set the value of property {@code global}.
+	 *
+	 * @param global the value of {@code global}
+	 */
+	public void setGlobal(Boolean global) {
+		this.global = global;
+	}
 
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
@@ -198,36 +255,14 @@ public class Domain extends BilledEntity {
 				.append("root", root)
 				.append("enabled", enabled)
 				.append("tls", tls)
+				.append("enabled", enabled)
+				.append("cert", cert)
+				.append("auto", auto)
+				.append("global", global)
 				.append("certificate", certificate)	
 				;
 	}
 
-
-
-	/**
-	 * 
-	 */
-	public void normalize() {
-		if (!Boolean.TRUE.equals(root)) {
-			if (StringUtils.hasText(parent)) {
-				if (StringUtils.hasText(name)) {
-					dns = name + "." + parent;				
-				}
-			} else {
-				if (!StringUtils.hasText(dns)) {
-					dns = name;
-				}
-			}
-		} else {
-			if (!StringUtils.hasText(name)) {
-				name = dns;
-			}
-			if (StringUtils.hasText(dns)) {
-				dns = name;
-			}
-		}
-	}
-	
 
 	
 }
