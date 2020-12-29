@@ -22,6 +22,17 @@ public class Binding extends EntityBase {
 
 	private Map<String, Object> meta;
 
+	private String spaceId;
+
+	private String serviceId;
+
+	private Boolean auto;
+	
+	private Boolean external;
+	
+	private Service service;
+
+	private Service servicex;
 	
 	//
 	// Constructors
@@ -130,6 +141,113 @@ public class Binding extends EntityBase {
 		this.meta = meta;
 	}
 
+	/**
+	 * Get the value of property {@code spaceId}.
+	 *
+	 * @return the value of {@code spaceId}
+	 */
+	public String getSpaceId() {
+		return spaceId;
+	}
+
+	/**
+	 * Set the value of property {@code spaceId}.
+	 *
+	 * @param spaceId the value of {@code spaceId}
+	 */
+	public void setSpaceId(String spaceId) {
+		this.spaceId = spaceId;
+	}
+
+	/**
+	 * Get the value of property {@code serviceId}.
+	 *
+	 * @return the value of {@code serviceId}
+	 */
+	public String getServiceId() {
+		return serviceId;
+	}
+
+	/**
+	 * Set the value of property {@code serviceId}.
+	 *
+	 * @param serviceId the value of {@code serviceId}
+	 */
+	public void setServiceId(String serviceId) {
+		this.serviceId = serviceId;
+	}
+
+	/**
+	 * Get the value of property {@code auto}.
+	 *
+	 * @return the value of {@code auto}
+	 */
+	public Boolean getAuto() {
+		return auto;
+	}
+
+	/**
+	 * Set the value of property {@code auto}.
+	 *
+	 * @param auto the value of {@code auto}
+	 */
+	public void setAuto(Boolean auto) {
+		this.auto = auto;
+	}
+
+	/**
+	 * Get the value of property {@code external}.
+	 *
+	 * @return the value of {@code external}
+	 */
+	public Boolean getExternal() {
+		return external;
+	}
+
+	/**
+	 * Set the value of property {@code external}.
+	 *
+	 * @param external the value of {@code external}
+	 */
+	public void setExternal(Boolean external) {
+		this.external = external;
+	}
+
+	/**
+	 * Get the value of property {@code service}.
+	 *
+	 * @return the value of {@code service}
+	 */
+	public Service getService() {
+		return service;
+	}
+
+	/**
+	 * Set the value of property {@code service}.
+	 *
+	 * @param service the value of {@code service}
+	 */
+	public void setService(Service service) {
+		this.service = service;
+	}
+
+	/**
+	 * Get the value of property {@code servicex}.
+	 *
+	 * @return the value of {@code servicex}
+	 */
+	public Service getServicex() {
+		return servicex;
+	}
+
+	/**
+	 * Set the value of property {@code servicex}.
+	 *
+	 * @param servicex the value of {@code servicex}
+	 */
+	public void setServicex(Service servicex) {
+		this.servicex = servicex;
+	}
 
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
@@ -139,6 +257,12 @@ public class Binding extends EntityBase {
 				.append("serviceName", serviceName)
 				.append("connector", connector)
 				.append("meta", meta)
+				.append("spaceId", spaceId)
+				.append("serviceId", serviceId)
+				.append("auto", auto)
+				.append("external", external)
+				.append("service", service)
+				.append("servicex", servicex)
 				;
 	}
 

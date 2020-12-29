@@ -14,6 +14,8 @@ public class ExecOptions extends RequestOptions {
 
 	private String pod;
 
+	private Boolean html;
+
 	//
 	// Constructors
 	//
@@ -66,6 +68,23 @@ public class ExecOptions extends RequestOptions {
 		this.pod = pod;
 	}
 	
+	/**
+	 * Get the value of property {@code html}.
+	 *
+	 * @return the value of {@code html}
+	 */
+	public Boolean getHtml() {
+		return html;
+	}
+
+	/**
+	 * Set the value of property {@code html}.
+	 *
+	 * @param html the value of {@code html}
+	 */
+	public void setHtml(Boolean html) {
+		this.html = html;
+	}	
 	//
 	// With
 	//
@@ -92,11 +111,23 @@ public class ExecOptions extends RequestOptions {
 		return this;
 	}
 	
+	/**
+	 * Set the value of property {@code html}.
+	 *
+	 * @param html the value of {@code html}
+	 * @return this {@code ExecOptions}
+	 */
+	public ExecOptions withHtml(Boolean html) {
+		this.html = html;
+		return this;
+	}
+
 	@Override
 	public ToStringCreator toString(ToStringCreator creator) {
 		return super.toString(creator)
 				.append("cmd", cmd)
 				.append("pod", pod)
+				.append("html", html)
 				;
 	}
 

@@ -32,6 +32,8 @@ public class LogOptions extends RequestOptions {
 	
 	private Boolean previous;
 
+	private Boolean html;
+
 	//
 	// Constructors
 	//
@@ -211,6 +213,24 @@ public class LogOptions extends RequestOptions {
 		this.previous = previous;
 	}
 
+
+	/**
+	 * Get the value of property {@code html}.
+	 *
+	 * @return the value of {@code html}
+	 */
+	public Boolean getHtml() {
+		return html;
+	}
+
+	/**
+	 * Set the value of property {@code html}.
+	 *
+	 * @param html the value of {@code html}
+	 */
+	public void setHtml(Boolean html) {
+		this.html = html;
+	}
 	//
 	// With
 	//
@@ -313,6 +333,17 @@ public class LogOptions extends RequestOptions {
 		return this;
 	}
 	
+	/**
+	 * Set the value of property {@code html}.
+	 *
+	 * @param html the value of {@code html}
+	 * @return this {@code LogOptions}
+	 */
+	public LogOptions withHtml(Boolean html) {
+		this.html = html;
+		return this;
+	}
+
 	@Override
 	public ToStringCreator toString(ToStringCreator creator) {
 		return super.toString(creator)
@@ -325,6 +356,7 @@ public class LogOptions extends RequestOptions {
 				.append("timestamps", timestamps)
 				.append("limitBytes", limitBytes)
 				.append("previous", previous)
+				.append("html", html)
 				;
 	}
 	
