@@ -219,6 +219,4 @@ public class Bill extends ObjectBase {
 				);
 	}
 
-
-
 }

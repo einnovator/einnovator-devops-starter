@@ -812,11 +812,11 @@ public class DevopsClient {
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
 	 * @param deployId the {@code Deployment} identifier (uuid)
-	 * @param options (optional) {@code DeploymentOptions}
+	 * @param options (optional) {@code DeploymentFilter}
 	 * @return the list of {@code Instance}
 	 * @throws RestClientException if request fails
 	 */
-	public List<Instance> listInstances(String deployId, DeploymentOptions options) {
+	public List<Instance> listInstances(String deployId, DeploymentFilter options) {
 		URI uri = makeURI(DevopsEndpoints.instances(deployId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
