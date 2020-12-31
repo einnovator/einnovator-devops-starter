@@ -18,6 +18,7 @@ import org.einnovator.devops.client.model.Connector;
 import org.einnovator.devops.client.model.CronJob;
 import org.einnovator.devops.client.model.Deployment;
 import org.einnovator.devops.client.model.Domain;
+import org.einnovator.devops.client.model.Event;
 import org.einnovator.devops.client.model.Instance;
 import org.einnovator.devops.client.model.Job;
 import org.einnovator.devops.client.model.License;
@@ -31,6 +32,7 @@ import org.einnovator.devops.client.model.Solution;
 import org.einnovator.devops.client.model.Space;
 import org.einnovator.devops.client.model.Variable;
 import org.einnovator.devops.client.model.Vcs;
+import org.einnovator.devops.client.model.VolumeClaim;
 import org.einnovator.devops.client.modelx.CatalogFilter;
 import org.einnovator.devops.client.modelx.CatalogOptions;
 import org.einnovator.devops.client.modelx.ClusterFilter;
@@ -41,6 +43,7 @@ import org.einnovator.devops.client.modelx.DeploymentFilter;
 import org.einnovator.devops.client.modelx.DeploymentOptions;
 import org.einnovator.devops.client.modelx.DomainFilter;
 import org.einnovator.devops.client.modelx.DomainOptions;
+import org.einnovator.devops.client.modelx.EventFilter;
 import org.einnovator.devops.client.modelx.ExecOptions;
 import org.einnovator.devops.client.modelx.InstallOptions;
 import org.einnovator.devops.client.modelx.JobFilter;
@@ -57,6 +60,7 @@ import org.einnovator.devops.client.modelx.SpaceFilter;
 import org.einnovator.devops.client.modelx.SpaceOptions;
 import org.einnovator.devops.client.modelx.VcsFilter;
 import org.einnovator.devops.client.modelx.VcsOptions;
+import org.einnovator.devops.client.modelx.VolumeClaimFilter;
 import org.einnovator.util.PageResult;
 import org.einnovator.util.PageUtil;
 import org.einnovator.util.UriUtils;
@@ -378,6 +382,41 @@ public class DevopsClient {
 	}
 
 	/**
+	 * Attach a new {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Any.
+	 * 
+	 * @param clusterId the {@code Cluster} identifier (id, uuid, unique name)
+	 * @param space the name of the space
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the attachd {@code Space}
+	 * @throws RestClientException if request fails
+	 */
+	public URI attachSpace(String clusterId, String space, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.clusterSpace(clusterId, space, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();	
+	}
+	
+	/**
+	 * Sync {@code Space} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param id the identifier (uuid, id, or qualified name)
+	 * @param options (optional) {@code SpaceOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void syncSpace(String id, SpaceOptions options) {
+		URI uri = makeURI(DevopsEndpoints.spaceSync(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+	/**
 	 * Update existing {@code Space}
 	 * 
 	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or owner.
@@ -422,6 +461,34 @@ public class DevopsClient {
 		uri = processURI(uri, options);		
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
+	}
+	
+	//
+	// VolumeClaims
+	//
+	
+
+	//
+	// Deployment
+	//
+		
+	/**
+	 * List {@code VolumeClaim}s for a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param spaceId the {@code Space} identifier (uuid)
+	 * @param filter a {@code VolumeClaimFilter}
+	 * @throws RestClientException if request fails
+	 * @return a {@code List} with {@code VolumeClaim}s
+	 * @throws RestClientException if request fails
+	 */
+	public List<VolumeClaim> listVolumeClaims(String spaceId, VolumeClaimFilter filter) {
+		URI uri = makeURI(DevopsEndpoints.volumeclaims(spaceId, config, isAdminRequest(filter)));
+		uri = processURI(uri, filter);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<VolumeClaim[]> result = exchange(request, VolumeClaim[].class, filter);
+		return Arrays.asList(result.getBody());
 	}
 	
 	//
@@ -599,6 +666,26 @@ public class DevopsClient {
 		return result.getHeaders().getLocation();	
 	}
 	
+	/**
+	 * Attach a new {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Any.
+	 * 
+	 * @param spaceId the {@code Space} identifier (id, uuid, unique name)
+	 * @param deployment the name of the deployment
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the attachd {@code Deployment}
+	 * @throws RestClientException if request fails
+	 */
+	public URI attachDeployment(String spaceId, String deployment, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.spaceDeployment(spaceId, deployment, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();	
+	}
+	
+
 	/**
 	 * Update existing {@code Deployment}
 	 * 
@@ -800,6 +887,26 @@ public class DevopsClient {
 		RequestEntity<Void> request = RequestEntity.get(uri).build();
 		ResponseEntity<String> result = exchange(request, String.class, options);
 		return result.getBody();
+	}
+	
+	
+	/**
+	 * List {@code Event}s for a {@code Deployment}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param deployId the {@code Deployment} identifier (uuid)
+	 * @param options (optional) {@code EventFilter}
+	 * @return the list of {@code Event}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Event> listEvents(String deployId, EventFilter options, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.deploymentEvents(deployId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		uri = processURI(uri, pageable);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Event[]> result = exchange(request, Event[].class, options);
+		return Arrays.asList(result.getBody());
 	}
 	
 	//
@@ -1548,6 +1655,24 @@ public class DevopsClient {
 		return result.getHeaders().getLocation();
 	}
 
+	/**
+	 * Attach a new {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Any.
+	 * 
+	 * @param spaceId the {@code Space} identifier (id, uuid, unique name)
+	 * @param job the name of the job
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the attachd {@code Job}
+	 * @throws RestClientException if request fails
+	 */
+	public URI attachJob(String spaceId, String job, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.spaceJob(spaceId, job, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();	
+	}
 	
 	/**
 	 * Update existing {@code Job}
@@ -2134,9 +2259,29 @@ public class DevopsClient {
 		uri = processURI(uri, options);		
 		RequestEntity<CronJob> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(cronjob);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);
-		return result.getHeaders().getLocation();
-		
+		return result.getHeaders().getLocation();	
 	}
+
+	
+	/**
+	 * Attach a new {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Any.
+	 * 
+	 * @param spaceId the {@code Space} identifier (id, uuid, unique name)
+	 * @param cronjob the name of the cronjob
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the attachd {@code CronJob}
+	 * @throws RestClientException if request fails
+	 */
+	public URI attachCronJob(String spaceId, String cronjob, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.spaceCronJob(spaceId, cronjob, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();	
+	}
+	
 
 	
 	/**

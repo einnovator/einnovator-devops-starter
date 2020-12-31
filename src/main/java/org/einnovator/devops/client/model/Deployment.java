@@ -46,18 +46,81 @@ public class Deployment extends DeploymentBase {
 
 	private Boolean sandbox;
 
-	
 	protected List<Connector> connectors;
 	
 	protected List<Route> routes;
 	
 	protected List<Port> ports;
 
+	//
+	// Constructors
+	//
+	
+
+	/**
+	 * Create instance of {@code Deployment}.
+	 *
+	 */
 	public Deployment() {
 	}
 
-	public Deployment(Object obj) {
-		super(obj);
+
+	//
+	// Getters/Setters
+	//
+	
+	/**
+	 * Get the value of property {@code connectors}.
+	 *
+	 * @return the value of {@code connectors}
+	 */
+	public List<Connector> getConnectors() {
+		return connectors;
+	}
+
+	/**
+	 * Set the value of property {@code connectors}.
+	 *
+	 * @param connectors the value of {@code connectors}
+	 */
+	public void setConnectors(List<Connector> connectors) {
+		this.connectors = connectors;
+	}
+
+	/**
+	 * Get the value of property {@code routes}.
+	 *
+	 * @return the value of {@code routes}
+	 */
+	public List<Route> getRoutes() {
+		return routes;
+	}
+
+	/**
+	 * Set the value of property {@code routes}.
+	 *
+	 * @param routes the value of {@code routes}
+	 */
+	public void setRoutes(List<Route> routes) {
+		this.routes = routes;
+	}
+
+	/**
+	 * Get the value of property {@code ports}.
+	 *
+	 * @return the value of {@code ports}
+	 */
+	public List<Port> getPorts() {
+		return ports;
+	}
+
+	/**
+	 * Set the value of property {@code ports}.
+	 *
+	 * @param ports the value of {@code ports}
+	 */
+	public void setPorts(List<Port> ports) {
+		this.ports = ports;
 	}
 
 	/**

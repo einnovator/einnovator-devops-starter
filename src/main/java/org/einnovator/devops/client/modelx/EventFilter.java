@@ -23,6 +23,8 @@ public class EventFilter extends EventOptions {
 
 	private Date toDate;
 
+	private Boolean cluster;
+
 	/**
 	 * Create instance of {@code EventFilter}.
 	 *
@@ -108,6 +110,24 @@ public class EventFilter extends EventOptions {
 	public void setToDate(Date toDate) {
 		this.toDate = toDate;
 	}
+	
+	/**
+	 * Get the value of property {@code cluster}.
+	 *
+	 * @return the value of {@code cluster}
+	 */
+	public Boolean getCluster() {
+		return cluster;
+	}
+
+	/**
+	 * Set the value of property {@code cluster}.
+	 *
+	 * @param cluster the value of {@code cluster}
+	 */
+	public void setCluster(Boolean cluster) {
+		this.cluster = cluster;
+	}
 
 	//
 	// With
@@ -147,6 +167,17 @@ public class EventFilter extends EventOptions {
 		return this;
 	}
 
+	/**
+	 * Set the value of property {@code cluster}.
+	 *
+	 * @param cluster the value of {@code cluster}
+	 * @return this {@code EventFilter}
+	 */
+	public EventFilter withCluster(Boolean cluster) {
+		this.cluster = cluster;
+		return this;
+	}
+	
 	@Override
 	public ToStringCreator toString(ToStringCreator creator) {
 		return creator
@@ -154,6 +185,7 @@ public class EventFilter extends EventOptions {
 				.append("type", type)
 				.append("fromDate", fromDate)
 				.append("toDate", toDate)
+				.append("cluster", cluster)
 				;
 	}
 	

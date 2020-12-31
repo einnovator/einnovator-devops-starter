@@ -19,11 +19,6 @@ public class Image extends NamedEntity {
 	public Image() {
 	}
 
-	public Image(Object obj) {
-		super(obj);
-	}
-
-
 	/**
 	 * Get the value of property {@code type}.
 	 *

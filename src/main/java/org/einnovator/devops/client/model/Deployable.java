@@ -425,9 +425,6 @@ abstract public class Deployable extends AnnotatedEntity {
 		this.imagePullPolicy = imagePullPolicy;
 	}
 
-	public ImagePullPolicy getRequiredImagePullPolicy() {
-		return imagePullPolicy!=null ? imagePullPolicy : ImagePullPolicy.ALWAYS;
-	}
 
 	/**
 	 * Get the value of property {@code livenessProbe}.

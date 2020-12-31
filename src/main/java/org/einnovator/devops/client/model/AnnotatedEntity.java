@@ -20,7 +20,7 @@ public class AnnotatedEntity extends NamedEntity {
 
 	protected Map<String, String> annotations;
 
-	protected boolean uninstall;
+	protected Boolean uninstall;
 
 	protected String release;
 
@@ -118,22 +118,22 @@ public class AnnotatedEntity extends NamedEntity {
 		}
 		return labels.get(name);
 	}
-	
+
 	/**
 	 * Get the value of property {@code uninstall}.
 	 *
-	 * @return the uninstall
+	 * @return the value of {@code uninstall}
 	 */
-	public boolean isUninstall() {
+	public Boolean getUninstall() {
 		return uninstall;
 	}
 
 	/**
 	 * Set the value of property {@code uninstall}.
 	 *
-	 * @param uninstall the value of property uninstall
+	 * @param uninstall the value of {@code uninstall}
 	 */
-	public void setUninstall(boolean uninstall) {
+	public void setUninstall(Boolean uninstall) {
 		this.uninstall = uninstall;
 	}
 
