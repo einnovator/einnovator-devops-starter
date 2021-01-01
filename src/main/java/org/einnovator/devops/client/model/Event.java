@@ -15,8 +15,17 @@ public class Event extends EntityBase {
 	private EventType type;
 
 	private Date date;
-	
-	protected String description;
+
+	private String formattedDate;
+
+	private String reason;
+
+	private String description;
+
+	private String username;
+
+	private Object user;
+
 	
 	//
 	// Constructors
@@ -74,6 +83,78 @@ public class Event extends EntityBase {
 	}
 
 	/**
+	 * Get the value of property {@code formattedDate}.
+	 *
+	 * @return the value of {@code formattedDate}
+	 */
+	public String getFormattedDate() {
+		return formattedDate;
+	}
+
+	/**
+	 * Set the value of property {@code formattedDate}.
+	 *
+	 * @param formattedDate the value of {@code formattedDate}
+	 */
+	public void setFormattedDate(String formattedDate) {
+		this.formattedDate = formattedDate;
+	}
+
+	/**
+	 * Get the value of property {@code reason}.
+	 *
+	 * @return the value of {@code reason}
+	 */
+	public String getReason() {
+		return reason;
+	}
+
+	/**
+	 * Set the value of property {@code reason}.
+	 *
+	 * @param reason the value of {@code reason}
+	 */
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	/**
+	 * Get the value of property {@code username}.
+	 *
+	 * @return the value of {@code username}
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * Set the value of property {@code username}.
+	 *
+	 * @param username the value of {@code username}
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	/**
+	 * Get the value of property {@code user}.
+	 *
+	 * @return the value of {@code user}
+	 */
+	public Object getUser() {
+		return user;
+	}
+
+	/**
+	 * Set the value of property {@code user}.
+	 *
+	 * @param user the value of {@code user}
+	 */
+	public void setUser(Object user) {
+		this.user = user;
+	}
+
+	/**
 	 * Get the value of property {@code description}.
 	 *
 	 * @return the description
@@ -96,19 +177,10 @@ public class Event extends EntityBase {
 		return super.toString1(creator
 				.append("type", type)
 				.append("date", date)
+				.append("username", username)
+				.append("reason", reason)
 				.append("description", description)
 				);
 	}
-
-
-	@Override
-	public ToStringCreator toString2(ToStringCreator creator) {
-		return super.toString2(creator
-				);
-	}
-
-
-
-
 
 }

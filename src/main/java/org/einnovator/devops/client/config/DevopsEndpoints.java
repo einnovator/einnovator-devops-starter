@@ -239,6 +239,10 @@ public class DevopsEndpoints {
 		return job(jobId, config, admin) + "/exec";
 	}
 
+	public static String jobEvents(String jobId, DevopsClientConfiguration config, boolean admin) {
+		return job(jobId, config, admin) + "/event";
+	}
+
 	public static String jobBuildJob(String jobId, DevopsClientConfiguration config, boolean admin) {
 		return job(jobId, config, admin) + "/build";
 	}
@@ -323,6 +327,10 @@ public class DevopsEndpoints {
 		return cronjob(cronjobId, config, admin) + "/exec";
 	}
 	
+	public static String cronjobEvents(String cronjobId, DevopsClientConfiguration config, boolean admin) {
+		return cronjob(cronjobId, config, admin) + "/event";
+	}
+
 	public static String cronjobBuild(String cronjobId, DevopsClientConfiguration config, boolean admin) {
 		return cronjob(cronjobId, config, admin) + "/build";
 	}

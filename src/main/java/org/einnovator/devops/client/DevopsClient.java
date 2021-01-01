@@ -890,6 +890,10 @@ public class DevopsClient {
 	}
 	
 	
+	//
+	// Deployment Events
+	//
+	
 	/**
 	 * List {@code Event}s for a {@code Deployment}.
 	 * 
@@ -897,16 +901,17 @@ public class DevopsClient {
 	 * 
 	 * @param deployId the {@code Deployment} identifier (uuid)
 	 * @param options (optional) {@code EventFilter}
-	 * @return the list of {@code Event}
+	 * @return the page of {@code Event}
 	 * @throws RestClientException if request fails
 	 */
-	public List<Event> listEvents(String deployId, EventFilter options, Pageable pageable) {
+	public Page<Event> listEvents(String deployId, EventFilter options, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.deploymentEvents(deployId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		uri = processURI(uri, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<Event[]> result = exchange(request, Event[].class, options);
-		return Arrays.asList(result.getBody());
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, options);
+		return PageUtil.create2(result.getBody(), Event.class);
 	}
 	
 	//
@@ -1838,6 +1843,30 @@ public class DevopsClient {
 		ResponseEntity<String> result = exchange(request, String.class, options);
 		return result.getBody();
 	}
+
+	//
+	// Job Events
+	//
+
+	/**
+	 * List {@code Event}s for a {@code Job}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param jobId the {@code Job} identifier (uuid)
+	 * @param options (optional) {@code EventFilter}
+	 * @return the page of {@code Event}
+	 * @throws RestClientException if request fails
+	 */
+	public Page<Event> listEventsJob(String jobId, EventFilter options, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.jobEvents(jobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		uri = processURI(uri, pageable);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, options);
+		return PageUtil.create2(result.getBody(), Event.class);
+	}
 	
 	//
 	// Job Instances (Pods/Replicas)
@@ -2464,6 +2493,31 @@ public class DevopsClient {
 		ResponseEntity<String> result = exchange(request, String.class, options);
 		return result.getBody();
 	}
+	
+	//
+	// CronJob Events
+	//
+
+	/**
+	 * List {@code Event}s for a {@code CronJob}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param cronjobId the {@code CronJob} identifier (uuid)
+	 * @param options (optional) {@code EventFilter}
+	 * @return the page of {@code Event}
+	 * @throws RestClientException if request fails
+	 */
+	public Page<Event> listEventsCronJob(String cronjobId, EventFilter options, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.cronjobEvents(cronjobId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		uri = processURI(uri, pageable);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, options);
+		return PageUtil.create2(result.getBody(), Event.class);
+	}
+
 	
 	//
 	// Deployment Jobs (Pods/Replicas)

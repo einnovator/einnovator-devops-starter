@@ -1,12 +1,16 @@
 package org.einnovator.devops.client.model;
 
 public enum EventType {
+	CREATED("Created"),
+	UPDATED("Updated"),
 	STARTED("Started"),
 	STOPPED("Stopped"),
 	CRASHED("Crashed"),
 	RESTARTED("Restarted"),
 	SCALED_REPLICAS("Scaled Replicas"),
-	SCALED_RESOURCES("Scaled Resources")
+	SCALED_RESOURCES("Scaled Resources"),
+	BUILD("Build"),
+	SUSPENDED("Suspended"),
 	;
 	
 	private final String displayValue;

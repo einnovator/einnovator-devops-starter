@@ -23,6 +23,8 @@ public class Certificate extends ObjectBase {
 
 	private String secret;
 	
+	private String ca;
+
 	private String crt;
 	
 	private String key;
@@ -48,7 +50,6 @@ public class Certificate extends ObjectBase {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	
 	/**
 	 * Get the value of property {@code secret}.
@@ -66,6 +67,24 @@ public class Certificate extends ObjectBase {
 	 */
 	public void setSecret(String secret) {
 		this.secret = secret;
+	}
+
+	/**
+	 * Get the value of property {@code ca}.
+	 *
+	 * @return the value of {@code ca}
+	 */
+	public String getCa() {
+		return ca;
+	}
+
+	/**
+	 * Set the value of property {@code ca}.
+	 *
+	 * @param ca the value of {@code ca}
+	 */
+	public void setCa(String ca) {
+		this.ca = ca;
 	}
 
 	/**
@@ -144,6 +163,7 @@ public class Certificate extends ObjectBase {
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
 				.append("name", name)
+				.append("#ca", ca!=null ? ca.length() : null)
 				.append("#crt", crt!=null ? crt.length() : null)
 				.append("key", key!=null ? "******" : null)
 				.append("expires", expires)
