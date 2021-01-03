@@ -37,10 +37,23 @@ public class DevopsEndpoints {
 	public static String spaceSync(String spaceId, DevopsClientConfiguration config, boolean admin) {
 		return space(spaceId, config, admin) + "/sync";
 	}
+
+	//
+	// VolumeClaim
+	//
 	
+
 	public static String volumeclaims(String spaceId, DevopsClientConfiguration config, boolean admin) {
 		return space(spaceId, config, admin) + "/volumeclaim";
 	}
+
+	public static String volumeclaim(String spaceId, String volc, DevopsClientConfiguration config, boolean admin) {
+		return volumeclaims(spaceId, config, admin) + "/" + volc;
+	}
+
+	//
+	// Authority
+	//
 	
 	public static String spaceAuths(String spaceId, DevopsClientConfiguration config, boolean admin) {
 		return space(spaceId, config, admin) + "/auth";
@@ -76,6 +89,22 @@ public class DevopsEndpoints {
 
 	public static String spaceCronJob(String spaceId, String cronjobId, DevopsClientConfiguration config, boolean admin) {
 		return spaceCronJobs(spaceId, config, admin) + "/" + cronjobId;
+	}
+
+	public static String pods(String spaceId, DevopsClientConfiguration config, boolean admin) {
+		return space(spaceId, config, admin) + "/pod";
+	}
+
+	public static String pod(String spaceId, String pod, DevopsClientConfiguration config, boolean admin) {
+		return pods(spaceId, config, admin) + "/" + pod;
+	}
+
+	public static String replicasets(String spaceId, DevopsClientConfiguration config, boolean admin) {
+		return space(spaceId, config, admin) + "/replicaset";
+	}
+
+	public static String replicaset(String spaceId, String replicaset, DevopsClientConfiguration config, boolean admin) {
+		return replicasets(spaceId, config, admin) + "/" + replicaset;
 	}
 
 
@@ -135,12 +164,20 @@ public class DevopsEndpoints {
 		return deployment(deployId, config, admin) + "/build";
 	}
 
-	public static String instances(String deployId, DevopsClientConfiguration config, boolean admin) {
-		return deployment(deployId, config, admin) + "/instance";
+	public static String podsDeployment(String deployId, DevopsClientConfiguration config, boolean admin) {
+		return deployment(deployId, config, admin) + "/pod";
 	}
 
-	public static String instance(String deployId, String pod, DevopsClientConfiguration config, boolean admin) {
-		return instances(deployId, config, admin) +"/" + pod;
+	public static String podDeployment(String deployId, String pod, DevopsClientConfiguration config, boolean admin) {
+		return podsDeployment(deployId, config, admin) + "/" + pod;
+	}
+
+	public static String replicasetsDeployment(String deployId, DevopsClientConfiguration config, boolean admin) {
+		return deployment(deployId, config, admin) + "/replicaset";
+	}
+
+	public static String replicasetDeployment(String deployId, String replicaset, DevopsClientConfiguration config, boolean admin) {
+		return replicasetsDeployment(deployId, config, admin) + "/" + replicaset;
 	}
 
 	public static String routes(String deployId, DevopsClientConfiguration config, boolean admin) {
@@ -148,11 +185,11 @@ public class DevopsEndpoints {
 	}
 
 	public static String route(String deployId, String routeId, DevopsClientConfiguration config, boolean admin) {
-		return routes(deployId, config, admin) +"/" + routeId;
+		return routes(deployId, config, admin) + "/" + routeId;
 	}
 
 	public static String primaryRoute(String deployId, String routeId, DevopsClientConfiguration config, boolean admin) {
-		return route(deployId, routeId, config, admin) +"/primary";
+		return route(deployId, routeId, config, admin) + "/primary";
 	}
 
 	public static String bindings(String deployId, DevopsClientConfiguration config, boolean admin) {
@@ -160,7 +197,7 @@ public class DevopsEndpoints {
 	}
 
 	public static String binding(String deployId, String bindingId, DevopsClientConfiguration config, boolean admin) {
-		return bindings(deployId, config, admin) +"/" + bindingId;
+		return bindings(deployId, config, admin) + "/" + bindingId;
 	}
 
 	public static String connectors(String deployId, DevopsClientConfiguration config, boolean admin) {
@@ -192,7 +229,7 @@ public class DevopsEndpoints {
 	}
 
 	public static String repository(String deployId, String repositoryId, DevopsClientConfiguration config, boolean admin) {
-		return repositories(deployId, config, admin) +"/" + repositoryId;
+		return repositories(deployId, config, admin) + "/" + repositoryId;
 	}
 
 	//
@@ -247,12 +284,12 @@ public class DevopsEndpoints {
 		return job(jobId, config, admin) + "/build";
 	}
 	
-	public static String instancesJob(String jobId, DevopsClientConfiguration config, boolean admin) {
-		return job(jobId, config, admin) + "/instance";
+	public static String podsJob(String jobId, DevopsClientConfiguration config, boolean admin) {
+		return job(jobId, config, admin) + "/pod";
 	}
 
-	public static String instanceJob(String jobId, String pod, DevopsClientConfiguration config, boolean admin) {
-		return instancesJob(jobId, config, admin) +"/" + pod;
+	public static String podJob(String jobId, String pod, DevopsClientConfiguration config, boolean admin) {
+		return podsJob(jobId, config, admin) + "/" + pod;
 	}
 
 	public static String bindingsJob(String jobId, DevopsClientConfiguration config, boolean admin) {
@@ -260,7 +297,7 @@ public class DevopsEndpoints {
 	}
 
 	public static String bindingJob(String jobId, String bindingId, DevopsClientConfiguration config, boolean admin) {
-		return bindingsJob(jobId, config, admin) +"/" + bindingId;
+		return bindingsJob(jobId, config, admin) + "/" + bindingId;
 	}
 
 	public static String mountsJob(String jobId, DevopsClientConfiguration config, boolean admin) {
@@ -340,7 +377,7 @@ public class DevopsEndpoints {
 	}
 
 	public static String jobCronJob(String jobId, String pod, DevopsClientConfiguration config, boolean admin) {
-		return jobsCronJob(jobId, config, admin) +"/" + pod;
+		return jobsCronJob(jobId, config, admin) + "/" + pod;
 	}
 	
 	public static String bindingsCronJob(String jobId, DevopsClientConfiguration config, boolean admin) {
@@ -348,7 +385,7 @@ public class DevopsEndpoints {
 	}
 
 	public static String bindingCronJob(String cronjobId, String bindingId, DevopsClientConfiguration config, boolean admin) {
-		return bindingsCronJob(cronjobId, config, admin) +"/" + bindingId;
+		return bindingsCronJob(cronjobId, config, admin) + "/" + bindingId;
 	}
 
 	public static String mountsCronJob(String cronjobId, DevopsClientConfiguration config, boolean admin) {

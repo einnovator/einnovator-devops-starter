@@ -1,10 +1,7 @@
 package org.einnovator.devops.client.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import org.einnovator.util.MappingUtils;
 import org.einnovator.util.model.ToStringCreator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -53,7 +50,7 @@ abstract public class Deployable extends AnnotatedEntity {
 
 	//
 	
-	protected List<Instance> instances;
+	protected List<Pod> instances;
 
 	protected Boolean autoBindings;
 
@@ -339,7 +336,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	 *
 	 * @return the instances
 	 */
-	public List<Instance> getInstances() {
+	public List<Pod> getPods() {
 		return instances;
 	}
 
@@ -348,7 +345,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	 *
 	 * @param instances the instances to set
 	 */
-	public void setInstances(List<Instance> instances) {
+	public void setPods(List<Pod> instances) {
 		this.instances = instances;
 	}
 
@@ -754,6 +751,78 @@ abstract public class Deployable extends AnnotatedEntity {
 		this.start = start;
 	}
 
+	/**
+	 * Get the value of property {@code workspace}.
+	 *
+	 * @return the value of {@code workspace}
+	 */
+	public Workspace getWorkspace() {
+		return workspace;
+	}
+
+	/**
+	 * Set the value of property {@code workspace}.
+	 *
+	 * @param workspace the value of {@code workspace}
+	 */
+	public void setWorkspace(Workspace workspace) {
+		this.workspace = workspace;
+	}
+
+	/**
+	 * Get the value of property {@code webhook}.
+	 *
+	 * @return the value of {@code webhook}
+	 */
+	public Webhook getWebhook() {
+		return webhook;
+	}
+
+	/**
+	 * Set the value of property {@code webhook}.
+	 *
+	 * @param webhook the value of {@code webhook}
+	 */
+	public void setWebhook(Webhook webhook) {
+		this.webhook = webhook;
+	}
+
+	/**
+	 * Get the value of property {@code env}.
+	 *
+	 * @return the value of {@code env}
+	 */
+	public List<Variable> getEnv() {
+		return env;
+	}
+
+	/**
+	 * Set the value of property {@code env}.
+	 *
+	 * @param env the value of {@code env}
+	 */
+	public void setEnv(List<Variable> env) {
+		this.env = env;
+	}
+
+	/**
+	 * Get the value of property {@code bindings}.
+	 *
+	 * @return the value of {@code bindings}
+	 */
+	public List<Binding> getBindings() {
+		return bindings;
+	}
+
+	/**
+	 * Set the value of property {@code bindings}.
+	 *
+	 * @param bindings the value of {@code bindings}
+	 */
+	public void setBindings(List<Binding> bindings) {
+		this.bindings = bindings;
+	}
+	
 	//
 	// With
 	//
@@ -878,7 +947,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	 * @param instances the instances to with
 	 * @return this {@code Deployable}
 	 */
-	public Deployable withInstances(List<Instance> instances) {
+	public Deployable withPods(List<Pod> instances) {
 		this.instances = instances;
 		return this;
 	}
@@ -1131,304 +1200,49 @@ abstract public class Deployable extends AnnotatedEntity {
 		return this;
 	}
 
-	//
-	// Mount
-	//
-	
-	public void addMount(Mount mount) {
-		if (mounts==null) {
-			mounts = new ArrayList<Mount>();
-		}
-		mounts.add(mount);
+	/**
+	 * Set the value of property {@code workspace}.
+	 *
+	 * @param workspace the value of {@code workspace}
+	 * @return this {@code Deployable}
+	 */
+	public Deployable withWorkspace(Workspace workspace) {
+		this.workspace = workspace;
+		return this;
 	}
 
-	public void addMounts(Iterable<Mount> mounts) {
-		if (mounts!=null) {
-			for (Mount mount: mounts) {
-				addMount(mount);
-			}
-		}
+	/**
+	 * Set the value of property {@code webhook}.
+	 *
+	 * @param webhook the value of {@code webhook}
+	 * @return this {@code Deployable}
+	 */
+	public Deployable withWebhook(Webhook webhook) {
+		this.webhook = webhook;
+		return this;
 	}
 
-	public Mount removeMount(int index) {
-		if (mounts==null || index <0 || index>= mounts.size()) {
-			return null;
-		}
-		return mounts.remove(index);
+	/**
+	 * Set the value of property {@code env}.
+	 *
+	 * @param env the value of {@code env}
+	 * @return this {@code Deployable}
+	 */
+	public Deployable withEnv(List<Variable> env) {
+		this.env = env;
+		return this;
 	}
 
-	public Mount getMount(int index) {
-		if (mounts==null || index <0 || index>= mounts.size()) {
-			return null;
-		}
-		return mounts.get(index);
+	/**
+	 * Set the value of property {@code bindings}.
+	 *
+	 * @param bindings the value of {@code bindings}
+	 * @return this {@code Deployable}
+	 */
+	public Deployable withBindings(List<Binding> bindings) {
+		this.bindings = bindings;
+		return this;
 	}
-
-	public Mount findMount(Mount mount) {
-		if (mount!=null && mounts!=null) {
-			for (Mount mount2: mounts) {
-				if ((mount2.getId()!=null && mount2.getId().equals(mount.getId())) 
-						|| (mount2.getUuid()!=null && mount2.getUuid().equals(mount.getUuid()))) {
-					return mount2;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Mount findMount(String id) {
-		if (id!=null && mounts!=null) {
-			for (Mount mount: mounts) {
-				if (id.equals(mount.getUuid()) || id.equals(mount.getName())) {
-					return mount;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Mount removeMount(Mount mount) {
-		if (mount!=null && mounts!=null) {
-			for (int i=0; i<mounts.size(); i++) {
-				Mount mount2 = mounts.get(i);
-				if ((mount2.getId()!=null && mount2.getId().equals(mount.getId())) || (mount2.getUuid()!=null && mount2.getUuid().equals(mount.getUuid()))) {
-					return mounts.remove(i);
-				}
-			}
-		}
-		return null;
-	}
-	
-	
-	
-	//
-	// Repository
-	//
-	
-	
-	public Repository getActiveRepository() {
-		return getRepository(0);
-	}
-
-	
-	public void addRepository(Repository repo) {
-		if (repositories==null) {
-			repositories = new ArrayList<Repository>();
-		}
-		repositories.add(repo);				
-	}
-
-
-	public void addRepositories(Iterable<Repository> repos) {
-		if (repositories!=null) {
-			for (Repository repo: repositories) {
-				addRepository(repo);
-			}
-		}
-	}
-
-	public Repository removeRepository(int index) {
-		if (repositories==null || index <0 || index>= repositories.size()) {
-			return null;
-		}
-		return repositories.remove(index);
-	}
-
-	public Repository getRepository(int index) {
-		if (repositories==null || index <0 || index>= repositories.size()) {
-			return null;
-		}
-		return repositories.get(index);
-	}
-
-	public Repository findRepository(Repository repo) {
-		if (repo!=null && repositories!=null) {
-			for (Repository repo2: repositories) {
-				if ((repo2.getId()!=null && repo2.getId().equals(repo.getId())) ||
-						(repo2.getUuid()!=null && repo2.getUuid().equals(repo.getUuid()))
-					|| (repo2.getUrl()!=null && repo2.getUuid().equals(repo.getUrl()))) {
-					return repo2;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Repository findRepository(String id) {
-		if (id!=null && repositories!=null) {
-			try {
-				return getRepository(Integer.parseInt(id));				
-			} catch (NumberFormatException e) {
-			}
-			
-			for (Repository repo: repositories) {
-				if (id.equals(repo.getUuid()) || id.equals(repo.getName()) || id.equals(repo.getUrl())) {
-					return repo;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Repository removeRepository(Repository repo) {
-		if (repo!=null && repositories!=null) {
-			for (int i=0; i<repositories.size(); i++) {
-				Repository repo2 = repositories.get(i);
-				if ((repo2.getId()!=null && repo2.getId().equals(repo.getId())) || (repo2.getUuid()!=null && repo2.getUuid().equals(repo.getUuid()))
-						|| (repo2.getUrl()!=null && repo2.getUrl().equals(repo.getUrl())))  {
-					return repositories.remove(i);
-				}
-			}
-		}
-		return null;
-	}
-	
-	public Repository removeRepository(String id) {
-		if (id!=null && repositories!=null) {
-			try {
-				return removeRepository(Integer.parseInt(id));				
-			} catch (NumberFormatException e) {
-			}
-			for (int i=0; i<repositories.size(); i++) {
-				Repository repo = repositories.get(i);
-				if (id.equals(repo.getUuid()) || id.equals(repo.getName()) || id.equals(repo.getUrl())) {
-					return repositories.remove(i);
-				}
-			}
-		}
-		return null;
-	}
-	
-	//
-	// Env
-	//
-	
-
-	public void addVariable(Variable var) {
-		if (env==null) {
-			env = new ArrayList<Variable>();
-		}
-		env.add(var);
-	}
-	
-	public void addOrUpdateVariable(Variable var) {
-		Variable var0 = findVariable(var.getName());
-		if (var0==null) {
-			addVariable(new Variable(var));
-		} else {
-			MappingUtils.updateObjectFromNonNull(var0, var);
-		}
-	}
-
-	public void addOrUpdateVariables(Collection<Variable> vars) {
-		if (vars!=null) {
-			for (Variable var: vars) {
-				addOrUpdateVariable(var);
-			}
-		}
-	}
-	public Variable removeVariable(int index) {
-		if (env==null || index <0 || index>= env.size()) {
-			return null;
-		}
-		return env.remove(index);
-	}
-
-	public Variable getVariable(int index) {
-		if (env==null || index <0 || index>= env.size()) {
-			return null;
-		}
-		return env.get(index);
-	}
-
-	public Variable findVariable(Variable var) {
-		if (var!=null && env!=null) {
-			for (Variable var2: env) {
-				if (var2.getName()!=null && var2.getName().equalsIgnoreCase(var.getName())) {
-					return var2;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Variable findVariable(String name) {
-		if (name!=null && env!=null) {
-			for (Variable var: env) {
-				if (name.equalsIgnoreCase(var.getName())) {
-					return var;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Variable removeVariable(Variable var) {
-		if (var!=null && env!=null) {
-			for (int i=0; i<env.size(); i++) {
-				Variable var2 = env.get(i);
-				if (var2.getName()!=null && var2.getName().equalsIgnoreCase(var.getName())) {
-					return env.remove(i);
-				}
-			}
-		}
-		return null;
-	}
-
-	public Variable removeVariable(String name) {
-		if (name!=null && env!=null) {
-			for (int i=0; i<env.size(); i++) {
-				Variable var = env.get(i);
-				if (name.equalsIgnoreCase(var.getName())) {
-					return env.remove(i);
-				}
-			}
-		}
-		return null;
-	}
-
-
-	public Variable updateVariable(String name, Variable var) {
-		if (env==null) {
-			return null;
-		}
-		Variable var0 = findVariable(var);
-		if (var0==null) {
-			return null;
-		}
-		MappingUtils.updateObjectFromNonNull(var0, var);
-		return var0;
-	}
-
-	
-	public String getValue(String name) {
-		Variable var = findVariable(name);
-		return var!=null ? var.getValue() : null;
-	}
-
-	public void setValue(String name, String value) {
-		Variable var = findVariable(name);
-		if (var==null) {
-			addVariable(new Variable(name, value));
-		} else {
-			var.setValue(value);
-		}
-	}
-
-	public String updateValue(String name, String value) {
-		Variable var = findVariable(name);
-		if (var==null) {
-			return null;
-		}
-		var.setValue(value);
-		return value;
-	}
-
-	public String getVarType(String name) {
-		Variable var = findVariable(name);
-		return var!=null ? var.getType() : null;
-	}
-
 	
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
