@@ -2,7 +2,6 @@ package org.einnovator.devops.client.model;
 
 import org.einnovator.util.model.ObjectBase;
 import org.einnovator.util.model.ToStringCreator;
-import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,14 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Resources extends ObjectBase {
 
-	private static final String DEFAULT_MEMORY_UNIT = "Gi";
-
-	private static final String DEFAULT_DISK_UNIT = "Gi";
-
-	private static final String DEFAULT_CPU_UNIT = "";
-
-	private Integer instances;
-	
 	private String memory;
 
 	private Integer memoryValue;
@@ -113,25 +104,6 @@ public class Resources extends ObjectBase {
 		this.disk = disk;
 	}
 
-	
-
-	/**
-	 * Get the value of property {@code instances}.
-	 *
-	 * @return the instances
-	 */
-	public Integer getInstances() {
-		return instances;
-	}
-
-	/**
-	 * Set the value of property {@code instances}.
-	 *
-	 * @param instances the instances to set
-	 */
-	public void setInstances(Integer instances) {
-		this.instances = instances;
-	}
 
 	/**
 	 * Get the value of property {@code memoryValue}.
@@ -244,7 +216,6 @@ public class Resources extends ObjectBase {
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator
-				.append("instances", instances)
 				.append("memory", memory)
 				.append("memoryValue", memoryValue)
 				.append("memoryUnit", memoryUnit)
@@ -254,60 +225,6 @@ public class Resources extends ObjectBase {
 				.append("disk", disk)
 				.append("diskValue", diskValue)
 				.append("diskUnit", diskUnit)
-				);
-	}
-
-
-	public void normalize() {
-		Object[] a1 = normalizeUnits(memory, memoryValue, memoryUnit!=null ? memoryUnit : DEFAULT_MEMORY_UNIT);
-		memory = (String)a1[0]; memoryValue = (Integer)a1[1]; memoryUnit = (String)a1[2];
-		Object[] a2 = normalizeUnits(disk, diskValue, diskUnit!=null ? diskUnit : DEFAULT_DISK_UNIT);
-		disk = (String)a2[0]; diskValue = (Integer)a2[1]; diskUnit = (String)a2[2];
-		Object[] a3 = normalizeUnits(cpu, cpuValue, cpuUnit!=null ? cpuUnit : DEFAULT_CPU_UNIT);
-		cpu = (String)a3[0]; cpuValue = (Integer)a3[1]; cpuUnit = (String)a3[2];
-	}
-
-	public static Object[] normalizeUnits(String s, Integer value, String unit) {
-		Object[] a = new Object[3];
-		if (StringUtils.hasText(s)) {
-			s = s.trim();
-			int i = -1;
-			if (s.length()>=1 && Character.isAlphabetic(s.charAt(s.length()-1))) {
-				i = s.length()-1;
-				if (s.length()>=2 && Character.isAlphabetic(s.charAt(s.length()-2))) {
-					i = s.length()-2;
-				}
-
-			}
-			if (i>0) {
-				try {
-					value = Integer.parseInt(s.substring(0, i));					
-				} catch (NumberFormatException e) {
-					value = 1;
-				}
-				unit = s.substring(i);
-			} else if (i==0) {
-				value = 1;
-				unit = s;
-			} else {
-				try {
-					value = Integer.parseInt(s);					
-				} catch (NumberFormatException e) {
-					value = 1;
-				}
-				unit = null;
-			}
-		} else {
-			s = value!=null && unit!=null ? value + unit : unit!=null ? 1 + unit: value!=null ? value.toString() : "1";
-		}
-		a[0] = s;
-		a[1] = value;
-		a[2] = unit;
-		return a;
-	}
-	@Override
-	public ToStringCreator toString2(ToStringCreator creator) {
-		return super.toString2(creator
 				);
 	}
 

@@ -15,15 +15,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Pod extends NamedEntity {
+public class Pod extends DeploymentBase {
 
 	private DeploymentStatus status;
 
 	private Integer index;
 	
 	private Endpoint endpoint;
-
-	private Resources resources;
 
 	private String reason;
 	
@@ -37,6 +35,12 @@ public class Pod extends NamedEntity {
 	
 	private Date finishedAt;
 
+	private Integer restarts;
+
+	private Integer containers;
+	
+	private Integer readyContainers;
+	
 	private Bill bill;
 
 	public Pod() {
@@ -95,24 +99,6 @@ public class Pod extends NamedEntity {
 	 */
 	public void setEndpoint(Endpoint endpoint) {
 		this.endpoint = endpoint;
-	}
-
-	/**
-	 * Get the value of property {@code resources}.
-	 *
-	 * @return the resources
-	 */
-	public Resources getResources() {
-		return resources;
-	}
-
-	/**
-	 * Set the value of property {@code resources}.
-	 *
-	 * @param resources the resources to set
-	 */
-	public void setResources(Resources resources) {
-		this.resources = resources;
 	}
 
 	/**
@@ -226,6 +212,66 @@ public class Pod extends NamedEntity {
 	}
 
 	/**
+	 * Get the value of property {@code restarts}.
+	 *
+	 * @return the value of {@code restarts}
+	 */
+	public Integer getRestarts() {
+		return restarts;
+	}
+
+
+	/**
+	 * Set the value of property {@code restarts}.
+	 *
+	 * @param restarts the value of {@code restarts}
+	 */
+	public void setRestarts(Integer restarts) {
+		this.restarts = restarts;
+	}
+
+
+	/**
+	 * Get the value of property {@code containers}.
+	 *
+	 * @return the value of {@code containers}
+	 */
+	public Integer getContainers() {
+		return containers;
+	}
+
+
+	/**
+	 * Set the value of property {@code containers}.
+	 *
+	 * @param containers the value of {@code containers}
+	 */
+	public void setContainers(Integer containers) {
+		this.containers = containers;
+	}
+
+
+	/**
+	 * Get the value of property {@code readyContainers}.
+	 *
+	 * @return the value of {@code readyContainers}
+	 */
+	public Integer getReadyContainers() {
+		return readyContainers;
+	}
+
+
+	/**
+	 * Set the value of property {@code readyContainers}.
+	 *
+	 * @param readyContainers the value of {@code readyContainers}
+	 */
+	public void setReadyContainers(Integer readyContainers) {
+		this.readyContainers = readyContainers;
+	}
+
+
+	/**
 	 * Get the value of property {@code bill}.
 	 *
 	 * @return the bill
@@ -246,11 +292,13 @@ public class Pod extends NamedEntity {
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
+				.append("restarts", restarts)
+				.append("containers", containers)
+				.append("readyContainers", readyContainers)
 				.append("status", status)
 				.append("reason", reason)
 				.append("index", index)
 				.append("endpoint", endpoint)
-				.append("resources", resources)
 				;
 	}
 

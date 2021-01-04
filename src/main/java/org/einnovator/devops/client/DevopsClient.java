@@ -53,8 +53,11 @@ import org.einnovator.devops.client.modelx.LicenseFilter;
 import org.einnovator.devops.client.modelx.LicenseOptions;
 import org.einnovator.devops.client.modelx.LogOptions;
 import org.einnovator.devops.client.modelx.ManifestOptions;
+import org.einnovator.devops.client.modelx.PodFilter;
+import org.einnovator.devops.client.modelx.PodOptions;
 import org.einnovator.devops.client.modelx.RegistryFilter;
 import org.einnovator.devops.client.modelx.RegistryOptions;
+import org.einnovator.devops.client.modelx.ReplicaSetFilter;
 import org.einnovator.devops.client.modelx.SolutionFilter;
 import org.einnovator.devops.client.modelx.SolutionOptions;
 import org.einnovator.devops.client.modelx.SpaceFilter;
@@ -547,22 +550,23 @@ public class DevopsClient {
 	}
 	
 	//
-	// Space Pods (Pods/Replicas)
+	// Space Pods
 	//
 	
 	/**
-	 * List Pod/Replica instances for a {@code Space}.
+	 * List Pods in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
 	 * @param spaceId the identifier of the {@code Space} (uuid, id, qualified name)
-	 * @param options (optional) {@code DeploymentFilter}
+	 * @param options (optional) {@code PodFilter}
+	 * @param pageable (optional) {@code Pageable}
 	 * @return the list of {@code Pod}
 	 * @throws RestClientException if request fails
 	 */
-	public List<Pod> listPods(String spaceId, DeploymentFilter options) {
+	public List<Pod> listPods(String spaceId, PodFilter options, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.pods(spaceId, config, isAdminRequest(options)));
-		uri = processURI(uri, options);
+		uri = processURI(uri, options, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		ResponseEntity<Pod[]> result = exchange(request, Pod[].class, options);
 		return Arrays.asList(result.getBody());
@@ -575,11 +579,11 @@ public class DevopsClient {
 	 * 
 	 * @param spaceId the identifier of the {@code Space} (uuid, id, qualified name)
 	 * @param id the identifier of the {@code Pod} (uuid, id, name)
-	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
+	 * @param options (optional) the {@code PodOptions}
 	 * @return the {@code Pod}
 	 * @throws RestClientException if request fails
 	 */
-	public Pod getPod(String spaceId, String id, DeploymentOptions options) {
+	public Pod getPod(String spaceId, String id, PodOptions options) {
 		URI uri = makeURI(DevopsEndpoints.pod(spaceId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
@@ -606,7 +610,7 @@ public class DevopsClient {
 	
 	
 	//
-	// Space ReplicaSets (ReplicaSets/Replicas)
+	// Space ReplicaSets
 	//
 	
 	/**
@@ -615,15 +619,16 @@ public class DevopsClient {
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
 	 * @param spaceId the identifier of the {@code Space} (uuid, id, qualified name)
-	 * @param options (optional) {@code DeploymentFilter}
+	 * @param filter (optional) {@code ReplicaSetFilter}
+	 * @param pageable (optional) {@code Pageable}
 	 * @return the list of {@code ReplicaSet}
 	 * @throws RestClientException if request fails
 	 */
-	public List<ReplicaSet> listReplicaSets(String spaceId, DeploymentFilter options) {
-		URI uri = makeURI(DevopsEndpoints.replicasets(spaceId, config, isAdminRequest(options)));
-		uri = processURI(uri, options);
+	public List<ReplicaSet> listReplicaSets(String spaceId, ReplicaSetFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.replicasets(spaceId, config, isAdminRequest(filter)));
+		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<ReplicaSet[]> result = exchange(request, ReplicaSet[].class, options);
+		ResponseEntity<ReplicaSet[]> result = exchange(request, ReplicaSet[].class, filter);
 		return Arrays.asList(result.getBody());
 	}
 	
@@ -1091,17 +1096,17 @@ public class DevopsClient {
 	//
 	
 	/**
-	 * List Pod/Replica instances for a {@code Deployment}.
+	 * List Pods (instances) for a {@code Deployment}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
 	 * @param deployId the {@code Deployment} identifier (uuid)
-	 * @param options (optional) {@code DeploymentFilter}
+	 * @param options (optional) {@code PodFilter}
 	 * @param pageable (optional) {@code Pageable}
 	 * @return the list of {@code Pod}
 	 * @throws RestClientException if request fails
 	 */
-	public List<Pod> listPodsForDeployment(String deployId, DeploymentFilter options, Pageable pageable) {
+	public List<Pod> listPodsForDeployment(String deployId, PodFilter options, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.podsDeployment(deployId, config, isAdminRequest(options)));
 		uri = processURI(uri, options, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
@@ -1137,16 +1142,16 @@ public class DevopsClient {
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
 	 * @param deployId the {@code Deployment} identifier (uuid)
+	 * @param filter (optional) {@code ReplicaSetFilter}
 	 * @param pageable (optional) {@code Pageable}
-	 * @param options (optional) {@code DeploymentFilter}
 	 * @return the list of {@code ReplicaSet}
 	 * @throws RestClientException if request fails
 	 */
-	public List<ReplicaSet> listReplicaSetsForDeployment(String deployId, DeploymentFilter options, Pageable pageable) {
-		URI uri = makeURI(DevopsEndpoints.replicasetsDeployment(deployId, config, isAdminRequest(options)));
-		uri = processURI(uri, options, pageable);
+	public List<ReplicaSet> listReplicaSetsForDeployment(String deployId, ReplicaSetFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.replicasetsDeployment(deployId, config, isAdminRequest(filter)));
+		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<ReplicaSet[]> result = exchange(request, ReplicaSet[].class, options);
+		ResponseEntity<ReplicaSet[]> result = exchange(request, ReplicaSet[].class, filter);
 		return Arrays.asList(result.getBody());
 	}
 	
@@ -2092,16 +2097,16 @@ public class DevopsClient {
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
 	 * @param jobId the {@code Job} identifier (uuid)
+	 * @param filter (optional) {@code PodFilter}
 	 * @param pageable (optional) {@code Pageable}
-	 * @param options (optional) {@code JobOptions}
 	 * @return the list of {@code Pod}
 	 * @throws RestClientException if request fails
 	 */
-	public List<Pod> listPodsForJob(String jobId, JobOptions options, Pageable pageable) {
-		URI uri = makeURI(DevopsEndpoints.podsJob(jobId, config, isAdminRequest(options)));
-		uri = processURI(uri, options, pageable);
+	public List<Pod> listPodsForJob(String jobId, PodFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.podsJob(jobId, config, isAdminRequest(filter)));
+		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<Pod[]> result = exchange(request, Pod[].class, options);
+		ResponseEntity<Pod[]> result = exchange(request, Pod[].class, filter);
 		return Arrays.asList(result.getBody());
 	}
 	
