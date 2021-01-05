@@ -5,7 +5,7 @@ import org.einnovator.util.model.EntityOptions;
 import org.einnovator.util.model.ToStringCreator;
 
 /**
- * Options to retrieve {@code CronJob}s.
+ * Options to retrieve or delete {@code CronJob}s.
  *
  * @see CronJob
  * @author support@einnovator.org
@@ -13,7 +13,9 @@ import org.einnovator.util.model.ToStringCreator;
  */
 public class CronJobOptions extends EntityOptions<CronJob> {
 
-	private Boolean instances;
+	private Boolean jobs;
+
+	private Boolean cronJob;
 
 	private Boolean unprocessed;
 
@@ -23,21 +25,39 @@ public class CronJobOptions extends EntityOptions<CronJob> {
 	}
 	
 	/**
-	 * Get the value of property {@code instances}.
+	 * Get the value of property {@code jobs}.
 	 *
-	 * @return the instances
+	 * @return the value of {@code jobs}
 	 */
-	public Boolean getInstances() {
-		return instances;
+	public Boolean getJobs() {
+		return jobs;
 	}
 
 	/**
-	 * Set the value of property {@code instances}.
+	 * Set the value of property {@code jobs}.
 	 *
-	 * @param instances the instances to set
+	 * @param jobs the value of {@code jobs}
 	 */
-	public void setInstances(Boolean instances) {
-		this.instances = instances;
+	public void setJobs(Boolean jobs) {
+		this.jobs = jobs;
+	}
+
+	/**
+	 * Get the value of property {@code cronJob}.
+	 *
+	 * @return the value of {@code cronJob}
+	 */
+	public Boolean getCronJob() {
+		return cronJob;
+	}
+
+	/**
+	 * Set the value of property {@code cronJob}.
+	 *
+	 * @param cronJob the value of {@code cronJob}
+	 */
+	public void setCronJob(Boolean cronJob) {
+		this.cronJob = cronJob;
 	}
 
 	/**
@@ -49,7 +69,6 @@ public class CronJobOptions extends EntityOptions<CronJob> {
 		return unprocessed;
 	}
 
-
 	/**
 	 * Set the value of property {@code unprocessed}.
 	 *
@@ -59,7 +78,6 @@ public class CronJobOptions extends EntityOptions<CronJob> {
 		this.unprocessed = unprocessed;
 	}
 
-
 	/**
 	 * Get the value of property {@code resolve}.
 	 *
@@ -68,7 +86,6 @@ public class CronJobOptions extends EntityOptions<CronJob> {
 	public Boolean getResolve() {
 		return resolve;
 	}
-
 
 	/**
 	 * Set the value of property {@code resolve}.
@@ -85,16 +102,24 @@ public class CronJobOptions extends EntityOptions<CronJob> {
 
 
 	/**
-	 * Set the value of property {@code instances}.
+	 * Set the value of property {@code jobs}.
 	 *
-	 * @param instances the instances to set
-	 * @return this {@code CronJobOptions}
+	 * @param jobs the value of jobs
 	 */
-	public CronJobOptions withInstances(Boolean instances) {
-		this.instances = instances;
+	public CronJobOptions withJobs(Boolean jobs) {
+		this.jobs = jobs;
 		return this;
 	}
 
+	/**
+	 * Set the value of property {@code cronJob}.
+	 *
+	 * @param cronJob the value of cronJob
+	 */
+	public CronJobOptions withCronJob(Boolean cronJob) {
+		this.cronJob = cronJob;
+		return this;
+	}
 	
 	/**
 	 * Set the value of property {@code unprocessed}.
@@ -106,7 +131,6 @@ public class CronJobOptions extends EntityOptions<CronJob> {
 		this.unprocessed = unprocessed;
 		return this;
 	}
-	
 
 	/**
 	 * Set the value of property {@code resolve}.
@@ -122,6 +146,8 @@ public class CronJobOptions extends EntityOptions<CronJob> {
 	@Override
 	public ToStringCreator toString(ToStringCreator creator) {
 		return super.toString(creator)
+				.append("jobs", jobs)
+				.append("cronJob", cronJob)
 				.append("unprocessed", unprocessed)
 				.append("resolve", resolve)
 				;

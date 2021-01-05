@@ -5,7 +5,7 @@ import org.einnovator.util.model.EntityOptions;
 import org.einnovator.util.model.ToStringCreator;
 
 /**
- * Options to retrieve {@code Job}s.
+ * Options to retrieve or delete {@code Job}s.
  *
  * @see Job
  * @author support@einnovator.org
@@ -13,7 +13,9 @@ import org.einnovator.util.model.ToStringCreator;
  */
 public class JobOptions extends EntityOptions<Job> {
 
-	private Boolean instances;
+	private Boolean pods;
+
+	private Boolean job;
 
 	private Boolean unprocessed;
 
@@ -23,23 +25,31 @@ public class JobOptions extends EntityOptions<Job> {
 	}
 	
 	/**
-	 * Get the value of property {@code instances}.
+	 * Set the value of property {@code pods}.
 	 *
-	 * @return the instances
+	 * @param pods the pods to set
 	 */
-	public Boolean getInstances() {
-		return instances;
+	public void setPods(Boolean pods) {
+		this.pods = pods;
 	}
 
 	/**
-	 * Set the value of property {@code instances}.
+	 * Get the value of property {@code job}.
 	 *
-	 * @param instances the instances to set
+	 * @return the value of {@code job}
 	 */
-	public void setInstances(Boolean instances) {
-		this.instances = instances;
+	public Boolean getJob() {
+		return job;
 	}
 
+	/**
+	 * Set the value of property {@code job}.
+	 *
+	 * @param job the value of {@code job}
+	 */
+	public void setJob(Boolean job) {
+		this.job = job;
+	}
 	/**
 	 * Get the value of property {@code unprocessed}.
 	 *
@@ -82,19 +92,26 @@ public class JobOptions extends EntityOptions<Job> {
 	//
 	// With
 	//
-
-
+	
 	/**
-	 * Set the value of property {@code instances}.
+	 * Set the value of property {@code pods}.
 	 *
-	 * @param instances the instances to set
-	 * @return this {@code JobOptions}
+	 * @param pods the pods to set
 	 */
-	public JobOptions withInstances(Boolean instances) {
-		this.instances = instances;
+	public JobOptions withPods(Boolean pods) {
+		this.pods = pods;
 		return this;
 	}
-
+	
+	/**
+	 * Set the value of property {@code job}.
+	 *
+	 * @param job the value of {@code job}
+	 */
+	public JobOptions withJob(Boolean job) {
+		this.job = job;
+		return this;
+	}
 	
 	/**
 	 * Set the value of property {@code unprocessed}.
@@ -107,7 +124,6 @@ public class JobOptions extends EntityOptions<Job> {
 		return this;
 	}
 	
-
 	/**
 	 * Set the value of property {@code resolve}.
 	 *
@@ -122,6 +138,8 @@ public class JobOptions extends EntityOptions<Job> {
 	@Override
 	public ToStringCreator toString(ToStringCreator creator) {
 		return super.toString(creator)
+				.append("pods", pods)
+				.append("job", job)
 				.append("unprocessed", unprocessed)
 				.append("resolve", resolve)
 				;
