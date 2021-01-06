@@ -1,6 +1,8 @@
 package org.einnovator.devops.client.config;
 
 
+import org.einnovator.util.model.ObjectBase;
+import org.einnovator.util.model.ToStringCreator;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
@@ -15,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @ConfigurationProperties("devops")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DevopsClientConfiguration {
+public class DevopsClientConfiguration extends ObjectBase {
 
 	public static String DEFAULT_SERVER = "http://localhost:2500";
 
@@ -43,5 +45,13 @@ public class DevopsClientConfiguration {
 		this.connection = connection;
 	}
 
-		
+	@Override
+	public ToStringCreator toString(ToStringCreator creator) {
+		return creator
+				.append("server", server)
+				.append("connection", connection)
+				;
+	}
+
+	
 }

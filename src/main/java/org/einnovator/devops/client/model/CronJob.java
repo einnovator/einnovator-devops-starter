@@ -19,6 +19,8 @@ public class CronJob extends JobBase {
 
 	private String lastScheduleTime;
 	
+	private String lastScheduleAge;
+	
 	private Integer successfulJobsHistoryLimit;
 	
 	private Integer failedJobsHistoryLimit;
@@ -125,6 +127,24 @@ public class CronJob extends JobBase {
 	}
 	
 	/**
+	 * Get the value of property {@code lastScheduleAge}.
+	 *
+	 * @return the value of {@code lastScheduleAge}
+	 */
+	public String getLastScheduleAge() {
+		return lastScheduleAge;
+	}
+
+	/**
+	 * Set the value of property {@code lastScheduleAge}.
+	 *
+	 * @param lastScheduleAge the value of {@code lastScheduleAge}
+	 */
+	public void setLastScheduleAge(String lastScheduleAge) {
+		this.lastScheduleAge = lastScheduleAge;
+	}
+
+	/**
 	 * Get the value of property {@code suspend}.
 	 *
 	 * @return the value of {@code suspend}
@@ -204,6 +224,7 @@ public class CronJob extends JobBase {
 				.append("startingDeadline", startingDeadline)
 				.append("concurrencyPolicy", concurrencyPolicy)
 				.append("lastScheduleTime", lastScheduleTime)
+				.append("lastScheduleAge", lastScheduleAge)
 				.append("suspend", suspend)
 				.append("successfulJobsHistoryLimit", successfulJobsHistoryLimit)
 				.append("failedJobsHistoryLimit", failedJobsHistoryLimit)
