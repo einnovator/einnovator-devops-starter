@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.einnovator.devops.client.config.DevopsClientConfiguration;
 import org.einnovator.devops.client.config.DevopsEndpoints;
 import org.einnovator.devops.client.model.Binding;
+import org.einnovator.devops.client.model.Build;
 import org.einnovator.devops.client.model.Catalog;
 import org.einnovator.devops.client.model.Cluster;
 import org.einnovator.devops.client.model.Connector;
@@ -34,6 +35,8 @@ import org.einnovator.devops.client.model.Space;
 import org.einnovator.devops.client.model.Variable;
 import org.einnovator.devops.client.model.Vcs;
 import org.einnovator.devops.client.model.VolumeClaim;
+import org.einnovator.devops.client.modelx.BuildFilter;
+import org.einnovator.devops.client.modelx.BuildOptions;
 import org.einnovator.devops.client.modelx.CatalogFilter;
 import org.einnovator.devops.client.modelx.CatalogOptions;
 import org.einnovator.devops.client.modelx.ClusterFilter;
@@ -470,8 +473,7 @@ public class DevopsClient {
 	
 	//
 	// VolumeClaims
-	//
-	
+	//	
 
 	/**
 	 * List {@code VolumeClaim}s for a {@code Space}.
@@ -548,7 +550,68 @@ public class DevopsClient {
 		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
 		exchange(request, Void.class, options);
 	}
+
 	
+	//
+	// Builds
+	//	
+
+	/**
+	 * List {@code Build}s for a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, qualified name)
+	 * @param filter a {@code BuildFilter}
+	 * @throws RestClientException if request fails
+	 * @return a {@code List} with {@code Build}s
+	 * @throws RestClientException if request fails
+	 */
+	public List<Build> listBuilds(String spaceId, BuildFilter filter) {
+		URI uri = makeURI(DevopsEndpoints.builds(spaceId, config, isAdminRequest(filter)));
+		uri = processURI(uri, filter);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Build[]> result = exchange(request, Build[].class, filter);
+		return Arrays.asList(result.getBody());
+	}
+	
+
+	/**
+	 * Get {@code Build} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, qualified name)
+	 * @param id the identifier (name)
+	 * @param options (optional) the {@code BuildOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Build}
+	 * @throws RestClientException if request fails
+	 */
+	public Build getBuild(String spaceId, String id, BuildOptions options) {
+		URI uri = makeURI(DevopsEndpoints.build(spaceId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Build> result = exchange(request, Build.class, options);
+		return result.getBody();
+	}
+
+	/**
+	 * Delete existing {@code Build} for a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Build/Build} (uuid, id, unique host, or unique dns)
+	 * @param options optional {@code BuildOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void deleteBuild(String spaceId, String id, BuildOptions options) {
+		URI uri = makeURI(DevopsEndpoints.build(spaceId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);	
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+
 	//
 	// Space Pods
 	//
@@ -1051,7 +1114,7 @@ public class DevopsClient {
 	/**
 	 * Execute command in pod/replica of {@code Deployment} with specified identifier.
 	 * 
-	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * <p><b>Required Security Credentials</b>: Matching write permission in Space.
 	 * 
 	 * @param id the identifier (uuid, id, or qualified name)
 	 * @param options (optional) {@code LogOptions}
@@ -1066,7 +1129,25 @@ public class DevopsClient {
 		return result.getBody();
 	}
 	
-	
+
+	/**
+	 * Build {@code Deployment} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching write permission in Space.
+	 * 
+	 * @param id the identifier (uuid, id, or qualified name)
+	 * @param options (optional) {@code LogOptions}
+	 * @return the location {@code URI} for the created {@code Build}
+	 * @throws RestClientException if request fails
+	 */
+	public URI buildDeployment(String id, BuildOptions options) {
+		URI uri = makeURI(DevopsEndpoints.deploymentBuild(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();	
+	}
+
 	//
 	// Deployment Events
 	//
@@ -1078,6 +1159,7 @@ public class DevopsClient {
 	 * 
 	 * @param deployId the {@code Deployment} identifier (uuid)
 	 * @param options (optional) {@code EventFilter}
+	 * @param pageable (optional) {@code Pageable}
 	 * @return the page of {@code Event}
 	 * @throws RestClientException if request fails
 	 */
@@ -2063,6 +2145,25 @@ public class DevopsClient {
 		return result.getBody();
 	}
 
+	/**
+	 * Build {@code Job} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching write permission in Space.
+	 * 
+	 * @param id the identifier (uuid, id, or qualified name)
+	 * @param options (optional) {@code BuildOptions}
+	 * @return the location {@code URI} for the created {@code Build}
+	 * @throws RestClientException if request fails
+	 */
+	public URI buildJob(String id, BuildOptions options) {
+		URI uri = makeURI(DevopsEndpoints.jobBuild(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();	
+	}
+
+	
 	//
 	// Job Events
 	//
@@ -2074,6 +2175,7 @@ public class DevopsClient {
 	 * 
 	 * @param jobId the {@code Job} identifier (uuid)
 	 * @param options (optional) {@code EventFilter}
+	 * @param pageable (optional) {@code Pageable}
 	 * @return the page of {@code Event}
 	 * @throws RestClientException if request fails
 	 */
@@ -2714,6 +2816,25 @@ public class DevopsClient {
 		return result.getBody();
 	}
 	
+	/**
+	 * Build {@code CronJob} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching write permission in Space.
+	 * 
+	 * @param id the identifier (uuid, id, or qualified name)
+	 * @param options (optional) {@code BuildOptions}
+	 * @return the location {@code URI} for the created {@code Build}
+	 * @throws RestClientException if request fails
+	 */
+	public URI buildCronJob(String id, BuildOptions options) {
+		URI uri = makeURI(DevopsEndpoints.cronjobBuild(id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.post(uri).build();
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();	
+	}
+
+
 	//
 	// CronJob Events
 	//
@@ -2725,6 +2846,7 @@ public class DevopsClient {
 	 * 
 	 * @param cronjobId the {@code CronJob} identifier (uuid)
 	 * @param options (optional) {@code EventFilter}
+	 * @param pageable (optional) {@code Pageable}
 	 * @return the page of {@code Event}
 	 * @throws RestClientException if request fails
 	 */

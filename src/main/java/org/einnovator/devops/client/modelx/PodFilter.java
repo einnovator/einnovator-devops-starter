@@ -81,6 +81,7 @@ public class PodFilter extends PodOptions {
 	 * Set the value of property {@code q}.
 	 *
 	 * @param q the q
+	 * @return this {@code PodFilter}
 	 */
 	public PodFilter withQ(String q) {
 		this.q = q;
@@ -90,6 +91,7 @@ public class PodFilter extends PodOptions {
 	 * Set the value of property {@code status}.
 	 *
 	 * @param status the status
+	 * @return this {@code PodFilter}
 	 */
 	public PodFilter withStatus(DeploymentStatus status) {
 		this.status = status;

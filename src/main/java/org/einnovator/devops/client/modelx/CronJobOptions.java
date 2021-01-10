@@ -105,6 +105,7 @@ public class CronJobOptions extends EntityOptions<CronJob> {
 	 * Set the value of property {@code jobs}.
 	 *
 	 * @param jobs the value of jobs
+	 * @return this {@code CronJobOptions}
 	 */
 	public CronJobOptions withJobs(Boolean jobs) {
 		this.jobs = jobs;
@@ -115,6 +116,7 @@ public class CronJobOptions extends EntityOptions<CronJob> {
 	 * Set the value of property {@code cronJob}.
 	 *
 	 * @param cronJob the value of cronJob
+	 * @return this {@code CronJobOptions}
 	 */
 	public CronJobOptions withCronJob(Boolean cronJob) {
 		this.cronJob = cronJob;

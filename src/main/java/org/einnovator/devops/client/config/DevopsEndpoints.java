@@ -107,6 +107,18 @@ public class DevopsEndpoints {
 		return replicasets(spaceId, config, admin) + "/" + replicaset;
 	}
 
+	//
+	// Deployment
+	//
+
+	public static String builds(String spaceId, DevopsClientConfiguration config, boolean admin) {
+		return space(spaceId, config, admin) + "/build";
+	}
+
+	public static String build(String spaceId, String buildId, DevopsClientConfiguration config, boolean admin) {
+		return builds(spaceId, config, admin) + "/" + buildId;
+	}
+
 
 	//
 	// Deployment
@@ -280,7 +292,7 @@ public class DevopsEndpoints {
 		return job(jobId, config, admin) + "/event";
 	}
 
-	public static String jobBuildJob(String jobId, DevopsClientConfiguration config, boolean admin) {
+	public static String jobBuild(String jobId, DevopsClientConfiguration config, boolean admin) {
 		return job(jobId, config, admin) + "/build";
 	}
 	

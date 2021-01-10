@@ -97,9 +97,10 @@ public class JobOptions extends EntityOptions<Job> {
 	 * Set the value of property {@code pods}.
 	 *
 	 * @param pods the pods to set
+	 * @return this {@code JobOptions}
 	 */
 	public JobOptions withPods(Boolean pods) {
-		this.pods = pods;
+		this.pods = pods;		
 		return this;
 	}
 	
@@ -107,6 +108,7 @@ public class JobOptions extends EntityOptions<Job> {
 	 * Set the value of property {@code job}.
 	 *
 	 * @param job the value of {@code job}
+	 * @return this {@code JobOptions}
 	 */
 	public JobOptions withJob(Boolean job) {
 		this.job = job;

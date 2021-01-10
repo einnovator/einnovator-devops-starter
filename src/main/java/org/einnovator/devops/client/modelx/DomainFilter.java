@@ -304,6 +304,7 @@ public class DomainFilter extends DomainOptions {
 	 * Set the value of property {@code parent}.
 	 *
 	 * @param parent the value of {@code parent}
+	 * @return this {@code DomainFilter}
 	 */
 	public DomainFilter withParent(String parent) {
 		this.parent = parent;

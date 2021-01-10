@@ -81,6 +81,7 @@ public class ReplicaSetFilter extends ReplicaSetOptions {
 	 * Set the value of property {@code q}.
 	 *
 	 * @param q the value q
+	 * @return this {@code ReplicaSetFilter}
 	 */
 	public ReplicaSetFilter withQ(String q) {
 		this.q = q;
@@ -91,6 +92,7 @@ public class ReplicaSetFilter extends ReplicaSetOptions {
 	 * Set the value of property {@code status}.
 	 *
 	 * @param status the value status
+	 * @return this {@code ReplicaSetFilter}
 	 */
 	public ReplicaSetFilter withStatus(DeploymentStatus status) {
 		this.status = status;
@@ -101,6 +103,7 @@ public class ReplicaSetFilter extends ReplicaSetOptions {
 	 * Set the value of property {@code anyStatus}.
 	 *
 	 * @param anyStatus the value anyStatus
+	 * @return this {@code ReplicaSetFilter}
 	 */
 	public ReplicaSetFilter withAnyStatus(DeploymentStatus[] anyStatus) {
 		this.anyStatus = anyStatus;

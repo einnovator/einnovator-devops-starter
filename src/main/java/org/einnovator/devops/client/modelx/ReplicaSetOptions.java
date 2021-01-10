@@ -61,6 +61,7 @@ public class ReplicaSetOptions extends EntityOptions<ReplicaSet> {
 	 * Set the value of property {@code pods}.
 	 *
 	 * @param pods the value pods
+	 * @return this {@code ReplicaSetOptions}
 	 */
 	public ReplicaSetOptions withPods(Boolean pods) {
 		this.pods = pods;
