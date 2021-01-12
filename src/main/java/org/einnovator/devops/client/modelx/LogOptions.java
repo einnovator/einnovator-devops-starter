@@ -80,7 +80,7 @@ public class LogOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code container}.
 	 *
-	 * @param container the container to set
+	 * @param container the container
 	 */
 	public void setContainer(String container) {
 		this.container = container;
@@ -99,7 +99,7 @@ public class LogOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code follow}.
 	 *
-	 * @param follow the follow to set
+	 * @param follow the follow
 	 */
 	public void setFollow(Boolean follow) {
 		this.follow = follow;
@@ -117,7 +117,7 @@ public class LogOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code sinceSeconds}.
 	 *
-	 * @param sinceSeconds the sinceSeconds to set
+	 * @param sinceSeconds the sinceSeconds
 	 */
 	public void setSinceSeconds(Integer sinceSeconds) {
 		this.sinceSeconds = sinceSeconds;
@@ -135,7 +135,7 @@ public class LogOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code tailLines}.
 	 *
-	 * @param tailLines the tailLines to set
+	 * @param tailLines the tailLines
 	 */
 	public void setTailLines(Integer tailLines) {
 		this.tailLines = tailLines;
@@ -153,7 +153,7 @@ public class LogOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code timestamps}.
 	 *
-	 * @param timestamps the timestamps to set
+	 * @param timestamps the timestamps
 	 */
 	public void setTimestamps(Boolean timestamps) {
 		this.timestamps = timestamps;
@@ -171,7 +171,7 @@ public class LogOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code limitBytes}.
 	 *
-	 * @param limitBytes the limitBytes to set
+	 * @param limitBytes the limitBytes
 	 */
 	public void setLimitBytes(Integer limitBytes) {
 		this.limitBytes = limitBytes;
@@ -189,7 +189,7 @@ public class LogOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code pretty}.
 	 *
-	 * @param pretty the pretty to set
+	 * @param pretty the pretty
 	 */
 	public void setPretty(Boolean pretty) {
 		this.pretty = pretty;
@@ -207,7 +207,7 @@ public class LogOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code previous}.
 	 *
-	 * @param previous the previous to set
+	 * @param previous the previous
 	 */
 	public void setPrevious(Boolean previous) {
 		this.previous = previous;

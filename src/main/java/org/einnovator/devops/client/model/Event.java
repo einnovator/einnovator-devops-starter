@@ -58,7 +58,7 @@ public class Event extends EntityBase {
 	/**
 	 * Set the value of property {@code type}.
 	 *
-	 * @param type the type to set
+	 * @param type the type
 	 */
 	public void setType(EventType type) {
 		this.type = type;
@@ -76,7 +76,7 @@ public class Event extends EntityBase {
 	/**
 	 * Set the value of property {@code date}.
 	 *
-	 * @param date the date to set
+	 * @param date the date
 	 */
 	public void setDate(Date date) {
 		this.date = date;
@@ -166,7 +166,7 @@ public class Event extends EntityBase {
 	/**
 	 * Set the value of property {@code description}.
 	 *
-	 * @param description the description to set
+	 * @param description the description
 	 */
 	public void setDescription(String description) {
 		this.description = description;

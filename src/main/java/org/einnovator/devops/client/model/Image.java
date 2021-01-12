@@ -31,7 +31,7 @@ public class Image extends NamedEntity {
 	/**
 	 * Set the value of property {@code type}.
 	 *
-	 * @param type the type to set
+	 * @param type the type
 	 */
 	public void setType(ImageType type) {
 		this.type = type;
@@ -50,7 +50,7 @@ public class Image extends NamedEntity {
 	/**
 	 * Set the value of property {@code registry}.
 	 *
-	 * @param registry the registry to set
+	 * @param registry the registry
 	 */
 	public void setRegistry(Registry registry) {
 		this.registry = registry;

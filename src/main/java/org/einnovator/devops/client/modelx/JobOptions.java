@@ -27,7 +27,7 @@ public class JobOptions extends EntityOptions<Job> {
 	/**
 	 * Set the value of property {@code pods}.
 	 *
-	 * @param pods the pods to set
+	 * @param pods the pods
 	 */
 	public void setPods(Boolean pods) {
 		this.pods = pods;
@@ -96,7 +96,7 @@ public class JobOptions extends EntityOptions<Job> {
 	/**
 	 * Set the value of property {@code pods}.
 	 *
-	 * @param pods the pods to set
+	 * @param pods the pods
 	 * @return this {@code JobOptions}
 	 */
 	public JobOptions withPods(Boolean pods) {
@@ -118,7 +118,7 @@ public class JobOptions extends EntityOptions<Job> {
 	/**
 	 * Set the value of property {@code unprocessed}.
 	 *
-	 * @param unprocessed the unprocessed to set
+	 * @param unprocessed the unprocessed
 	 * @return this {@code JobOptions}
 	 */
 	public JobOptions withUnprocessed(Boolean unprocessed) {
@@ -129,7 +129,7 @@ public class JobOptions extends EntityOptions<Job> {
 	/**
 	 * Set the value of property {@code resolve}.
 	 *
-	 * @param resolve the resolve to set
+	 * @param resolve the resolve
 	 * @return this {@code JobOptions}
 	 */
 	public JobOptions withResolve(Boolean resolve) {

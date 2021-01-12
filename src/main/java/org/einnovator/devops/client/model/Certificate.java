@@ -45,7 +45,7 @@ public class Certificate extends ObjectBase {
 	/**
 	 * Set the value of property {@code name}.
 	 *
-	 * @param name the name to set
+	 * @param name the name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -63,7 +63,7 @@ public class Certificate extends ObjectBase {
 	/**
 	 * Set the value of property {@code secret}.
 	 *
-	 * @param secret the secret to set
+	 * @param secret the secret
 	 */
 	public void setSecret(String secret) {
 		this.secret = secret;
@@ -99,7 +99,7 @@ public class Certificate extends ObjectBase {
 	/**
 	 * Set the value of property {@code crt}.
 	 *
-	 * @param crt the crt to set
+	 * @param crt the crt
 	 */
 	public void setCrt(String crt) {
 		this.crt = crt;
@@ -117,7 +117,7 @@ public class Certificate extends ObjectBase {
 	/**
 	 * Set the value of property {@code key}.
 	 *
-	 * @param key the key to set
+	 * @param key the key
 	 */
 	public void setKey(String key) {
 		this.key = key;
@@ -135,7 +135,7 @@ public class Certificate extends ObjectBase {
 	/**
 	 * Set the value of property {@code expires}.
 	 *
-	 * @param expires the expires to set
+	 * @param expires the expires
 	 */
 	public void setExpires(Date expires) {
 		this.expires = expires;
@@ -153,7 +153,7 @@ public class Certificate extends ObjectBase {
 	/**
 	 * Set the value of property {@code meta}.
 	 *
-	 * @param meta the meta to set
+	 * @param meta the meta
 	 */
 	public void setMeta(Map<String, Object> meta) {
 		this.meta = meta;

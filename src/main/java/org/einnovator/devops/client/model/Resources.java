@@ -62,7 +62,7 @@ public class Resources extends ObjectBase {
 	/**
 	 * Set the value of property {@code memory}.
 	 *
-	 * @param memory the memory to set
+	 * @param memory the memory
 	 */
 	public void setMemory(String memory) {
 		this.memory = memory;
@@ -80,7 +80,7 @@ public class Resources extends ObjectBase {
 	/**
 	 * Set the value of property {@code cpu}.
 	 *
-	 * @param cpu the cpu to set
+	 * @param cpu the cpu
 	 */
 	public void setCpu(String cpu) {
 		this.cpu = cpu;
@@ -98,7 +98,7 @@ public class Resources extends ObjectBase {
 	/**
 	 * Set the value of property {@code disk}.
 	 *
-	 * @param disk the disk to set
+	 * @param disk the disk
 	 */
 	public void setDisk(String disk) {
 		this.disk = disk;
@@ -117,7 +117,7 @@ public class Resources extends ObjectBase {
 	/**
 	 * Set the value of property {@code memoryValue}.
 	 *
-	 * @param memoryValue the memoryValue to set
+	 * @param memoryValue the memoryValue
 	 */
 	public void setMemoryValue(Integer memoryValue) {
 		this.memoryValue = memoryValue;
@@ -135,7 +135,7 @@ public class Resources extends ObjectBase {
 	/**
 	 * Set the value of property {@code memoryUnit}.
 	 *
-	 * @param memoryUnit the memoryUnit to set
+	 * @param memoryUnit the memoryUnit
 	 */
 	public void setMemoryUnit(String memoryUnit) {
 		this.memoryUnit = memoryUnit;
@@ -153,7 +153,7 @@ public class Resources extends ObjectBase {
 	/**
 	 * Set the value of property {@code cpuValue}.
 	 *
-	 * @param cpuValue the cpuValue to set
+	 * @param cpuValue the cpuValue
 	 */
 	public void setCpuValue(Integer cpuValue) {
 		this.cpuValue = cpuValue;
@@ -171,7 +171,7 @@ public class Resources extends ObjectBase {
 	/**
 	 * Set the value of property {@code cpuUnit}.
 	 *
-	 * @param cpuUnit the cpuUnit to set
+	 * @param cpuUnit the cpuUnit
 	 */
 	public void setCpuUnit(String cpuUnit) {
 		this.cpuUnit = cpuUnit;
@@ -189,7 +189,7 @@ public class Resources extends ObjectBase {
 	/**
 	 * Set the value of property {@code diskValue}.
 	 *
-	 * @param diskValue the diskValue to set
+	 * @param diskValue the diskValue
 	 */
 	public void setDiskValue(Integer diskValue) {
 		this.diskValue = diskValue;
@@ -207,7 +207,7 @@ public class Resources extends ObjectBase {
 	/**
 	 * Set the value of property {@code diskUnit}.
 	 *
-	 * @param diskUnit the diskUnit to set
+	 * @param diskUnit the diskUnit
 	 */
 	public void setDiskUnit(String diskUnit) {
 		this.diskUnit = diskUnit;

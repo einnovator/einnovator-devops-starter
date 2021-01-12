@@ -126,7 +126,7 @@ public class CronJobOptions extends EntityOptions<CronJob> {
 	/**
 	 * Set the value of property {@code unprocessed}.
 	 *
-	 * @param unprocessed the unprocessed to set
+	 * @param unprocessed the unprocessed
 	 * @return this {@code CronJobOptions}
 	 */
 	public CronJobOptions withUnprocessed(Boolean unprocessed) {
@@ -137,7 +137,7 @@ public class CronJobOptions extends EntityOptions<CronJob> {
 	/**
 	 * Set the value of property {@code resolve}.
 	 *
-	 * @param resolve the resolve to set
+	 * @param resolve the resolve
 	 * @return this {@code CronJobOptions}
 	 */
 	public CronJobOptions withResolve(Boolean resolve) {

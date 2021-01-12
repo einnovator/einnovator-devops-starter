@@ -48,7 +48,7 @@ public class OwnedEntity extends NamedEntity {
 	/**
 	 * Set the value of property {@code owner}.
 	 *
-	 * @param owner the owner to set
+	 * @param owner the owner
 	 */
 	public void setOwner(String owner) {
 		this.owner = owner;
@@ -67,7 +67,7 @@ public class OwnedEntity extends NamedEntity {
 	/**
 	 * Set the value of property {@code ownerType}.
 	 *
-	 * @param ownerType the ownerType to set
+	 * @param ownerType the ownerType
 	 */
 	public void setOwnerType(OwnerType ownerType) {
 		this.ownerType = ownerType;
@@ -85,7 +85,7 @@ public class OwnedEntity extends NamedEntity {
 	/**
 	 * Set the value of property {@code user}.
 	 *
-	 * @param user the user to set
+	 * @param user the user
 	 */
 	public void setUser(Object user) {
 		this.user = user;
@@ -103,7 +103,7 @@ public class OwnedEntity extends NamedEntity {
 	/**
 	 * Set the value of property {@code group}.
 	 *
-	 * @param group the group to set
+	 * @param group the group
 	 */
 	public void setGroup(Object group) {
 		this.group = group;

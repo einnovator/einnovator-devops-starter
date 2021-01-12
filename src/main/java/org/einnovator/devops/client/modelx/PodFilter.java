@@ -31,7 +31,7 @@ public class PodFilter extends PodOptions {
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to set
+	 * @param q the q
 	 */
 	public void setQ(String q) {
 		this.q = q;
@@ -49,7 +49,7 @@ public class PodFilter extends PodOptions {
 	/**
 	 * Set the value of property {@code status}.
 	 *
-	 * @param status the status to set
+	 * @param status the status
 	 */
 	public void setStatus(DeploymentStatus status) {
 		this.status = status;

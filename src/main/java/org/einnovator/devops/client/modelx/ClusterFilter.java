@@ -60,7 +60,7 @@ public class ClusterFilter extends ClusterOptions {
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to set
+	 * @param q the q
 	 */
 	public void setQ(String q) {
 		this.q = q;
@@ -78,7 +78,7 @@ public class ClusterFilter extends ClusterOptions {
 	/**
 	 * Set the value of property {@code region}.
 	 *
-	 * @param region the region to set
+	 * @param region the region
 	 */
 	public void setRegion(Region region) {
 		this.region = region;
@@ -97,7 +97,7 @@ public class ClusterFilter extends ClusterOptions {
 	/**
 	 * Set the value of property {@code group}.
 	 *
-	 * @param group the group to set
+	 * @param group the group
 	 */
 	public void setGroup(String group) {
 		this.group = group;
@@ -115,7 +115,7 @@ public class ClusterFilter extends ClusterOptions {
 	/**
 	 * Set the value of property {@code groups}.
 	 *
-	 * @param groups the groups to set
+	 * @param groups the groups
 	 */
 	public void setGroups(List<String> groups) {
 		this.groups = groups;
@@ -133,7 +133,7 @@ public class ClusterFilter extends ClusterOptions {
 	/**
 	 * Set the value of property {@code owner}.
 	 *
-	 * @param owner the owner to set
+	 * @param owner the owner
 	 */
 	public void setOwner(String owner) {
 		this.owner = owner;
@@ -152,7 +152,7 @@ public class ClusterFilter extends ClusterOptions {
 	/**
 	 * Set the value of property {@code shared}.
 	 *
-	 * @param shared the shared to set
+	 * @param shared the shared
 	 */
 	public void setShared(Boolean shared) {
 		this.shared = shared;

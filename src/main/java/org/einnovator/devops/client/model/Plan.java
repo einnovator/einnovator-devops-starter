@@ -75,7 +75,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code resources}.
 	 *
-	 * @param resources the resources to set
+	 * @param resources the resources
 	 */
 	public void setResources(Resources resources) {
 		this.resources = resources;
@@ -93,7 +93,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code free}.
 	 *
-	 * @param free the free to set
+	 * @param free the free
 	 */
 	public void setFree(Boolean free) {
 		this.free = free;
@@ -112,7 +112,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code sandbox}.
 	 *
-	 * @param sandbox the sandbox to set
+	 * @param sandbox the sandbox
 	 */
 	public void setSandbox(Boolean sandbox) {
 		this.sandbox = sandbox;
@@ -150,7 +150,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code order}.
 	 *
-	 * @param order the order to set
+	 * @param order the order
 	 */
 	public void setOrder(Integer order) {
 		this.order = order;
@@ -169,7 +169,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code solutions}.
 	 *
-	 * @param solutions the solutions to set
+	 * @param solutions the solutions
 	 */
 	public void setSolutions(List<Solution> solutions) {
 		this.solutions = solutions;
@@ -188,7 +188,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code minResources}.
 	 *
-	 * @param minResources the minResources to set
+	 * @param minResources the minResources
 	 */
 	public void setMinResources(Resources minResources) {
 		this.minResources = minResources;
@@ -208,7 +208,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code maxResources}.
 	 *
-	 * @param maxResources the maxResources to set
+	 * @param maxResources the maxResources
 	 */
 	public void setMaxResources(Resources maxResources) {
 		this.maxResources = maxResources;
@@ -226,7 +226,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code currency}.
 	 *
-	 * @param currency the currency to set
+	 * @param currency the currency
 	 */
 	public void setObject(Object currency) {
 		this.currency = currency;
@@ -235,7 +235,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code priceHour}.
 	 *
-	 * @param priceHour the priceHour to set
+	 * @param priceHour the priceHour
 	 */
 	public void setPriceHour(BigDecimal priceHour) {
 		this.priceHour = priceHour;
@@ -244,7 +244,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code priceMonth}.
 	 *
-	 * @param priceMonth the priceMonth to set
+	 * @param priceMonth the priceMonth
 	 */
 	public void setPriceMonth(BigDecimal priceMonth) {
 		this.priceMonth = priceMonth;
@@ -262,7 +262,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code memoryPriceMonth}.
 	 *
-	 * @param memoryPriceMonth the memoryPriceMonth to set
+	 * @param memoryPriceMonth the memoryPriceMonth
 	 */
 	public void setInstancePriceMonth(BigDecimal memoryPriceMonth) {
 		this.memoryPriceMonth = memoryPriceMonth;
@@ -280,7 +280,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code cpuPriceMonth}.
 	 *
-	 * @param cpuPriceMonth the cpuPriceMonth to set
+	 * @param cpuPriceMonth the cpuPriceMonth
 	 */
 	public void setCpuPriceMonth(BigDecimal cpuPriceMonth) {
 		this.cpuPriceMonth = cpuPriceMonth;
@@ -298,7 +298,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code diskPriceMonth}.
 	 *
-	 * @param diskPriceMonth the diskPriceMonth to set
+	 * @param diskPriceMonth the diskPriceMonth
 	 */
 	public void setDiskPriceMonth(BigDecimal diskPriceMonth) {
 		this.diskPriceMonth = diskPriceMonth;
@@ -316,7 +316,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code memoryPriceMonth}.
 	 *
-	 * @param memoryPriceMonth the memoryPriceMonth to set
+	 * @param memoryPriceMonth the memoryPriceMonth
 	 */
 	public void setMemoryPriceMonth(BigDecimal memoryPriceMonth) {
 		this.memoryPriceMonth = memoryPriceMonth;
@@ -334,7 +334,7 @@ public class Plan extends NamedEntity {
 	/**
 	 * Set the value of property {@code plans}.
 	 *
-	 * @param plans the plans to set
+	 * @param plans the plans
 	 */
 	public void setPlans(List<Plan> plans) {
 		this.plans = plans;

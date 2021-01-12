@@ -54,7 +54,7 @@ public class File extends ObjectBase {
 	/**
 	 * Set the value of property {@code name}.
 	 *
-	 * @param name the name to set
+	 * @param name the name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -72,7 +72,7 @@ public class File extends ObjectBase {
 	/**
 	 * Set the value of property {@code path}.
 	 *
-	 * @param path the path to set
+	 * @param path the path
 	 */
 	public void setPath(String path) {
 		this.path = path;
@@ -90,7 +90,7 @@ public class File extends ObjectBase {
 	/**
 	 * Set the value of property {@code perms}.
 	 *
-	 * @param perms the perms to set
+	 * @param perms the perms
 	 */
 	public void setPerms(String perms) {
 		this.perms = perms;
@@ -108,7 +108,7 @@ public class File extends ObjectBase {
 	/**
 	 * Set the value of property {@code dir}.
 	 *
-	 * @param dir the dir to set
+	 * @param dir the dir
 	 */
 	public void setDir(boolean dir) {
 		this.dir = dir;
@@ -126,7 +126,7 @@ public class File extends ObjectBase {
 	/**
 	 * Set the value of property {@code sub}.
 	 *
-	 * @param sub the sub to set
+	 * @param sub the sub
 	 */
 	public void setSub(Integer sub) {
 		this.sub = sub;
@@ -144,7 +144,7 @@ public class File extends ObjectBase {
 	/**
 	 * Set the value of property {@code owner}.
 	 *
-	 * @param owner the owner to set
+	 * @param owner the owner
 	 */
 	public void setOwner(String owner) {
 		this.owner = owner;
@@ -162,7 +162,7 @@ public class File extends ObjectBase {
 	/**
 	 * Set the value of property {@code group}.
 	 *
-	 * @param group the group to set
+	 * @param group the group
 	 */
 	public void setGroup(String group) {
 		this.group = group;
@@ -180,7 +180,7 @@ public class File extends ObjectBase {
 	/**
 	 * Set the value of property {@code size}.
 	 *
-	 * @param size the size to set
+	 * @param size the size
 	 */
 	public void setSize(Integer size) {
 		this.size = size;
@@ -198,7 +198,7 @@ public class File extends ObjectBase {
 	/**
 	 * Set the value of property {@code month}.
 	 *
-	 * @param month the month to set
+	 * @param month the month
 	 */
 	public void setMonth(String month) {
 		this.month = month;
@@ -216,7 +216,7 @@ public class File extends ObjectBase {
 	/**
 	 * Set the value of property {@code day}.
 	 *
-	 * @param day the day to set
+	 * @param day the day
 	 */
 	public void setDay(String day) {
 		this.day = day;
@@ -234,7 +234,7 @@ public class File extends ObjectBase {
 	/**
 	 * Set the value of property {@code hhmm}.
 	 *
-	 * @param hhmm the hhmm to set
+	 * @param hhmm the hhmm
 	 */
 	public void setHhmm(String hhmm) {
 		this.hhmm = hhmm;
@@ -252,7 +252,7 @@ public class File extends ObjectBase {
 	/**
 	 * Set the value of property {@code lastModifiedFormatted}.
 	 *
-	 * @param lastModifiedFormatted the lastModifiedFormatted to set
+	 * @param lastModifiedFormatted the lastModifiedFormatted
 	 */
 	public void setLastModifiedFormatted(String lastModifiedFormatted) {
 		this.lastModifiedFormatted = lastModifiedFormatted;

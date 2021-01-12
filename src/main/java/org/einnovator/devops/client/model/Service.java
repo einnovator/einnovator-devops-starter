@@ -254,7 +254,7 @@ public class Service extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code status}.
 	 *
-	 * @param status the status to set
+	 * @param status the status
 	 */
 	public void setStatus(DeploymentStatus status) {
 		this.status = status;

@@ -64,7 +64,7 @@ public class Vcs extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code credentialsType}.
 	 *
-	 * @param credentialsType the credentialsType to set
+	 * @param credentialsType the credentialsType
 	 */
 	public void setCredentialsType(CredentialsType credentialsType) {
 		this.credentialsType = credentialsType;
@@ -82,7 +82,7 @@ public class Vcs extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code username}.
 	 *
-	 * @param username the username to set
+	 * @param username the username
 	 */
 	public void setUsername(String username) {
 		this.username = username;
@@ -100,7 +100,7 @@ public class Vcs extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code password}.
 	 *
-	 * @param password the password to set
+	 * @param password the password
 	 */
 	public void setPassword(String password) {
 		this.password = password;
@@ -118,7 +118,7 @@ public class Vcs extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code token}.
 	 *
-	 * @param token the token to set
+	 * @param token the token
 	 */
 	public void setToken(String token) {
 		this.token = token;
@@ -138,7 +138,7 @@ public class Vcs extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code url}.
 	 *
-	 * @param url the url to set
+	 * @param url the url
 	 */
 	public void setUrl(String url) {
 		this.url = url;
@@ -156,7 +156,7 @@ public class Vcs extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code key}.
 	 *
-	 * @param key the key to set
+	 * @param key the key
 	 */
 	public void setKey(String key) {
 		this.key = key;
@@ -174,7 +174,7 @@ public class Vcs extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code jsonKey}.
 	 *
-	 * @param jsonKey the jsonKey to set
+	 * @param jsonKey the jsonKey
 	 */
 	public void setJsonKey(String jsonKey) {
 		this.jsonKey = jsonKey;
@@ -193,7 +193,7 @@ public class Vcs extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code secret}.
 	 *
-	 * @param secret the secret to set
+	 * @param secret the secret
 	 */
 	public void setSecret(String secret) {
 		this.secret = secret;
@@ -211,7 +211,7 @@ public class Vcs extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code authorities}.
 	 *
-	 * @param authorities the authorities to set
+	 * @param authorities the authorities
 	 */
 	public void setAuthorities(List<Authority> authorities) {
 		this.authorities = authorities;

@@ -86,7 +86,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code currentBalance}.
 	 *
-	 * @param currentBalance the currentBalance to set
+	 * @param currentBalance the currentBalance
 	 */
 	public void setCurrentBalance(BigDecimal currentBalance) {
 		this.currentBalance = currentBalance;
@@ -105,7 +105,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code pendingBalance}.
 	 *
-	 * @param pendingBalance the pendingBalance to set
+	 * @param pendingBalance the pendingBalance
 	 */
 	public void setPendingBalance(BigDecimal pendingBalance) {
 		this.pendingBalance = pendingBalance;
@@ -125,7 +125,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code totalBalance}.
 	 *
-	 * @param totalBalance the totalBalance to set
+	 * @param totalBalance the totalBalance
 	 */
 	public void setTotalBalance(BigDecimal totalBalance) {
 		this.totalBalance = totalBalance;
@@ -145,7 +145,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code currency}.
 	 *
-	 * @param currency the currency to set
+	 * @param currency the currency
 	 */
 	public void setCurrency(Object currency) {
 		this.currency = currency;
@@ -165,7 +165,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code refund}.
 	 *
-	 * @param refund the refund to set
+	 * @param refund the refund
 	 */
 	public void setRefund(BigDecimal refund) {
 		this.refund = refund;
@@ -185,7 +185,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code credit}.
 	 *
-	 * @param credit the credit to set
+	 * @param credit the credit
 	 */
 	public void setCredit(BigDecimal credit) {
 		this.credit = credit;
@@ -205,7 +205,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code creditExpires}.
 	 *
-	 * @param creditExpires the creditExpires to set
+	 * @param creditExpires the creditExpires
 	 */
 	public void setCreditExpires(Date creditExpires) {
 		this.creditExpires = creditExpires;
@@ -224,7 +224,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code upgraded}.
 	 *
-	 * @param upgraded the upgraded to set
+	 * @param upgraded the upgraded
 	 */
 	public void setUpgraded(Boolean upgraded) {
 		this.upgraded = upgraded;
@@ -242,7 +242,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code upgradeDate}.
 	 *
-	 * @param upgradeDate the upgradeDate to set
+	 * @param upgradeDate the upgradeDate
 	 */
 	public void setUpgradeDate(Date upgradeDate) {
 		this.upgradeDate = upgradeDate;
@@ -260,7 +260,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code accountId}.
 	 *
-	 * @param accountId the accountId to set
+	 * @param accountId the accountId
 	 */
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
@@ -278,7 +278,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code account}.
 	 *
-	 * @param account the account to set
+	 * @param account the account
 	 */
 	public void setAccount(Object account) {
 		this.account = account;
@@ -297,7 +297,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code upgradePaymentId}.
 	 *
-	 * @param upgradePaymentId the upgradePaymentId to set
+	 * @param upgradePaymentId the upgradePaymentId
 	 */
 	public void setUpgradePaymentId(String upgradePaymentId) {
 		this.upgradePaymentId = upgradePaymentId;
@@ -316,7 +316,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code paymentId}.
 	 *
-	 * @param paymentId the paymentId to set
+	 * @param paymentId the paymentId
 	 */
 	public void setPaymentId(String paymentId) {
 		this.paymentId = paymentId;
@@ -335,7 +335,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code payment}.
 	 *
-	 * @param payment the payment to set
+	 * @param payment the payment
 	 */
 	public void setPayment(Object payment) {
 		this.payment = payment;
@@ -354,7 +354,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code paymentStatus}.
 	 *
-	 * @param paymentStatus the paymentStatus to set
+	 * @param paymentStatus the paymentStatus
 	 */
 	public void setPaymentStatus(Object paymentStatus) {
 		this.paymentStatus = paymentStatus;
@@ -374,7 +374,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code lastUpdate}.
 	 *
-	 * @param lastUpdate the lastUpdate to set
+	 * @param lastUpdate the lastUpdate
 	 */
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
@@ -393,7 +393,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code paymentIssuedDate}.
 	 *
-	 * @param paymentIssuedDate the paymentIssuedDate to set
+	 * @param paymentIssuedDate the paymentIssuedDate
 	 */
 	public void setPaymentIssuedDate(Date paymentIssuedDate) {
 		this.paymentIssuedDate = paymentIssuedDate;
@@ -412,7 +412,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code paymentCompletedDate}.
 	 *
-	 * @param paymentCompletedDate the paymentCompletedDate to set
+	 * @param paymentCompletedDate the paymentCompletedDate
 	 */
 	public void setPaymentCompletedDate(Date paymentCompletedDate) {
 		this.paymentCompletedDate = paymentCompletedDate;
@@ -431,7 +431,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code paymentDeadline}.
 	 *
-	 * @param paymentDeadline the paymentDeadline to set
+	 * @param paymentDeadline the paymentDeadline
 	 */
 	public void setPaymentDeadline(Date paymentDeadline) {
 		this.paymentDeadline = paymentDeadline;
@@ -449,7 +449,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code priceHour}.
 	 *
-	 * @param priceHour the priceHour to set
+	 * @param priceHour the priceHour
 	 */
 	public void setPriceHour(BigDecimal priceHour) {
 		this.priceHour = priceHour;
@@ -467,7 +467,7 @@ public class Billing extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code priceMonth}.
 	 *
-	 * @param priceMonth the priceMonth to set
+	 * @param priceMonth the priceMonth
 	 */
 	public void setPriceMonth(BigDecimal priceMonth) {
 		this.priceMonth = priceMonth;

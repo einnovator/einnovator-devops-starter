@@ -101,7 +101,7 @@ public class RegistryFilter extends RegistryOptions {
 	/**
 	 * Set the value of property {@code private_}.
 	 *
-	 * @param private_ the private_ to set
+	 * @param private_ the private_
 	 */
 	public void setPrivate(Boolean private_) {
 		this.private_ = private_;

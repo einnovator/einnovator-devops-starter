@@ -73,7 +73,7 @@ public class Environment extends EntityBase {
 	/**
 	 * Set the value of property {@code variables}.
 	 *
-	 * @param vars the variables to set
+	 * @param vars the variables
 	 */
 	public void setVariables(List<Variable> vars) {
 		this.vars = vars;
@@ -93,7 +93,7 @@ public class Environment extends EntityBase {
 	/**
 	 * Set the value of property {@code scope}.
 	 *
-	 * @param scope the scope to set
+	 * @param scope the scope
 	 */
 	public void setScope(Scope scope) {
 		this.scope = scope;
@@ -102,7 +102,7 @@ public class Environment extends EntityBase {
 	/**
 	 * Set the value of property {@code vars}.
 	 *
-	 * @param vars the vars to set
+	 * @param vars the vars
 	 */
 	public void setVars(List<Variable> vars) {
 		this.vars = vars;

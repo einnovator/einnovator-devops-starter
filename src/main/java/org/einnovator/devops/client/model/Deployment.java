@@ -135,7 +135,7 @@ public class Deployment extends DeploymentBase {
 	/**
 	 * Set the value of property {@code sandbox}.
 	 *
-	 * @param sandbox the sandbox to set
+	 * @param sandbox the sandbox
 	 */
 	public void setSandbox(Boolean sandbox) {
 		this.sandbox = sandbox;
@@ -171,7 +171,7 @@ public class Deployment extends DeploymentBase {
 	/**
 	 * Set the value of property {@code replicas}.
 	 *
-	 * @param replicas the replicas to set
+	 * @param replicas the replicas
 	 */
 	public void setReplicas(Integer replicas) {
 		this.replicas = replicas;
@@ -189,7 +189,7 @@ public class Deployment extends DeploymentBase {
 	/**
 	 * Set the value of property {@code desiredReplicas}.
 	 *
-	 * @param desiredReplicas the desiredReplicas to set
+	 * @param desiredReplicas the desiredReplicas
 	 */
 	public void setDesiredReplicas(Integer desiredReplicas) {
 		this.desiredReplicas = desiredReplicas;
@@ -207,7 +207,7 @@ public class Deployment extends DeploymentBase {
 	/**
 	 * Set the value of property {@code readyReplicas}.
 	 *
-	 * @param readyReplicas the readyReplicas to set
+	 * @param readyReplicas the readyReplicas
 	 */
 	public void setReadyReplicas(Integer readyReplicas) {
 		this.readyReplicas = readyReplicas;
@@ -225,7 +225,7 @@ public class Deployment extends DeploymentBase {
 	/**
 	 * Set the value of property {@code availableReplicas}.
 	 *
-	 * @param availableReplicas the availableReplicas to set
+	 * @param availableReplicas the availableReplicas
 	 */
 	public void setAvailableReplicas(Integer availableReplicas) {
 		this.availableReplicas = availableReplicas;
@@ -243,7 +243,7 @@ public class Deployment extends DeploymentBase {
 	/**
 	 * Set the value of property {@code unavailableReplicas}.
 	 *
-	 * @param unavailableReplicas the unavailableReplicas to set
+	 * @param unavailableReplicas the unavailableReplicas
 	 */
 	public void setUnavailableReplicas(Integer unavailableReplicas) {
 		this.unavailableReplicas = unavailableReplicas;
@@ -261,7 +261,7 @@ public class Deployment extends DeploymentBase {
 	/**
 	 * Set the value of property {@code updatedReplicas}.
 	 *
-	 * @param updatedReplicas the updatedReplicas to set
+	 * @param updatedReplicas the updatedReplicas
 	 */
 	public void setUpdatedReplicas(Integer updatedReplicas) {
 		this.updatedReplicas = updatedReplicas;
@@ -280,7 +280,7 @@ public class Deployment extends DeploymentBase {
 	/**
 	 * Set the value of property {@code binds}.
 	 *
-	 * @param binds the binds to set
+	 * @param binds the binds
 	 */
 	public void setBinds(Boolean binds) {
 		this.binds = binds;
@@ -298,7 +298,7 @@ public class Deployment extends DeploymentBase {
 	/**
 	 * Set the value of property {@code serviceName}.
 	 *
-	 * @param serviceName the serviceName to set
+	 * @param serviceName the serviceName
 	 */
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
@@ -353,7 +353,7 @@ public class Deployment extends DeploymentBase {
 	/**
 	 * Set the value of property {@code ingress}.
 	 *
-	 * @param ingress the ingress to set
+	 * @param ingress the ingress
 	 */
 	public void setIngress(String ingress) {
 		this.ingress = ingress;
@@ -371,7 +371,7 @@ public class Deployment extends DeploymentBase {
 	/**
 	 * Set the value of property {@code autoConnectors}.
 	 *
-	 * @param autoConnectors the autoConnectors to set
+	 * @param autoConnectors the autoConnectors
 	 */
 	public void setAutoConnectors(Boolean autoConnectors) {
 		this.autoConnectors = autoConnectors;

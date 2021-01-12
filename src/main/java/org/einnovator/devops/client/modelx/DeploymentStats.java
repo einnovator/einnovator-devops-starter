@@ -48,7 +48,7 @@ public class DeploymentStats extends ObjectBase {
 	/**
 	 * Set the value of property {@code total}.
 	 *
-	 * @param total the total to set
+	 * @param total the total
 	 */
 	public void setTotal(Long total) {
 		this.total = total;
@@ -66,7 +66,7 @@ public class DeploymentStats extends ObjectBase {
 	/**
 	 * Set the value of property {@code countByStatus}.
 	 *
-	 * @param countByStatus the countByStatus to set
+	 * @param countByStatus the countByStatus
 	 */
 	public void setCountByStatus(Map<DeploymentStatus, Long> countByStatus) {
 		this.countByStatus = countByStatus;
@@ -84,7 +84,7 @@ public class DeploymentStats extends ObjectBase {
 	/**
 	 * Set the value of property {@code countByType}.
 	 *
-	 * @param countByType the countByType to set
+	 * @param countByType the countByType
 	 */
 	public void setCountByType(Map<SolutionType, Long> countByType) {
 		this.countByType = countByType;

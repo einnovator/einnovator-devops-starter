@@ -47,7 +47,7 @@ public class ConfigMap extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code kind}.
 	 *
-	 * @param kind the kind to set
+	 * @param kind the kind
 	 */
 	public void setKind(String kind) {
 		this.kind = kind;
@@ -65,7 +65,7 @@ public class ConfigMap extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code data}.
 	 *
-	 * @param data the data to set
+	 * @param data the data
 	 */
 	public void setData(Map<String, String> data) {
 		this.data = data;
@@ -83,7 +83,7 @@ public class ConfigMap extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code binData}.
 	 *
-	 * @param binData the binData to set
+	 * @param binData the binData
 	 */
 	public void setBinData(Map<String, String> binData) {
 		this.binData = binData;
@@ -101,7 +101,7 @@ public class ConfigMap extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code meta}.
 	 *
-	 * @param meta the meta to set
+	 * @param meta the meta
 	 */
 	public void setMeta(Map<String, Object> meta) {
 		this.meta = meta;

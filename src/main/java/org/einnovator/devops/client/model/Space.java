@@ -57,7 +57,7 @@ public class Space extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code deployments}.
 	 *
-	 * @param deployments the deployments to set
+	 * @param deployments the deployments
 	 */
 	public void setDeployments(List<Deployment> deployments) {
 		this.deployments = deployments;
@@ -132,7 +132,7 @@ public class Space extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code cluster}.
 	 *
-	 * @param cluster the cluster to set
+	 * @param cluster the cluster
 	 */
 	public void setCluster(Cluster cluster) {
 		this.cluster = cluster;
@@ -150,7 +150,7 @@ public class Space extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code namespace}.
 	 *
-	 * @param namespace the namespace to set
+	 * @param namespace the namespace
 	 */
 	public void setNamespace(String namespace) {
 		this.namespace = namespace;
@@ -169,7 +169,7 @@ public class Space extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code deployStats}.
 	 *
-	 * @param deployStats the deployStats to set
+	 * @param deployStats the deployStats
 	 */
 	public void setDeployStats(Map<DeploymentStatus, Integer> deployStats) {
 		this.deployStats = deployStats;
@@ -188,7 +188,7 @@ public class Space extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code volumeClaims}.
 	 *
-	 * @param volumeClaims the volumeClaims to set
+	 * @param volumeClaims the volumeClaims
 	 */
 	public void setVolumeClaims(List<VolumeClaim> volumeClaims) {
 		this.volumeClaims = volumeClaims;
@@ -207,7 +207,7 @@ public class Space extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code bill}.
 	 *
-	 * @param bill the bill to set
+	 * @param bill the bill
 	 */
 	public void setBill(Bill bill) {
 		this.bill = bill;

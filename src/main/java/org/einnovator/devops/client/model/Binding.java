@@ -62,7 +62,7 @@ public class Binding extends EntityBase {
 	/**
 	 * Set the value of property {@code selector}.
 	 *
-	 * @param selector the selector to set
+	 * @param selector the selector
 	 */
 	public void setSelector(String selector) {
 		this.selector = selector;
@@ -80,7 +80,7 @@ public class Binding extends EntityBase {
 	/**
 	 * Set the value of property {@code spec}.
 	 *
-	 * @param spec the spec to set
+	 * @param spec the spec
 	 */
 	public void setSpec(Map<String, Object> spec) {
 		this.spec = spec;
@@ -99,7 +99,7 @@ public class Binding extends EntityBase {
 	/**
 	 * Set the value of property {@code serviceName}.
 	 *
-	 * @param serviceName the serviceName to set
+	 * @param serviceName the serviceName
 	 */
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
@@ -117,7 +117,7 @@ public class Binding extends EntityBase {
 	/**
 	 * Set the value of property {@code connector}.
 	 *
-	 * @param connector the connector to set
+	 * @param connector the connector
 	 */
 	public void setConnector(Connector connector) {
 		this.connector = connector;
@@ -135,7 +135,7 @@ public class Binding extends EntityBase {
 	/**
 	 * Set the value of property {@code meta}.
 	 *
-	 * @param meta the meta to set
+	 * @param meta the meta
 	 */
 	public void setMeta(Map<String, Object> meta) {
 		this.meta = meta;

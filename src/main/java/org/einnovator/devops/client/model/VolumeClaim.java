@@ -39,7 +39,7 @@ public class VolumeClaim extends OwnedEntity {
 	/**
 	 * Set the value of property {@code volume}.
 	 *
-	 * @param volume the volume to set
+	 * @param volume the volume
 	 */
 	public void setVolume(Volume volume) {
 		this.volume = volume;
@@ -59,7 +59,7 @@ public class VolumeClaim extends OwnedEntity {
 	/**
 	 * Set the value of property {@code namespace}.
 	 *
-	 * @param namespace the namespace to set
+	 * @param namespace the namespace
 	 */
 	public void setNamespace(String namespace) {
 		this.namespace = namespace;
@@ -79,7 +79,7 @@ public class VolumeClaim extends OwnedEntity {
 	/**
 	 * Set the value of property {@code volumeName}.
 	 *
-	 * @param volumeName the volumeName to set
+	 * @param volumeName the volumeName
 	 */
 	public void setVolumeName(String volumeName) {
 		this.volumeName = volumeName;
@@ -99,7 +99,7 @@ public class VolumeClaim extends OwnedEntity {
 	/**
 	 * Set the value of property {@code mode}.
 	 *
-	 * @param mode the mode to set
+	 * @param mode the mode
 	 */
 	public void setMode(String mode) {
 		this.mode = mode;
@@ -119,7 +119,7 @@ public class VolumeClaim extends OwnedEntity {
 	/**
 	 * Set the value of property {@code storageClass}.
 	 *
-	 * @param storageClass the storageClass to set
+	 * @param storageClass the storageClass
 	 */
 	public void setStorageClass(String storageClass) {
 		this.storageClass = storageClass;
@@ -139,7 +139,7 @@ public class VolumeClaim extends OwnedEntity {
 	/**
 	 * Set the value of property {@code size}.
 	 *
-	 * @param size the size to set
+	 * @param size the size
 	 */
 	public void setSize(String size) {
 		this.size = size;

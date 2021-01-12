@@ -60,7 +60,7 @@ public class Bill extends ObjectBase {
 	/**
 	 * Set the value of property {@code currentBalance}.
 	 *
-	 * @param currentBalance the currentBalance to set
+	 * @param currentBalance the currentBalance
 	 */
 	public void setCurrentBalance(BigDecimal currentBalance) {
 		this.currentBalance = currentBalance;
@@ -80,7 +80,7 @@ public class Bill extends ObjectBase {
 	/**
 	 * Set the value of property {@code pendingBalance}.
 	 *
-	 * @param pendingBalance the pendingBalance to set
+	 * @param pendingBalance the pendingBalance
 	 */
 	public void setPendingBalance(BigDecimal pendingBalance) {
 		this.pendingBalance = pendingBalance;
@@ -100,7 +100,7 @@ public class Bill extends ObjectBase {
 	/**
 	 * Set the value of property {@code totalBalance}.
 	 *
-	 * @param totalBalance the totalBalance to set
+	 * @param totalBalance the totalBalance
 	 */
 	public void setTotalBalance(BigDecimal totalBalance) {
 		this.totalBalance = totalBalance;
@@ -120,7 +120,7 @@ public class Bill extends ObjectBase {
 	/**
 	 * Set the value of property {@code currency}.
 	 *
-	 * @param currency the currency to set
+	 * @param currency the currency
 	 */
 	public void setObject(Object currency) {
 		this.currency = currency;
@@ -140,7 +140,7 @@ public class Bill extends ObjectBase {
 	/**
 	 * Set the value of property {@code lastUpdate}.
 	 *
-	 * @param lastUpdate the lastUpdate to set
+	 * @param lastUpdate the lastUpdate
 	 */
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
@@ -160,7 +160,7 @@ public class Bill extends ObjectBase {
 	/**
 	 * Set the value of property {@code priceHour}.
 	 *
-	 * @param priceHour the priceHour to set
+	 * @param priceHour the priceHour
 	 */
 	public void setPriceHour(BigDecimal priceHour) {
 		this.priceHour = priceHour;
@@ -179,7 +179,7 @@ public class Bill extends ObjectBase {
 	/**
 	 * Set the value of property {@code priceMonth}.
 	 *
-	 * @param priceMonth the priceMonth to set
+	 * @param priceMonth the priceMonth
 	 */
 	public void setPriceMonth(BigDecimal priceMonth) {
 		this.priceMonth = priceMonth;
@@ -199,7 +199,7 @@ public class Bill extends ObjectBase {
 	/**
 	 * Set the value of property {@code free}.
 	 *
-	 * @param free the free to set
+	 * @param free the free
 	 */
 	public void setFree(Boolean free) {
 		this.free = free;

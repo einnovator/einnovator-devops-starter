@@ -54,7 +54,7 @@ public class Route extends EntityBase {
 	/**
 	 * Set the value of property {@code host}.
 	 *
-	 * @param host the host to set
+	 * @param host the host
 	 */
 	public void setHost(String host) {
 		this.host = host;
@@ -72,7 +72,7 @@ public class Route extends EntityBase {
 	/**
 	 * Set the value of property {@code domain}.
 	 *
-	 * @param domain the domain to set
+	 * @param domain the domain
 	 */
 	public void setDomain(Domain domain) {
 		this.domain = domain;
@@ -90,7 +90,7 @@ public class Route extends EntityBase {
 	/**
 	 * Set the value of property {@code dns}.
 	 *
-	 * @param dns the dns to set
+	 * @param dns the dns
 	 */
 	public void setDns(String dns) {
 		this.dns = dns;
@@ -108,7 +108,7 @@ public class Route extends EntityBase {
 	/**
 	 * Set the value of property {@code tls}.
 	 *
-	 * @param tls the tls to set
+	 * @param tls the tls
 	 */
 	public void setTls(Boolean tls) {
 		this.tls = tls;
@@ -126,7 +126,7 @@ public class Route extends EntityBase {
 	/**
 	 * Set the value of property {@code certificate}.
 	 *
-	 * @param certificate the certificate to set
+	 * @param certificate the certificate
 	 */
 	public void setCertificate(Certificate certificate) {
 		this.certificate = certificate;

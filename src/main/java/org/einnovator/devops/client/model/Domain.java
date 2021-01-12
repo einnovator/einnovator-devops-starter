@@ -53,7 +53,7 @@ public class Domain extends BilledEntity {
 	/**
 	 * Set the value of property {@code dns}.
 	 *
-	 * @param dns the dns to set
+	 * @param dns the dns
 	 */
 	public void setDns(String dns) {
 		this.dns = dns;
@@ -73,7 +73,7 @@ public class Domain extends BilledEntity {
 	/**
 	 * Set the value of property {@code sandbox}.
 	 *
-	 * @param sandbox the sandbox to set
+	 * @param sandbox the sandbox
 	 */
 	public void setSandbox(Boolean sandbox) {
 		this.sandbox = sandbox;
@@ -92,7 +92,7 @@ public class Domain extends BilledEntity {
 	/**
 	 * Set the value of property {@code verified}.
 	 *
-	 * @param verified the verified to set
+	 * @param verified the verified
 	 */
 	public void setVerified(Boolean verified) {
 		this.verified = verified;
@@ -112,7 +112,7 @@ public class Domain extends BilledEntity {
 	/**
 	 * Set the value of property {@code parent}.
 	 *
-	 * @param parent the parent to set
+	 * @param parent the parent
 	 */
 	public void setParent(String parent) {
 		this.parent = parent;
@@ -130,7 +130,7 @@ public class Domain extends BilledEntity {
 	/**
 	 * Set the value of property {@code root}.
 	 *
-	 * @param root the root to set
+	 * @param root the root
 	 */
 	public void setRoot(Boolean root) {
 		this.root = root;
@@ -148,7 +148,7 @@ public class Domain extends BilledEntity {
 	/**
 	 * Set the value of property {@code enabled}.
 	 *
-	 * @param enabled the enabled to set
+	 * @param enabled the enabled
 	 */
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
@@ -167,7 +167,7 @@ public class Domain extends BilledEntity {
 	/**
 	 * Set the value of property {@code tls}.
 	 *
-	 * @param tls the tls to set
+	 * @param tls the tls
 	 */
 	public void setTls(Boolean tls) {
 		this.tls = tls;
@@ -185,7 +185,7 @@ public class Domain extends BilledEntity {
 	/**
 	 * Set the value of property {@code certificate}.
 	 *
-	 * @param certificate the certificate to set
+	 * @param certificate the certificate
 	 */
 	public void setCertificate(Certificate certificate) {
 		this.certificate = certificate;

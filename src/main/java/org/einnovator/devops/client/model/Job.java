@@ -59,7 +59,7 @@ public class Job extends JobBase {
 	/**
 	 * Set the value of property {@code completions}.
 	 *
-	 * @param completions the completions to set
+	 * @param completions the completions
 	 */
 	public void setCompletions(Integer completions) {
 		this.completions = completions;
@@ -77,7 +77,7 @@ public class Job extends JobBase {
 	/**
 	 * Set the value of property {@code parallelism}.
 	 *
-	 * @param parallelism the parallelism to set
+	 * @param parallelism the parallelism
 	 */
 	public void setParallelism(Integer parallelism) {
 		this.parallelism = parallelism;
@@ -95,7 +95,7 @@ public class Job extends JobBase {
 	/**
 	 * Set the value of property {@code backoffLimit}.
 	 *
-	 * @param backoffLimit the backoffLimit to set
+	 * @param backoffLimit the backoffLimit
 	 */
 	public void setBackoffLimit(Integer backoffLimit) {
 		this.backoffLimit = backoffLimit;
@@ -113,7 +113,7 @@ public class Job extends JobBase {
 	/**
 	 * Set the value of property {@code manualSelector}.
 	 *
-	 * @param manualSelector the manualSelector to set
+	 * @param manualSelector the manualSelector
 	 */
 	public void setManualSelector(Boolean manualSelector) {
 		this.manualSelector = manualSelector;
@@ -132,7 +132,7 @@ public class Job extends JobBase {
 	/**
 	 * Set the value of property {@code ttlSecondsAfterFinished}.
 	 *
-	 * @param ttlSecondsAfterFinished the ttlSecondsAfterFinished to set
+	 * @param ttlSecondsAfterFinished the ttlSecondsAfterFinished
 	 */
 	public void setTtlSecondsAfterFinished(Integer ttlSecondsAfterFinished) {
 		this.ttlSecondsAfterFinished = ttlSecondsAfterFinished;

@@ -44,7 +44,7 @@ public class ServiceFilter extends ServiceOptions {
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to set
+	 * @param q the q
 	 */
 	public void setQ(String q) {
 		this.q = q;
@@ -64,7 +64,7 @@ public class ServiceFilter extends ServiceOptions {
 	/**
 	 * Set the value of property {@code type}.
 	 *
-	 * @param type the type to set
+	 * @param type the type
 	 */
 	public void setType(ServiceType type) {
 		this.type = type;

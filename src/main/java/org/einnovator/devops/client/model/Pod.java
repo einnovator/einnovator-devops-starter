@@ -59,7 +59,7 @@ public class Pod extends DeploymentBase {
 	/**
 	 * Set the value of property {@code status}.
 	 *
-	 * @param status the status to set
+	 * @param status the status
 	 */
 	public void setStatus(DeploymentStatus status) {
 		this.status = status;
@@ -77,7 +77,7 @@ public class Pod extends DeploymentBase {
 	/**
 	 * Set the value of property {@code index}.
 	 *
-	 * @param index the index to set
+	 * @param index the index
 	 */
 	public void setIndex(Integer index) {
 		this.index = index;
@@ -95,7 +95,7 @@ public class Pod extends DeploymentBase {
 	/**
 	 * Set the value of property {@code endpoint}.
 	 *
-	 * @param endpoint the endpoint to set
+	 * @param endpoint the endpoint
 	 */
 	public void setEndpoint(Endpoint endpoint) {
 		this.endpoint = endpoint;
@@ -113,7 +113,7 @@ public class Pod extends DeploymentBase {
 	/**
 	 * Set the value of property {@code reason}.
 	 *
-	 * @param reason the reason to set
+	 * @param reason the reason
 	 */
 	public void setReason(String reason) {
 		this.reason = reason;
@@ -132,7 +132,7 @@ public class Pod extends DeploymentBase {
 	/**
 	 * Set the value of property {@code meta}.
 	 *
-	 * @param meta the meta to set
+	 * @param meta the meta
 	 */
 	public void setMeta(Map<String, Object> meta) {
 		this.meta = meta;
@@ -150,7 +150,7 @@ public class Pod extends DeploymentBase {
 	/**
 	 * Set the value of property {@code startedAtFormatted}.
 	 *
-	 * @param startedAtFormatted the startedAtFormatted to set
+	 * @param startedAtFormatted the startedAtFormatted
 	 */
 	public void setStartedAtFormatted(String startedAtFormatted) {
 		this.startedAtFormatted = startedAtFormatted;
@@ -168,7 +168,7 @@ public class Pod extends DeploymentBase {
 	/**
 	 * Set the value of property {@code startedAt}.
 	 *
-	 * @param startedAt the startedAt to set
+	 * @param startedAt the startedAt
 	 */
 	public void setStartedAt(Date startedAt) {
 		this.startedAt = startedAt;
@@ -186,7 +186,7 @@ public class Pod extends DeploymentBase {
 	/**
 	 * Set the value of property {@code finishedAtFormatted}.
 	 *
-	 * @param finishedAtFormatted the finishedAtFormatted to set
+	 * @param finishedAtFormatted the finishedAtFormatted
 	 */
 	public void setFinishedAtFormatted(String finishedAtFormatted) {
 		this.finishedAtFormatted = finishedAtFormatted;
@@ -205,7 +205,7 @@ public class Pod extends DeploymentBase {
 	/**
 	 * Set the value of property {@code finishedAt}.
 	 *
-	 * @param finishedAt the finishedAt to set
+	 * @param finishedAt the finishedAt
 	 */
 	public void setFinishedAt(Date finishedAt) {
 		this.finishedAt = finishedAt;
@@ -283,7 +283,7 @@ public class Pod extends DeploymentBase {
 	/**
 	 * Set the value of property {@code bill}.
 	 *
-	 * @param bill the bill to set
+	 * @param bill the bill
 	 */
 	public void setBill(Bill bill) {
 		this.bill = bill;

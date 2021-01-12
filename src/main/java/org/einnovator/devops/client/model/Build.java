@@ -46,7 +46,7 @@ public class Build extends NamedEntity {
 	}
 
 	/**
-	 * @param status the status to set
+	 * @param status the status
 	 */
 	public void setStatus(String status) {
 		this.status = status;
@@ -60,7 +60,7 @@ public class Build extends NamedEntity {
 	}
 
 	/**
-	 * @param message the message to set
+	 * @param message the message
 	 */
 	public void setMessage(String message) {
 		this.message = message;
@@ -74,7 +74,7 @@ public class Build extends NamedEntity {
 	}
 
 	/**
-	 * @param shortMessage the shortMessage to set
+	 * @param shortMessage the shortMessage
 	 */
 	public void setShortMessage(String shortMessage) {
 		this.shortMessage = shortMessage;
@@ -88,7 +88,7 @@ public class Build extends NamedEntity {
 	}
 
 	/**
-	 * @param pod the pod to set
+	 * @param pod the pod
 	 */
 	public void setPod(String pod) {
 		this.pod = pod;
@@ -102,7 +102,7 @@ public class Build extends NamedEntity {
 	}
 
 	/**
-	 * @param step the step to set
+	 * @param step the step
 	 */
 	public void setStep(String step) {
 		this.step = step;
@@ -116,7 +116,7 @@ public class Build extends NamedEntity {
 	}
 
 	/**
-	 * @param container the container to set
+	 * @param container the container
 	 */
 	public void setContainer(String container) {
 		this.container = container;
@@ -130,7 +130,7 @@ public class Build extends NamedEntity {
 	}
 
 	/**
-	 * @param startTime the startTime to set
+	 * @param startTime the startTime
 	 */
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
@@ -144,7 +144,7 @@ public class Build extends NamedEntity {
 	}
 
 	/**
-	 * @param endTime the endTime to set
+	 * @param endTime the endTime
 	 */
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;

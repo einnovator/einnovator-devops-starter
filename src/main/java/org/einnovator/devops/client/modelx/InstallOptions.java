@@ -62,7 +62,7 @@ public class InstallOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code name}.
 	 *
-	 * @param name the name to set
+	 * @param name the name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -98,7 +98,7 @@ public class InstallOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code start}.
 	 *
-	 * @param start the start to set
+	 * @param start the start
 	 */
 	public void setStart(Boolean start) {
 		this.start = start;
@@ -116,7 +116,7 @@ public class InstallOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code resources}.
 	 *
-	 * @param resources the resources to set
+	 * @param resources the resources
 	 */
 	public void setResources(Resources resources) {
 		this.resources = resources;
@@ -134,7 +134,7 @@ public class InstallOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code plan}.
 	 *
-	 * @param plan the plan to set
+	 * @param plan the plan
 	 */
 	public void setPlan(String plan) {
 		this.plan = plan;
@@ -170,7 +170,7 @@ public class InstallOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code space}.
 	 *
-	 * @param space the space to set
+	 * @param space the space
 	 */
 	public void setSpace(String space) {
 		this.space = space;
@@ -206,7 +206,7 @@ public class InstallOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code host}.
 	 *
-	 * @param host the host to set
+	 * @param host the host
 	 */
 	public void setHost(String host) {
 		this.host = host;
@@ -224,7 +224,7 @@ public class InstallOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code domain}.
 	 *
-	 * @param domain the domain to set
+	 * @param domain the domain
 	 */
 	public void setDomain(String domain) {
 		this.domain = domain;
@@ -242,7 +242,7 @@ public class InstallOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code instances}.
 	 *
-	 * @param instances the instances to set
+	 * @param instances the instances
 	 */
 	public void setInstances(Integer instances) {
 		this.instances = instances;
@@ -260,7 +260,7 @@ public class InstallOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code subplan}.
 	 *
-	 * @param subplan the subplan to set
+	 * @param subplan the subplan
 	 */
 	public void setSubplan(String subplan) {
 		this.subplan = subplan;
@@ -278,7 +278,7 @@ public class InstallOptions extends RequestOptions {
 	/**
 	 * Set the value of property {@code mounts}.
 	 *
-	 * @param mounts the mounts to set
+	 * @param mounts the mounts
 	 */
 	public void setMounts(List<Mount> mounts) {
 		this.mounts = mounts;

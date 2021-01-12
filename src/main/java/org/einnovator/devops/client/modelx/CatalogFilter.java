@@ -177,7 +177,7 @@ public class CatalogFilter extends CatalogOptions {
 	/**
 	 * Set the value of property {@code enabled}.
 	 *
-	 * @param enabled the enabled to set
+	 * @param enabled the enabled
 	 * @return this {@code SolutionRepoFilter}
 	 */
 	public CatalogFilter withEnabled(Boolean enabled) {
@@ -188,7 +188,7 @@ public class CatalogFilter extends CatalogOptions {
 	/**
 	 * Set the value of property {@code featured}.
 	 *
-	 * @param featured the featured to set
+	 * @param featured the featured
 	 * @return this {@code SolutionRepoFilter}
 	 */
 	public CatalogFilter withFeatured(Boolean featured) {
@@ -200,7 +200,7 @@ public class CatalogFilter extends CatalogOptions {
 	/**
 	 * Set the value of property {@code featured}.
 	 *
-	 * @param license the license to set
+	 * @param license the license
 	 * @return this {@code SolutionRepoFilter}
 	 */
 	public CatalogFilter withLicense(Boolean license) {

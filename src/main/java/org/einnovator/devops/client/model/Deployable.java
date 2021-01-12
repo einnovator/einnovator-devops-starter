@@ -44,8 +44,8 @@ abstract public class Deployable extends AnnotatedEntity {
 
 	protected Workspace workspace;
 
-	protected List<Repository> repositories;
-
+	protected Repository repository;
+	
 	protected Webhook webhook;
 
 	//
@@ -198,7 +198,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code image}.
 	 *
-	 * @param image the image to set
+	 * @param image the image
 	 */
 	public void setImage(Image image) {
 		this.image = image;
@@ -234,7 +234,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code command}.
 	 *
-	 * @param command the command to set
+	 * @param command the command
 	 */
 	public void setCommand(List<String> command) {
 		this.command = command;
@@ -252,7 +252,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code args}.
 	 *
-	 * @param args the args to set
+	 * @param args the args
 	 */
 	public void setArgs(List<String> args) {
 		this.args = args;
@@ -306,7 +306,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code plan}.
 	 *
-	 * @param plan the plan to set
+	 * @param plan the plan
 	 */
 	public void setPlan(String plan) {
 		this.plan = plan;
@@ -325,7 +325,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code resources}.
 	 *
-	 * @param resources the resources to set
+	 * @param resources the resources
 	 */
 	public void setResources(Resources resources) {
 		this.resources = resources;
@@ -343,7 +343,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code instances}.
 	 *
-	 * @param instances the instances to set
+	 * @param instances the instances
 	 */
 	public void setPods(List<Pod> instances) {
 		this.instances = instances;
@@ -361,7 +361,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code bill}.
 	 *
-	 * @param bill the bill to set
+	 * @param bill the bill
 	 */
 	public void setBill(Bill bill) {
 		this.bill = bill;
@@ -379,7 +379,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code manager}.
 	 *
-	 * @param manager the manager to set
+	 * @param manager the manager
 	 */
 	public void setManager(Manager manager) {
 		this.manager = manager;
@@ -398,7 +398,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code stack}.
 	 *
-	 * @param stack the stack to set
+	 * @param stack the stack
 	 */
 	public void setStack(Stack stack) {
 		this.stack = stack;
@@ -435,7 +435,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code livenessProbe}.
 	 *
-	 * @param livenessProbe the livenessProbe to set
+	 * @param livenessProbe the livenessProbe
 	 */
 	public void setLivenessProbe(Probe livenessProbe) {
 		this.livenessProbe = livenessProbe;
@@ -453,7 +453,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code readinessProbe}.
 	 *
-	 * @param readinessProbe the readinessProbe to set
+	 * @param readinessProbe the readinessProbe
 	 */
 	public void setReadinessProbe(Probe readinessProbe) {
 		this.readinessProbe = readinessProbe;
@@ -472,7 +472,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code subplan}.
 	 *
-	 * @param subplan the subplan to set
+	 * @param subplan the subplan
 	 */
 	public void setSubplan(String subplan) {
 		this.subplan = subplan;
@@ -490,30 +490,29 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code manifest}.
 	 *
-	 * @param manifest the manifest to set
+	 * @param manifest the manifest
 	 */
 	public void setManifest(String manifest) {
 		this.manifest = manifest;
 	}
-	
+
 	/**
-	 * Get the value of property {@code repositories}.
+	 * Get the value of property {@code repository}.
 	 *
-	 * @return the repositories
+	 * @return the value of {@code repository}
 	 */
-	public List<Repository> getRepositories() {
-		return repositories;
+	public Repository getRepository() {
+		return repository;
 	}
 
 	/**
-	 * Set the value of property {@code repositories}.
+	 * Set the value of property {@code repository}.
 	 *
-	 * @param repositories the repositories to set
+	 * @param repository the value of {@code repository}
 	 */
-	public void setRepositories(List<Repository> repositories) {
-		this.repositories = repositories;
+	public void setRepository(Repository repository) {
+		this.repository = repository;
 	}
-
 
 	/**
 	 * Get the value of property {@code serviceAccountName}.
@@ -527,7 +526,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code serviceAccountName}.
 	 *
-	 * @param serviceAccountName the serviceAccountName to set
+	 * @param serviceAccountName the serviceAccountName
 	 */
 	public void setServiceAccountName(String serviceAccountName) {
 		this.serviceAccountName = serviceAccountName;
@@ -545,7 +544,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code autoBindings}.
 	 *
-	 * @param autoBindings the autoBindings to set
+	 * @param autoBindings the autoBindings
 	 */
 	public void setAutoBindings(Boolean autoBindings) {
 		this.autoBindings = autoBindings;
@@ -563,7 +562,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code skipUnbound}.
 	 *
-	 * @param skipUnbound the skipUnbound to set
+	 * @param skipUnbound the skipUnbound
 	 */
 	public void setSkipUnbound(Boolean skipUnbound) {
 		this.skipUnbound = skipUnbound;
@@ -582,7 +581,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code autoEnv}.
 	 *
-	 * @param autoEnv the autoEnv to set
+	 * @param autoEnv the autoEnv
 	 */
 	public void setAutoEnv(Boolean autoEnv) {
 		this.autoEnv = autoEnv;
@@ -636,7 +635,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code vcap}.
 	 *
-	 * @param vcap the vcap to set
+	 * @param vcap the vcap
 	 */
 	public void setVcap(Boolean vcap) {
 		this.vcap = vcap;
@@ -654,7 +653,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code restartPolicy}.
 	 *
-	 * @param restartPolicy the restartPolicy to set
+	 * @param restartPolicy the restartPolicy
 	 */
 	public void setRestartPolicy(RestartPolicy restartPolicy) {
 		this.restartPolicy = restartPolicy;
@@ -672,7 +671,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code activeDeadline}.
 	 *
-	 * @param activeDeadline the activeDeadline to set
+	 * @param activeDeadline the activeDeadline
 	 */
 	public void setActiveDeadline(Long activeDeadline) {
 		this.activeDeadline = activeDeadline;
@@ -691,7 +690,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code mounts}.
 	 *
-	 * @param mounts the mounts to set
+	 * @param mounts the mounts
 	 */
 	public void setMounts(List<Mount> mounts) {
 		this.mounts = mounts;
@@ -745,7 +744,7 @@ abstract public class Deployable extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code start}.
 	 *
-	 * @param start the start to set
+	 * @param start the start
 	 */
 	public void setStart(Boolean start) {
 		this.start = start;
@@ -821,6 +820,24 @@ abstract public class Deployable extends AnnotatedEntity {
 	 */
 	public void setBindings(List<Binding> bindings) {
 		this.bindings = bindings;
+	}
+	
+	/**
+	 * Get the value of property {@code instances}.
+	 *
+	 * @return the value of {@code instances}
+	 */
+	public List<Pod> getInstances() {
+		return instances;
+	}
+
+	/**
+	 * Set the value of property {@code instances}.
+	 *
+	 * @param instances the value of {@code instances}
+	 */
+	public void setInstances(List<Pod> instances) {
+		this.instances = instances;
 	}
 	
 	//
@@ -1045,17 +1062,6 @@ abstract public class Deployable extends AnnotatedEntity {
 
 
 	/**
-	 * Set the value of property {@code repositories}.
-	 *
-	 * @param repositories the repositories to with
-	 * @return this {@code Deployable}
-	 */
-	public Deployable withRepositories(List<Repository> repositories) {
-		this.repositories = repositories;
-		return this;
-	}
-
-	/**
 	 * Set the value of property {@code serviceAccountName}.
 	 *
 	 * @param serviceAccountName the serviceAccountName to with
@@ -1155,7 +1161,6 @@ abstract public class Deployable extends AnnotatedEntity {
 		return this;
 	}
 
-
 	/**
 	 * Set the value of property {@code mounts}.
 	 *
@@ -1244,6 +1249,17 @@ abstract public class Deployable extends AnnotatedEntity {
 		return this;
 	}
 	
+	/**
+	 * Set the value of property {@code repository}.
+	 *
+	 * @param repository the value of {@code repository}
+	 * @return this {@code Deployable}
+	 */
+	public Deployable withRepository(Repository repository) {
+		this.repository = repository;
+		return this;
+	}
+
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
@@ -1276,7 +1292,7 @@ abstract public class Deployable extends AnnotatedEntity {
 				.append("bindings", bindings)
 				.append("mounts", mounts)
 				.append("env", env)
-				.append("repositories", repositories)
+				.append("repository", repository)
 				.append("bill", bill)
 				);
 	}

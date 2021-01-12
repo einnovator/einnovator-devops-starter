@@ -49,7 +49,7 @@ public class Manager extends ObjectBase {
 	/**
 	 * Set the value of property {@code name}.
 	 *
-	 * @param name the name to set
+	 * @param name the name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -73,7 +73,7 @@ public class Manager extends ObjectBase {
 	/**
 	 * Set the value of property {@code uri}.
 	 *
-	 * @param uri the uri to set
+	 * @param uri the uri
 	 */
 	public void setUri(String uri) {
 		this.uri = uri;

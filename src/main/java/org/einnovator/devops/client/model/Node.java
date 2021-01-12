@@ -30,7 +30,7 @@ public class Node extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code ip}.
 	 *
-	 * @param ip the ip to set
+	 * @param ip the ip
 	 */
 	public void setIp(String ip) {
 		this.ip = ip;
@@ -49,7 +49,7 @@ public class Node extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code resources}.
 	 *
-	 * @param resources the resources to set
+	 * @param resources the resources
 	 */
 	public void setResources(Resources resources) {
 		this.resources = resources;

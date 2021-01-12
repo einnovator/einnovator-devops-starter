@@ -90,7 +90,7 @@ public class Port extends ObjectBase {
 	/**
 	 * Set the value of property {@code name}.
 	 *
-	 * @param name the name to set
+	 * @param name the name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -108,7 +108,7 @@ public class Port extends ObjectBase {
 	/**
 	 * Set the value of property {@code nodePort}.
 	 *
-	 * @param nodePort the nodePort to set
+	 * @param nodePort the nodePort
 	 */
 	public void setNodePort(Integer nodePort) {
 		this.nodePort = nodePort;
@@ -126,7 +126,7 @@ public class Port extends ObjectBase {
 	/**
 	 * Set the value of property {@code port}.
 	 *
-	 * @param port the port to set
+	 * @param port the port
 	 */
 	public void setPort(Integer port) {
 		this.port = port;
@@ -144,7 +144,7 @@ public class Port extends ObjectBase {
 	/**
 	 * Set the value of property {@code protocol}.
 	 *
-	 * @param protocol the protocol to set
+	 * @param protocol the protocol
 	 */
 	public void setProtocol(String protocol) {
 		this.protocol = protocol;
@@ -162,7 +162,7 @@ public class Port extends ObjectBase {
 	/**
 	 * Set the value of property {@code targetPort}.
 	 *
-	 * @param targetPort the targetPort to set
+	 * @param targetPort the targetPort
 	 */
 	public void setTargetPort(Integer targetPort) {
 		this.targetPort = targetPort;
@@ -180,7 +180,7 @@ public class Port extends ObjectBase {
 	/**
 	 * Set the value of property {@code targetPortName}.
 	 *
-	 * @param targetPortName the targetPortName to set
+	 * @param targetPortName the targetPortName
 	 */
 	public void setTargetPortName(String targetPortName) {
 		this.targetPortName = targetPortName;

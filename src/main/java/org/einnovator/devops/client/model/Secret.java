@@ -57,7 +57,7 @@ public class Secret extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code name}.
 	 *
-	 * @param name the name to set
+	 * @param name the name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -75,7 +75,7 @@ public class Secret extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code type}.
 	 *
-	 * @param type the type to set
+	 * @param type the type
 	 */
 	public void setType(String type) {
 		this.type = type;
@@ -93,7 +93,7 @@ public class Secret extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code value}.
 	 *
-	 * @param value the value to set
+	 * @param value the value
 	 */
 	public void setValue(String value) {
 		this.value = value;
@@ -111,7 +111,7 @@ public class Secret extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code kind}.
 	 *
-	 * @param kind the kind to set
+	 * @param kind the kind
 	 */
 	public void setKind(String kind) {
 		this.kind = kind;
@@ -129,7 +129,7 @@ public class Secret extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code data}.
 	 *
-	 * @param data the data to set
+	 * @param data the data
 	 */
 	public void setData(Map<String, String> data) {
 		this.data = data;
@@ -148,7 +148,7 @@ public class Secret extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code strData}.
 	 *
-	 * @param strData the strData to set
+	 * @param strData the strData
 	 */
 	public void setStrData(Map<String, String> strData) {
 		this.strData = strData;
@@ -167,7 +167,7 @@ public class Secret extends AnnotatedEntity {
 	/**
 	 * Set the value of property {@code meta}.
 	 *
-	 * @param meta the meta to set
+	 * @param meta the meta
 	 */
 	public void setMeta(Map<String, Object> meta) {
 		this.meta = meta;

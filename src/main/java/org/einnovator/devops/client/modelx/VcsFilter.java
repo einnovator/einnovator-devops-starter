@@ -41,7 +41,7 @@ public class VcsFilter extends VcsOptions {
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the value of q to set
+	 * @param q the value of q
 	 */
 	public void setQ(String q) {
 		this.q = q;
@@ -61,7 +61,7 @@ public class VcsFilter extends VcsOptions {
 	/**
 	 * Set the value of property {@code strict}.
 	 *
-	 * @param strict the strict to set
+	 * @param strict the strict
 	 */
 	public void setStrict(Boolean strict) {
 		this.strict = strict;
@@ -82,7 +82,7 @@ public class VcsFilter extends VcsOptions {
 	/**
 	 * Set the value of property {@code group}.
 	 *
-	 * @param group the group to set
+	 * @param group the group
 	 */
 	public void setGroup(String group) {
 		this.group = group;
@@ -102,7 +102,7 @@ public class VcsFilter extends VcsOptions {
 	/**
 	 * Set the value of property {@code groups}.
 	 *
-	 * @param groups the groups to set
+	 * @param groups the groups
 	 */
 	public void setGroups(List<String> groups) {
 		this.groups = groups;
@@ -120,7 +120,7 @@ public class VcsFilter extends VcsOptions {
 	/**
 	 * Set the value of property {@code owner}.
 	 *
-	 * @param owner the owner to set
+	 * @param owner the owner
 	 */
 	public void setOwner(String owner) {
 		this.owner = owner;
@@ -131,7 +131,7 @@ public class VcsFilter extends VcsOptions {
 	/**
 	 * Set the value of property {@code runAs}.
 	 *
-	 * @param runAs the runAs to set
+	 * @param runAs the runAs
 	 * @return this {@code VcsFilter}
 	 */
 	public VcsFilter withRunAs(String runAs) {
@@ -142,7 +142,7 @@ public class VcsFilter extends VcsOptions {
 	/**
 	 * Set the value of property {@code admin}.
 	 *
-	 * @param admin the admin to set
+	 * @param admin the admin
 	 * @return this {@code VcsFilter}
 	 */
 	public VcsFilter withAdmin(Boolean admin) {

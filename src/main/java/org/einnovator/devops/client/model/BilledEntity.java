@@ -46,7 +46,7 @@ public class BilledEntity extends ProtectedEntity {
 	/**
 	 * Set the value of property {@code bill}.
 	 *
-	 * @param bill the bill to set
+	 * @param bill the bill
 	 */
 	public void setBill(Bill bill) {
 		this.bill = bill;

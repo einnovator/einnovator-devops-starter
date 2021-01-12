@@ -105,7 +105,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code region}.
 	 *
-	 * @param region the region to set
+	 * @param region the region
 	 */
 	public void setRegion(Region region) {
 		this.region = region;
@@ -124,7 +124,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code nodes}.
 	 *
-	 * @param nodes the nodes to set
+	 * @param nodes the nodes
 	 */
 	public void setNodes(List<Node> nodes) {
 		this.nodes = nodes;
@@ -200,7 +200,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code sandbox}.
 	 *
-	 * @param sandbox the sandbox to set
+	 * @param sandbox the sandbox
 	 */
 	public void setSandbox(Boolean sandbox) {
 		this.sandbox = sandbox;
@@ -223,7 +223,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code shared}.
 	 *
-	 * @param shared the shared to set
+	 * @param shared the shared
 	 */
 	public void setShared(Boolean shared) {
 		this.shared = shared;
@@ -244,7 +244,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code enabled}.
 	 *
-	 * @param enabled the enabled to set
+	 * @param enabled the enabled
 	 */
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
@@ -263,7 +263,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code fallback}.
 	 *
-	 * @param fallback the fallback to set
+	 * @param fallback the fallback
 	 */
 	public void setFallback(Boolean fallback) {
 		this.fallback = fallback;
@@ -281,7 +281,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code master}.
 	 *
-	 * @param master the master to set
+	 * @param master the master
 	 */
 	public void setMaster(String master) {
 		this.master = master;
@@ -317,7 +317,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code caCertData}.
 	 *
-	 * @param caCertData the caCertData to set
+	 * @param caCertData the caCertData
 	 */
 	public void setCaCertData(String caCertData) {
 		this.caCertData = caCertData;
@@ -335,7 +335,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code caCertUri}.
 	 *
-	 * @param caCertUri the caCertUri to set
+	 * @param caCertUri the caCertUri
 	 */
 	public void setCaCertUri(String caCertUri) {
 		this.caCertUri = caCertUri;
@@ -353,7 +353,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code clientCertData}.
 	 *
-	 * @param clientCertData the clientCertData to set
+	 * @param clientCertData the clientCertData
 	 */
 	public void setClientCertData(String clientCertData) {
 		this.clientCertData = clientCertData;
@@ -371,7 +371,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code clientCertUri}.
 	 *
-	 * @param clientCertUri the clientCertUri to set
+	 * @param clientCertUri the clientCertUri
 	 */
 	public void setClientCertUri(String clientCertUri) {
 		this.clientCertUri = clientCertUri;
@@ -389,7 +389,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code clientKeyData}.
 	 *
-	 * @param clientKeyData the clientKeyData to set
+	 * @param clientKeyData the clientKeyData
 	 */
 	public void setClientKeyData(String clientKeyData) {
 		this.clientKeyData = clientKeyData;
@@ -407,7 +407,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code clientKeyUri}.
 	 *
-	 * @param clientKeyUri the clientKeyUri to set
+	 * @param clientKeyUri the clientKeyUri
 	 */
 	public void setClientKeyUri(String clientKeyUri) {
 		this.clientKeyUri = clientKeyUri;
@@ -425,7 +425,7 @@ public class Cluster extends BilledEntity {
 	/**
 	 * Set the value of property {@code clientKeyAlgo}.
 	 *
-	 * @param clientKeyAlgo the clientKeyAlgo to set
+	 * @param clientKeyAlgo the clientKeyAlgo
 	 */
 	public void setClientKeyAlgo(String clientKeyAlgo) {
 		this.clientKeyAlgo = clientKeyAlgo;

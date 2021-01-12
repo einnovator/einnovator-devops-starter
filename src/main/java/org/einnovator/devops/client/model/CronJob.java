@@ -66,7 +66,7 @@ public class CronJob extends JobBase {
 	/**
 	 * Set the value of property {@code schedule}.
 	 *
-	 * @param schedule the schedule to set
+	 * @param schedule the schedule
 	 */
 	public void setSchedule(String schedule) {
 		this.schedule = schedule;
@@ -84,7 +84,7 @@ public class CronJob extends JobBase {
 	/**
 	 * Set the value of property {@code startingDeadline}.
 	 *
-	 * @param startingDeadline the startingDeadline to set
+	 * @param startingDeadline the startingDeadline
 	 */
 	public void setStartingDeadline(Long startingDeadline) {
 		this.startingDeadline = startingDeadline;
@@ -102,7 +102,7 @@ public class CronJob extends JobBase {
 	/**
 	 * Set the value of property {@code concurrencyPolicy}.
 	 *
-	 * @param concurrencyPolicy the concurrencyPolicy to set
+	 * @param concurrencyPolicy the concurrencyPolicy
 	 */
 	public void setConcurrencyPolicy(ConcurrencyPolicy concurrencyPolicy) {
 		this.concurrencyPolicy = concurrencyPolicy;
@@ -120,7 +120,7 @@ public class CronJob extends JobBase {
 	/**
 	 * Set the value of property {@code lastScheduleTime}.
 	 *
-	 * @param lastScheduleTime the lastScheduleTime to set
+	 * @param lastScheduleTime the lastScheduleTime
 	 */
 	public void setLastScheduleTime(String lastScheduleTime) {
 		this.lastScheduleTime = lastScheduleTime;
@@ -174,7 +174,7 @@ public class CronJob extends JobBase {
 	/**
 	 * Set the value of property {@code successfulJobsHistoryLimit}.
 	 *
-	 * @param successfulJobsHistoryLimit the successfulJobsHistoryLimit to set
+	 * @param successfulJobsHistoryLimit the successfulJobsHistoryLimit
 	 */
 	public void setSuccessfulJobsHistoryLimit(Integer successfulJobsHistoryLimit) {
 		this.successfulJobsHistoryLimit = successfulJobsHistoryLimit;
@@ -192,7 +192,7 @@ public class CronJob extends JobBase {
 	/**
 	 * Set the value of property {@code failedJobsHistoryLimit}.
 	 *
-	 * @param failedJobsHistoryLimit the failedJobsHistoryLimit to set
+	 * @param failedJobsHistoryLimit the failedJobsHistoryLimit
 	 */
 	public void setFailedJobsHistoryLimit(Integer failedJobsHistoryLimit) {
 		this.failedJobsHistoryLimit = failedJobsHistoryLimit;
@@ -210,7 +210,7 @@ public class CronJob extends JobBase {
 	/**
 	 * Set the value of property {@code backoffLimit}.
 	 *
-	 * @param backoffLimit the backoffLimit to set
+	 * @param backoffLimit the backoffLimit
 	 */
 	public void setBackoffLimit(Integer backoffLimit) {
 		this.backoffLimit = backoffLimit;

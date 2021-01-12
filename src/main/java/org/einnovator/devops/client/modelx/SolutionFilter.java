@@ -57,7 +57,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to set
+	 * @param q the q
 	 */
 	public void setQ(String q) {
 		this.q = q;
@@ -75,7 +75,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code category}.
 	 *
-	 * @param category the category to set
+	 * @param category the category
 	 */
 	public void setCategory(SolutionCategory category) {
 		this.category = category;
@@ -93,7 +93,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code group}.
 	 *
-	 * @param group the group to set
+	 * @param group the group
 	 */
 	public void setGroup(String group) {
 		this.group = group;
@@ -111,7 +111,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code groups}.
 	 *
-	 * @param groups the groups to set
+	 * @param groups the groups
 	 */
 	public void setGroups(List<String> groups) {
 		this.groups = groups;
@@ -130,7 +130,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code popular}.
 	 *
-	 * @param popular the popular to set
+	 * @param popular the popular
 	 */
 	public void setPopular(Boolean popular) {
 		this.popular = popular;
@@ -148,7 +148,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code featured}.
 	 *
-	 * @param featured the featured to set
+	 * @param featured the featured
 	 */
 	public void setFeatured(Boolean featured) {
 		this.featured = featured;
@@ -197,7 +197,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code q}.
 	 *
-	 * @param q the q to set
+	 * @param q the q
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withQ(String q) {
@@ -208,7 +208,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code category}.
 	 *
-	 * @param category the category to set
+	 * @param category the category
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withCategory(SolutionCategory category) {
@@ -219,7 +219,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code group}.
 	 *
-	 * @param group the group to set
+	 * @param group the group
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withGroup(String group) {
@@ -230,7 +230,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code groups}.
 	 *
-	 * @param groups the groups to set
+	 * @param groups the groups
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withGroups(List<String> groups) {
@@ -242,7 +242,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code popular}.
 	 *
-	 * @param popular the popular to set
+	 * @param popular the popular
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withPopular(Boolean popular) {
@@ -253,7 +253,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code featured}.
 	 *
-	 * @param featured the featured to set
+	 * @param featured the featured
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withFeatured(Boolean featured) {
@@ -264,7 +264,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code enabled}.
 	 *
-	 * @param enabled the featured to set
+	 * @param enabled the featured
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withEnabled(Boolean enabled) {
@@ -276,7 +276,7 @@ public class SolutionFilter extends SolutionOptions {
 	/**
 	 * Set the value of property {@code license}.
 	 *
-	 * @param license the featured to set
+	 * @param license the featured
 	 * @return this {@code SolutionFilter}
 	 */
 	public SolutionFilter withLicense(Boolean license) {

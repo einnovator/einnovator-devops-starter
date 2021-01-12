@@ -61,7 +61,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	/**
 	 * Set the value of property {@code pods}.
 	 *
-	 * @param pods the pods to set
+	 * @param pods the pods
 	 */
 	public void setPods(Boolean pods) {
 		this.pods = pods;
@@ -79,7 +79,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	/**
 	 * Set the value of property {@code service}.
 	 *
-	 * @param service the service to set
+	 * @param service the service
 	 */
 	public void setService(Boolean service) {
 		this.service = service;
@@ -166,7 +166,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	/**
 	 * Set the value of property {@code pods}.
 	 *
-	 * @param pods the pods to set
+	 * @param pods the pods
 	 * @return this {@code DeploymentOptions}
 	 */
 	public DeploymentOptions withPods(Boolean pods) {
@@ -177,7 +177,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	/**
 	 * Set the value of property {@code service}.
 	 *
-	 * @param service the service to set
+	 * @param service the service
 	 * @return this {@code DeploymentOptions}
 	 */
 	public DeploymentOptions withService(Boolean service) {
@@ -189,7 +189,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	/**
 	 * Set the value of property {@code unprocessed}.
 	 *
-	 * @param unprocessed the unprocessed to set
+	 * @param unprocessed the unprocessed
 	 * @return this {@code DeploymentOptions}
 	 */
 	public DeploymentOptions withUnprocessed(Boolean unprocessed) {
@@ -201,7 +201,7 @@ public class DeploymentOptions extends EntityOptions<Deployment> {
 	/**
 	 * Set the value of property {@code resolve}.
 	 *
-	 * @param resolve the resolve to set
+	 * @param resolve the resolve
 	 * @return this {@code DeploymentOptions}
 	 */
 	public DeploymentOptions withResolve(Boolean resolve) {
