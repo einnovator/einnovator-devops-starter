@@ -1280,6 +1280,7 @@ abstract public class Deployable extends AnnotatedEntity {
 				.append("buildImage", buildImage)
 				.append("builder", builder)
 				.append("builderKind", builderKind)
+				.append("repository", repository)
 				;
 	}
 
@@ -1292,7 +1293,6 @@ abstract public class Deployable extends AnnotatedEntity {
 				.append("bindings", bindings)
 				.append("mounts", mounts)
 				.append("env", env)
-				.append("repository", repository)
 				.append("bill", bill)
 				);
 	}
