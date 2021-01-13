@@ -601,7 +601,7 @@ public class DevopsClient {
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
 	 * @param spaceId the identifier of the {@code Space} (uuid, id, or qualified name)
-	 * @param id the identifier of the {@code Build/Build} (uuid, id, unique host, or unique dns)
+	 * @param id the identifier of the {@code Build} (name)
 	 * @param options optional {@code BuildOptions}
 	 * @throws RestClientException if request fails
 	 */
@@ -612,6 +612,23 @@ public class DevopsClient {
 		exchange(request, Void.class, options);
 	}
 
+	/**
+	 * Delete a collection of {@code Build}s for a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, or qualified name)
+	 * @param ids an array of identifiers of {@code Build}s (name)
+	 * @param options optional {@code BuildOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void deleteBuilds(String spaceId, String[] ids, BuildOptions options) {
+		URI uri = makeURI(DevopsEndpoints.builds(spaceId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);	
+		uri = processURI(uri, "ids", ids);
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
+		exchange(request, Void.class, options);
+	}
 	//
 	// Space Pods
 	//
@@ -3997,6 +4014,14 @@ public class DevopsClient {
 	}
 
 	private static URI processURI(URI uri, String name, Object value) {
+		if (value==null) {
+			return uri;
+		}
+		if (value.getClass().isArray()) {
+			if (value instanceof String[]) {
+				value = String.join(",", (String[])value);
+			}
+		}
 		return UriUtils.appendQueryParameter(uri, name, value);
 	}
 

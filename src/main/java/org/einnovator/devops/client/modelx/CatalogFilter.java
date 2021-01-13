@@ -2,14 +2,13 @@ package org.einnovator.devops.client.modelx;
 
 import java.util.List;
 
-import org.einnovator.devops.client.model.Catalog;
 import org.einnovator.devops.client.model.SolutionRepoType;
 import org.einnovator.util.model.ToStringCreator;
 
 /**
- * A filter for {@code SolutionRepo}s.
+ * A filter for {@code Catalog}s.
  *
- * @see Catalog
+ * @see CatalogOptions
  * @author support@einnovator.org
  */
 public class CatalogFilter extends CatalogOptions {

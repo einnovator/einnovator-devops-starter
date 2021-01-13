@@ -11,6 +11,7 @@ import org.einnovator.util.model.ToStringCreator;
  * A filter for {@code Cluster}s.
  *
  * @see Cluster
+ * @see ClusterOptions
  * @author support@einnovator.org
  */
 public class ClusterFilter extends ClusterOptions {

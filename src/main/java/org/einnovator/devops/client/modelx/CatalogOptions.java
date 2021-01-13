@@ -6,9 +6,9 @@ import org.einnovator.util.model.ToStringCreator;
 
 
 /**
- * Options to retrieve {@code SolutionRepoOptions}s.
+ * Options to retrieve {@code Catalogs}s.
  *
- * @see CatalogOptions
+ * @see Catalog
  * @author support@einnovator.org
  *
  */
