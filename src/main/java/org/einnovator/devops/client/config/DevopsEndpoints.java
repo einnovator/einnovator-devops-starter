@@ -52,6 +52,31 @@ public class DevopsEndpoints {
 	}
 
 	//
+	// ConfigMap
+	//
+	
+
+	public static String configmaps(String spaceId, DevopsClientConfiguration config, boolean admin) {
+		return space(spaceId, config, admin) + "/configmap";
+	}
+
+	public static String configmap(String spaceId, String volc, DevopsClientConfiguration config, boolean admin) {
+		return configmaps(spaceId, config, admin) + "/" + volc;
+	}
+
+	//
+	// Secret
+	//
+	
+	public static String secrets(String spaceId, DevopsClientConfiguration config, boolean admin) {
+		return space(spaceId, config, admin) + "/secret";
+	}
+
+	public static String secret(String spaceId, String volc, DevopsClientConfiguration config, boolean admin) {
+		return secrets(spaceId, config, admin) + "/" + volc;
+	}
+	
+	//
 	// Authority
 	//
 	

@@ -15,6 +15,7 @@ import org.einnovator.devops.client.model.Binding;
 import org.einnovator.devops.client.model.Build;
 import org.einnovator.devops.client.model.Catalog;
 import org.einnovator.devops.client.model.Cluster;
+import org.einnovator.devops.client.model.ConfigMap;
 import org.einnovator.devops.client.model.Connector;
 import org.einnovator.devops.client.model.CronJob;
 import org.einnovator.devops.client.model.Deployment;
@@ -30,6 +31,7 @@ import org.einnovator.devops.client.model.ReplicaSet;
 import org.einnovator.devops.client.model.Repository;
 import org.einnovator.devops.client.model.Resources;
 import org.einnovator.devops.client.model.Route;
+import org.einnovator.devops.client.model.Secret;
 import org.einnovator.devops.client.model.Solution;
 import org.einnovator.devops.client.model.Space;
 import org.einnovator.devops.client.model.Variable;
@@ -41,6 +43,8 @@ import org.einnovator.devops.client.modelx.CatalogFilter;
 import org.einnovator.devops.client.modelx.CatalogOptions;
 import org.einnovator.devops.client.modelx.ClusterFilter;
 import org.einnovator.devops.client.modelx.ClusterOptions;
+import org.einnovator.devops.client.modelx.ConfigMapFilter;
+import org.einnovator.devops.client.modelx.ConfigMapOptions;
 import org.einnovator.devops.client.modelx.CronJobFilter;
 import org.einnovator.devops.client.modelx.CronJobOptions;
 import org.einnovator.devops.client.modelx.DeploymentFilter;
@@ -61,6 +65,8 @@ import org.einnovator.devops.client.modelx.PodOptions;
 import org.einnovator.devops.client.modelx.RegistryFilter;
 import org.einnovator.devops.client.modelx.RegistryOptions;
 import org.einnovator.devops.client.modelx.ReplicaSetFilter;
+import org.einnovator.devops.client.modelx.SecretFilter;
+import org.einnovator.devops.client.modelx.SecretOptions;
 import org.einnovator.devops.client.modelx.SolutionFilter;
 import org.einnovator.devops.client.modelx.SolutionOptions;
 import org.einnovator.devops.client.modelx.SpaceFilter;
@@ -551,7 +557,204 @@ public class DevopsClient {
 		exchange(request, Void.class, options);
 	}
 
+	//
+	// ConfigMaps
+	//	
+
+	/**
+	 * List {@code ConfigMap}s for a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, qualified name)
+	 * @param filter a {@code ConfigMapFilter}
+	 * @throws RestClientException if request fails
+	 * @return a {@code List} with {@code ConfigMap}s
+	 * @throws RestClientException if request fails
+	 */
+	public List<ConfigMap> listConfigMaps(String spaceId, ConfigMapFilter filter) {
+		URI uri = makeURI(DevopsEndpoints.configmaps(spaceId, config, isAdminRequest(filter)));
+		uri = processURI(uri, filter);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<ConfigMap[]> result = exchange(request, ConfigMap[].class, filter);
+		return Arrays.asList(result.getBody());
+	}
 	
+
+	/**
+	 * Get {@code ConfigMap} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, qualified name)
+	 * @param id the identifier (name)
+	 * @param options (optional) the {@code ConfigMapOptions} that tailor which fields are returned (projection)
+	 * @return the {@code ConfigMap}
+	 * @throws RestClientException if request fails
+	 */
+	public ConfigMap getConfigMap(String spaceId, String id, ConfigMapOptions options) {
+		URI uri = makeURI(DevopsEndpoints.configmap(spaceId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<ConfigMap> result = exchange(request, ConfigMap.class, options);
+		return result.getBody();
+	}
+	
+	
+	/**
+	 * Create a new {@code ConfigMap}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, or qualified name)
+	 * @param configmap the {@code ConfigMap}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code ConfigMap}
+	 * @throws RestClientException if request fails
+	 */
+	public URI createConfigMap(String spaceId, ConfigMap configmap, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.configmaps(spaceId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<ConfigMap> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(configmap);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();	
+	}
+	
+	
+	/**
+	 * Update {@code ConfigMap}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, or qualified name)
+	 * @param name the name of the {@code ConfigMap}
+	 * @param configmap the {@code ConfigMap}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateConfigMap(String spaceId, String name, ConfigMap configmap, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.configmap(spaceId, name, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<ConfigMap> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(configmap);
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Delete existing {@code ConfigMap} for a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, or qualified name)
+	 * @param configmap the identifier of the {@code ConfigMap/ConfigMap} (uuid, id, unique host, or unique dns)
+	 * @param options optional {@code SpaceOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void deleteConfigMap(String spaceId, String configmap, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.configmap(spaceId, configmap, config, isAdminRequest(options)));
+		uri = processURI(uri, options);	
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+
+	//
+	// Secrets
+	//	
+
+	/**
+	 * List {@code Secret}s for a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, qualified name)
+	 * @param filter a {@code SecretFilter}
+	 * @throws RestClientException if request fails
+	 * @return a {@code List} with {@code Secret}s
+	 * @throws RestClientException if request fails
+	 */
+	public List<Secret> listSecrets(String spaceId, SecretFilter filter) {
+		URI uri = makeURI(DevopsEndpoints.secrets(spaceId, config, isAdminRequest(filter)));
+		uri = processURI(uri, filter);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Secret[]> result = exchange(request, Secret[].class, filter);
+		return Arrays.asList(result.getBody());
+	}
+	
+
+	/**
+	 * Get {@code Secret} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, qualified name)
+	 * @param id the identifier (name)
+	 * @param options (optional) the {@code SecretOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Secret}
+	 * @throws RestClientException if request fails
+	 */
+	public Secret getSecret(String spaceId, String id, SecretOptions options) {
+		URI uri = makeURI(DevopsEndpoints.secret(spaceId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Secret> result = exchange(request, Secret.class, options);
+		return result.getBody();
+	}
+	
+	
+	/**
+	 * Create a new {@code Secret}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, or qualified name)
+	 * @param secret the {@code Secret}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Secret}
+	 * @throws RestClientException if request fails
+	 */
+	public URI createSecret(String spaceId, Secret secret, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.secrets(spaceId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Secret> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(secret);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();	
+	}
+	
+	
+	/**
+	 * Update {@code Secret}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, or qualified name)
+	 * @param name the name of the {@code Secret}
+	 * @param secret the {@code Secret}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateSecret(String spaceId, String name, Secret secret, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.secret(spaceId, name, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Secret> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(secret);
+		exchange(request, Void.class, options);
+	}
+	
+	/**
+	 * Delete existing {@code Secret} for a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, or qualified name)
+	 * @param secret the identifier of the {@code Secret/Secret} (uuid, id, unique host, or unique dns)
+	 * @param options optional {@code SpaceOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void deleteSecret(String spaceId, String secret, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.secret(spaceId, secret, config, isAdminRequest(options)));
+		uri = processURI(uri, options);	
+		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		exchange(request, Void.class, options);
+	}
+
 	//
 	// Builds
 	//	
@@ -4017,22 +4220,11 @@ public class DevopsClient {
 		if (value==null) {
 			return uri;
 		}
-		if (value.getClass().isArray()) {
-			if (value instanceof String[]) {
-				value = String.join(",", (String[])value);
-			}
-		}
 		return UriUtils.appendQueryParameter(uri, name, value);
 	}
 
 	private static String getId(EntityBase obj) {
-		if (StringUtils.hasText(obj.getUuid())) {
-			return obj.getUuid();
-		}
-		if (StringUtils.hasText(obj.getId())) {
-			return obj.getId();
-		}
-		return null;
+		return EntityBase.getAnyId(obj);
 	}
 	
 	private static String getId(NamedEntity obj, boolean name) {

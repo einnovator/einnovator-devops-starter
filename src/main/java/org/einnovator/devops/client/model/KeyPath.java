@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.einnovator.util.model.ObjectBase;
 import org.einnovator.util.model.ToStringCreator;
-import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
