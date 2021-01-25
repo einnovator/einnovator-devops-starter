@@ -1,9 +1,9 @@
 package org.einnovator.devops.client;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.URI;
 import java.util.UUID;
@@ -16,8 +16,8 @@ import org.einnovator.devops.client.modelx.SpaceFilter;
 import org.einnovator.sso.client.SsoTestHelper;
 import org.einnovator.util.PageUtil;
 import org.einnovator.util.UriUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -25,9 +25,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { DevopsClientConfig.class, DevopsClientTests.TestConfig.class }, webEnvironment = WebEnvironment.NONE)
 @TestPropertySource(properties = { "devops.server=http://localhost:2501", "sso.server=http://localhost:2000",
 		"spring.cache.ehcache.config:ehcache-devops-starter.xml" })

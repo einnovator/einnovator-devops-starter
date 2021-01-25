@@ -5,19 +5,19 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.21.RELEASE</version>
+		<version>2.4.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.einnovator</groupId>
 	<artifactId>einnovator-devops-starter</artifactId>
-	<version>0.1.RELEASE</version>
+	<version>2.0</version>
 	<packaging>jar</packaging>
 	<name>einnovator-devops-starter</name>
 	<description>EInnovator Cloud Devops Client Library and Spring Boot Starter</description>
 
 	<properties>
 		<java.version>1.8</java.version>
-		<einnovator.version>0.1.RELEASE</einnovator.version>
+		<einnovator.version>2.0</einnovator.version>
 	</properties>
 
 	<dependencies>
