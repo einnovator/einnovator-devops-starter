@@ -330,7 +330,7 @@ public class DevopsClient {
 	public void deleteCluster(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.cluster(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -473,7 +473,7 @@ public class DevopsClient {
 	public void deleteSpace(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.space(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -553,7 +553,7 @@ public class DevopsClient {
 	public void deleteVolumeClaim(String spaceId, String volumeclaim, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.volumeclaim(spaceId, volumeclaim, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -652,7 +652,7 @@ public class DevopsClient {
 	public void deleteConfigMap(String spaceId, String configmap, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.configmap(spaceId, configmap, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -751,7 +751,7 @@ public class DevopsClient {
 	public void deleteSecret(String spaceId, String secret, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.secret(spaceId, secret, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -811,7 +811,7 @@ public class DevopsClient {
 	public void deleteBuild(String spaceId, String id, BuildOptions options) {
 		URI uri = makeURI(DevopsEndpoints.build(spaceId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -887,7 +887,7 @@ public class DevopsClient {
 	public void deletePod(String spaceId, String pod, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.pod(spaceId, pod, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -947,7 +947,7 @@ public class DevopsClient {
 	public void deleteReplicaSet(String spaceId, String replicaset, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.replicaset(spaceId, replicaset, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -1023,7 +1023,7 @@ public class DevopsClient {
 	public void removeAuthority(String spaceId, String authId, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.spaceAuth(spaceId, authId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -1190,7 +1190,7 @@ public class DevopsClient {
 	public void deleteDeployment(String id, DeploymentOptions options) {
 		URI uri = makeURI(DevopsEndpoints.deployment(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -1429,7 +1429,7 @@ public class DevopsClient {
 	public void deletePodForDeployment(String deployId, String pod, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.podDeployment(deployId, pod, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -1470,7 +1470,7 @@ public class DevopsClient {
 	public void deleteReplicaSetForDeployment(String deployId, String replicaset, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.replicasetDeployment(deployId, replicaset, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -1565,7 +1565,7 @@ public class DevopsClient {
 	public void removeMount(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.mount(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -1678,7 +1678,7 @@ public class DevopsClient {
 	public void removeVariable(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.var(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -1774,7 +1774,7 @@ public class DevopsClient {
 	public void removeRoute(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.route(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -1888,7 +1888,7 @@ public class DevopsClient {
 	public void removeBinding(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.binding(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -2001,7 +2001,7 @@ public class DevopsClient {
 	public void removeConnector(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.connector(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -2114,7 +2114,7 @@ public class DevopsClient {
 	public void removeRepository(String deployId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.repository(deployId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -2243,7 +2243,7 @@ public class DevopsClient {
 	public void deleteJob(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.job(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -2445,7 +2445,7 @@ public class DevopsClient {
 	public void deletePodForJob(String jobId, String pod, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.podJob(jobId, pod, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -2541,7 +2541,7 @@ public class DevopsClient {
 	public void removeMountJob(String jobId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.mountJob(jobId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -2654,7 +2654,7 @@ public class DevopsClient {
 	public void removeVariableJob(String jobId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.varJob(jobId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -2749,7 +2749,7 @@ public class DevopsClient {
 	public void removeBindingJob(String jobId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.bindingJob(jobId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -2898,7 +2898,7 @@ public class DevopsClient {
 	public void deleteCronJob(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.cronjob(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -3195,7 +3195,7 @@ public class DevopsClient {
 	public void removeMountCronJob(String cronjobId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.mountCronJob(cronjobId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -3308,7 +3308,7 @@ public class DevopsClient {
 	public void removeVariableCronJob(String cronjobId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.varCronJob(cronjobId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);	
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -3403,7 +3403,7 @@ public class DevopsClient {
 	public void removeBindingCronJob(String cronjobId, String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.bindingCronJob(cronjobId, id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -3529,7 +3529,7 @@ public class DevopsClient {
 	public void deleteDomain(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.domain(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -3637,7 +3637,7 @@ public class DevopsClient {
 	public void deleteRegistry(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.registry(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -3745,7 +3745,7 @@ public class DevopsClient {
 	public void deleteVcs(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.vcs(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -3853,7 +3853,7 @@ public class DevopsClient {
 	public void deleteSolution(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.solution(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -3980,7 +3980,7 @@ public class DevopsClient {
 	public void deleteCatalog(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.catalog(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 	
@@ -4129,7 +4129,7 @@ public class DevopsClient {
 	public void deleteLicense(String id, RequestOptions options) {
 		URI uri = makeURI(DevopsEndpoints.license(id, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
-		RequestEntity<Void> request = RequestEntity.delete(uri).accept(MediaType.APPLICATION_JSON).build();
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
 		exchange(request, Void.class, options);
 	}
 
@@ -4157,7 +4157,7 @@ public class DevopsClient {
 		try {
 			return exchange(restTemplate, request, responseType);			
 		} catch (RuntimeException e) {
-			if (options!=null && !options.isSingleton()) {
+			if (options!=null && !Boolean.TRUE.equals(options.getSingleton())) {
 				options.setResult(new Result<Object>(e));
 			}
 			throw e;
