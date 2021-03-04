@@ -43,7 +43,8 @@ public class DevopsClientTests extends SsoTestHelper {
 	public static final String CLIENT_SECRET = "application$123";
 
 	private static final String TEST_PROJECT = "TDD";
-	
+	private static final String CLUSTER = "";
+
 	@Autowired
 	private DevopsClientConfiguration config;
 
@@ -114,8 +115,9 @@ public class DevopsClientTests extends SsoTestHelper {
 		if (!page.getContent().isEmpty()) {
 			return page.getContent().get(0);
 		}
+		String clusterId = CLUSTER;
 		Space space = (Space) new Space().withName(name);
-		URI uri = client.createSpace(space, null);
+		URI uri = client.createSpace(clusterId, space, null);
 		assertNotNull(uri);
 		String id = UriUtils.extractId(uri);
 		Space space2 = client.getSpace(id, null);
@@ -125,8 +127,9 @@ public class DevopsClientTests extends SsoTestHelper {
 	
 	@Test
 	public void createSpaceTest() {
+		String clusterId = CLUSTER;
 		Space space = (Space) new Space().withName("test-" + UUID.randomUUID());
-		URI uri = client.createSpace(space, null);
+		URI uri = client.createSpace(clusterId, space, null);
 		String id = UriUtils.extractId(uri);
 		Space space2 = client.getSpace(id, null);
 		assertNotNull(space2);

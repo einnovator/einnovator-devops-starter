@@ -30,6 +30,10 @@ public class DevopsEndpoints {
 		return api(config, admin) + "/space";
 	}
 
+	public static String spaces(String clusterId, DevopsClientConfiguration config, boolean admin) {
+		return cluster(clusterId, config, admin) + "/space";
+	}
+
 	public static String space(String spaceId, DevopsClientConfiguration config, boolean admin) {
 		return api(config, admin) + "/space/" + processId(spaceId);
 	}

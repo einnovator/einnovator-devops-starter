@@ -378,17 +378,18 @@ public class DevopsClient {
 	}
 
 	/**
-	 * Create a new {@code Space}.
+	 * Create a new {@code Space} in a {@code Cluster}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Any.
 	 * 
+	 * @param clusterId the {@code Space}
 	 * @param space the {@code Space}
 	 * @param options optional {@code RequestOptions}
 	 * @return the location {@code URI} for the created {@code Space}
 	 * @throws RestClientException if request fails
 	 */
-	public URI createSpace(Space space, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.spaces(config, isAdminRequest(options)));
+	public URI createSpace(String clusterId, Space space, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.spaces(clusterId, config, isAdminRequest(options)));
 		uri = processURI(uri, options);		
 		RequestEntity<Space> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(space);
 		ResponseEntity<Void> result = exchange(request, Void.class, options);

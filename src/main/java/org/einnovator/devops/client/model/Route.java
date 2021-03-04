@@ -27,6 +27,10 @@ public class Route extends EntityBase {
 	
 	private Boolean primary;
 
+	private String ingress;
+	
+	private Boolean sharedIngress;
+	
 	//
 	// Constructors
 	//
@@ -168,7 +172,41 @@ public class Route extends EntityBase {
 		this.primary = primary;
 	}
 
+	/**
+	 * Get the value of property {@code ingress}.
+	 *
+	 * @return the value of {@code ingress}
+	 */
+	public String getIngress() {
+		return ingress;
+	}
 
+	/**
+	 * Set the value of property {@code ingress}.
+	 *
+	 * @param ingress the value of {@code ingress}
+	 */
+	public void setIngress(String ingress) {
+		this.ingress = ingress;
+	}
+
+	/**
+	 * Get the value of property {@code sharedIngress}.
+	 *
+	 * @return the value of {@code sharedIngress}
+	 */
+	public Boolean getSharedIngress() {
+		return sharedIngress;
+	}
+
+	/**
+	 * Set the value of property {@code sharedIngress}.
+	 *
+	 * @param sharedIngress the value of {@code sharedIngress}
+	 */
+	public void setSharedIngress(Boolean sharedIngress) {
+		this.sharedIngress = sharedIngress;
+	}
 
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
@@ -178,6 +216,8 @@ public class Route extends EntityBase {
 				.append("dns", dns)
 				.append("tls", tls)
 				.append("url", url)
+				.append("ingress", ingress)
+				.append("sharedIngress", sharedIngress)
 				.append("certificate", certificate)
 				;
 	}
