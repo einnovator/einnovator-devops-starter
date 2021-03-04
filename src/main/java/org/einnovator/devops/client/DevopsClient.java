@@ -26,6 +26,8 @@ import org.einnovator.devops.client.model.Job;
 import org.einnovator.devops.client.model.License;
 import org.einnovator.devops.client.model.Mount;
 import org.einnovator.devops.client.model.NamedEntity;
+import org.einnovator.devops.client.model.Node;
+import org.einnovator.devops.client.model.NodePool;
 import org.einnovator.devops.client.model.Registry;
 import org.einnovator.devops.client.model.ReplicaSet;
 import org.einnovator.devops.client.model.Repository;
@@ -60,6 +62,10 @@ import org.einnovator.devops.client.modelx.LicenseFilter;
 import org.einnovator.devops.client.modelx.LicenseOptions;
 import org.einnovator.devops.client.modelx.LogOptions;
 import org.einnovator.devops.client.modelx.ManifestOptions;
+import org.einnovator.devops.client.modelx.NodeFilter;
+import org.einnovator.devops.client.modelx.NodeOptions;
+import org.einnovator.devops.client.modelx.NodePoolFilter;
+import org.einnovator.devops.client.modelx.NodePoolOptions;
 import org.einnovator.devops.client.modelx.PodFilter;
 import org.einnovator.devops.client.modelx.PodOptions;
 import org.einnovator.devops.client.modelx.RegistryFilter;
@@ -334,6 +340,165 @@ public class DevopsClient {
 		exchange(request, Void.class, options);
 	}
 
+	
+	//
+	// Node
+	//
+
+	/**
+	 * Get {@code Node} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or cluster owner.
+	 * 
+	 * @param clusterId the {@code Node}
+	 * @param id the identifier (uuid, id, or unique name)
+	 * @param options (optional) the {@code NodeOptions} that tailor which fields are returned (projection)	
+	 * @return the {@code Node}
+	 * @throws RestClientException if request fails
+	 */
+	public Node getNode(String clusterId, String id, NodeOptions options) {
+		URI uri = makeURI(DevopsEndpoints.node(clusterId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Node> result = exchange(request, Node.class, options);
+		return result.getBody();
+		
+	}
+	
+	/**
+	 * List {@code Node}s.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or cluster owner.
+	 * 
+	 * @param clusterId the {@code Node}
+	 * @param filter a {@code NodeFilter}
+	 * @param pageable a {@code Pageable} (optional)
+	 * @throws RestClientException if request fails
+	 * @return a {@code Page} with {@code Node}s
+	 * @throws RestClientException if request fails
+	 */
+	public Page<Node> listNodes(String clusterId, NodeFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.nodes(clusterId, config, isAdminRequest(filter)));
+		uri = processURI(uri, filter, pageable);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
+		return PageUtil.create2(result.getBody(),  Node.class);
+	}
+
+	//
+	// NodePool
+	//
+
+	/**
+	 * Get {@code NodePool} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or cluster owner.
+	 * 
+	 * @param clusterId the {@code NodePool}
+	 * @param id the identifier (uuid, id, or unique name)
+	 * @param options (optional) the {@code NodePoolOptions} that tailor which fields are returned (projection)	
+	 * @return the {@code NodePool}
+	 * @throws RestClientException if request fails
+	 */
+	public NodePool getNodePool(String clusterId, String id, NodePoolOptions options) {
+		URI uri = makeURI(DevopsEndpoints.nodepool(clusterId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<NodePool> result = exchange(request, NodePool.class, options);
+		return result.getBody();
+		
+	}
+	
+	/**
+	 * List {@code NodePool}s.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or cluster owner.
+	 * 
+	 * @param clusterId the {@code NodePool}
+	 * @param filter a {@code NodePoolFilter}
+	 * @param pageable a {@code Pageable} (optional)
+	 * @throws RestClientException if request fails
+	 * @return a {@code Page} with {@code NodePool}s
+	 * @throws RestClientException if request fails
+	 */
+	public Page<NodePool> listNodePools(String clusterId, NodePoolFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.nodepools(clusterId, config, isAdminRequest(filter)));
+		uri = processURI(uri, filter, pageable);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
+		return PageUtil.create2(result.getBody(),  NodePool.class);
+	}
+
+	/**
+	 * Create a new {@code NodePool} in a {@code Cluster}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or cluster owner.
+	 * 
+	 * @param clusterId the {@code NodePool}
+	 * @param nodepool the {@code NodePool}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code NodePool}
+	 * @throws RestClientException if request fails
+	 */
+	public URI createNodePool(String clusterId, NodePool nodepool, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.nodepools(clusterId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<NodePool> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(nodepool);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();	
+	}
+	
+	/**
+	 * Update existing {@code NodePool}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or cluster owner.
+	 * 
+	 * @param clusterId the {@code NodePool}
+	 * @param id the identifier (uuid, id, or unique name)
+	 * @param nodepool the {@code NodePool}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateNodePool(String clusterId, String id, NodePool nodepool, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.nodepool(clusterId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<NodePool> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(nodepool);		
+		exchange(request, NodePool.class, options);
+	}
+	
+	/**
+	 * Update existing {@code NodePool}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or cluster owner.
+	 * 
+	 * @param clusterId the {@code NodePool}
+	 * @param nodepool the {@code NodePool}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateNodePool(String clusterId, NodePool nodepool, RequestOptions options) {
+		updateNodePool(getId(nodepool), nodepool, options);
+	}
+
+	/**
+	 * Delete existing {@code NodePool}
+	 * 
+	 * <p><b>Required Security Credentials</b>: Client, Admin (global role ADMIN), or cluster owner.
+	 * 
+	 * @param clusterId the {@code NodePool}
+	 * @param id the identifier (uuid, id, or unique name)
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void deleteNodePool(String clusterId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.nodepool(clusterId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
 	//
 	// Spaces
 	//

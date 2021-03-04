@@ -1,8 +1,16 @@
 package org.einnovator.devops.client.modelx;
 
 import org.einnovator.devops.client.model.DeploymentStatus;
+import org.einnovator.devops.client.model.Pod;
 import org.einnovator.util.model.ToStringCreator;
 
+/**
+ * A filter for {@code Pod}s.
+ *
+ * @see Pod
+ * @author support@einnovator.org
+ *
+ */
 public class PodFilter extends PodOptions {
 	
 	private String q;

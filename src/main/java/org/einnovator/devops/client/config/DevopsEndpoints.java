@@ -22,6 +22,31 @@ public class DevopsEndpoints {
 		return clusterSpaces(clusterId, config, admin) + "/" + spaceId;
 	}
 
+
+	//
+	// Node
+	//
+
+	public static String nodes(String clusterId, DevopsClientConfiguration config, boolean admin) {
+		return cluster(clusterId, config, admin) + "/node";
+	}
+
+	public static String node(String clusterId, String nodeId, DevopsClientConfiguration config, boolean admin) {
+		return nodes(clusterId, config, admin) + "/" + nodeId;
+	}
+
+	//
+	// NodePool
+	//
+
+	public static String nodepools(String clusterId, DevopsClientConfiguration config, boolean admin) {
+		return cluster(clusterId, config, admin) + "/node";
+	}
+
+	public static String nodepool(String clusterId, String nodepoolId, DevopsClientConfiguration config, boolean admin) {
+		return nodepools(clusterId, config, admin) + "/" + nodepoolId;
+	}
+	
 	//
 	// Space
 	//
@@ -41,6 +66,7 @@ public class DevopsEndpoints {
 	public static String spaceSync(String spaceId, DevopsClientConfiguration config, boolean admin) {
 		return space(spaceId, config, admin) + "/sync";
 	}
+
 
 	//
 	// VolumeClaim
