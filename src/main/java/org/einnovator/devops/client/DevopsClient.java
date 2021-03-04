@@ -374,18 +374,17 @@ public class DevopsClient {
 	 * @param filter a {@code NodeFilter}
 	 * @param pageable a {@code Pageable} (optional)
 	 * @throws RestClientException if request fails
-	 * @return a {@code Page} with {@code Node}s
+	 * @return a {@code List} with {@code Node}s
 	 * @throws RestClientException if request fails
 	 */
-	public Page<Node> listNodes(String clusterId, NodeFilter filter, Pageable pageable) {
+	public List<Node> listNodes(String clusterId, NodeFilter filter, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.nodes(clusterId, config, isAdminRequest(filter)));
 		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		@SuppressWarnings("rawtypes")
-		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
-		return PageUtil.create2(result.getBody(),  Node.class);
+		ResponseEntity<Node[]> result = exchange(request, Node[].class, filter);
+		return Arrays.asList(result.getBody());
 	}
-
+	
 	//
 	// NodePool
 	//
@@ -422,13 +421,12 @@ public class DevopsClient {
 	 * @return a {@code Page} with {@code NodePool}s
 	 * @throws RestClientException if request fails
 	 */
-	public Page<NodePool> listNodePools(String clusterId, NodePoolFilter filter, Pageable pageable) {
+	public List<NodePool> listNodePools(String clusterId, NodePoolFilter filter, Pageable pageable) {
 		URI uri = makeURI(DevopsEndpoints.nodepools(clusterId, config, isAdminRequest(filter)));
 		uri = processURI(uri, filter, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		@SuppressWarnings("rawtypes")
-		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
-		return PageUtil.create2(result.getBody(),  NodePool.class);
+		ResponseEntity<NodePool[]> result = exchange(request, NodePool[].class, filter);
+		return Arrays.asList(result.getBody());
 	}
 
 	/**

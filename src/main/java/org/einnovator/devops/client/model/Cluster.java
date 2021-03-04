@@ -56,6 +56,12 @@ public class Cluster extends BilledEntity {
 	
 	private String kubeconfig;
 
+	private IngressRuntime ingress;
+
+	private CicdRuntime cicd;
+	
+	private Tools tools;
+	
 	//
 	// Constructor
 	//
@@ -543,6 +549,66 @@ public class Cluster extends BilledEntity {
 	}
 
 
+	/**
+	 * Get the value of property {@code ingress}.
+	 *
+	 * @return the value of {@code ingress}
+	 */
+	public IngressRuntime getIngress() {
+		return ingress;
+	}
+
+
+	/**
+	 * Set the value of property {@code ingress}.
+	 *
+	 * @param ingress the value of {@code ingress}
+	 */
+	public void setIngress(IngressRuntime ingress) {
+		this.ingress = ingress;
+	}
+
+
+	/**
+	 * Get the value of property {@code cicd}.
+	 *
+	 * @return the value of {@code cicd}
+	 */
+	public CicdRuntime getCicd() {
+		return cicd;
+	}
+
+
+	/**
+	 * Set the value of property {@code cicd}.
+	 *
+	 * @param cicd the value of {@code cicd}
+	 */
+	public void setCicd(CicdRuntime cicd) {
+		this.cicd = cicd;
+	}
+
+
+	/**
+	 * Get the value of property {@code tools}.
+	 *
+	 * @return the value of {@code tools}
+	 */
+	public Tools getTools() {
+		return tools;
+	}
+
+
+	/**
+	 * Set the value of property {@code tools}.
+	 *
+	 * @param tools the value of {@code tools}
+	 */
+	public void setTools(Tools tools) {
+		this.tools = tools;
+	}
+
+
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
@@ -565,6 +631,10 @@ public class Cluster extends BilledEntity {
 				.append("clientKeyAlgo", clientKeyAlgo)
 				.append("#clientKeyData", clientKeyData!=null ? clientKeyData.length() : null)
 				.append("clientKeyUri", clientKeyUri)
+
+				.append("ingress", ingress)
+				.append("cicd", cicd)
+				.append("tools", tools)
 				;
 	}
 
