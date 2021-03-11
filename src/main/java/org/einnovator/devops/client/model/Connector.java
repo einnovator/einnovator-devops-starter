@@ -1,6 +1,5 @@
 package org.einnovator.devops.client.model;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.einnovator.util.model.EntityBase;
@@ -96,34 +95,6 @@ public class Connector extends EntityBase {
 	 */
 	public void setMeta(Map<String, Object> meta) {
 		this.meta = meta;
-	}
-
-	public void putInSpec(String key, Object value) {
-		if (this.spec==null) {
-			this.spec = new LinkedHashMap<>();
-		}
-		this.spec.put(key, value);
-	}
-
-	public Object getFromSpec(String key) {
-		if (this.spec==null) {
-			return null;
-		}
-		return this.spec.get(key);
-	}
-
-	public void put(String key, Object value) {
-		if (this.spec==null) {
-			this.spec = new LinkedHashMap<>();
-		}
-		this.spec.put(key, value);
-	}
-
-	public Object get(String key) {
-		if (this.spec==null) {
-			return null;
-		}
-		return this.spec.get(key);
 	}
 
 	

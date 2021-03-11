@@ -24,10 +24,7 @@ public class Secret extends AnnotatedEntity {
 
 	@JsonIgnore
 	private Map<String, Object> meta;
-	
-	
-	private String value;
-	
+
 	//
 	// Constructors
 	//
@@ -81,23 +78,6 @@ public class Secret extends AnnotatedEntity {
 		this.type = type;
 	}
 
-	/**
-	 * Get the value of property {@code value}.
-	 *
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
-	}
-
-	/**
-	 * Set the value of property {@code value}.
-	 *
-	 * @param value the value
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
 
 	/**
 	 * Get the value of property {@code kind}.
@@ -182,7 +162,6 @@ public class Secret extends AnnotatedEntity {
 				.append("kind", kind)
 				.append("data", data)
 				.append("strData", strData)
-				.append("value", value)
 				);
 	}
 

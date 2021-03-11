@@ -10,7 +10,7 @@ import org.einnovator.util.web.RequestOptions;
  */
 public class ExecOptions extends RequestOptions {
 
-	private String cmd;
+	private String[] cmd;
 
 	private String pod;
 
@@ -37,7 +37,7 @@ public class ExecOptions extends RequestOptions {
 	 *
 	 * @return the value of {@code cmd}
 	 */
-	public String getCmd() {
+	public String[] getCmd() {
 		return cmd;
 	}
 
@@ -46,7 +46,7 @@ public class ExecOptions extends RequestOptions {
 	 *
 	 * @param cmd the value of {@code cmd}
 	 */
-	public void setCmd(String cmd) {
+	public void setCmd(String[] cmd) {
 		this.cmd = cmd;
 	}
 
@@ -95,7 +95,7 @@ public class ExecOptions extends RequestOptions {
 	 * @param cmd the value of {@code cmd}
 	 * @return this {@code ExecOptions}
 	 */
-	public ExecOptions withCmd(String cmd) {
+	public ExecOptions withCmd(String[] cmd) {
 		this.cmd = cmd;
 		return this;
 	}

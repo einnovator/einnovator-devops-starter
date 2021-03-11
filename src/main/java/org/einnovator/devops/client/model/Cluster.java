@@ -1,6 +1,5 @@
 package org.einnovator.devops.client.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.einnovator.util.model.ToStringCreator;
@@ -135,63 +134,6 @@ public class Cluster extends BilledEntity {
 	public void setNodes(List<Node> nodes) {
 		this.nodes = nodes;
 	}
-
-	public void addNode(Node node) {
-		if (this.nodes==null) {
-			this.nodes = new ArrayList<>();
-		}
-		this.nodes.add(node);
-	}
-
-	public Node removeNode(int index) {
-		if (nodes==null || index <0 || index>= nodes.size()) {
-			return null;
-		}
-		return nodes.remove(index);
-	}
-
-	public Node getNode(int index) {
-		if (nodes==null || index <0 || index>= nodes.size()) {
-			return null;
-		}
-		return nodes.get(index);
-	}
-
-	public Node findNode(Node node) {
-		if (node!=null && nodes!=null) {
-			for (Node node2: nodes) {
-				if ((node2.getId()!=null && node2.getId().equals(node.getId())) || (node2.getUuid()!=null && node2.getUuid().equals(node.getUuid()))) {
-					return node;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Node findNode(String id) {
-		if (id!=null && nodes!=null) {
-			for (Node node: nodes) {
-				if (id.equals(node.getUuid())) {
-					return node;
-				}
-			}
-		}
-		return null;
-	}
-
-	public Node removeNode(Node node) {
-		if (node!=null && nodes!=null) {
-			for (int i=0; i<nodes.size(); i++) {
-				Node node2 = nodes.get(i);
-				if ((node2.getId()!=null && node2.getId().equals(node.getId())) || (node2.getUuid()!=null && node2.getUuid().equals(node.getUuid()))) {
-					return nodes.remove(i);
-				}
-			}
-		}
-		return null;
-	}
-	
-
 
 	/**
 	 * Get the value of property {@code sandbox}.

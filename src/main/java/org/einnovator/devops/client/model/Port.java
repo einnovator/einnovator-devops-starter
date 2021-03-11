@@ -1,12 +1,8 @@
 package org.einnovator.devops.client.model;
 
-import java.util.List;
-
-import org.einnovator.util.MappingUtils;
 import org.einnovator.util.model.ObjectBase;
 import org.einnovator.util.model.ToStringCreator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -226,39 +222,6 @@ public class Port extends ObjectBase {
 	}
 
 
-	@JsonIgnore
-	public Integer getRequiredPort() {
-		if (targetPort!=null) {
-			return targetPort;
-		}
-		return port;
-	}
-	
-	public void merge(Port port, boolean override) {
-		port = new Port(port);
-		if (!override) {
-			MappingUtils.updateObjectFromNonNull(port, this.port);			
-		}
-		MappingUtils.updateObjectFromNonNull(this.port, port);
-	}
-	
-	public static List<Port> merge(List<Port> ports, List<Port> ports2, boolean override) {
-		if (ports==null) {
-			return ports2;
-		}
-		if (ports2==null) {
-			return ports;
-		}
-		int i = 0;
-		for (Port port: ports2) {
-			if (i<ports.size()) {
-				ports.get(i).merge(port, override);
-			}
-			i++;
-		}
-		return ports;
-	}
-	
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator

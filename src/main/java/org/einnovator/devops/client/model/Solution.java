@@ -79,8 +79,6 @@ public class Solution extends AnnotatedEntity {
 
 	private List<Port> ports;
 
-	private String portsJson;
-
 	private Map<String, String> properties;
 
 	private String propertiesJson;
@@ -712,24 +710,6 @@ public class Solution extends AnnotatedEntity {
 	 */
 	public void setPorts(List<Port> ports) {
 		this.ports = ports;
-	}
-
-	/**
-	 * Get the value of property {@code portsJson}.
-	 *
-	 * @return the value of {@code portsJson}
-	 */
-	public String getPortsJson() {
-		return portsJson;
-	}
-
-	/**
-	 * Set the value of property {@code portsJson}.
-	 *
-	 * @param portsJson the value of {@code portsJson}
-	 */
-	public void setPortsJson(String portsJson) {
-		this.portsJson = portsJson;
 	}
 
 	/**

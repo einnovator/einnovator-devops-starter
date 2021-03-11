@@ -1507,8 +1507,7 @@ public class DevopsClient {
 	 */
 	public String execDeployment(String id, ExecOptions options) {
 		URI uri = makeURI(DevopsEndpoints.deploymentExec(id, config, isAdminRequest(options)));
-		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.get(uri).build();
+		RequestEntity<ExecOptions> request = RequestEntity.post(uri).body(options);
 		ResponseEntity<String> result = exchange(request, String.class, options);
 		return result.getBody();
 	}
