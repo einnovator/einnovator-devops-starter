@@ -1,13 +1,13 @@
 package org.einnovator.devops.client.model;
 
 
-public enum SolutionRepoType {
+public enum CatalogType {
 	HELM("Helm"),
 	NATIVE("Native");
 	
 	private final String displayValue;
 
-	SolutionRepoType(String displayValue) {
+	CatalogType(String displayValue) {
 		this.displayValue = displayValue;
 	}
 
@@ -15,8 +15,8 @@ public enum SolutionRepoType {
 		return displayValue;
 	}
 	
-	public static SolutionRepoType parse(String s) {
-		for (SolutionRepoType e: SolutionRepoType.class.getEnumConstants()) {
+	public static CatalogType parse(String s) {
+		for (CatalogType e: CatalogType.class.getEnumConstants()) {
 			if (e.toString().equalsIgnoreCase(s)) {
 				return e;
 			}
@@ -24,8 +24,8 @@ public enum SolutionRepoType {
 		return null;
 	}
 	
-	public static SolutionRepoType parse(String s, SolutionRepoType defaultValue) {
-		SolutionRepoType value = parse(s);
+	public static CatalogType parse(String s, CatalogType defaultValue) {
+		CatalogType value = parse(s);
 		return value!=null ? value: defaultValue;
 	}
 	

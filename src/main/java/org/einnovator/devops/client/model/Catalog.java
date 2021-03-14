@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Catalog extends NamedEntity {
 
-	private SolutionRepoType type;
+	private CatalogType type;
 
 	private String url;
 
@@ -68,7 +68,7 @@ public class Catalog extends NamedEntity {
 	 * @param name the name
 	 * @param url the url
 	 */
-	public Catalog(SolutionRepoType type, String name, String url) {
+	public Catalog(CatalogType type, String name, String url) {
 		this.name = name;
 		this.type = type;
 		this.url = url;
@@ -80,7 +80,7 @@ public class Catalog extends NamedEntity {
 	 *
 	 * @return the type
 	 */
-	public SolutionRepoType getType() {
+	public CatalogType getType() {
 		return type;
 	}
 
@@ -89,7 +89,7 @@ public class Catalog extends NamedEntity {
 	 *
 	 * @param type the value of property type
 	 */
-	public void setType(SolutionRepoType type) {
+	public void setType(CatalogType type) {
 		this.type = type;
 	}
 

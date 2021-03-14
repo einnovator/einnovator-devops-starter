@@ -2,7 +2,7 @@ package org.einnovator.devops.client.modelx;
 
 import java.util.List;
 
-import org.einnovator.devops.client.model.SolutionRepoType;
+import org.einnovator.devops.client.model.CatalogType;
 import org.einnovator.util.model.ToStringCreator;
 
 /**
@@ -13,7 +13,7 @@ import org.einnovator.util.model.ToStringCreator;
  */
 public class CatalogFilter extends CatalogOptions {
 
-	private SolutionRepoType type;
+	private CatalogType type;
 
 	private String q;
 	
@@ -65,7 +65,7 @@ public class CatalogFilter extends CatalogOptions {
 	 *
 	 * @return the type
 	 */
-	public SolutionRepoType getType() {
+	public CatalogType getType() {
 		return type;
 	}
 
@@ -74,7 +74,7 @@ public class CatalogFilter extends CatalogOptions {
 	 *
 	 * @param type the value of property type
 	 */
-	public void setType(SolutionRepoType type) {
+	public void setType(CatalogType type) {
 		this.type = type;
 	}
 
