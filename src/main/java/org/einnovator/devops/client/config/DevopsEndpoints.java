@@ -14,15 +14,6 @@ public class DevopsEndpoints {
 		return api(config, admin) + "/cluster";
 	}
 
-	public static String clusterSpaces(String clusterId, DevopsClientConfiguration config, boolean admin) {
-		return cluster(clusterId, config, admin) + "/space";
-	}
-
-	public static String clusterSpace(String clusterId, String spaceId, DevopsClientConfiguration config, boolean admin) {
-		return clusterSpaces(clusterId, config, admin) + "/" + spaceId;
-	}
-
-
 	//
 	// Node
 	//
@@ -50,6 +41,15 @@ public class DevopsEndpoints {
 	//
 	// Space
 	//
+
+
+	public static String clusterSpaces(String clusterId, DevopsClientConfiguration config, boolean admin) {
+		return cluster(clusterId, config, admin) + "/space";
+	}
+
+	public static String clusterSpace(String clusterId, String spaceId, DevopsClientConfiguration config, boolean admin) {
+		return clusterSpaces(clusterId, config, admin) + "/" + spaceId;
+	}
 
 	public static String spaces(DevopsClientConfiguration config, boolean admin) {
 		return api(config, admin) + "/space";
@@ -122,29 +122,10 @@ public class DevopsEndpoints {
 		return spaceAuth(spaceId, authId, config, admin) + "/resend";
 	}
 
-	public static String spaceDeployments(String spaceId, DevopsClientConfiguration config, boolean admin) {
-		return space(spaceId, config, admin) + "/deployment";
-	}
 
-	public static String spaceDeployment(String spaceId, String deployId, DevopsClientConfiguration config, boolean admin) {
-		return spaceDeployments(spaceId, config, admin) + "/" + deployId;
-	}
-
-	public static String spaceJobs(String spaceId, DevopsClientConfiguration config, boolean admin) {
-		return space(spaceId, config, admin) + "/job";
-	}
-
-	public static String spaceJob(String spaceId, String jobId, DevopsClientConfiguration config, boolean admin) {
-		return spaceJobs(spaceId, config, admin) + "/" + jobId;
-	}
-
-	public static String spaceCronJobs(String spaceId, DevopsClientConfiguration config, boolean admin) {
-		return space(spaceId, config, admin) + "/cronjob";
-	}
-
-	public static String spaceCronJob(String spaceId, String cronjobId, DevopsClientConfiguration config, boolean admin) {
-		return spaceCronJobs(spaceId, config, admin) + "/" + cronjobId;
-	}
+	//
+	// Pod
+	//
 
 	public static String pods(String spaceId, DevopsClientConfiguration config, boolean admin) {
 		return space(spaceId, config, admin) + "/pod";
@@ -154,6 +135,10 @@ public class DevopsEndpoints {
 		return pods(spaceId, config, admin) + "/" + pod;
 	}
 
+	//
+	// ReplicaSet
+	//
+	
 	public static String replicasets(String spaceId, DevopsClientConfiguration config, boolean admin) {
 		return space(spaceId, config, admin) + "/replicaset";
 	}
@@ -163,7 +148,7 @@ public class DevopsEndpoints {
 	}
 
 	//
-	// Deployment
+	// Space Builds
 	//
 
 	public static String builds(String spaceId, DevopsClientConfiguration config, boolean admin) {
@@ -174,11 +159,31 @@ public class DevopsEndpoints {
 		return builds(spaceId, config, admin) + "/" + buildId;
 	}
 
+	//
+	// Space Connectors
+	//
+
+	public static String xconnectors(String spaceId, DevopsClientConfiguration config, boolean admin) {
+		return space(spaceId, config, admin) + "/connector";
+	}
+
+	public static String xconnector(String spaceId, String connectorId, DevopsClientConfiguration config, boolean admin) {
+		return xconnectors(spaceId, config, admin) + "/" + connectorId;
+	}
+
 
 	//
 	// Deployment
 	//
 
+	public static String spaceDeployments(String spaceId, DevopsClientConfiguration config, boolean admin) {
+		return space(spaceId, config, admin) + "/deployment";
+	}
+
+	public static String spaceDeployment(String spaceId, String deployId, DevopsClientConfiguration config, boolean admin) {
+		return spaceDeployments(spaceId, config, admin) + "/" + deployId;
+	}
+	
 	public static String deployments(String spaceId, DevopsClientConfiguration config, boolean admin) {
 		return space(spaceId, config, admin) + "/deployment";
 	}
@@ -264,7 +269,7 @@ public class DevopsEndpoints {
 	}
 
 	public static String binding(String deployId, String bindingId, DevopsClientConfiguration config, boolean admin) {
-		return bindings(deployId, config, admin) + "/" + bindingId;
+		return bindings(deployId, config, admin) + "/" + processId(bindingId);
 	}
 
 	public static String connectors(String deployId, DevopsClientConfiguration config, boolean admin) {
@@ -291,18 +296,19 @@ public class DevopsEndpoints {
 		return vars(deployId, config, admin) + "/" + varId;
 	}
 
-	public static String repositories(String deployId, DevopsClientConfiguration config, boolean admin) {
-		return deployment(deployId, config, admin) + "/repository";
-	}
-
-	public static String repository(String deployId, String repositoryId, DevopsClientConfiguration config, boolean admin) {
-		return repositories(deployId, config, admin) + "/" + repositoryId;
-	}
-
 	//
 	// Job
 	//
 	
+
+	public static String spaceJobs(String spaceId, DevopsClientConfiguration config, boolean admin) {
+		return space(spaceId, config, admin) + "/job";
+	}
+
+	public static String spaceJob(String spaceId, String jobId, DevopsClientConfiguration config, boolean admin) {
+		return spaceJobs(spaceId, config, admin) + "/" + jobId;
+	}
+
 	public static String jobs(String spaceId, DevopsClientConfiguration config, boolean admin) {
 		return space(spaceId, config, admin) + "/job";
 	}
@@ -386,6 +392,15 @@ public class DevopsEndpoints {
 	//
 	// CronJob
 	//
+	
+
+	public static String spaceCronJobs(String spaceId, DevopsClientConfiguration config, boolean admin) {
+		return space(spaceId, config, admin) + "/cronjob";
+	}
+
+	public static String spaceCronJob(String spaceId, String cronjobId, DevopsClientConfiguration config, boolean admin) {
+		return spaceCronJobs(spaceId, config, admin) + "/" + cronjobId;
+	}
 	
 	public static String cronjobs(String spaceId, DevopsClientConfiguration config, boolean admin) {
 		return space(spaceId, config, admin) + "/cronjob";

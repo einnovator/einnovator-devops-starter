@@ -15,9 +15,7 @@ import org.einnovator.util.model.ToStringCreator;
 public class VcsFilter extends VcsOptions {
 	
 	private String q;
-	
-	private Boolean strict;
-	
+		
 	private String group;
 	
 	private List<String> groups;
@@ -47,28 +45,6 @@ public class VcsFilter extends VcsOptions {
 		this.q = q;
 	}
 
-
-	/**
-	 * Get the value of property {@code strict}.
-	 *
-	 * @return the strict
-	 */
-	public Boolean getStrict() {
-		return strict;
-	}
-
-
-	/**
-	 * Set the value of property {@code strict}.
-	 *
-	 * @param strict the strict
-	 */
-	public void setStrict(Boolean strict) {
-		this.strict = strict;
-	}
-
-
-
 	/**
 	 * Get the value of property {@code group}.
 	 *
@@ -77,7 +53,6 @@ public class VcsFilter extends VcsOptions {
 	public String getGroup() {
 		return group;
 	}
-
 
 	/**
 	 * Set the value of property {@code group}.
@@ -88,7 +63,6 @@ public class VcsFilter extends VcsOptions {
 		this.group = group;
 	}
 
-
 	/**
 	 * Get the value of property {@code groups}.
 	 *
@@ -97,7 +71,6 @@ public class VcsFilter extends VcsOptions {
 	public List<String> getGroups() {
 		return groups;
 	}
-
 
 	/**
 	 * Set the value of property {@code groups}.
@@ -127,7 +100,9 @@ public class VcsFilter extends VcsOptions {
 	}
 
 	//
-
+	// With
+	//
+	
 	/**
 	 * Set the value of property {@code runAs}.
 	 *

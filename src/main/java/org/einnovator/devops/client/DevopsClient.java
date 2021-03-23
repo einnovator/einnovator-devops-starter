@@ -21,16 +21,15 @@ import org.einnovator.devops.client.model.CronJob;
 import org.einnovator.devops.client.model.Deployment;
 import org.einnovator.devops.client.model.Domain;
 import org.einnovator.devops.client.model.Event;
-import org.einnovator.devops.client.model.Pod;
 import org.einnovator.devops.client.model.Job;
 import org.einnovator.devops.client.model.License;
 import org.einnovator.devops.client.model.Mount;
 import org.einnovator.devops.client.model.NamedEntity;
 import org.einnovator.devops.client.model.Node;
 import org.einnovator.devops.client.model.NodePool;
+import org.einnovator.devops.client.model.Pod;
 import org.einnovator.devops.client.model.Registry;
 import org.einnovator.devops.client.model.ReplicaSet;
-import org.einnovator.devops.client.model.Repository;
 import org.einnovator.devops.client.model.Resources;
 import org.einnovator.devops.client.model.Route;
 import org.einnovator.devops.client.model.Secret;
@@ -646,7 +645,7 @@ public class DevopsClient {
 	//	
 
 	/**
-	 * List {@code VolumeClaim}s for a {@code Space}.
+	 * List {@code VolumeClaim}s in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
@@ -666,7 +665,7 @@ public class DevopsClient {
 	
 
 	/**
-	 * Get {@code VolumeClaim} with specified identifier.
+	 * Get {@code VolumeClaim} with specified identifier in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
 	 * 
@@ -686,7 +685,7 @@ public class DevopsClient {
 	
 	
 	/**
-	 * Create a new {@code VolumeClaim}.
+	 * Create a new {@code VolumeClaim} in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
@@ -705,7 +704,7 @@ public class DevopsClient {
 	}
 	
 	/**
-	 * Delete existing {@code VolumeClaim} for a {@code Space}.
+	 * Delete existing {@code VolumeClaim} in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
@@ -726,13 +725,12 @@ public class DevopsClient {
 	//	
 
 	/**
-	 * List {@code ConfigMap}s for a {@code Space}.
+	 * List {@code ConfigMap}s in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
 	 * @param spaceId the identifier of the {@code Space} (uuid, id, qualified name)
 	 * @param filter a {@code ConfigMapFilter}
-	 * @throws RestClientException if request fails
 	 * @return a {@code List} with {@code ConfigMap}s
 	 * @throws RestClientException if request fails
 	 */
@@ -804,7 +802,7 @@ public class DevopsClient {
 	}
 	
 	/**
-	 * Delete existing {@code ConfigMap} for a {@code Space}.
+	 * Delete {@code ConfigMap} in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
@@ -825,7 +823,7 @@ public class DevopsClient {
 	//	
 
 	/**
-	 * List {@code Secret}s for a {@code Space}.
+	 * List {@code Secret}s in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
@@ -903,7 +901,7 @@ public class DevopsClient {
 	}
 	
 	/**
-	 * Delete existing {@code Secret} for a {@code Space}.
+	 * Delete existing {@code Secret} in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
@@ -924,7 +922,7 @@ public class DevopsClient {
 	//	
 
 	/**
-	 * List {@code Build}s for a {@code Space}.
+	 * List {@code Build}s in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
@@ -963,7 +961,7 @@ public class DevopsClient {
 	}
 
 	/**
-	 * Delete existing {@code Build} for a {@code Space}.
+	 * Delete existing {@code Build} in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
@@ -980,7 +978,7 @@ public class DevopsClient {
 	}
 
 	/**
-	 * Delete a collection of {@code Build}s for a {@code Space}.
+	 * Delete a collection of {@code Build}s in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
@@ -1039,7 +1037,7 @@ public class DevopsClient {
 	}
 	
 	/**
-	 * Delete existing {@code Pod} for a {@code Space}.
+	 * Delete existing {@code Pod} in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
@@ -1061,7 +1059,7 @@ public class DevopsClient {
 	//
 	
 	/**
-	 * List ReplicaSet/Replica replicasets for a {@code Space}.
+	 * List ReplicaSet/Replica replicasets in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
@@ -1099,7 +1097,7 @@ public class DevopsClient {
 	}
 	
 	/**
-	 * Delete existing {@code ReplicaSet} for a {@code Space}.
+	 * Delete existing {@code ReplicaSet} in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
 	 * 
@@ -1120,7 +1118,7 @@ public class DevopsClient {
 	//
 	
 	/**
-	 * List {@code Authorities} for a {@code Space}.
+	 * List {@code Authorities} in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER set in the Space.
 	 * 
@@ -1228,11 +1226,108 @@ public class DevopsClient {
 	}
 
 	//
+	// Space Connector
+	//
+
+	/**
+	 * List external {@code Connector}s for a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
+	 * 
+	 * @param spaceId the {@code Space} identifier (uuid)
+	 * @param options (optional) {@code SpaceOptions}
+	 * @return the list of {@code Connector}
+	 * @throws RestClientException if request fails
+	 */
+	public List<Connector> listXConnectors(String spaceId, SpaceOptions options) {
+		URI uri = makeURI(DevopsEndpoints.xconnectors(spaceId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Connector[]> result = exchange(request, Connector[].class, options);
+		return Arrays.asList(result.getBody());
+	}
+
+	/**
+	 * Get  external {@code Connector} with specified identifier.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Connector} (uuid, id, unique host, or unique dns)
+	 * @param options (optional) the {@code SpaceOptions} that tailor which fields are returned (projection)
+	 * @return the {@code Connector}
+	 * @throws RestClientException if request fails
+	 */
+	public Connector getXConnector(String spaceId, String id, SpaceOptions options) {
+		URI uri = makeURI(DevopsEndpoints.xconnector(spaceId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
+		ResponseEntity<Connector> result = exchange(request, Connector.class, options);
+		return result.getBody();
+	}
+	
+	/**
+	 * Add a new  external {@code Connector} to a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, or qualified name)
+	 * @param connector the {@code Connector}
+	 * @param options optional {@code RequestOptions}
+	 * @return the location {@code URI} for the created {@code Connector}
+	 * @throws RestClientException if request fails
+	 */
+	public URI addXConnector(String spaceId, Connector connector, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.xconnectors(spaceId, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Connector> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(connector);
+		ResponseEntity<Void> result = exchange(request, Void.class, options);
+		return result.getHeaders().getLocation();
+		
+	}
+
+	/**
+	 * Update existing external {@code Connector} of a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Connector} (uuid, id, unique host, or unique dns)
+	 * @param connector the {@code Connector}
+	 * @param options optional {@code RequestOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void updateXConnector(String spaceId, String id, Connector connector, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.xconnector(spaceId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);		
+		RequestEntity<Connector> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(connector);
+		exchange(request, Connector.class, options);
+	}
+
+	/**
+	 * Delete existing external {@code Connector} from a {@code Space}.
+	 * 
+	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
+	 * 
+	 * @param spaceId the identifier of the {@code Space} (uuid, id, or qualified name)
+	 * @param id the identifier of the {@code Connector} (uuid, id, unique host, or unique dns)
+	 * @param options optional {@code SpaceOptions}
+	 * @throws RestClientException if request fails
+	 */
+	public void removeXConnector(String spaceId, String id, RequestOptions options) {
+		URI uri = makeURI(DevopsEndpoints.xconnector(spaceId, id, config, isAdminRequest(options)));
+		uri = processURI(uri, options);
+		RequestEntity<Void> request = RequestEntity.delete(uri).build();
+		exchange(request, Void.class, options);
+	}
+	
+
+	//
 	// Deployment
 	//
 		
 	/**
-	 * List {@code Deployment}s for a {@code Space}.
+	 * List {@code Deployment}s in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
@@ -1541,18 +1636,18 @@ public class DevopsClient {
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
 	 * @param deployId the {@code Deployment} identifier (uuid)
-	 * @param options (optional) {@code EventFilter}
+	 * @param filter (optional) {@code EventFilter}
 	 * @param pageable (optional) {@code Pageable}
 	 * @return the page of {@code Event}
 	 * @throws RestClientException if request fails
 	 */
-	public Page<Event> listEvents(String deployId, EventFilter options, Pageable pageable) {
-		URI uri = makeURI(DevopsEndpoints.deploymentEvents(deployId, config, isAdminRequest(options)));
-		uri = processURI(uri, options);
+	public Page<Event> listEvents(String deployId, EventFilter filter, Pageable pageable) {
+		URI uri = makeURI(DevopsEndpoints.deploymentEvents(deployId, config, isAdminRequest(filter)));
+		uri = processURI(uri, filter);
 		uri = processURI(uri, pageable);
 		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
 		@SuppressWarnings("rawtypes")
-		ResponseEntity<PageResult> result = exchange(request, PageResult.class, options);
+		ResponseEntity<PageResult> result = exchange(request, PageResult.class, filter);
 		return PageUtil.create2(result.getBody(), Event.class);
 	}
 	
@@ -2185,115 +2280,19 @@ public class DevopsClient {
 		exchange(request, Void.class, options);
 	}
 	
-	//
-	// Deployment Repository
-	//
-	
-	/**
-	 * List {@code Repository}s for a {@code Deployment}.
-	 * 
-	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
-	 * 
-	 * @param deployId the {@code Deployment} identifier (uuid)
-	 * @param options (optional) {@code DeploymentOptions}
-	 * @return the list of {@code Repository}
-	 * @throws RestClientException if request fails
-	 */
-	public List<Repository> listRepositories(String deployId, DeploymentOptions options) {
-		URI uri = makeURI(DevopsEndpoints.repositories(deployId, config, isAdminRequest(options)));
-		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<Repository[]> result = exchange(request, Repository[].class, options);
-		return Arrays.asList(result.getBody());
-	}
-
-	/**
-	 * Get {@code Repository} with specified identifier.
-	 * 
-	 * <p><b>Required Security Credentials</b>: Matching any in the Space.
-	 * 
-	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
-	 * @param id the identifier of the {@code Repository} (uuid, id, unique host, or unique dns)
-	 * @param options (optional) the {@code DeploymentOptions} that tailor which fields are returned (projection)
-	 * @return the {@code Repository}
-	 * @throws RestClientException if request fails
-	 */
-	public Repository getRepository(String deployId, String id, DeploymentOptions options) {
-		URI uri = makeURI(DevopsEndpoints.repository(deployId, id, config, isAdminRequest(options)));
-		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.get(uri).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<Repository> result = exchange(request, Repository.class, options);
-		return result.getBody();
-	}
-	
-	/**
-	 * Add a new {@code Repository} to a {@code Deployment}.
-	 * 
-	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
-	 * 
-	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
-	 * @param repository the {@code Repository}
-	 * @param options optional {@code RequestOptions}
-	 * @return the location {@code URI} for the created {@code Repository}
-	 * @throws RestClientException if request fails
-	 */
-	public URI addRepository(String deployId, Repository repository, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.repositories(deployId, config, isAdminRequest(options)));
-		uri = processURI(uri, options);		
-		RequestEntity<Repository> request = RequestEntity.post(uri).accept(MediaType.APPLICATION_JSON).body(repository);
-		ResponseEntity<Void> result = exchange(request, Void.class, options);
-		return result.getHeaders().getLocation();
-		
-	}
-
-	/**
-	 * Update existing {@code Repository} of a {@code Deployment}.
-	 * 
-	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
-	 * 
-	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
-	 * @param id the identifier of the {@code Repository} (uuid, id, unique host, or unique dns)
-	 * @param repository the {@code Repository}
-	 * @param options optional {@code RequestOptions}
-	 * @throws RestClientException if request fails
-	 */
-	public void updateRepository(String deployId, String id, Repository repository, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.repository(deployId, id, config, isAdminRequest(options)));
-		uri = processURI(uri, options);		
-		RequestEntity<Repository> request = RequestEntity.put(uri).accept(MediaType.APPLICATION_JSON).body(repository);
-		exchange(request, Repository.class, options);
-	}
-
-	/**
-	 * Delete existing {@code Repository} from a {@code Deployment}.
-	 * 
-	 * <p><b>Required Security Credentials</b>: Matching the roles MANAGER, DEVELOPER set in the Space.
-	 * 
-	 * @param deployId the identifier of the {@code Deployment} (uuid, id, or qualified name)
-	 * @param id the identifier of the {@code Repository} (uuid, id, unique host, or unique dns)
-	 * @param options optional {@code DeploymentOptions}
-	 * @throws RestClientException if request fails
-	 */
-	public void removeRepository(String deployId, String id, RequestOptions options) {
-		URI uri = makeURI(DevopsEndpoints.repository(deployId, id, config, isAdminRequest(options)));
-		uri = processURI(uri, options);
-		RequestEntity<Void> request = RequestEntity.delete(uri).build();
-		exchange(request, Void.class, options);
-	}
 	
 	//
 	// Job
 	//
 		
 	/**
-	 * List {@code Job}s for a {@code Space}.
+	 * List {@code Job}s in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
 	 * @param spaceId the identifier of the {@code Space} (uuid, id, qualified name)
 	 * @param filter a {@code JobFilter}
 	 * @param pageable a {@code Pageable} (optional)
-	 * @throws RestClientException if request fails
 	 * @return a {@code Page} with {@code Job}s
 	 * @throws RestClientException if request fails
 	 */
@@ -2573,7 +2572,7 @@ public class DevopsClient {
 	}
 	
 	//
-	// Job Pods (Pods/Replicas)
+	// Job Pods
 	//
 	
 	/**
@@ -2938,7 +2937,7 @@ public class DevopsClient {
 	//
 		
 	/**
-	 * List {@code CronJob}s for a {@code Space}.
+	 * List {@code CronJob}s in a {@code Space}.
 	 * 
 	 * <p><b>Required Security Credentials</b>: Matching any roles set in the Space.
 	 * 
@@ -3245,7 +3244,7 @@ public class DevopsClient {
 
 	
 	//
-	// Deployment Jobs (Pods/Replicas)
+	// CronJob Jobs
 	//
 	
 	/**
